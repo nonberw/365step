@@ -12,9 +12,9 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5173,
+    port: 5190,
     // The API writes its SQLite file into data/; without this every answer reloads the page.
     watch: { ignored: ["**/data/**"] },
-    proxy: { "/api": "http://localhost:8787" },
+    proxy: { "/api": "http://localhost:8790" },
   },
 });

@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import type { NextFunction, Request, Response } from "express";
-import type { Campus, Goals, PublicUser, Role, TeacherTitle } from "../shared/types";
+import type { Campus, Goals, PlanId, PublicUser, Role, TeacherTitle } from "../shared/types";
 import { all, id, one, run } from "./db";
 import { HttpError } from "./http";
 
@@ -20,9 +20,15 @@ export interface UserRow {
   goals: string;
   interests: string;
   created_at: number;
+  plan: string;
+  plan_until: number | null;
+  trial_used: number;
 }
 
 const SESSION_DAYS = 30;
+
+/** Pro lasts until plan_until; afterwards the account falls back to free. */
+export const effectivePlan = (u: Pick<UserRow, "plan" | "plan_until">): PlanId => (u.plan === "pro" && (u.plan_until ?? 0) > Date.now() ? "pro" : "free");
 
 export function hashPassword(password: string, salt = crypto.randomBytes(16).toString("hex")) {
   const hash = crypto.scryptSync(password, salt, 64).toString("hex");
@@ -61,6 +67,9 @@ export async function toPublic(u: UserRow): Promise<PublicUser> {
     interests: JSON.parse(u.interests),
     classCodes,
     createdAt: u.created_at,
+    plan: effectivePlan(u),
+    planUntil: u.plan_until,
+    trialUsed: !!u.trial_used,
     isAdmin: u.role === "teacher" ? await isAdmin(u) : false,
   };
 }

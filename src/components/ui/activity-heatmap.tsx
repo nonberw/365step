@@ -1,6 +1,6 @@
 "use client";
 
-// Activity Heatmap Calendar by dhxwhy (21st.dev), localised to Russian for BSTS AI Lab.
+// Activity Heatmap Calendar by dhxwhy (21st.dev), localised to Russian for Нурбек Чурбек.
 
 import * as React from "react";
 

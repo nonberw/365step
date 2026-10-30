@@ -14,7 +14,7 @@ type Forms = Partial<Record<Intl.LDMLPluralRule, string>>;
 export type Dict = Record<string, string | Forms>;
 type Vars = Record<string, string | number>;
 
-// BSTS AI Lab speaks Russian: the Kazakh dictionary is not bundled, Russian is the fixed language.
+// Нурбек Чурбек speaks Russian: the Kazakh dictionary is not bundled, Russian is the fixed language.
 const DICTS: Partial<Record<Lang, Dict>> = { ru };
 let current: Lang = "ru";
 const STORAGE_KEY = "athena-lang";

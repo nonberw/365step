@@ -13,11 +13,18 @@ import { ErrorBox, Loading } from "@/components/Page";
 import { Logo } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
-import { clock } from "@/pages/teacher/ExamPage";
 import { EntQuestion, Passage, answered } from "./EntQuestion";
 import { useEntTools } from "./EntTools";
 import { ENT_IMAGE } from "./visuals";
 import { AnimatedRadialChart } from "@/components/ui/animated-radial-chart";
+
+const clock = (ms: number) => {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = String(s % 60).padStart(2, "0");
+  return h ? `${h}:${String(m).padStart(2, "0")}:${sec}` : `${m}:${sec}`;
+};
 
 interface Block<Q> {
   subject: string;

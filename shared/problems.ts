@@ -2,7 +2,7 @@ import type { CodingProblem, ProblemPattern } from "./types";
 import { MORE } from "./problemsMore";
 export { sameAnswer } from "./answer";
 
-// Original algorithm problems in the LeetCode format, written for BSTS AI Lab.
+// Original algorithm problems in the LeetCode format, written for Нурбек Чурбек.
 // Classic ideas (two sum, brackets, Kadane...) are common knowledge; statements,
 // stories and tests are our own. Code runs in the student's browser (Web Worker).
 

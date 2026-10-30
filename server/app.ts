@@ -1,6 +1,8 @@
 import "dotenv/config";
 import express, { type NextFunction, type Request, type Response } from "express";
 import { attachUser } from "./auth";
+import { aiContext } from "./quota";
+import { billingRouter } from "./routes/billing";
 import { HttpError } from "./http";
 import { aiMode } from "./ai";
 import { ready, storage } from "./db";
@@ -10,20 +12,14 @@ import { meRouter } from "./routes/me";
 import { satRouter } from "./routes/sat";
 import { ieltsRouter } from "./routes/ielts";
 import { codingRouter } from "./routes/coding";
-import { teacherRouter } from "./routes/teacher";
-import { examsRouter } from "./routes/exams";
 import { libraryRouter } from "./routes/library";
-import { consultRouter } from "./routes/consult";
 import { entRouter } from "./routes/ent";
 import { reviewRouter } from "./routes/review";
 import { duelsRouter } from "./routes/duels";
 import { cronRouter, familyRouter, telegramRouter } from "./routes/family";
-import { journalRouter } from "./routes/journal";
-import { writtenRouter } from "./routes/written";
 import { engRouter } from "./routes/eng";
 import { entMasterRouter } from "./routes/entMaster";
 import { sharedRouter } from "./routes/coding";
-import { schoolRouter } from "./routes/school";
 
 // The API without listen(): server/index.ts runs it locally, api/index.mjs on Vercel.
 
@@ -38,17 +34,16 @@ app.use((_req, _res, next) => {
 app.use("/api/eng/cad-ai", express.json({ limit: "6mb" }));
 app.use(express.json({ limit: "1mb" }));
 app.use(attachUser);
+app.use(aiContext);
 
 app.get("/api/health", (_req, res) => res.json({ ok: true, ai: aiMode, storage }));
 app.use("/api/auth", authRouter);
 app.use("/api/me", meRouter);
+app.use("/api/billing", billingRouter);
 app.use("/api/sat", satRouter);
 app.use("/api/ielts", ieltsRouter);
 app.use("/api/coding", codingRouter);
-app.use("/api/teacher", teacherRouter);
-app.use("/api/exams", examsRouter);
 app.use("/api/library", libraryRouter);
-app.use("/api/consult", consultRouter);
 app.use("/api/ent/master", entMasterRouter);
 app.use("/api/ent", entRouter);
 app.use("/api/review", reviewRouter);
@@ -56,11 +51,8 @@ app.use("/api/duels", duelsRouter);
 app.use("/api/family", familyRouter);
 app.use("/api/cron", cronRouter);
 app.use("/api/telegram", telegramRouter);
-app.use("/api/journal", journalRouter);
-app.use("/api/written", writtenRouter);
 app.use("/api/eng", engRouter);
 app.use("/api/shared", sharedRouter);
-app.use("/api/school", schoolRouter);
 
 app.use("/api", (_req, res) => res.status(404).json({ error: "Такого адреса API нет" }));
 

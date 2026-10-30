@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { consumeAi } from "./quota";
 import type { EntLang, EntQuestion, EntType } from "../shared/ent";
 import type { CodingProblem, ExamQuestion, ExamQuestionType, Goals, Lesson, PromptEntry, Review, SatQuestion, SpeakingResult, WritingResult } from "../shared/types";
 
@@ -19,6 +20,8 @@ type Effort = "low" | "medium" | "high";
 
 async function ask<T>(system: string, user: string | Anthropic.Beta.BetaContentBlockParam[], schema: object, effort: Effort = "medium"): Promise<T> {
   if (!client) throw new Error("no client");
+  await consumeAi();
+  await consumeAi();
   const response = await client.beta.messages.create({
     model: MODEL,
     max_tokens: 16000,
@@ -45,7 +48,7 @@ const arr = (items: object) => ({ type: "array", items });
 
 // ---------- vibe coding ----------
 
-const VIBE_SYSTEM = `Ты ИИ-помощник на уроке информатики на платформе BSTS AI Lab. Ученик описывает словами, что хочет изменить в своём веб-приложении, а ты возвращаешь обновлённый код.
+const VIBE_SYSTEM = `Ты ИИ-помощник на уроке информатики на платформе Нурбек Чурбек. Ученик описывает словами, что хочет изменить в своём веб-приложении, а ты возвращаешь обновлённый код.
 
 Правила:
 - Верни ПОЛНЫЙ HTML-документ в одном файле: HTML, CSS в <style>, JavaScript в <script>. Без внешних библиотек, шрифтов, картинок и сетевых запросов: приложение работает в изолированной песочнице без интернета.
@@ -367,7 +370,7 @@ export interface ExamRequest {
   language: "ru" | "kk" | "en";
 }
 
-const EXAM_SYSTEM = `Ты помогаешь учителю на платформе BSTS AI Lab составить контрольную работу по его материалам. Вопросы проверяют понимание материала, а не память на мелочи.
+const EXAM_SYSTEM = `Ты помогаешь учителю на платформе Нурбек Чурбек составить контрольную работу по его материалам. Вопросы проверяют понимание материала, а не память на мелочи.
 
 Правила:
 - Опирайся на приложенные материалы учителя и не придумывай факты, которых в них нет. Если материалов нет, составь вопросы по теме и пожеланиям учителя в рамках школьной программы Казахстана.
@@ -531,7 +534,7 @@ export interface ExplainerSpec {
   reveal: string;
 }
 
-const BOOK_SYSTEM = `Ты ИИ-репетитор в библиотеке платформы BSTS AI Lab. Ученик читает учебник и просит помочь с текущей страницей. Опирайся на текст страницы; если вопрос выходит за её рамки, коротко ответь по школьной программе и скажи, что это не из учебника. Пиши на языке учебника (русский, казахский или английский), на «ты», коротко и понятно для указанного класса. Формулы — в LaTeX между знаками $...$. Не решай за ученика домашние задания целиком: объясняй ход мысли.`;
+const BOOK_SYSTEM = `Ты ИИ-репетитор в библиотеке платформы Нурбек Чурбек. Ученик читает учебник и просит помочь с текущей страницей. Опирайся на текст страницы; если вопрос выходит за её рамки, коротко ответь по школьной программе и скажи, что это не из учебника. Пиши на языке учебника (русский, казахский или английский), на «ты», коротко и понятно для указанного класса. Формулы — в LaTeX между знаками $...$. Не решай за ученика домашние задания целиком: объясняй ход мысли.`;
 
 const BOOK_TASK: Record<Exclude<BookAction, "interactive">, string> = {
   explain: "Объясни эту страницу проще: главная идея одним предложением, затем 3–5 коротких шагов или пунктов и один пример из жизни. Поле text.",
@@ -855,7 +858,7 @@ export async function schoolSummary(data: unknown): Promise<{ text: string; mode
 
 // ---------- Telegram study assistant ----------
 
-const BOT_SYSTEM = `Ты — ИИ-помощник учебной платформы BSTS AI Lab в Telegram. С тобой говорит {who}.
+const BOT_SYSTEM = `Ты — ИИ-помощник учебной платформы Нурбек Чурбек в Telegram. С тобой говорит {who}.
 
 О чём говорить: только учёба — школьные предметы, ЕНТ, SAT, IELTS, программирование, олимпиады, поступление, как учиться и планировать время, мотивация к учёбе{parentTopic}. На любые другие темы (развлечения, политика, личные советы не про учёбу, просьбы написать что-то не для учёбы) вежливо откажи одной фразой и предложи вернуться к учёбе.
 
@@ -888,6 +891,7 @@ export async function botReply(input: { who: "student" | "parent"; context: unkn
     ...input.history.map((h) => ({ role: h.role, content: h.text })),
     { role: "user", content },
   ];
+  await consumeAi();
   const response = await client.beta.messages.create({
     model: MODEL,
     max_tokens: 4000,
@@ -934,6 +938,7 @@ export async function agentReply(input: {
       : []),
   ];
   const messages: Anthropic.Beta.BetaMessageParam[] = [...input.history.map((h) => ({ role: h.role, content: h.text })), { role: "user", content: input.content }];
+  await consumeAi();
   for (let step = 0; step < 12; step++) {
     const response = await client.beta.messages.create({
       model: MODEL,
@@ -1024,6 +1029,7 @@ export async function interviewReply(p: CodingProblem, lang: string, code: strin
     ...turns.slice(turns[0]?.role === "user" ? 1 : 0).map((t) => ({ role: t.role, content: t.text })),
   ];
   if (messages.at(-1)!.role === "assistant") messages.push({ role: "user", content: "(кандидат молчит — продолжи)" });
+  await consumeAi();
   const response = await client.beta.messages.create({
     model: MODEL,
     max_tokens: 2000,

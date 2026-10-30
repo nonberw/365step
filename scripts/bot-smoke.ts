@@ -24,7 +24,7 @@ const send = async (chat: number, text: string, id = ++updateId) => {
 };
 
 await ready;
-const student = (await one<{ id: string }>("SELECT id FROM users WHERE email = 'student@demo.bsts.kz'"))!.id;
+const student = (await one<{ id: string }>("SELECT id FROM users WHERE email = 'student@demo.nurbek.app'"))!.id;
 const STUDENT_CHAT = 900000001;
 const PARENT_CHAT = 900000002;
 

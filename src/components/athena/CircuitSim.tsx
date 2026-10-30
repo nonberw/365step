@@ -35,7 +35,7 @@ export default function CircuitSim() {
   const code = codeFor(project, graph, sketches);
   const { speed, setSpeed, slow } = useSimClock();
   useSimClock((st) => st.frame); // re-render with the running clock
-  // BSTS AI Lab: a lesson sets its own condition and wants to know the result (for progress and XP).
+  // Нурбек Чурбек: a lesson sets its own condition and wants to know the result (for progress and XP).
   const fallback = useCondition(project, graph.circuit?.preset);
   const lab = useStore((st) => st.lab);
   const cond = lab?.condition ?? fallback;

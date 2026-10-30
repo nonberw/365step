@@ -452,6 +452,12 @@ CREATE TABLE IF NOT EXISTS cad_designs (
   verified INTEGER NOT NULL DEFAULT 0,
   at INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS ai_usage (
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  day TEXT NOT NULL,
+  n INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (user_id, day)
+);
 CREATE TABLE IF NOT EXISTS school_admins (
   user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
   created_at INTEGER NOT NULL
@@ -464,7 +470,7 @@ export const ready = (async () => {
   await db.execute("PRAGMA foreign_keys = ON");
   await db.executeMultiple(SCHEMA);
   // Columns added after the first release: ALTER fails harmlessly when they already exist.
-  for (const sql of ["ALTER TABLE ent_profiles ADD COLUMN plan TEXT", "ALTER TABLE ent_profiles ADD COLUMN plan_stale INTEGER NOT NULL DEFAULT 1", "ALTER TABLE review_queue ADD COLUMN card TEXT"]) await db.execute(sql).catch(() => {});
+  for (const sql of ["ALTER TABLE ent_profiles ADD COLUMN plan TEXT", "ALTER TABLE ent_profiles ADD COLUMN plan_stale INTEGER NOT NULL DEFAULT 1", "ALTER TABLE review_queue ADD COLUMN card TEXT", "ALTER TABLE users ADD COLUMN plan TEXT NOT NULL DEFAULT 'free'", "ALTER TABLE users ADD COLUMN plan_until INTEGER", "ALTER TABLE users ADD COLUMN trial_used INTEGER NOT NULL DEFAULT 0"]) await db.execute(sql).catch(() => {});
 })();
 
 export type Row = Record<string, unknown>;

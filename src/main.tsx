@@ -8,12 +8,14 @@ import { Loading } from "@/components/Page";
 import "./index.css";
 
 try {
-  if (localStorage.getItem("bsts-theme") === "dark") document.documentElement.classList.add("dark");
+  if (localStorage.getItem("nc-theme") === "dark") document.documentElement.classList.add("dark");
 } catch {
   // theme is a per-viewer convenience
 }
 
 const Landing = lazy(() => import("@/pages/Landing"));
+const Pricing = lazy(() => import("@/pages/Pricing"));
+const Admissions = lazy(() => import("@/pages/admissions/Admissions"));
 const Login = lazy(() => import("@/pages/auth/Login"));
 const Register = lazy(() => import("@/pages/auth/Register"));
 const StudentHome = lazy(() => import("@/pages/student/Home"));
@@ -49,38 +51,24 @@ const DroneFly = lazy(() => import("@/pages/engineering/DroneFly"));
 const CadLab = lazy(() => import("@/pages/engineering/CadLab"));
 const ArduinoLab = lazy(() => import("@/pages/engineering/ArduinoLab"));
 const CadStudio = lazy(() => import("@/pages/engineering/CadStudio"));
-const TeacherHome = lazy(() => import("@/pages/teacher/TeacherHome"));
-const ClassPage = lazy(() => import("@/pages/teacher/ClassPage"));
-const LiveLesson = lazy(() => import("@/pages/teacher/LiveLesson"));
-const StudentDetail = lazy(() => import("@/pages/teacher/StudentDetail"));
-const TeacherExams = lazy(() => import("@/pages/teacher/Exams"));
-const TeacherExam = lazy(() => import("@/pages/teacher/ExamPage"));
-const JoinExam = lazy(() => import("@/pages/exam/JoinExam"));
-const ExamRun = lazy(() => import("@/pages/exam/ExamRun"));
 const Library = lazy(() => import("@/pages/library/Library"));
 const EntHome = lazy(() => import("@/pages/ent/EntHome"));
 const EntMaster = lazy(() => import("@/pages/ent/EntMaster"));
 const EntPractice = lazy(() => import("@/pages/ent/EntPractice"));
 const EntTestRun = lazy(() => import("@/pages/ent/EntTestRun"));
-const EntClass = lazy(() => import("@/pages/teacher/EntClass"));
 const Review = lazy(() => import("@/pages/student/Review"));
 const Duels = lazy(() => import("@/pages/student/Duels"));
 const Family = lazy(() => import("@/pages/student/Family"));
 const ParentView = lazy(() => import("@/pages/ParentView"));
 const SharedApp = lazy(() => import("@/pages/SharedApp"));
-const Journal = lazy(() => import("@/pages/teacher/Journal"));
-const Written = lazy(() => import("@/pages/teacher/Written"));
-const School = lazy(() => import("@/pages/teacher/School"));
 const DuelPlay = lazy(() => import("@/pages/student/Duels").then((m) => ({ default: m.DuelPlay })));
 const Reader = lazy(() => import("@/pages/library/Reader"));
-const Consult = lazy(() => import("@/pages/consult/Consult"));
-const TeacherConsult = lazy(() => import("@/pages/teacher/Consult"));
 
 function Guard({ role, children }: { role?: Role; children: ReactNode }) {
   const { user, loading } = useAuth();
   if (loading) return <Loading />;
   if (!user) return <Navigate to="/login" replace />;
-  if (role && user.role !== role) return <Navigate to={user.role === "teacher" ? "/teacher" : "/app"} replace />;
+  if (role && user.role !== role) return <Navigate to="/app" replace />;
   return <>{children}</>;
 }
 
@@ -91,7 +79,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/register/:role" element={<Register />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/parent/:token" element={<ParentView />} />
         <Route path="/share/:token" element={<SharedApp />} />
 
@@ -109,14 +97,6 @@ function App() {
           element={
             <Guard role="student">
               <LessonPage />
-            </Guard>
-          }
-        />
-        <Route
-          path="/exam/:id"
-          element={
-            <Guard role="student">
-              <ExamRun />
             </Guard>
           }
         />
@@ -150,7 +130,7 @@ function App() {
           }
         >
           <Route path="/app" element={<StudentHome />} />
-          <Route path="/exam" element={<JoinExam />} />
+          <Route path="/admissions" element={<Admissions />} />
           <Route path="/ent" element={<EntHome />} />
           <Route path="/ent/master" element={<EntMaster />} />
           <Route path="/review" element={<Review />} />
@@ -158,7 +138,6 @@ function App() {
           <Route path="/duels" element={<Duels />} />
           <Route path="/duels/:id" element={<DuelPlay />} />
           <Route path="/ent/practice/:subject" element={<EntPractice />} />
-          <Route path="/consult" element={<Consult />} />
           <Route path="/sat" element={<SatHome />} />
           <Route path="/sat/bank" element={<SatBank />} />
           <Route path="/sat/q/:id" element={<SatQuestionPage />} />
@@ -187,27 +166,6 @@ function App() {
           <Route path="/engineering/cad/:lesson" element={<CadLab />} />
           <Route path="/engineering/arduino/:lesson" element={<ArduinoLab />} />
           <Route path="/engineering/cad-studio" element={<CadStudio />} />
-        </Route>
-
-        <Route
-          element={
-            <Guard role="teacher">
-              <AppShell />
-            </Guard>
-          }
-        >
-          <Route path="/teacher" element={<TeacherHome />} />
-          <Route path="/teacher/classes" element={<TeacherHome classesOnly />} />
-          <Route path="/teacher/classes/:code" element={<ClassPage />} />
-          <Route path="/teacher/classes/:code/live" element={<LiveLesson />} />
-          <Route path="/teacher/students/:id" element={<StudentDetail />} />
-          <Route path="/teacher/exams" element={<TeacherExams />} />
-          <Route path="/teacher/ent" element={<EntClass />} />
-          <Route path="/teacher/journal" element={<Journal />} />
-          <Route path="/teacher/written" element={<Written />} />
-          <Route path="/teacher/school" element={<School />} />
-          <Route path="/teacher/exams/:id" element={<TeacherExam />} />
-          <Route path="/teacher/consult" element={<TeacherConsult />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

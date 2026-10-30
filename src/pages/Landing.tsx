@@ -1,18 +1,18 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion, useInView, useScroll, useTransform } from "motion/react";
-import { ArrowRight, BookOpen, Bot, Calculator, ClipboardCheck, Code2, GraduationCap, Library, Lock, Mic, PenLine, Radio, Sparkles, Timer, Trophy, Upload, Zap } from "lucide-react";
+import { BookOpen, Bot, Calculator, Code2, Library, Mic, PenLine, Sparkles, Timer, Zap } from "lucide-react";
 import ElsewhereHero from "@/components/ui/elsewhere-hero";
 import StickerSlapFooter from "@/components/ui/sticker-slap-footer";
 import { ScrollWordReveal } from "@/components/ui/scroll-word-reveal";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import NumberTicker, { type NumberTickerRef } from "@/components/ui/basic-number-ticker";
-import { buttonVariants } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth";
 import { ART, PHOTO } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import { CodeMock, IeltsMock, SatMock, TeacherMock } from "./landing/Mocks";
+import { PricingBlock } from "./Pricing";
+import { CodeMock, IeltsMock, SatMock } from "./landing/Mocks";
 
 /** Fades and lifts children in once they scroll into view. */
 function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
@@ -53,27 +53,27 @@ function Counter({ to, suffix, label }: { to: number; suffix?: string; label: st
   );
 }
 
-const MARQUEE = ["Digital SAT", "Desmos", "Bluebook-режим", "IELTS Speaking", "Writing с разметкой", "Python в браузере", "LeetCode-задачи", "Вайб-кодинг", "Контрольные от ИИ", "Учебники с ИИ", "Интерактивные уроки", "Рейтинг класса"];
+const MARQUEE = ["Digital SAT", "Desmos", "Bluebook-режим", "IELTS Speaking", "Writing с разметкой", "Python в браузере", "LeetCode-задачи", "Вайб-кодинг", "Личный план до экзамена", "Учебники с ИИ", "Интерактивные уроки", "Дуэли и лига", "Поступление за рубеж"];
 
 export default function Landing() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const home = user ? (user.role === "teacher" ? "/teacher" : "/app") : "/register";
+  const home = user ? "/app" : "/register";
 
   return (
     <div className="overflow-x-clip bg-background">
       <ElsewhereHero
-        brand="BSTS AI Lab"
+        brand="Нурбек Чурбек"
         links={[
           { label: "SAT", href: "#how" },
           { label: "IELTS", href: "#how" },
           { label: "Кодинг", href: "#modules" },
-          { label: "Учителям", href: "#teachers" },
+          { label: "Тарифы", href: "#pricing" },
         ]}
         navCta={user ? { label: "Открыть платформу", href: home } : { label: "Войти", href: "/login" }}
         headline="Учись с ИИ. Поступай куда мечтаешь."
-        subline="Школьная платформа: SAT, IELTS и программирование в одном месте — на школьном планшете и на телефоне."
-        primaryCta={{ label: user ? "Продолжить" : "Создать аккаунт", href: home }}
+        subline="Личный ИИ-репетитор для SAT, IELTS, ЕНТ и программирования: план до экзамена, разборы ошибок и дуэли с друзьями — на телефоне и в браузере."
+        primaryCta={{ label: user ? "Продолжить" : "Начать бесплатно", href: home }}
         listenLabel="Звук для фокуса"
         listenOffLabel="Выключить звук"
         soundHint="Включи звук для фокуса"
@@ -81,7 +81,7 @@ export default function Landing() {
         onNavigate={(href) => navigate(href)}
       />
 
-      <ScrollWordReveal kicker="Зачем это школе" text="У каждого ученика появляется *личный* *репетитор*, который знает его слабые темы, а у учителя — весь класс на *одном* *экране*: кто занимается, где ошибается и кто вышел из контрольной." />
+      <ScrollWordReveal kicker="Зачем это тебе" text="Репетитор стоит дорого и не всегда рядом. Здесь у тебя *личный* *наставник* 24/7: он знает твои слабые темы, строит *план* до даты экзамена и объясняет каждую ошибку." />
 
       <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-24 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
         <Counter to={236} suffix="+" label="вопросов SAT в банке, и ИИ дописывает новые" />
@@ -111,8 +111,7 @@ export default function Landing() {
           content={[
             { eyebrow: "Digital SAT", title: "Как в Bluebook, только с репетитором", description: "Таймер модуля, вычёркивание вариантов, маркер, справочник формул и встроенный Desmos. После ответа ИИ объясняет, где была ловушка, и делает похожий вопрос.", content: <SatMock /> },
             { eyebrow: "IELTS", title: "Говори — и получай балл за секунды", description: "Speaking по частям 1–3, Writing с ошибками прямо в тексте, Reading и Listening. Оценка по четырём критериям и план на неделю.", content: <IeltsMock /> },
-            { eyebrow: "Кодинг", title: "LeetCode в школьном формате", description: "Python и JavaScript запускаются в браузере, скрытые тесты, подсказки ИИ без готового решения и уроки вайб-кодинга по целям «Информатики и ИИ».", content: <CodeMock /> },
-            { eyebrow: "Учителю", title: "Контрольная за минуту и весь класс онлайн", description: "Загрузите материалы — ИИ составит контрольную. Код экзамена, запуск на весь класс, живой прогресс каждого ученика и автоматическая проверка.", content: <TeacherMock /> },
+            { eyebrow: "Кодинг", title: "LeetCode, но с наставником", description: "Python и JavaScript запускаются в браузере, скрытые тесты, подсказки ИИ без готового решения и уроки вайб-кодинга по целям «Информатики и ИИ».", content: <CodeMock /> },
           ]}
         />
       </section>
@@ -172,51 +171,12 @@ export default function Landing() {
         </div>
       </section>
 
-      <section id="teachers" className="mx-auto max-w-6xl scroll-mt-6 px-4 py-24 sm:px-6">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-          <Reveal>
-            <Parallax src={PHOTO.classroom} className="aspect-[4/5] rounded-3xl" strength={60} />
-          </Reveal>
-          <div>
-            <Reveal>
-              <p className="eyebrow">Для учителей</p>
-              <h2 className="mt-2 font-display text-4xl font-semibold leading-tight sm:text-5xl">Урок и контрольная под контролем</h2>
-            </Reveal>
-            <ul className="mt-8 flex flex-col gap-5">
-              {[
-                { icon: Upload, t: "Загрузите материалы", d: "PDF, Word, фото страниц — ИИ составит контрольную по ним." },
-                { icon: ClipboardCheck, t: "Код экзамена и запуск", d: "Своя ссылка-код для каждой контрольной, старт сразу у всего класса." },
-                { icon: Radio, t: "Живой прогресс", d: "Кто пишет, сколько ответил, кто вышел из экзамена." },
-                { icon: Lock, t: "Закрытый режим", d: "Выход фиксируется, вернуться можно, уйти — только по коду." },
-                { icon: Trophy, t: "Проверка и аналитика", d: "Баллы сразу, открытые ответы проверяет ИИ, учитель утверждает." },
-              ].map((x, i) => (
-                <Reveal key={x.t} delay={i * 0.06}>
-                  <li className="flex gap-4">
-                    <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
-                      <x.icon className="size-5" />
-                    </span>
-                    <span>
-                      <span className="block font-display text-lg font-semibold">{x.t}</span>
-                      <span className="block text-sm text-muted-foreground">{x.d}</span>
-                    </span>
-                  </li>
-                </Reveal>
-              ))}
-            </ul>
-            <Reveal delay={0.3} className="mt-8 flex flex-wrap gap-3">
-              <Link to="/register/teacher" className={buttonVariants({ size: "lg" })}>
-                Регистрация для учителя <ArrowRight />
-              </Link>
-              <Link to="/register/student" className={buttonVariants({ variant: "outline", size: "lg" })}>
-                <GraduationCap /> Я ученик
-              </Link>
-            </Reveal>
-          </div>
-        </div>
+      <section id="pricing" className="mx-auto max-w-6xl scroll-mt-6 px-4 py-24 sm:px-6">
+        <PricingBlock />
       </section>
 
       <StickerSlapFooter
-        wordmark="ai lab"
+        wordmark="нурбек"
         homeHref="/"
         navLabel="войти"
         navHref="/login"
@@ -226,7 +186,7 @@ export default function Landing() {
           { title: "SAT", href: "#how" },
           { title: "IELTS", href: "#how" },
           { title: "кодинг с ИИ", href: "#modules" },
-          { title: "учителям", href: "#teachers" },
+          { title: "тарифы", href: "#pricing" },
         ]}
         address={[]}
         contactLabel="связь"

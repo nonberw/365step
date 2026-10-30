@@ -1,6 +1,6 @@
 import type { Difficulty, SatDomain, SatQuestion } from "./types";
 
-// Original practice items written for BSTS AI Lab, in the Digital SAT format.
+// Original practice items written for Нурбек Чурбек, in the Digital SAT format.
 // None of them are copied from College Board or third-party question banks.
 // Math items come from seeded generators, so the bank is large and repeatable;
 // Claude "Remix" adds more on demand.

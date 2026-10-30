@@ -1,10 +1,12 @@
 // Shared between server and client.
 
 export type Role = "student" | "teacher";
-export type Campus = "zhandosov" | "campus2" | "campus3";
+export type Campus = "online" | "zhandosov" | "campus2" | "campus3";
+export type PlanId = "free" | "pro";
 export type TeacherTitle = "mr" | "ms" | "mrs";
 
 export const CAMPUSES: Record<Campus, string> = {
+  online: "Онлайн",
   zhandosov: "Главный кампус",
   campus2: "Второй кампус",
   campus3: "Третий кампус",
@@ -24,6 +26,9 @@ export interface Goals {
   dailyMinutes?: number;
   hardest?: string;
   university?: string;
+  /** Where the student applies and what to study (B2C onboarding). */
+  country?: string;
+  major?: string;
 }
 
 export interface PublicUser {
@@ -41,6 +46,10 @@ export interface PublicUser {
   interests: string[];
   classCodes: string[];
   createdAt: number;
+  /** Subscription: free, or pro while planUntil is in the future */
+  plan: PlanId;
+  planUntil: number | null;
+  trialUsed: boolean;
   /** Head of studies: sees the school report */
   isAdmin?: boolean;
 }

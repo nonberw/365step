@@ -25,7 +25,7 @@ export default function Login() {
     try {
       const r = await api<{ token: string; user: PublicUser }>("/auth/login", { body: { email, password } });
       signIn(r.token, r.user, remember);
-      navigate(r.user.role === "teacher" ? "/teacher" : "/app");
+      navigate("/app");
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -34,9 +34,9 @@ export default function Login() {
   }
 
   return (
-    <AuthLayout image={ART.athens} quote={{ text: "Знание — это не то, что ты получил, а то, что ты можешь применить.", by: "Девиз урока информатики BSTS" }}>
+    <AuthLayout image={ART.athens} quote={{ text: "Знание — это не то, что ты получил, а то, что ты можешь применить.", by: "Нурбек Чурбек" }}>
       <p className="eyebrow">С возвращением</p>
-      <h1 className="mt-2 font-display text-3xl font-semibold">Вход в BSTS AI Lab</h1>
+      <h1 className="mt-2 font-display text-3xl font-semibold">Вход в Нурбек Чурбек</h1>
       <p className="mt-2 text-sm text-muted-foreground">Один аккаунт для SAT, IELTS и кодинга.</p>
       <form onSubmit={submit} className="mt-8 flex flex-col gap-4">
         <Field label="Почта" htmlFor="email">
@@ -60,7 +60,7 @@ export default function Login() {
           Зарегистрироваться
         </Link>
       </p>
-      <p className="mt-6 rounded-xl bg-muted px-4 py-3 text-xs text-muted-foreground">На общем школьном планшете снимите «Запомнить меня»: после закрытия вкладки аккаунт выйдет сам. Демо-доступы — в README проекта.</p>
+      <p className="mt-6 rounded-xl bg-muted px-4 py-3 text-xs text-muted-foreground">На чужом или общем устройстве снимите «Запомнить меня»: после закрытия вкладки аккаунт выйдет сам.</p>
     </AuthLayout>
   );
 }

@@ -1,7 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { api } from "@/api";
-import { releasedKey } from "@/lib/lesson";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   Target,
   Box,
@@ -10,23 +8,17 @@ import {
   Plane,
   BookOpen,
   BookText,
-  BookMarked,
   Bot,
-  Building2,
   Bug,
   Calculator,
-  CalendarClock,
-  ClipboardCheck,
-  KeyRound,
-  Radio,
-  ScanText,
   RotateCcw,
   Code2,
   Gamepad2,
   GraduationCap,
   Headphones,
   Home,
-  LayoutDashboard,
+  Compass,
+  Crown,
   Library,
   LibraryBig,
   LineChart,
@@ -42,15 +34,12 @@ import {
   Timer,
   Trophy,
   User,
-  Users,
   UsersRound,
   X,
   Zap,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
-import { addressOf } from "@/lib/format";
-import type { ActiveExam } from "@/pages/exam/JoinExam";
 
 type Item = { to: string; label: string; icon: typeof Home; end?: boolean };
 type Group = { title?: string; items: Item[] };
@@ -59,9 +48,8 @@ const STUDENT_NAV: Group[] = [
   {
     items: [
       { to: "/app", label: "Главная", icon: Home, end: true },
-      { to: "/exam", label: "Контрольная по коду", icon: KeyRound },
+      { to: "/admissions", label: "Поступление", icon: Compass },
       { to: "/library", label: "Библиотека", icon: LibraryBig },
-      { to: "/consult", label: "Доп. уроки и консультации", icon: CalendarClock },
     ],
   },
   {
@@ -120,28 +108,7 @@ const STUDENT_NAV: Group[] = [
     items: [
       { to: "/leaderboard", label: "Рейтинг", icon: Trophy },
       { to: "/family", label: "Для родителей", icon: UsersRound },
-      { to: "/profile", label: "Профиль", icon: User },
-    ],
-  },
-];
-
-const TEACHER_NAV: Group[] = [
-  { items: [{ to: "/teacher", label: "Главная", icon: LayoutDashboard, end: true }] },
-  {
-    title: "Классы",
-    items: [
-      { to: "/teacher/classes", label: "Мои классы", icon: Users },
-      { to: "/teacher/exams", label: "Контрольные с ИИ", icon: ClipboardCheck },
-      { to: "/teacher/ent", label: "ЕНТ класса", icon: Medal },
-      { to: "/teacher/journal", label: "Журнал оценок", icon: BookMarked },
-      { to: "/teacher/written", label: "Проверка по фото", icon: ScanText },
-      { to: "/teacher/consult", label: "Доп. уроки и консультации", icon: CalendarClock },
-      { to: "/library", label: "Библиотека", icon: LibraryBig },
-    ],
-  },
-  {
-    items: [
-      { to: "/leaderboard", label: "Рейтинг школы", icon: Trophy },
+      { to: "/pricing", label: "Тариф Pro", icon: Crown },
       { to: "/profile", label: "Профиль", icon: User },
     ],
   },
@@ -150,7 +117,7 @@ const TEACHER_NAV: Group[] = [
 function useTheme() {
   const [dark, setDark] = useState(() => {
     try {
-      return localStorage.getItem("bsts-theme") === "dark";
+      return localStorage.getItem("nc-theme") === "dark";
     } catch {
       return false;
     }
@@ -158,7 +125,7 @@ function useTheme() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
     try {
-      localStorage.setItem("bsts-theme", dark ? "dark" : "light");
+      localStorage.setItem("nc-theme", dark ? "dark" : "light");
     } catch {
       // per-viewer convenience only
     }
@@ -169,48 +136,9 @@ function useTheme() {
 export function Logo({ className }: { className?: string }) {
   return (
     <span className={cn("font-display text-[17px] font-extrabold tracking-wide", className)}>
-      BSTS <span className="text-primary">AI LAB</span>
+      НУРБЕК <span className="text-primary">ЧУРБЕК</span>
     </span>
   );
-}
-
-/** When the teacher starts a locked lesson, students are taken straight into it. */
-function useLockedLessonRedirect(active: boolean) {
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!active) return;
-    const check = () =>
-      api<{ locked: boolean; activeLessonId: string | null }>("/coding/presence", { body: { lessonId: null, away: document.hidden } })
-        .then((c) => {
-          let released = false;
-          try {
-            released = !!c.activeLessonId && sessionStorage.getItem(releasedKey(c.activeLessonId)) === "1";
-          } catch {
-            // no release record
-          }
-          if (c.locked && c.activeLessonId && !released) navigate(`/coding/lessons/${c.activeLessonId}`);
-        })
-        .catch(() => {});
-    check();
-    const t = setInterval(check, 8000);
-    return () => clearInterval(t);
-  }, [active, navigate]);
-}
-
-/** A teacher launched an exam: every student of the class sees it within seconds. */
-function useActiveExams(active: boolean) {
-  const [exams, setExams] = useState<ActiveExam[]>([]);
-  useEffect(() => {
-    if (!active) return;
-    const check = () =>
-      api<ActiveExam[]>("/exams/student/active")
-        .then(setExams)
-        .catch(() => {});
-    check();
-    const t = setInterval(check, 5000);
-    return () => clearInterval(t);
-  }, [active]);
-  return exams;
 }
 
 export default function AppShell() {
@@ -219,15 +147,8 @@ export default function AppShell() {
   const [dark, setDark] = useTheme();
   const location = useLocation();
   useEffect(() => setOpen(false), [location.pathname]);
-  useLockedLessonRedirect(user?.role === "student" && user.classCodes.length > 0);
-  const exams = useActiveExams(user?.role === "student" && user.classCodes.length > 0);
   if (!user) return null;
-  const nav =
-    user.role === "teacher"
-      ? user.isAdmin
-        ? [...TEACHER_NAV.slice(0, -1), { title: "Школа", items: [{ to: "/teacher/school", label: "Отчёт для завуча", icon: Building2 }] }, TEACHER_NAV.at(-1)!]
-        : TEACHER_NAV
-      : STUDENT_NAV;
+  const nav = STUDENT_NAV;
 
   const sidebar = (
     <nav className="flex h-full flex-col gap-1 overflow-y-auto px-3 py-4" aria-label="Разделы">
@@ -269,8 +190,8 @@ export default function AppShell() {
           {user.lastName.slice(0, 1)}
         </span>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold">{user.role === "teacher" ? addressOf(user) : `${user.firstName} ${user.lastName}`}</p>
-          <p className="truncate text-xs text-muted-foreground">{user.role === "teacher" ? "Учитель" : `${user.grade ?? ""}${user.classLetter ?? ""} класс`}</p>
+          <p className="truncate text-sm font-semibold">{`${user.firstName} ${user.lastName}`}</p>
+          <p className="truncate text-xs text-muted-foreground">{user.plan === "pro" ? `Pro до ${new Date(user.planUntil ?? 0).toLocaleDateString("ru-RU")}` : "Тариф «Старт»"}</p>
         </div>
         <IconButton label="Выйти" onClick={signOut}>
           <LogOut />
@@ -299,15 +220,6 @@ export default function AppShell() {
 
       <main className="min-w-0 p-2 sm:p-3 lg:py-3 lg:pl-0 lg:pr-3">
         <div className="min-h-[calc(100dvh-24px)] rounded-3xl bg-card px-4 py-5 ring-1 ring-border sm:px-6 lg:px-10 lg:py-8">
-          {exams.map((e) => (
-            <Link key={e.id} to={e.joined ? `/exam/${e.id}` : "/exam"} className="mb-5 flex flex-wrap items-center gap-3 rounded-2xl bg-primary px-4 py-3 text-primary-foreground shadow-lg shadow-primary/20">
-              <Radio className="size-5 shrink-0 animate-pulse" />
-              <span className="min-w-0 flex-1 font-display text-sm font-semibold">
-                {e.teacher} запустил(а) контрольную «{e.title}»
-              </span>
-              <span className="rounded-full bg-white px-3 py-1 font-display text-xs font-semibold text-primary">{e.joined ? "Продолжить" : "Ввести код"}</span>
-            </Link>
-          ))}
           <Outlet />
         </div>
       </main>
