@@ -1,0 +1,158 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* BSTS AI Lab: neutral app shell (like Tnkr), black blocks, burgundy brand color */
+:root {
+  --radius: 1rem;
+  --background: #f6f4f2;
+  --foreground: #121010;
+  --card: #ffffff;
+  --card-foreground: #121010;
+  --popover: #ffffff;
+  --popover-foreground: #121010;
+  --primary: #7b0004;
+  --primary-foreground: #ffffff;
+  --secondary: #1a1717;
+  --secondary-foreground: #ffffff;
+  --muted: #efebe8;
+  --muted-foreground: #6b6363;
+  --accent: #ff8562;
+  --accent-foreground: #1a0a05;
+  --destructive: #c4161c;
+  --success: #1f7a4a;
+  --warning: #b45309;
+  --border: #e7e1dd;
+  --input: #e2dbd6;
+  --ring: #7b0004;
+  --chart-1: #7b0004;
+  --chart-2: #b3121a;
+  --chart-3: #ff8562;
+  --chart-4: #1a1717;
+  --sidebar: #f6f4f2;
+}
+
+.dark {
+  --background: #0e0c0c;
+  --foreground: #f4efed;
+  --card: #171414;
+  --card-foreground: #f4efed;
+  --popover: #1c1818;
+  --popover-foreground: #f4efed;
+  --primary: #c2262c;
+  --primary-foreground: #ffffff;
+  --secondary: #f4efed;
+  --secondary-foreground: #121010;
+  --muted: #241f1f;
+  --muted-foreground: #a69c9c;
+  --accent: #ff8562;
+  --accent-foreground: #1a0a05;
+  --border: #2c2626;
+  --input: #332c2c;
+  --ring: #ff8562;
+  --chart-2: #ff6a5a;
+  --sidebar: #0e0c0c;
+}
+
+@theme inline {
+  --font-sans: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Jost", Futura, "Century Gothic", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-sidebar: var(--sidebar);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+@layer utilities {
+  .eyebrow {
+    @apply font-display text-[11px] font-semibold uppercase tracking-[0.16em] text-primary;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* SAT-style answer elimination */
+.choice-struck .choice-text {
+  text-decoration: line-through;
+  opacity: 0.45;
+}
+
+/* User highlights in reading passages */
+mark.hl {
+  background: color-mix(in srgb, var(--accent) 45%, transparent);
+  color: inherit;
+  border-radius: 3px;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-dot {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
