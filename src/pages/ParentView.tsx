@@ -76,7 +76,7 @@ export default function ParentView() {
           <span className="text-xs text-muted-foreground">Страница для родителей · только просмотр</span>
         </header>
 
-        <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#120d0d] text-white">
+        <section className="relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] text-white">
           <Aurora />
           <div className="relative grid grid-cols-1 items-center gap-6 px-6 py-8 sm:px-10 lg:grid-cols-[1.3fr_1fr]">
             <div className="flex flex-col gap-3">
@@ -87,10 +87,10 @@ export default function ParentView() {
               </h1>
               <div className="flex flex-wrap gap-2 text-sm">
                 <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5">
-                  <Flame className="size-4 text-[#8fb0ff]" /> серия {d.streak} дн.
+                  <Flame className="size-4 text-[#ffd84d]" /> серия {d.streak} дн.
                 </span>
                 <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5">
-                  <Sparkles className="size-4 text-[#8fb0ff]" /> {d.weekXp} XP за неделю
+                  <Sparkles className="size-4 text-[#ffd84d]" /> {d.weekXp} XP за неделю
                 </span>
                 {d.reviewQueue > 0 && <span className="rounded-full bg-white/10 px-3 py-1.5">{d.reviewQueue} ошибок на повторе</span>}
               </div>
@@ -108,7 +108,7 @@ export default function ParentView() {
                 ))}
               </div>
             </div>
-            <div className="flex justify-center rounded-3xl border border-white/10 bg-white/[0.05] p-4">
+            <div className="flex justify-center rounded-3xl border border-white/35 bg-white/15 p-4">
               <AnimatedRadialChart
                 value={d.ent?.best ?? 0}
                 max={140}

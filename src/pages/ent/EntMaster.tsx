@@ -49,11 +49,11 @@ export default function EntMaster() {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#0d1117] text-white">
+      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] text-white">
         <Aurora />
         <div className="relative flex flex-col gap-3 px-6 py-8 sm:px-10">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-semibold text-white/80">
-            <Cpu className="size-3.5 text-[#8fb0ff]" /> ЕНТ · мастер-режим
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/45 bg-white/25 px-3 py-1 text-xs font-semibold text-white shadow-sm backdrop-blur">
+            <Cpu className="size-3.5 text-[#ffd84d]" /> ЕНТ · мастер-режим
           </span>
           <h1 className="max-w-3xl font-display text-4xl font-bold sm:text-5xl">Адаптивный тест без вариантов ответа</h1>
           <p className="max-w-2xl text-white/70">

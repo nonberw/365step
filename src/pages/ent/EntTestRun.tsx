@@ -282,7 +282,7 @@ function Results({ test }: { test: TestView & { result: Result; blocks: Block<En
         <Link to="/ent" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="size-4" /> Подготовка к ЕНТ
         </Link>
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="relative overflow-hidden rounded-[2rem] bg-[#120d0d] p-6 text-white sm:p-8">
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="relative overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] p-6 text-white sm:p-8">
           <div className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-primary/40 blur-3xl" />
           <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-accent">{test.kind === "full" ? "Пробный ЕНТ" : "Мини-пробник"}</p>
           <div className="mt-3 flex flex-col items-center gap-2 sm:flex-row sm:items-end sm:gap-6">

@@ -52,15 +52,15 @@ export default function Review() {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#120d0d] text-white">
+      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] text-white">
         <Aurora />
         <div className="relative grid grid-cols-1 gap-6 px-6 py-8 sm:px-10 lg:grid-cols-[1.2fr_1fr]">
           <div className="flex flex-col gap-4">
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-semibold text-white/80">
-              <BrainCircuit className="size-3.5 text-[#8fb0ff]" /> Интервальное повторение
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/45 bg-white/25 px-3 py-1 text-xs font-semibold text-white shadow-sm backdrop-blur">
+              <BrainCircuit className="size-3.5 text-[#ffd84d]" /> Интервальное повторение
             </span>
             <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl">
-              Ошибки, которые <span className="bg-gradient-to-r from-[#8fb0ff] to-[#4f7cf0] bg-clip-text text-transparent">не повторятся</span>
+              Ошибки, которые <span className="font-medium italic text-white/85">не повторятся</span>
             </h1>
             <p className="max-w-xl text-white/70">Каждое задание ЕНТ или SAT, где ты ошибся, вернётся через 1 день, потом через 3 и через 7. Три верных ответа подряд — и тема закреплена.</p>
           </div>
@@ -69,7 +69,7 @@ export default function Review() {
               { label: "ЕНТ сегодня", n: data.due.ent.length },
               { label: "SAT сегодня", n: data.due.sat.length },
             ].map((x) => (
-              <div key={x.label} className="rounded-3xl border border-white/10 bg-white/[0.05] p-5">
+              <div key={x.label} className="rounded-3xl border border-white/35 bg-white/15 p-5">
                 <span className="text-xs text-white/60">{x.label}</span>
                 <span className="mt-1 block font-display text-5xl font-bold tabular">
                   <NumberTicker from={0} target={x.n} transition={{ duration: 1, ease: "easeOut" }} />
@@ -77,7 +77,7 @@ export default function Review() {
                 <span className="text-xs text-white/50">заданий к повтору</span>
               </div>
             ))}
-            <div className="col-span-2 flex items-center justify-between gap-2 rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 text-sm">
+            <div className="col-span-2 flex items-center justify-between gap-2 rounded-2xl border border-white/35 bg-white/15 px-4 py-3 text-sm">
               {["через 1 день", "через 3 дня", "через 7 дней"].map((l, i) => (
                 <span key={l} className="flex flex-col items-center">
                   <b className="font-display text-xl">{data.stages[i] ?? 0}</b>

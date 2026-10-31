@@ -25,8 +25,8 @@ export default function Leaderboard() {
           value={scope}
           onChange={setScope}
           options={[
-            { value: "class", label: "Мой класс" },
-            { value: "school", label: "Вся школа" },
+            { value: "class", label: "Мои соперники" },
+            { value: "school", label: "Все ученики" },
           ]}
         />
       )}

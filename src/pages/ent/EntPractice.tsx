@@ -61,11 +61,11 @@ export default function EntPractice() {
       <Link to="/ent" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="size-4" /> Подготовка к ЕНТ
       </Link>
-      <motion.header initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="relative isolate overflow-hidden rounded-[1.75rem] bg-[#120d0d] text-white">
+      <motion.header initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="relative isolate overflow-hidden rounded-[1.75rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] text-white">
         <img src={ENT_IMAGE[sid]} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-55" />
-        <span className="absolute inset-0 -z-10 bg-gradient-to-r from-[#120d0d] via-[#120d0d]/80 to-transparent" />
+        <span className="absolute inset-0 -z-10 bg-gradient-to-r from-[#2f69cf] via-[#2f69cf]/80 to-transparent" />
         <div className="flex flex-col gap-3 p-6 sm:p-8">
-          <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-[#8fb0ff]">
+          <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-[#ffd84d]">
             ЕНТ · тренировка · {subject.count} заданий в тесте, порог {subject.threshold}
           </p>
           <h1 className="font-display text-3xl font-bold sm:text-4xl">{subject.name}</h1>

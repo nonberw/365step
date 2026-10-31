@@ -69,11 +69,11 @@ export default function Duels() {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#120d0d] text-white">
+      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] text-white">
         <Aurora />
         <div className="relative flex flex-col items-center gap-4 px-6 py-10 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-semibold text-white/80">
-            <Swords className="size-3.5 text-[#8fb0ff]" /> Дуэли ЕНТ · лига недели
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/25 px-3 py-1 text-xs font-semibold text-white shadow-sm backdrop-blur">
+            <Swords className="size-3.5 text-[#ffd84d]" /> Дуэли ЕНТ · лига недели
           </span>
           <div className="flex items-center gap-4 sm:gap-8">
             <motion.span
@@ -84,7 +84,7 @@ export default function Duels() {
             >
               ТЫ
             </motion.span>
-            <motion.span initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.3, type: "spring" }} className="font-display text-4xl font-black italic text-[#8fb0ff] sm:text-6xl">
+            <motion.span initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.3, type: "spring" }} className="font-display text-4xl font-black italic text-[#ffd84d] sm:text-6xl">
               VS
             </motion.span>
             <motion.span
@@ -97,7 +97,7 @@ export default function Duels() {
             </motion.span>
           </div>
           <h1 className="font-display text-3xl font-bold sm:text-5xl">10 заданий. Кто быстрее и точнее?</h1>
-          <p className="max-w-xl text-white/70">Вызови одноклассника на дуэль по предмету ЕНТ. Оба решают одни и те же задания, побеждает больше верных ответов, при равенстве — тот, кто быстрее.</p>
+          <p className="max-w-xl text-white/70">Вызови другого ученика на дуэль по предмету ЕНТ. Оба решают одни и те же задания, побеждает больше верных ответов, при равенстве — тот, кто быстрее.</p>
         </div>
       </section>
 
@@ -159,7 +159,7 @@ function League({ data }: { data: DuelsData }) {
   return (
     <Card className="flex flex-col gap-4">
       <div>
-        <p className="font-display text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">Лига класса · эта неделя</p>
+        <p className="font-display text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">{data.classCode === "global" ? "Общая лига" : "Лига класса"} · эта неделя</p>
         <h2 className="mt-1 font-display text-xl font-semibold">Таблица лидеров</h2>
       </div>
       <div className="flex items-end justify-center gap-3 pt-2">
@@ -363,7 +363,7 @@ function DuelResult({ d }: { d: DuelView }) {
       <Link to="/duels" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="size-4" /> Все дуэли
       </Link>
-      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#120d0d] p-8 text-center text-white">
+      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] p-8 text-center text-white">
         <Aurora />
         <div className="relative flex flex-col items-center gap-3">
           {done && d.result === "win" && (
@@ -371,14 +371,14 @@ function DuelResult({ d }: { d: DuelView }) {
               <Trophy className="size-14 text-[#f2b705]" />
             </motion.span>
           )}
-          <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-[#8fb0ff]">{d.subjectName}</p>
+          <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-[#ffd84d]">{d.subjectName}</p>
           <div className="flex items-center gap-6">
             <span className="flex flex-col items-center">
               <span className="font-display text-6xl font-black tabular">{d.myScore}</span>
               <span className="text-sm text-white/70">{d.me}</span>
               <span className="text-xs text-white/50">{secs(d.myMs)}</span>
             </span>
-            <span className="font-display text-3xl font-black italic text-[#8fb0ff]">:</span>
+            <span className="font-display text-3xl font-black italic text-[#ffd84d]">:</span>
             <span className="flex flex-col items-center">
               <span className="font-display text-6xl font-black tabular">{done ? d.theirScore : "?"}</span>
               <span className="text-sm text-white/70">{d.opponent}</span>

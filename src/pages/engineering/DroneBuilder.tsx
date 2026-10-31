@@ -83,11 +83,11 @@ export default function DroneBuilder() {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#0d1117] text-white">
+      <section className="relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] text-white">
         <Aurora />
         <div className="relative grid gap-4 px-6 py-8 sm:px-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div className="flex flex-col gap-3">
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-semibold text-white/80">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/45 bg-white/25 px-3 py-1 text-xs font-semibold text-white shadow-sm backdrop-blur">
               <Plane className="size-3.5 text-[#4cc2ff]" /> Лаборатория дронов
             </span>
             <h1 className="font-display text-4xl font-bold sm:text-5xl">Собери свой квадрокоптер</h1>

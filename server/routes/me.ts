@@ -84,7 +84,8 @@ meRouter.get(
          WHERE m.class_code IN (SELECT class_code FROM class_members WHERE user_id = ?)`,
         u.id,
       );
-      if (!users.length) users = await all("SELECT id, first_name, last_name, grade, class_letter FROM users WHERE id = ?", u.id);
+      // No class (B2C): rank against every student.
+      if (!users.length) users = await all("SELECT id, first_name, last_name, grade, class_letter FROM users WHERE role = 'student'");
     } else {
       users = await all("SELECT id, first_name, last_name, grade, class_letter FROM users WHERE role = 'student'");
     }

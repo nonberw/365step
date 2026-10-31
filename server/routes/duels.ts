@@ -41,8 +41,21 @@ const weekStart = () => {
   return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - day) - KZ;
 };
 
+/** Students without a class (everyone in the B2C product) play in one shared league. */
+const GLOBAL = "global";
+
 async function classOf(u: UserRow) {
-  return (await one<{ class_code: string }>("SELECT class_code FROM class_members WHERE user_id = ? ORDER BY joined_at LIMIT 1", u.id))?.class_code ?? null;
+  return (await one<{ class_code: string }>("SELECT class_code FROM class_members WHERE user_id = ? ORDER BY joined_at LIMIT 1", u.id))?.class_code ?? GLOBAL;
+}
+
+/** League members: the class, or the most recently active students of the shared league (and the student). */
+async function members(code: string, userId: string) {
+  if (code !== GLOBAL) return all<{ id: string; first_name: string; last_name: string }>("SELECT u.id, u.first_name, u.last_name FROM users u JOIN class_members m ON m.user_id = u.id WHERE m.class_code = ?", code);
+  return all<{ id: string; first_name: string; last_name: string }>(
+    `SELECT u.id, u.first_name, u.last_name FROM users u LEFT JOIN (SELECT user_id, MAX(at) last FROM xp_log GROUP BY user_id) x ON x.user_id = u.id
+     WHERE u.role = 'student' ORDER BY (u.id = ?) DESC, x.last DESC LIMIT 40`,
+    userId,
+  );
 }
 
 const nameOf = (u: { first_name: string; last_name: string }) => `${u.first_name} ${u.last_name}`;
@@ -79,8 +92,7 @@ duelsRouter.get(
   wrap(async (req, res) => {
     const u = requireStudent(req);
     const code = await classOf(u);
-    if (!code) return res.json({ classCode: null, classmates: [], duels: [], league: [], subjects: [] });
-    const people = await all<{ id: string; first_name: string; last_name: string }>("SELECT u.id, u.first_name, u.last_name FROM users u JOIN class_members m ON m.user_id = u.id WHERE m.class_code = ?", code);
+    const people = await members(code, u.id);
     const names = new Map(people.map((p) => [p.id, nameOf(p)]));
     const duels = await all<DuelRow>("SELECT * FROM duels WHERE (challenger_id = ? OR opponent_id = ?) ORDER BY created_at DESC LIMIT 30", u.id, u.id);
     const since = weekStart();
@@ -108,11 +120,14 @@ duelsRouter.post(
   "/",
   wrap(async (req, res) => {
     const u = requireStudent(req);
-    const code = must(await classOf(u), 400, "Сначала вступи в класс");
+    const code = await classOf(u);
+    const opponentId = str(req.body?.opponentId, 40);
     const opponent = must(
-      await one<{ id: string }>("SELECT user_id id FROM class_members WHERE class_code = ? AND user_id = ? AND user_id <> ?", code, str(req.body?.opponentId, 40), u.id),
+      code === GLOBAL
+        ? await one<{ id: string }>("SELECT id FROM users WHERE id = ? AND role = 'student' AND id <> ?", opponentId, u.id)
+        : await one<{ id: string }>("SELECT user_id id FROM class_members WHERE class_code = ? AND user_id = ? AND user_id <> ?", code, opponentId, u.id),
       404,
-      "Одноклассник не найден",
+      "Соперник не найден",
     );
     const subject = str(req.body?.subject, 40);
     if (!DUEL_SUBJECTS.includes(subject)) throw new HttpError(400, "Выбери предмет");

@@ -7,6 +7,7 @@ import { api } from "@/api";
 import { useApi } from "@/hooks/useApi";
 import { fmtDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { HeroPill, StarIcon } from "@/components/ui/hero-pill";
 import { ErrorBox, Loading } from "@/components/Page";
 import { Button } from "@/components/ui/button";
 import { Badge, Card } from "@/components/ui/card";
@@ -140,24 +141,21 @@ function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
 
 // ---------- hero: aurora, countdown and score gauge ----------
 
+/** Soft drifting clouds and a pale mountain line: the sky backdrop shared by the section heroes. */
 export function Aurora() {
-  const blobs = [
-    { c: "#b5121b", x: ["-10%", "15%", "-10%"], y: ["-20%", "10%", "-20%"], s: "60%", d: 18 },
-    { c: "#8fb0ff", x: ["60%", "35%", "60%"], y: ["40%", "5%", "40%"], s: "45%", d: 22 },
-    { c: "#1f48b0", x: ["20%", "55%", "20%"], y: ["50%", "60%", "50%"], s: "55%", d: 26 },
+  const clouds = [
+    { x: ["-10%", "8%", "-10%"], y: "8%", w: "55%", h: "34%", d: 26 },
+    { x: ["55%", "40%", "55%"], y: "35%", w: "60%", h: "38%", d: 32 },
+    { x: ["20%", "35%", "20%"], y: "70%", w: "50%", h: "30%", d: 28 },
   ];
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      {blobs.map((b, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full opacity-50 blur-3xl"
-          style={{ background: b.c, width: b.s, height: b.s }}
-          animate={{ left: b.x, top: b.y }}
-          transition={{ duration: b.d, repeat: Infinity, ease: "easeInOut" }}
-        />
+    <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden" aria-hidden="true">
+      {clouds.map((c, i) => (
+        <motion.div key={i} className="absolute rounded-full bg-white/35 blur-3xl" style={{ top: c.y, width: c.w, height: c.h }} animate={{ left: c.x }} transition={{ duration: c.d, repeat: Infinity, ease: "easeInOut" }} />
       ))}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
+      <svg className="absolute bottom-0 left-0 h-16 w-full opacity-[0.14]" viewBox="0 0 1440 160" preserveAspectRatio="none">
+        <path d="M0 120 L160 70 L280 105 L420 40 L560 100 L700 60 L860 115 L1000 55 L1160 105 L1300 70 L1440 100 V160 H0 Z" fill="#ffffff" />
+      </svg>
     </div>
   );
 }
@@ -167,17 +165,11 @@ function Hero({ meta, best, hasPair, busy, onStart, onPick }: { meta: EntMeta; b
   const gauge = typeof window !== "undefined" ? Math.min(300, window.innerWidth - 130) : 300;
   const strip = [...meta.subjects, ...meta.subjects];
   return (
-    <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#120d0d] text-white">
+    <section className="relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] text-white">
       <Aurora />
       <div className="relative grid grid-cols-1 items-center gap-8 px-6 pb-6 pt-8 sm:px-10 sm:pt-10 lg:grid-cols-[1.25fr_1fr]">
         <div className="flex flex-col gap-5">
-          <motion.span
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur"
-          >
-            <span className="size-1.5 animate-pulse rounded-full bg-[#8fb0ff]" /> ЕНТ 2027 · основная сессия с 10 мая
-          </motion.span>
+          <HeroPill tone="glass" icon={<StarIcon />} text="ЕНТ 2027 · основная сессия с 10 мая" />
           <h1 className="font-display text-4xl font-bold leading-[1.05] sm:text-6xl">
             {words.map((w, i) => (
               <motion.span
@@ -185,7 +177,7 @@ function Hero({ meta, best, hasPair, busy, onStart, onPick }: { meta: EntMeta; b
                 initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ delay: 0.08 * i, duration: 0.6, ease }}
-                className={cn("mr-3 inline-block", w === "максимум" && "bg-gradient-to-r from-[#8fb0ff] to-[#4f7cf0] bg-clip-text text-transparent")}
+                className={cn("mr-3 inline-block", w === "максимум" && "font-medium italic text-white/85")}
               >
                 {w}
               </motion.span>
@@ -211,7 +203,7 @@ function Hero({ meta, best, hasPair, busy, onStart, onPick }: { meta: EntMeta; b
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.6, ease }}
-          className="mx-auto flex w-full max-w-sm flex-col items-center rounded-3xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur sm:p-5"
+          className="mx-auto flex w-full max-w-sm flex-col items-center rounded-3xl border border-white/35 bg-white/15 p-4 backdrop-blur sm:p-5"
         >
           <AnimatedRadialChart
             value={best}
@@ -234,7 +226,7 @@ function Hero({ meta, best, hasPair, busy, onStart, onPick }: { meta: EntMeta; b
       <div className="relative border-t border-white/10 py-3 [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
         <div className="flex w-max animate-[marquee_40s_linear_infinite] gap-3">
           {strip.map((s, i) => (
-            <span key={i} className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] py-1 pl-1 pr-3 text-xs text-white/75">
+            <span key={i} className="flex items-center gap-2 rounded-full border border-white/40 bg-white/25 py-1 pl-1 pr-3 text-xs font-semibold text-white">
               <img src={ENT_IMAGE[s.id]} alt="" className="size-6 rounded-full object-cover" loading="lazy" />
               {s.name}
             </span>
@@ -523,13 +515,13 @@ function Resources({ meta }: { meta: EntMeta }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.06 }}
-          className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-3 transition-colors hover:border-[#8fb0ff]/60 hover:bg-white/[0.07]"
+          className="group flex items-start gap-3 rounded-2xl border border-white/35 bg-white/15 p-3 transition-colors hover:border-[#8fb0ff]/60 hover:bg-white/[0.07]"
         >
           <span className="min-w-0 flex-1">
             <span className="block font-display font-semibold">{r.title}</span>
             <span className="text-xs text-white/60">{r.text}</span>
           </span>
-          <ArrowUpRight className="size-5 shrink-0 text-white/50 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#8fb0ff]" />
+          <ArrowUpRight className="size-5 shrink-0 text-white/50 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#ffd84d]" />
         </motion.a>
       ))}
     </Card>
