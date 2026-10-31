@@ -30,6 +30,10 @@ export interface Goals {
   /** Where the student applies and what to study (B2C onboarding). */
   country?: string;
   major?: string;
+  /** ENT target score out of 140 */
+  ent?: { target: number };
+  /** self-assessed level from the onboarding quiz */
+  level?: "beginner" | "middle" | "advanced";
 }
 
 export interface PublicUser {

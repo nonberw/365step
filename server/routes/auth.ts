@@ -35,6 +35,8 @@ function sanitizeGoals(raw: unknown): Goals {
   if (g.university) out.university = str(g.university, 80);
   if (g.country) out.country = str(g.country, 40);
   if (g.major) out.major = str(g.major, 60);
+  if (g.ent && Number(g.ent.target) >= 50 && Number(g.ent.target) <= 140) out.ent = { target: Math.round(Number(g.ent.target)) };
+  if (g.level && ["beginner", "middle", "advanced"].includes(g.level)) out.level = g.level;
   return out;
 }
 

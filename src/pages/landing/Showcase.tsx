@@ -131,15 +131,16 @@ export function WritingCard({ className }: { className?: string }) {
   );
 }
 
-/** The hero's sky: layered gradients, soft clouds and a pale mountain line, all in CSS/SVG. */
-export function Sky({ className }: { className?: string }) {
+/** The hero's sky: layered gradients, soft clouds and a pale mountain line, all in CSS/SVG.
+ *  `deep` keeps the sky blue down to the bottom, for full-screen pages with white text at the bottom. */
+export function Sky({ className, deep }: { className?: string; deep?: boolean }) {
   return (
     <div aria-hidden className={cn("absolute inset-0 -z-10 overflow-hidden", className)}>
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#3f78d6_0%,#6fa3e8_32%,#b9d6f5_62%,#eaf2fb_82%,#f5f6f8_100%)]" />
+      <div className={cn("absolute inset-0", deep ? "bg-[linear-gradient(180deg,#2f69cf_0%,#4f8ae0_40%,#79aaea_75%,#5f93e2_100%)]" : "bg-[linear-gradient(180deg,#3f78d6_0%,#6fa3e8_32%,#b9d6f5_62%,#eaf2fb_82%,#f5f6f8_100%)]")} />
       <div className="absolute -left-20 top-24 h-40 w-[520px] rounded-full bg-white/50 blur-3xl" />
       <div className="absolute right-[-80px] top-56 h-48 w-[620px] rounded-full bg-white/45 blur-3xl" />
       <div className="absolute left-1/3 top-[420px] h-32 w-[480px] rounded-full bg-white/60 blur-3xl" />
-      <svg className="absolute bottom-[18%] left-0 w-full" viewBox="0 0 1440 220" preserveAspectRatio="none">
+      <svg className={cn("absolute left-0 w-full", deep ? "bottom-0 opacity-60" : "bottom-[18%]")} viewBox="0 0 1440 220" preserveAspectRatio="none">
         <path d="M0 170 L140 110 L230 150 L360 60 L470 130 L560 95 L700 160 L820 70 L940 140 L1060 90 L1180 150 L1300 100 L1440 140 V220 H0 Z" fill="#ffffff" opacity="0.55" />
         <path d="M0 190 L180 140 L300 175 L450 120 L600 180 L760 130 L900 185 L1080 140 L1240 180 L1440 150 V220 H0 Z" fill="#ffffff" opacity="0.7" />
       </svg>

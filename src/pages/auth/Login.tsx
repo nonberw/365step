@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import type { PublicUser } from "@shared/types";
 import { api } from "@/api";
 import { useAuth } from "@/lib/auth";
-import { ART } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import { Field, Input } from "@/components/ui/input";
 import { ErrorBox } from "@/components/Page";
@@ -34,10 +33,10 @@ export default function Login() {
   }
 
   return (
-    <AuthLayout image={ART.athens} quote={{ text: "Знание — это не то, что ты получил, а то, что ты можешь применить.", by: "365step" }}>
+    <AuthLayout>
       <p className="eyebrow">С возвращением</p>
       <h1 className="mt-2 font-display text-3xl font-semibold">Вход в 365step</h1>
-      <p className="mt-2 text-sm text-muted-foreground">Один аккаунт для SAT, IELTS и кодинга.</p>
+      <p className="mt-2 text-sm text-muted-foreground">Один аккаунт для SAT, IELTS, ЕНТ и кода. Твоё растение ждёт.</p>
       <form onSubmit={submit} className="mt-8 flex flex-col gap-4">
         <Field label="Почта" htmlFor="email">
           <Input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
