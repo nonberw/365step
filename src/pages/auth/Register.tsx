@@ -143,7 +143,7 @@ export default function Register() {
         body: { firstName: f.firstName, lastName: f.lastName, email: f.email, password: f.password, grade: f.who === "school" ? f.grade : null, goals, interests: f.interests, plant: f.plant, consent: f.consent },
       });
       signIn(r.token, r.user);
-      navigate("/app?welcome=1");
+      navigate("/learn");
     } catch (err) {
       setError((err as Error).message);
     } finally {

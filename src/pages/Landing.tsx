@@ -121,7 +121,7 @@ function PlantDemo() {
 
 export default function Landing() {
   const { user } = useAuth();
-  const home = user ? "/app" : "/register";
+  const home = user ? "/learn" : "/register";
 
   return (
     <div className="overflow-x-clip bg-background text-[#1f2a2f]">

@@ -25,7 +25,7 @@ export default function Login() {
     try {
       const r = await api<{ token: string; user: PublicUser }>("/auth/login", { body: { email, password } });
       signIn(r.token, r.user, remember);
-      navigate("/app");
+      navigate("/learn");
     } catch (err) {
       setError((err as Error).message);
     } finally {

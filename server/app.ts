@@ -3,6 +3,7 @@ import express, { type NextFunction, type Request, type Response } from "express
 import { attachUser } from "./auth";
 import { aiContext } from "./quota";
 import { billingRouter } from "./routes/billing";
+import { pathRouter } from "./routes/path";
 import { HttpError } from "./http";
 import { aiMode } from "./ai";
 import { ready, storage } from "./db";
@@ -40,6 +41,7 @@ app.get("/api/health", (_req, res) => res.json({ ok: true, ai: aiMode, storage }
 app.use("/api/auth", authRouter);
 app.use("/api/me", meRouter);
 app.use("/api/billing", billingRouter);
+app.use("/api/path", pathRouter);
 app.use("/api/sat", satRouter);
 app.use("/api/ielts", ieltsRouter);
 app.use("/api/coding", codingRouter);

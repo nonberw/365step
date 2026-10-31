@@ -17,6 +17,7 @@ import {
   GraduationCap,
   Headphones,
   Home,
+  Sprout,
   Compass,
   Crown,
   Library,
@@ -51,7 +52,8 @@ type Group = { title?: string; items: Item[] };
 const STUDENT_NAV: Group[] = [
   {
     items: [
-      { to: "/app", label: "Главная", icon: Home, end: true },
+      { to: "/learn", label: "Учиться", icon: Sprout },
+      { to: "/app", label: "Сводка", icon: Home, end: true },
       { to: "/admissions", label: "Поступление", icon: Compass },
       { to: "/library", label: "Библиотека", icon: LibraryBig },
     ],
@@ -164,7 +166,8 @@ export function Logo({ className }: { className?: string }) {
 
 /** Quick launcher for the main modules (desktop): the 21st.dev macOS dock. */
 const DOCK: { id: string; label: string; to: string; color: [number, number, number]; icon: typeof Home }[] = [
-  { id: "home", label: "Главная", to: "/app", color: [88, 204, 2], icon: Home },
+  { id: "learn", label: "Учиться", to: "/learn", color: [88, 204, 2], icon: Sprout },
+  { id: "home", label: "Сводка", to: "/app", color: [47, 91, 200], icon: Home },
   { id: "sat", label: "SAT", to: "/sat", color: [28, 176, 246], icon: LineChart },
   { id: "ielts", label: "IELTS", to: "/ielts", color: [255, 150, 0], icon: Mic },
   { id: "ent", label: "ЕНТ", to: "/ent", color: [206, 130, 255], icon: Medal },

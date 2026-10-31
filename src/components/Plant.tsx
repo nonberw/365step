@@ -190,27 +190,58 @@ function Sakura({ s }: { s: number }) {
 
 const BODY: Record<PlantSpecies, (p: { s: number }) => React.JSX.Element> = { cactus: Cactus, flower: Flower, sunflower: Sunflower, sakura: Sakura };
 
-export function Plant({ species, stage, className, label }: { species: PlantSpecies; stage: number; className?: string; label?: string }) {
+export type PlantMood = "idle" | "happy" | "sad";
+
+const INK = "#3b2314";
+
+/** The pot's face: blinking eyes at rest, closed happy arcs after a right answer, a frown after a mistake. */
+function Face({ mood }: { mood: PlantMood }) {
+  if (mood === "happy")
+    return (
+      <g fill="none" stroke={INK} strokeWidth={3} strokeLinecap="round">
+        <path d="M82 199 Q87 192 92 199" />
+        <path d="M108 199 Q113 192 118 199" />
+        <path d="M90 205 Q100 218 110 205" fill="#a33b2a" stroke={INK} strokeWidth={2.4} />
+      </g>
+    );
+  return (
+    <g>
+      <g className={mood === "idle" ? "plant-blink" : undefined}>
+        <circle cx={87} cy={mood === "sad" ? 199 : 197} r={4.2} fill={INK} />
+        <circle cx={113} cy={mood === "sad" ? 199 : 197} r={4.2} fill={INK} />
+      </g>
+      <circle cx={88.4} cy={mood === "sad" ? 197.6 : 195.6} r={1.3} fill="#fff" />
+      <circle cx={114.4} cy={mood === "sad" ? 197.6 : 195.6} r={1.3} fill="#fff" />
+      {mood === "sad" ? (
+        <>
+          <path d="M80 190 L92 193" stroke={INK} strokeWidth={2.2} strokeLinecap="round" />
+          <path d="M120 190 L108 193" stroke={INK} strokeWidth={2.2} strokeLinecap="round" />
+          <path d="M93 212 Q100 206 107 212" fill="none" stroke={INK} strokeWidth={2.6} strokeLinecap="round" />
+          <path d="M120 203 q2 5 0 7 q-2 -2 0 -7z" fill="#7fc4ff" />
+        </>
+      ) : (
+        <path d="M92 207 Q100 215 108 207" fill="none" stroke={INK} strokeWidth={2.6} strokeLinecap="round" />
+      )}
+    </g>
+  );
+}
+
+export function Plant({ species, stage, className, label, mood = "idle" }: { species: PlantSpecies; stage: number; className?: string; label?: string; mood?: PlantMood }) {
   const s = Math.min(5, Math.max(1, Math.round(stage)));
   const Body = BODY[species];
   return (
     <svg viewBox="0 -44 200 284" role="img" aria-label={label ?? `${PLANTS[species].name}, стадия ${s}: ${STAGE_NAMES[s - 1]}`} className={cn("block h-auto w-full", className)}>
       <ellipse cx={100} cy={232} rx={56} ry={6} fill="#000" opacity={0.08} />
-      <g className="plant-sway">
+      {/* a sad plant droops instead of swaying */}
+      <g className={mood === "sad" ? undefined : "plant-sway"} transform={mood === "sad" ? "rotate(-7 100 164)" : undefined}>
         <Body s={s} />
       </g>
       {/* pot with a face */}
       <path d="M64 172 H136 L129 224 Q128 231 121 231 H79 Q72 231 71 224 Z" fill={POT} />
       <rect x={56} y={162} width={88} height={15} rx={7.5} fill={POT_RIM} />
-      <g className="plant-blink">
-        <circle cx={87} cy={197} r={4.2} fill="#3b2314" />
-        <circle cx={113} cy={197} r={4.2} fill="#3b2314" />
-      </g>
-      <circle cx={88.4} cy={195.6} r={1.3} fill="#fff" />
-      <circle cx={114.4} cy={195.6} r={1.3} fill="#fff" />
-      <path d="M92 207 Q100 215 108 207" fill="none" stroke="#3b2314" strokeWidth={2.6} strokeLinecap="round" />
-      <ellipse cx={78} cy={206} rx={5} ry={3} fill="#ff8f8f" opacity={0.55} />
-      <ellipse cx={122} cy={206} rx={5} ry={3} fill="#ff8f8f" opacity={0.55} />
+      <Face mood={mood} />
+      <ellipse cx={78} cy={206} rx={5} ry={3} fill="#ff8f8f" opacity={mood === "happy" ? 0.85 : 0.55} />
+      <ellipse cx={122} cy={206} rx={5} ry={3} fill="#ff8f8f" opacity={mood === "happy" ? 0.85 : 0.55} />
     </svg>
   );
 }

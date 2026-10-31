@@ -15,6 +15,8 @@ try {
 }
 
 const Landing = lazy(() => import("@/pages/Landing"));
+const LearnPath = lazy(() => import("@/pages/learn/Path"));
+const LearnLesson = lazy(() => import("@/pages/learn/Lesson"));
 const Pricing = lazy(() => import("@/pages/Pricing"));
 const Admissions = lazy(() => import("@/pages/admissions/Admissions"));
 const Login = lazy(() => import("@/pages/auth/Login"));
@@ -94,6 +96,14 @@ function App() {
           }
         />
         <Route
+          path="/learn/:course/:node"
+          element={
+            <Guard role="student">
+              <LearnLesson />
+            </Guard>
+          }
+        />
+        <Route
           path="/coding/lessons/:id"
           element={
             <Guard role="student">
@@ -130,6 +140,7 @@ function App() {
             </Guard>
           }
         >
+          <Route path="/learn" element={<LearnPath />} />
           <Route path="/app" element={<StudentHome />} />
           <Route path="/admissions" element={<Admissions />} />
           <Route path="/ent" element={<EntHome />} />

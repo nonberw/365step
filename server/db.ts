@@ -452,6 +452,26 @@ CREATE TABLE IF NOT EXISTS cad_designs (
   verified INTEGER NOT NULL DEFAULT 0,
   at INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS path_progress (
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  course TEXT NOT NULL,
+  node_id TEXT NOT NULL,
+  level INTEGER NOT NULL DEFAULT 0,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY (user_id, course, node_id)
+);
+CREATE TABLE IF NOT EXISTS path_lessons (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  course TEXT NOT NULL,
+  node_id TEXT NOT NULL,
+  items TEXT NOT NULL,
+  answers TEXT NOT NULL DEFAULT '{}',
+  created_at INTEGER NOT NULL,
+  done INTEGER NOT NULL DEFAULT 0,
+  perfect INTEGER NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS path_lessons_user ON path_lessons(user_id, created_at);
 CREATE TABLE IF NOT EXISTS ai_usage (
   user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   day TEXT NOT NULL,
