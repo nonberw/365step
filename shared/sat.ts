@@ -1,4 +1,5 @@
 import type { Difficulty, SatDomain, SatQuestion } from "./types";
+import { BANK365 } from "./bank365";
 
 // Original practice items written for Нурбек Чурбек, in the Digital SAT format.
 // None of them are copied from College Board or third-party question banks.
@@ -889,6 +890,7 @@ export const SAT_BANK: SatQuestion[] = [
   ...transitionItems().map((q) => ({ ...q, section: "rw" as const, source: "generated" as const })),
   ...boundaryItems().map((q) => ({ ...q, section: "rw" as const, source: "generated" as const })),
   ...mathItems().map((q) => ({ ...q, section: "math" as const, source: "generated" as const })),
+  ...BANK365.sat,
 ];
 
 export const SAT_BY_ID = new Map(SAT_BANK.map((q) => [q.id, q]));

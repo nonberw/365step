@@ -5,7 +5,9 @@ import { useApi } from "@/hooks/useApi";
 import { mmss } from "@/lib/format";
 import { ErrorBox, Loading, PageHeader } from "@/components/Page";
 import { Button } from "@/components/ui/button";
-import { Badge, Card, Segmented } from "@/components/ui/card";
+import { Badge, Card } from "@/components/ui/card";
+import { Select } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { CircleProgress } from "@/components/ui/circle-progress";
 import Questions, { type CheckResult } from "./Questions";
 import type { IeltsContent } from "./content";
@@ -13,14 +15,43 @@ import type { IeltsContent } from "./content";
 export default function Reading() {
   const content = useApi<IeltsContent>("/ielts/content");
   const [id, setId] = useState("");
+  const [type, setType] = useState("");
   const list = content.data?.reading ?? [];
-  const current = id || list[0]?.id || "";
   if (content.loading) return <Loading />;
   if (!content.data) return <ErrorBox message={content.error} />;
+  const types = [...new Set(list.map((r) => r.level))];
+  const shown = list.filter((r) => !type || r.level === type);
+  const current = shown.find((r) => r.id === id)?.id ?? shown[0]?.id ?? "";
   return (
     <div className="flex flex-col gap-5">
-      <PageHeader eyebrow="IELTS" title="Reading" description="Академические тексты с вопросами как на экзамене. На каждый текст 20 минут." />
-      <Segmented value={current} onChange={setId} options={list.map((r) => ({ value: r.id, label: r.title }))} />
+      <PageHeader eyebrow="IELTS" title="Reading" description={`Банк академических текстов: ${list.length} текстов, ${list.reduce((n, r) => n + r.questions, 0)} вопросов. На каждый текст 20 минут.`} />
+      <div className="flex flex-wrap items-center gap-3">
+        <Select aria-label="Тип заданий" value={type} onChange={(e) => setType(e.target.value)} className="max-w-xs">
+          <option value="">Все типы ({list.length})</option>
+          {types.map((t) => (
+            <option key={t} value={t}>
+              {t} ({list.filter((r) => r.level === t).length})
+            </option>
+          ))}
+        </Select>
+      </div>
+      <div className="grid max-h-72 gap-2 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-3" role="listbox" aria-label="Тексты">
+        {shown.map((r) => (
+          <button
+            key={r.id}
+            type="button"
+            role="option"
+            aria-selected={r.id === current}
+            onClick={() => setId(r.id)}
+            className={cn("flex flex-col gap-1 rounded-xl border-2 px-3 py-2 text-left text-sm", r.id === current ? "border-primary bg-primary/5" : "border-border hover:border-foreground/30")}
+          >
+            <span className="font-semibold leading-snug">{r.title}</span>
+            <span className="text-xs text-muted-foreground">
+              {r.level} · {r.questions} вопр.
+            </span>
+          </button>
+        ))}
+      </div>
       {current && <Passage key={current} id={current} />}
     </div>
   );

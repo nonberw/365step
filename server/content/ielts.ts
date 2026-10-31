@@ -1,3 +1,4 @@
+import { BANK365 } from "../../shared/bank365";
 import type { IeltsChoiceQuestion } from "../../shared/types";
 
 // Original IELTS-style practice material written for Нурбек Чурбек.
@@ -349,3 +350,9 @@ export function normalise(answer: string) {
     .replace(/\s+/g, " ")
     .replace(/^(a|b|c|d)\s.*$/, "$1");
 }
+
+// Task bank from 365step: more Reading passages, Writing Task 2 topics and Speaking cards.
+READING.push(...BANK365.reading.map(({ difficulty: _d, ...r }) => r));
+WRITING_TASK2.push(...BANK365.writing2);
+SPEAKING_PART1.push(...BANK365.speaking.part1);
+SPEAKING_PART2.push(...BANK365.speaking.part2);
