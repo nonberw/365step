@@ -51,7 +51,7 @@ async function bankCount(subject: string, lang: string, type: EntType) {
   return (await one<{ n: number }>("SELECT COUNT(*) n FROM ent_questions WHERE subject = ? AND lang = ? AND type = ?", subject, lang, type))?.n ?? 0;
 }
 
-async function store(items: Omit<EntQuestion, "id">[]) {
+export async function store(items: Omit<EntQuestion, "id">[]) {
   const saved: EntQuestion[] = [];
   for (const q of items) {
     const full = { ...q, id: `ent-${id(6)}` } as EntQuestion;

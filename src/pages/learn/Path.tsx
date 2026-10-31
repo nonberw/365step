@@ -86,9 +86,17 @@ function Popover({ n, unit, course, onClose, onChest }: { n: PathNode; unit: Pat
     >
       <span aria-hidden className="absolute -top-2 left-1/2 size-4 -translate-x-1/2 rotate-45" style={{ background: locked ? "#9aa1ad" : unit.color }} />
       <p className="font-display text-lg font-bold leading-tight">{n.title}</p>
-      <p className="mt-0.5 text-sm text-white/85">{locked ? "Сначала пройди все уровни перед этим" : lesson ? `${n.subtitle} · уровень ${Math.min(n.level + 1, n.maxLevel)} из ${n.maxLevel}` : n.subtitle}</p>
+      <p className="mt-0.5 text-sm text-white/85">{locked ? "Сначала пройди все уровни перед этим" : n.href ? n.subtitle : lesson ? `${n.subtitle} · уровень ${Math.min(n.level + 1, n.maxLevel)} из ${n.maxLevel}` : n.subtitle}</p>
       {!locked &&
-        (lesson ? (
+        (n.href ? (
+          <Link
+            to={n.href}
+            className="mt-3 flex h-11 items-center justify-center rounded-xl bg-white font-display text-[15px] font-bold shadow-[0_4px_0_0_rgba(0,0,0,0.18)] active:translate-y-1 active:shadow-none"
+            style={{ color: unit.color }}
+          >
+            {n.status === "done" ? "Открыть решение" : "Решить задачу"}
+          </Link>
+        ) : lesson ? (
           <Link
             to={`/learn/${course}/${n.id}`}
             className="mt-3 flex h-11 items-center justify-center rounded-xl bg-white font-display text-[15px] font-bold shadow-[0_4px_0_0_rgba(0,0,0,0.18)] active:translate-y-1 active:shadow-none"
@@ -202,6 +210,7 @@ export default function Path() {
           </div>
         </div>
 
+        {v.note && <p className="mb-6 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-foreground/80">{v.note}</p>}
         <div className="flex flex-col gap-10 pb-16">
           {v.units.map((unit, ui) => (
             <section key={unit.id} className="flex flex-col gap-6">

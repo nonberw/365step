@@ -159,7 +159,7 @@ export default function Lesson() {
         </div>
       </div>
     );
-  if (!lesson) return <Loading label="Готовлю урок…" />;
+  if (!lesson) return <Loading label={course === "ent" ? "ИИ составляет задания по теме, это может занять до минуты…" : "Готовлю урок…"} />;
 
   // ---------- finished ----------
   if (phase === "done" && summary) {
@@ -262,6 +262,7 @@ export default function Lesson() {
                 <div className="relative mb-6 min-w-0 flex-1 rounded-2xl border-2 border-border bg-card px-4 py-3 text-[15px] leading-relaxed">
                   <span aria-hidden className="absolute -left-[9px] bottom-4 size-4 rotate-45 border-b-2 border-l-2 border-border bg-card" />
                   <RichText text={item.stem} />
+                  {item.code && <pre className="mt-2 overflow-x-auto rounded-xl bg-[#0b1014] p-3 font-mono text-[13px] leading-6 text-[#e8edf6]">{item.code}</pre>}
                 </div>
               </div>
 

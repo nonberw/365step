@@ -1,11 +1,13 @@
 // Duolingo-style learning path: courses split into units, units into nodes the student walks through.
 
-export type CourseId = "sat-math" | "sat-rw" | "ielts-reading";
+export type CourseId = "sat-math" | "sat-rw" | "ielts-reading" | "ent" | "code";
 
 export const COURSES: Record<CourseId, { title: string; short: string; emoji: string }> = {
   "sat-math": { title: "SAT Math", short: "Math", emoji: "📐" },
   "sat-rw": { title: "SAT Reading & Writing", short: "R&W", emoji: "📖" },
   "ielts-reading": { title: "IELTS Reading", short: "IELTS", emoji: "🎧" },
+  ent: { title: "ЕНТ", short: "ЕНТ", emoji: "🏛️" },
+  code: { title: "Программирование", short: "Код", emoji: "💻" },
 };
 
 export type NodeKind = "lesson" | "review" | "chest";
@@ -20,6 +22,8 @@ export interface PathNode {
   level: number;
   maxLevel: number;
   status: NodeStatus;
+  /** set for nodes done outside the lesson screen (coding problems in the editor) */
+  href?: string;
 }
 
 export interface PathUnit {
@@ -40,6 +44,8 @@ export interface PathQuest {
 export interface PathView {
   course: CourseId;
   units: PathUnit[];
+  /** shown above the path, e.g. how to pick ENT profile subjects */
+  note?: string;
   currentNodeId: string | null;
   done: number;
   total: number;
@@ -56,6 +62,8 @@ export interface LessonItem {
   passage?: string;
   passageTitle?: string;
   stem: string;
+  /** code snippet shown under the question (coding warm-ups) */
+  code?: string;
   choices?: string[];
 }
 
