@@ -73,7 +73,7 @@ export default function Duels() {
         <Aurora />
         <div className="relative flex flex-col items-center gap-4 px-6 py-10 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-semibold text-white/80">
-            <Swords className="size-3.5 text-[#ff8562]" /> Дуэли ЕНТ · лига недели
+            <Swords className="size-3.5 text-[#9be300]" /> Дуэли ЕНТ · лига недели
           </span>
           <div className="flex items-center gap-4 sm:gap-8">
             <motion.span
@@ -84,7 +84,7 @@ export default function Duels() {
             >
               ТЫ
             </motion.span>
-            <motion.span initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.3, type: "spring" }} className="font-display text-4xl font-black italic text-[#ff8562] sm:text-6xl">
+            <motion.span initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.3, type: "spring" }} className="font-display text-4xl font-black italic text-[#9be300] sm:text-6xl">
               VS
             </motion.span>
             <motion.span
@@ -175,7 +175,7 @@ function League({ data }: { data: DuelsData }) {
               <motion.span
                 initial={{ height: 0 }}
                 animate={{ height: "auto" }}
-                className={cn("flex w-full items-start justify-center rounded-t-xl pt-2 font-display font-bold", height[i], i === 0 ? "bg-gradient-to-t from-primary to-[#ff8562] text-white" : "bg-muted")}
+                className={cn("flex w-full items-start justify-center rounded-t-xl pt-2 font-display font-bold", height[i], i === 0 ? "bg-gradient-to-t from-primary to-[#9be300] text-white" : "bg-muted")}
               >
                 {p.xp}
               </motion.span>
@@ -321,7 +321,7 @@ function DuelRun({ d, onDone }: { d: DuelView; onDone: () => void }) {
           {i + 1} / {d.items.length}
         </span>
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
-          <motion.div animate={{ width: `${(i / d.items.length) * 100}%` }} className="h-full bg-gradient-to-r from-[#ff8562] to-primary" />
+          <motion.div animate={{ width: `${(i / d.items.length) * 100}%` }} className="h-full bg-gradient-to-r from-[#9be300] to-primary" />
         </div>
         <span className="rounded-full bg-secondary px-3 py-1 font-display text-sm font-bold tabular text-secondary-foreground">{Math.floor((now - started) / 1000)} с</span>
       </div>
@@ -371,14 +371,14 @@ function DuelResult({ d }: { d: DuelView }) {
               <Trophy className="size-14 text-[#f2b705]" />
             </motion.span>
           )}
-          <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-[#ff8562]">{d.subjectName}</p>
+          <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-[#9be300]">{d.subjectName}</p>
           <div className="flex items-center gap-6">
             <span className="flex flex-col items-center">
               <span className="font-display text-6xl font-black tabular">{d.myScore}</span>
               <span className="text-sm text-white/70">{d.me}</span>
               <span className="text-xs text-white/50">{secs(d.myMs)}</span>
             </span>
-            <span className="font-display text-3xl font-black italic text-[#ff8562]">:</span>
+            <span className="font-display text-3xl font-black italic text-[#9be300]">:</span>
             <span className="flex flex-col items-center">
               <span className="font-display text-6xl font-black tabular">{done ? d.theirScore : "?"}</span>
               <span className="text-sm text-white/70">{d.opponent}</span>

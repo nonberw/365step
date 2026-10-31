@@ -1,7 +1,9 @@
 import { useState, type FormEvent } from "react";
 import { LogOut } from "lucide-react";
 import type { PublicUser } from "@shared/types";
-import { CAMPUSES, TITLES } from "@shared/types";
+import { TITLES } from "@shared/types";
+import type { PlantSpecies } from "@shared/plants";
+import { PlantCard, PlantPicker } from "@/components/Plant";
 import { api } from "@/api";
 import { useAuth } from "@/lib/auth";
 import { ErrorBox, PageHeader } from "@/components/Page";
@@ -36,6 +38,16 @@ export default function Profile() {
     }
   }
 
+  async function choosePlant(plant: PlantSpecies) {
+    setError("");
+    try {
+      await api<PublicUser>("/auth/me", { method: "PATCH", body: { plant } });
+      await refresh();
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  }
+
   async function saveGoals(e: FormEvent) {
     e.preventDefault();
     setError("");
@@ -63,7 +75,7 @@ export default function Profile() {
       <PageHeader
         eyebrow="Профиль"
         title={user.role === "teacher" ? `${user.title ? TITLES[user.title] : ""} ${user.lastName}` : `${user.firstName} ${user.lastName}`}
-        description={`${user.email} · ${CAMPUSES[user.campus]}`}
+        description={`${user.email} · ${user.plan === "pro" ? `Pro до ${new Date(user.planUntil ?? 0).toLocaleDateString("ru-RU")}` : "Тариф «Старт»"}`}
         action={
           <Button variant="outline" onClick={signOut}>
             <LogOut /> Выйти
@@ -75,15 +87,10 @@ export default function Profile() {
 
       {user.role === "student" ? (
         <>
-          <Card className="flex flex-col gap-3">
-            <CardTitle>Классы</CardTitle>
-            <div className="flex flex-wrap gap-2">{user.classCodes.length ? user.classCodes.map((c) => <Badge key={c} tone="dark">{c}</Badge>) : <span className="text-sm text-muted-foreground">Вы пока не в классе</span>}</div>
-            <form onSubmit={join} className="flex flex-col gap-2 sm:flex-row sm:items-end">
-              <Field label="Код класса от учителя" htmlFor="join-code" className="flex-1">
-                <Input id="join-code" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="BSTS123" />
-              </Field>
-              <Button disabled={!code}>Присоединиться</Button>
-            </form>
+          <Card id="plant" className="flex flex-col gap-4">
+            <CardTitle>Растение-спутник</CardTitle>
+            {user.plant && <PlantCard species={user.plant} xp={user.xp} />}
+            <PlantPicker value={user.plant} onChange={choosePlant} />
           </Card>
           <Card>
             <CardTitle>Цели</CardTitle>

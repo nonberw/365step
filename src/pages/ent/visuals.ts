@@ -24,8 +24,8 @@ export const ENT_IMAGE: Record<string, string> = {
 
 /** Accent per block on the 140-point score bar. */
 export const ENT_COLOR: Record<string, string> = {
-  "history-kz": "#7b0004",
+  "history-kz": "#2c7400",
   reading: "#b5121b",
-  "math-lit": "#ff8562",
+  "math-lit": "#9be300",
 };
 export const PROFILE_COLORS = ["#1d1919", "#5f5a5a"];

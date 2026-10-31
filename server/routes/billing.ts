@@ -12,7 +12,7 @@ const TRIAL_DAYS = 7;
 export const PLANS = [
   { id: "free", name: "Старт", priceKzt: 0, period: null, features: ["Банк SAT и IELTS", "Пробные тесты", `${FREE_AI_PER_DAY} ИИ-ответов в день`, "Рейтинг и дуэли", "Подготовка к ЕНТ"] },
   { id: "pro", name: "Pro", priceKzt: 4990, period: "month", features: ["ИИ без лимита: разборы, Speaking, Writing", "Личный план до экзамена", "Мастер-режим ЕНТ (IRT)", "Кодинг с ИИ-наставником", "Инженерная лаборатория", "Отчёты родителям"] },
-  { id: "pro-year", name: "Pro на год", priceKzt: 39900, period: "year", features: ["Всё из Pro", "Два месяца в подарок"] },
+  { id: "pro-year", name: "Pro на год", priceKzt: 39900, period: "year", features: ["Всё из Pro", "Четыре месяца в подарок"] },
 ] as const;
 
 billingRouter.get(

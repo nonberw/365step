@@ -1,5 +1,6 @@
 import { Router } from "express";
 import type { Goals } from "../../shared/types";
+import { PLANT_SPECIES, type PlantSpecies } from "../../shared/plants";
 import { checkPassword, createSession, hashPassword, requireUser, revokeSession, toPublic, type UserRow } from "../auth";
 import { id, one, run } from "../db";
 import { HttpError, str, wrap } from "../http";
@@ -52,8 +53,8 @@ authRouter.post(
     const userId = id();
     // Everyone starts with a free week of Pro.
     await run(
-      `INSERT INTO users (id, role, email, pass_hash, salt, first_name, last_name, grade, campus, goals, interests, created_at, plan, plan_until, trial_used)
-       VALUES (?, 'student', ?, ?, ?, ?, ?, ?, 'online', ?, ?, ?, 'pro', ?, 1)`,
+      `INSERT INTO users (id, role, email, pass_hash, salt, first_name, last_name, grade, campus, goals, interests, created_at, plan, plan_until, trial_used, plant)
+       VALUES (?, 'student', ?, ?, ?, ?, ?, ?, 'online', ?, ?, ?, 'pro', ?, 1, ?)`,
       userId,
       common.email,
       hash,
@@ -65,6 +66,7 @@ authRouter.post(
       JSON.stringify(interests),
       Date.now(),
       Date.now() + TRIAL_DAYS * 86_400_000,
+      PLANT_SPECIES.includes(b.plant) ? (b.plant as PlantSpecies) : null,
     );
     const user = (await one<UserRow>("SELECT * FROM users WHERE id = ?", userId))!;
     res.status(201).json({ token: await createSession(userId), user: await toPublic(user) });
@@ -103,6 +105,10 @@ authRouter.patch(
     const u = requireUser(req);
     const b = req.body ?? {};
     if (b.goals !== undefined && u.role === "student") await run("UPDATE users SET goals = ? WHERE id = ?", JSON.stringify(sanitizeGoals(b.goals)), u.id);
+    if (b.plant !== undefined) {
+      if (!PLANT_SPECIES.includes(b.plant)) throw new HttpError(400, "Выберите растение из списка");
+      await run("UPDATE users SET plant = ? WHERE id = ?", b.plant, u.id);
+    }
     if (Array.isArray(b.interests)) await run("UPDATE users SET interests = ? WHERE id = ?", JSON.stringify(b.interests.map((x: unknown) => str(x, 30)).slice(0, 10)), u.id);
     res.json(await toPublic((await one<UserRow>("SELECT * FROM users WHERE id = ?", u.id))!));
   }),

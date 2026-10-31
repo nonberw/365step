@@ -10,6 +10,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Select } from "@/components/ui/input";
 import { ErrorBox } from "@/components/Page";
+import { PlantPicker } from "@/components/Plant";
+import type { PlantSpecies } from "@shared/plants";
 import AuthLayout from "./AuthLayout";
 
 // ---------- shared pieces ----------
@@ -108,6 +110,7 @@ export default function Register() {
     country: "",
     major: "",
     interests: [] as string[],
+    plant: "sunflower" as PlantSpecies,
     consent: false,
   });
   const set = <K extends keyof typeof f>(k: K, v: (typeof f)[K]) => setF((s) => ({ ...s, [k]: v }));
@@ -137,7 +140,7 @@ export default function Register() {
     if (f.aims.includes("coding")) goals.coding = true;
     try {
       const r = await api<{ token: string; user: PublicUser }>("/auth/register", {
-        body: { firstName: f.firstName, lastName: f.lastName, email: f.email, password: f.password, grade: f.who === "school" ? f.grade : null, goals, interests: f.interests, consent: f.consent },
+        body: { firstName: f.firstName, lastName: f.lastName, email: f.email, password: f.password, grade: f.who === "school" ? f.grade : null, goals, interests: f.interests, plant: f.plant, consent: f.consent },
       });
       signIn(r.token, r.user);
       navigate("/app?welcome=1");
@@ -260,6 +263,9 @@ export default function Register() {
             )}
             {step === 3 && (
               <>
+                <Question title="Выбери растение-спутника: оно растёт вместе с тобой">
+                  <PlantPicker value={f.plant} onChange={(v) => set("plant", v)} />
+                </Question>
                 <Question title="Что ещё интересно? (по желанию)">
                   <Chips<string> multi value={f.interests} onChange={(v) => set("interests", v)} options={["Робототехника", "Олимпиады", "Стартапы", "Дизайн", "Наука", "Дебаты", "Шахматы", "Музыка"].map((x) => ({ value: x, label: x }))} />
                 </Question>

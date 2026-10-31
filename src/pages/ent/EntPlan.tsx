@@ -185,7 +185,7 @@ export function EntPlan({ meta, onStart, busy }: { meta: EntMeta; onStart: (kind
                       initial={{ height: 0 }}
                       animate={{ height: `${(m.target / 140) * 90}px` }}
                       transition={{ delay: i * 0.08, duration: 0.5 }}
-                      className="w-full rounded-t-md bg-gradient-to-t from-primary to-[#ff8562]"
+                      className="w-full rounded-t-md bg-gradient-to-t from-primary to-[#9be300]"
                     />
                     <span className="text-[10px] text-white/60">{m.month.slice(0, 3)}</span>
                   </div>

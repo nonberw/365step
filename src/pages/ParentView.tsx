@@ -87,10 +87,10 @@ export default function ParentView() {
               </h1>
               <div className="flex flex-wrap gap-2 text-sm">
                 <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5">
-                  <Flame className="size-4 text-[#ff8562]" /> серия {d.streak} дн.
+                  <Flame className="size-4 text-[#9be300]" /> серия {d.streak} дн.
                 </span>
                 <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5">
-                  <Sparkles className="size-4 text-[#ff8562]" /> {d.weekXp} XP за неделю
+                  <Sparkles className="size-4 text-[#9be300]" /> {d.weekXp} XP за неделю
                 </span>
                 {d.reviewQueue > 0 && <span className="rounded-full bg-white/10 px-3 py-1.5">{d.reviewQueue} ошибок на повторе</span>}
               </div>
@@ -101,7 +101,7 @@ export default function ParentView() {
                       initial={{ height: 0 }}
                       animate={{ height: `${Math.max(4, (v / maxDay) * 80)}px` }}
                       transition={{ delay: i * 0.06, duration: 0.5 }}
-                      className={cn("w-full rounded-t-lg", v ? "bg-gradient-to-t from-primary to-[#ff8562]" : "bg-white/10")}
+                      className={cn("w-full rounded-t-lg", v ? "bg-gradient-to-t from-primary to-[#9be300]" : "bg-white/10")}
                     />
                     <span className="text-[10px] text-white/50">{DAYS[i]}</span>
                   </div>

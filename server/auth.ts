@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import type { NextFunction, Request, Response } from "express";
 import type { Campus, Goals, PlanId, PublicUser, Role, TeacherTitle } from "../shared/types";
 import { all, id, one, run } from "./db";
+import { PLANT_SPECIES, type PlantSpecies } from "../shared/plants";
 import { HttpError } from "./http";
 
 export interface UserRow {
@@ -23,6 +24,7 @@ export interface UserRow {
   plan: string;
   plan_until: number | null;
   trial_used: number;
+  plant: string | null;
 }
 
 const SESSION_DAYS = 30;
@@ -70,6 +72,8 @@ export async function toPublic(u: UserRow): Promise<PublicUser> {
     plan: effectivePlan(u),
     planUntil: u.plan_until,
     trialUsed: !!u.trial_used,
+    plant: PLANT_SPECIES.includes(u.plant as PlantSpecies) ? (u.plant as PlantSpecies) : null,
+    xp: (await one<{ s: number | null }>("SELECT SUM(amount) s FROM xp_log WHERE user_id = ?", u.id))?.s ?? 0,
     isAdmin: u.role === "teacher" ? await isAdmin(u) : false,
   };
 }

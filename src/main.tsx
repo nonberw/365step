@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import type { Role } from "@shared/types";
 import { AuthProvider, useAuth } from "@/lib/auth";
+import { NotifyProvider } from "@/components/Notify";
 import AppShell from "@/components/AppShell";
 import { Loading } from "@/components/Page";
 import "./index.css";
@@ -178,7 +179,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <NotifyProvider>
+          <App />
+        </NotifyProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

@@ -43,7 +43,12 @@ export async function api<T>(path: string, init: { method?: string; body?: unkno
     throw new ApiError(0, "Нет связи с сервером. Проверьте интернет");
   }
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new ApiError(res.status, (data as { error?: string }).error ?? "Ошибка сервера");
+  if (!res.ok) {
+    const message = (data as { error?: string }).error ?? "Ошибка сервера";
+    // A free account ran out of AI answers: tell the user once, with a way out.
+    if (res.status === 402) window.dispatchEvent(new CustomEvent("nc:notify", { detail: { variant: "warning", title: "Лимит ИИ на сегодня", body: message, href: "/pricing", linkLabel: "Перейти на Pro" } }));
+    throw new ApiError(res.status, message);
+  }
   return data as T;
 }
 

@@ -2,6 +2,7 @@
 
 export type Role = "student" | "teacher";
 export type Campus = "online" | "zhandosov" | "campus2" | "campus3";
+import type { PlantSpecies } from "./plants";
 export type PlanId = "free" | "pro";
 export type TeacherTitle = "mr" | "ms" | "mrs";
 
@@ -50,6 +51,9 @@ export interface PublicUser {
   plan: PlanId;
   planUntil: number | null;
   trialUsed: boolean;
+  /** The chosen study companion and the XP that grows it */
+  plant: PlantSpecies | null;
+  xp: number;
   /** Head of studies: sees the school report */
   isAdmin?: boolean;
 }

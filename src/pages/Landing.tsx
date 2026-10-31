@@ -1,15 +1,21 @@
-import { useEffect, useRef, type ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
-import { motion, useInView, useScroll, useTransform } from "motion/react";
-import { BookOpen, Bot, Calculator, Code2, Library, Mic, PenLine, Sparkles, Timer, Zap } from "lucide-react";
-import ElsewhereHero from "@/components/ui/elsewhere-hero";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Link } from "react-router-dom";
+import { motion, useInView } from "framer-motion";
+import { Sparkles } from "lucide-react";
+import { PLANTS, STAGE_NAMES, STAGE_XP, type PlantSpecies } from "@shared/plants";
+import { PrismaHero } from "@/components/ui/prisma-hero";
+import FUIBentoGridDark from "@/components/ui/bento";
+import { Hero10 } from "@/components/ui/hero-10";
+import { Hero } from "@/components/ui/hero-1";
+import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
 import StickerSlapFooter from "@/components/ui/sticker-slap-footer";
 import { ScrollWordReveal } from "@/components/ui/scroll-word-reveal";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
-import { CardSpotlight } from "@/components/ui/card-spotlight";
 import NumberTicker, { type NumberTickerRef } from "@/components/ui/basic-number-ticker";
+import { buttonVariants } from "@/components/ui/button";
+import { Plant, PlantPicker } from "@/components/Plant";
 import { useAuth } from "@/lib/auth";
-import { ART, PHOTO } from "@/lib/format";
+import { PHOTO } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { PricingBlock } from "./Pricing";
 import { CodeMock, IeltsMock, SatMock } from "./landing/Mocks";
@@ -23,18 +29,6 @@ function Reveal({ children, delay = 0, className }: { children: ReactNode; delay
   );
 }
 
-/** Image that drifts slower than the page, for depth. */
-function Parallax({ src, className, strength = 80 }: { src: string; className?: string; strength?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [-strength, strength]);
-  return (
-    <div ref={ref} className={cn("relative overflow-hidden", className)}>
-      <motion.img src={src} alt="" loading="lazy" style={{ y, scale: 1.25 }} className="absolute inset-0 size-full object-cover" />
-    </div>
-  );
-}
-
 function Counter({ to, suffix, label }: { to: number; suffix?: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const ticker = useRef<NumberTickerRef>(null);
@@ -43,137 +37,147 @@ function Counter({ to, suffix, label }: { to: number; suffix?: string; label: st
     if (inView) ticker.current?.startAnimation();
   }, [inView]);
   return (
-    <div ref={ref} className="border-t border-border pt-5">
-      <p className="font-display text-5xl font-semibold tabular text-primary sm:text-6xl">
+    <div ref={ref} className="rounded-3xl border-2 border-border bg-card p-6 shadow-[0_4px_0_0_var(--border)]">
+      <p className="font-display text-5xl font-black tabular text-primary sm:text-6xl">
         <NumberTicker ref={ticker} from={0} target={to} autoStart={false} transition={{ duration: 1.8, type: "tween", ease: "easeOut" }} />
         {suffix}
       </p>
-      <p className="mt-2 text-sm text-muted-foreground">{label}</p>
+      <p className="mt-2 text-sm font-semibold text-muted-foreground">{label}</p>
     </div>
   );
 }
 
-const MARQUEE = ["Digital SAT", "Desmos", "Bluebook-режим", "IELTS Speaking", "Writing с разметкой", "Python в браузере", "LeetCode-задачи", "Вайб-кодинг", "Личный план до экзамена", "Учебники с ИИ", "Интерактивные уроки", "Дуэли и лига", "Поступление за рубеж"];
+/** Live demo of the companion: pick a plant and drag the slider through its five stages. */
+function PlantDemo() {
+  const [species, setSpecies] = useState<PlantSpecies>("sunflower");
+  const [stage, setStage] = useState(3);
+  return (
+    <div className="grid items-center gap-8 lg:grid-cols-[360px_1fr]">
+      <div className="rounded-[2rem] border-2 border-border bg-gradient-to-b from-[#eaf8d6] to-card p-6 dark:from-[#143008]">
+        <Plant species={species} stage={stage} className="mx-auto max-w-[260px]" />
+        <p className="mt-2 text-center font-display text-xl font-extrabold">
+          {PLANTS[species].name} · {STAGE_NAMES[stage - 1]}
+        </p>
+        <input type="range" min={1} max={5} step={1} value={stage} onChange={(e) => setStage(Number(e.target.value))} aria-label="Стадия роста" className="mt-4 w-full accent-[var(--primary)]" />
+        <p className="mt-1 text-center text-xs font-bold text-muted-foreground">{STAGE_XP[stage - 1] === 0 ? "Старт" : `от ${STAGE_XP[stage - 1]} XP`}</p>
+      </div>
+      <div>
+        <h3 className="mb-4 font-display text-2xl font-extrabold">Выбери спутника</h3>
+        <PlantPicker value={species} onChange={setSpecies} />
+        <p className="mt-4 text-sm font-semibold text-muted-foreground">Каждый верный ответ, урок и пробный тест приносят XP. Растение растёт на пяти стадиях, а если день пропущен, ничего не вянет: вернёшься — продолжите вместе.</p>
+      </div>
+    </div>
+  );
+}
 
 export default function Landing() {
-  const navigate = useNavigate();
   const { user } = useAuth();
   const home = user ? "/app" : "/register";
 
   return (
     <div className="overflow-x-clip bg-background">
-      <ElsewhereHero
+      <PrismaHero
         brand="Нурбек Чурбек"
-        links={[
-          { label: "SAT", href: "#how" },
-          { label: "IELTS", href: "#how" },
-          { label: "Кодинг", href: "#modules" },
+        nav={[
+          { label: "Растение", href: "#plant" },
+          { label: "Возможности", href: "#features" },
+          { label: "Поступление", href: "#world" },
           { label: "Тарифы", href: "#pricing" },
+          { label: user ? "Кабинет" : "Войти", href: user ? "/app" : "/login" },
         ]}
-        navCta={user ? { label: "Открыть платформу", href: home } : { label: "Войти", href: "/login" }}
-        headline="Учись с ИИ. Поступай куда мечтаешь."
-        subline="Личный ИИ-репетитор для SAT, IELTS, ЕНТ и программирования: план до экзамена, разборы ошибок и дуэли с друзьями — на телефоне и в браузере."
-        primaryCta={{ label: user ? "Продолжить" : "Начать бесплатно", href: home }}
-        listenLabel="Звук для фокуса"
-        listenOffLabel="Выключить звук"
-        soundHint="Включи звук для фокуса"
-        signature={false}
-        onNavigate={(href) => navigate(href)}
+        description="Личный ИИ-наставник для SAT, IELTS, ЕНТ и программирования. План до экзамена, разбор каждой ошибки и растение, которое растёт вместе с тобой."
+        cta={{ label: user ? "Продолжить" : "Начать бесплатно", href: home }}
       />
 
       <ScrollWordReveal kicker="Зачем это тебе" text="Репетитор стоит дорого и не всегда рядом. Здесь у тебя *личный* *наставник* 24/7: он знает твои слабые темы, строит *план* до даты экзамена и объясняет каждую ошибку." />
 
-      <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-24 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
-        <Counter to={236} suffix="+" label="вопросов SAT в банке, и ИИ дописывает новые" />
-        <Counter to={20} label="задач по алгоритмам с тестами на JS и Python" />
-        <Counter to={16} label="генераторов математики: варианты не кончаются" />
-        <Counter to={4} label="навыка IELTS с оценкой по официальным критериям" />
+      <section className="mx-auto grid max-w-6xl gap-4 px-4 pb-24 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+        <Counter to={1600} suffix="+" label="вопросов SAT в банке, и ИИ дописывает новые" />
+        <Counter to={65} label="академических текстов IELTS Reading" />
+        <Counter to={64} label="задачи по программированию с тестами" />
+        <Counter to={4} label="растения-спутника на выбор" />
       </section>
 
-      <div className="relative overflow-hidden border-y border-border bg-secondary py-5 text-secondary-foreground" aria-hidden="true">
-        <div className="flex w-max animate-[marquee_38s_linear_infinite] gap-10 whitespace-nowrap font-display text-2xl font-semibold">
-          {[...MARQUEE, ...MARQUEE].map((m, i) => (
-            <span key={i} className="flex items-center gap-10">
-              {m}
-              <Sparkles className="size-5 text-accent" />
-            </span>
-          ))}
-        </div>
-      </div>
+      <section id="plant" className="mx-auto max-w-6xl scroll-mt-6 px-4 pb-24 sm:px-6">
+        <Reveal>
+          <p className="eyebrow">Твой спутник</p>
+          <h2 className="mb-10 mt-2 max-w-3xl font-display text-4xl font-black leading-tight sm:text-5xl">Учишься — растёт растение</h2>
+        </Reveal>
+        <Reveal>
+          <PlantDemo />
+        </Reveal>
+      </section>
+
+      <section id="features" className="scroll-mt-6 bg-muted/50 py-10">
+        <FUIBentoGridDark
+          title="Всё для экзаменов в одном месте"
+          subtitle="Банк заданий, пробные тесты и ИИ-разбор — в одном аккаунте."
+          items={[
+            { eyebrow: "Digital SAT", title: "Тесты как в Bluebook", description: "1600+ вопросов, таймер модуля, вычёркивание вариантов, маркер и встроенный Desmos. ИИ объясняет, где была ловушка.", image: PHOTO.books },
+            { eyebrow: "IELTS", title: "Говори и пиши — получай балл", description: "Speaking по частям 1–3, Writing с разметкой ошибок, 65 текстов Reading. Оценка по четырём критериям.", image: PHOTO.writing },
+            { eyebrow: "Кодинг", title: "Python и JS прямо в браузере", description: "Задачи с тестами, подсказки без готового решения и уроки вайб-кодинга.", image: PHOTO.code },
+            { eyebrow: "ЕНТ", title: "Мастер-режим на IRT", description: "Подбор заданий под твой уровень, повтор ошибок и дуэли с друзьями.", image: PHOTO.classroom },
+            { eyebrow: "ИИ-наставник", title: "План до даты экзамена", description: "Знает слабые темы и строит ежедневный маршрут на выбранные 20–90 минут.", image: PHOTO.lecture },
+          ]}
+        />
+      </section>
 
       <section id="how" className="mx-auto max-w-6xl scroll-mt-6 px-4 py-20 sm:px-6">
         <Reveal>
           <p className="eyebrow">Как это выглядит</p>
-          <h2 className="mt-2 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-5xl">Листай — и посмотри платформу изнутри</h2>
+          <h2 className="mt-2 max-w-3xl font-display text-4xl font-black leading-tight sm:text-5xl">Листай — и посмотри платформу изнутри</h2>
         </Reveal>
         <StickyScroll
           className="mt-6"
           content={[
             { eyebrow: "Digital SAT", title: "Как в Bluebook, только с репетитором", description: "Таймер модуля, вычёркивание вариантов, маркер, справочник формул и встроенный Desmos. После ответа ИИ объясняет, где была ловушка, и делает похожий вопрос.", content: <SatMock /> },
             { eyebrow: "IELTS", title: "Говори — и получай балл за секунды", description: "Speaking по частям 1–3, Writing с ошибками прямо в тексте, Reading и Listening. Оценка по четырём критериям и план на неделю.", content: <IeltsMock /> },
-            { eyebrow: "Кодинг", title: "LeetCode, но с наставником", description: "Python и JavaScript запускаются в браузере, скрытые тесты, подсказки ИИ без готового решения и уроки вайб-кодинга по целям «Информатики и ИИ».", content: <CodeMock /> },
+            { eyebrow: "Кодинг", title: "LeetCode, но с наставником", description: "Python и JavaScript запускаются в браузере, скрытые тесты и подсказки ИИ без готового решения.", content: <CodeMock /> },
           ]}
         />
       </section>
 
-      <section id="modules" className="mx-auto max-w-6xl scroll-mt-6 px-4 pb-24 sm:px-6">
-        <Reveal>
-          <p className="eyebrow">Модули</p>
-          <h2 className="mt-2 font-display text-4xl font-semibold leading-tight sm:text-5xl">Всё, к чему готовится старшеклассник</h2>
-        </Reveal>
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-6">
-          {[
-            { span: "md:col-span-4", photo: PHOTO.books, icon: Library, title: "SAT: банк, тесты, Desmos", text: "236+ вопросов, генераторы и ИИ-Remix. Отдельно учить математику и английскую часть.", points: [Timer, Calculator, Zap] },
-            { span: "md:col-span-2", photo: PHOTO.writing, icon: PenLine, title: "IELTS", text: "Speaking, Writing, Reading, Listening и игры.", points: [Mic] },
-            { span: "md:col-span-2", photo: PHOTO.code, icon: Code2, title: "Кодинг", text: "Задачи, уроки с ИИ и Bug Blitz.", points: [Bot] },
-            { span: "md:col-span-4", photo: PHOTO.lecture, icon: BookOpen, title: "Учебники с ИИ", text: "Читай главу, спрашивай ИИ по странице, проходи тест по параграфу и открывай интерактивный разбор: предскажи → проверь → открой ответ.", points: [Sparkles] },
-          ].map((m, i) => (
-            <Reveal key={m.title} delay={i * 0.08} className={m.span}>
-              <CardSpotlight className="flex h-full min-h-[300px] flex-col justify-end p-0">
-                <img src={m.photo} alt="" loading="lazy" className="absolute inset-0 -z-0 size-full object-cover opacity-35 transition-transform duration-700 group-hover/spotlight:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
-                <div className="relative p-7">
-                  <span className="grid size-11 place-items-center rounded-full bg-primary">
-                    <m.icon className="size-5" />
-                  </span>
-                  <h3 className="mt-4 font-display text-2xl font-semibold">{m.title}</h3>
-                  <p className="mt-2 max-w-md text-sm text-white/70">{m.text}</p>
-                </div>
-              </CardSpotlight>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      <Hero10
+        title="Готовься к экзаменам"
+        titleLine2Prefix="как в"
+        titleHighlight="любимой игре"
+        description="Серия дней, XP, лига недели, дуэли с друзьями и растение, которое растёт с каждым заданием. Учёба перестаёт быть обязаловкой."
+        socialProof="Начни за минуту: без карты, с 7 днями Pro"
+        images={[PHOTO.books, PHOTO.team, PHOTO.writing]}
+        imageAlts={["Учебники", "Занятие с друзьями", "Эссе"]}
+        animation="subtle"
+        primaryCTA={{ ctaEnabled: true, text: "Создать аккаунт", link: home, variant: "default", size: "lg" }}
+        secondaryCTA={{ ctaEnabled: true, text: "Тарифы", link: "#pricing", variant: "outline", size: "lg" }}
+      />
 
-      <section className="relative isolate overflow-hidden py-24">
-        <Parallax src={ART.athens} className="absolute inset-0 -z-10" strength={120} />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-black/70 to-background" />
-        <div className="mx-auto max-w-6xl px-4 text-white sm:px-6">
+      <section id="world" className="scroll-mt-6 bg-[#0d1a09] py-20 text-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2">
           <Reveal>
-            <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-accent">Библиотека</p>
-            <h2 className="mt-2 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-6xl">Учебники, которые отвечают на вопросы</h2>
+            <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-[#9be300]">Поступление</p>
+            <h2 className="mt-2 font-display text-4xl font-black leading-tight sm:text-5xl">Поступай в любую страну</h2>
+            <p className="mt-4 max-w-md text-base font-semibold text-white/75">США, Великобритания, Канада, Европа и Азия: платформа подстраивает план под страну и направление, а каталог из 48 конкурсов и программ подсказывает, чем усилить профиль.</p>
+            <ul className="mt-6 flex flex-wrap gap-2 text-sm font-extrabold">
+              {["SAT", "IELTS", "ЕНТ", "Common App", "UCAS"].map((t) => (
+                <li key={t} className="rounded-full border-2 border-[#9be300]/40 px-4 py-1.5 text-[#c7f08a]">
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <Link to={user ? "/admissions" : "/register"} className={cn(buttonVariants({ size: "lg" }), "mt-8")}>
+              <Sparkles /> Смотреть конкурсы
+            </Link>
           </Reveal>
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {[
-              { icon: BookOpen, t: "Читай на любом устройстве", d: "PDF-учебники школы и встроенные главы с поиском по классам и предметам." },
-              { icon: Sparkles, t: "Спроси ИИ по странице", d: "«Объясни проще», конспект, карточки и тест по параграфу за секунды." },
-              { icon: Zap, t: "Интерактивный разбор", d: "Анимированная модель, предсказание, проверка и штамп за пройденную тему." },
-            ].map((x, i) => (
-              <Reveal key={x.t} delay={i * 0.1}>
-                <div className="h-full rounded-3xl bg-white/8 p-6 ring-1 ring-white/15 backdrop-blur-md">
-                  <x.icon className="size-6 text-accent" />
-                  <p className="mt-4 font-display text-xl font-semibold">{x.t}</p>
-                  <p className="mt-2 text-sm text-white/70">{x.d}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={0.1}>
+            <RotatingEarth width={560} height={520} className="mx-auto max-w-full" />
+          </Reveal>
         </div>
       </section>
 
       <section id="pricing" className="mx-auto max-w-6xl scroll-mt-6 px-4 py-24 sm:px-6">
         <PricingBlock />
       </section>
+
+      <Hero eyebrow="7 дней Pro бесплатно" title="Посади своё первое растение" subtitle="Выбери цель, спутника и начни. Остальное платформа построит сама." ctaLabel={user ? "В кабинет" : "Начать бесплатно"} ctaHref={home} className="min-h-[72vh] pt-28" />
 
       <StickerSlapFooter
         wordmark="нурбек"
@@ -185,7 +189,7 @@ export default function Landing() {
         jobs={[
           { title: "SAT", href: "#how" },
           { title: "IELTS", href: "#how" },
-          { title: "кодинг с ИИ", href: "#modules" },
+          { title: "растение", href: "#plant" },
           { title: "тарифы", href: "#pricing" },
         ]}
         address={[]}
@@ -195,19 +199,18 @@ export default function Landing() {
         socials={[]}
         stickers={[{ kind: "burst", text: "sat" }, "smiley", "heart", { kind: "bubble", text: "ielts" }, "daisy", "bolt"]}
         credits={[
-          { role: "hero", name: "Elsewhere · guglielmogiannattasio" },
-          { role: "footer", name: "Sticker Slap · 21st.dev" },
-          { role: "scroll", name: "Motion · Aceternity · 21st.dev" },
-          { role: "картины", name: "Wikimedia Commons, public domain" },
+          { role: "hero", name: "Prisma · 21st.dev" },
+          { role: "блоки", name: "Bento, Pricing, Dock · 21st.dev" },
+          { role: "глобус", name: "Wireframe Dotted Globe · 21st.dev" },
           { role: "фото", name: "Unsplash" },
         ]}
         height="92svh"
-        paper="#f3eee8"
-        panel="#7b0004"
-        ink="#141010"
-        cream="#f8f1ea"
-        accent="#ff8562"
-        fontSans="'Jost', 'Noto Sans', ui-sans-serif, system-ui, sans-serif"
+        paper="#f1f8e8"
+        panel="#2c7400"
+        ink="#0d1a09"
+        cream="#f7fbf2"
+        accent="#9be300"
+        fontSans="'Nunito', ui-sans-serif, system-ui, sans-serif"
       />
     </div>
   );

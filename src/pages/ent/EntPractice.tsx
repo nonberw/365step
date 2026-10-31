@@ -65,7 +65,7 @@ export default function EntPractice() {
         <img src={ENT_IMAGE[sid]} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-55" />
         <span className="absolute inset-0 -z-10 bg-gradient-to-r from-[#120d0d] via-[#120d0d]/80 to-transparent" />
         <div className="flex flex-col gap-3 p-6 sm:p-8">
-          <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-[#ff8562]">
+          <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-[#9be300]">
             ЕНТ · тренировка · {subject.count} заданий в тесте, порог {subject.threshold}
           </p>
           <h1 className="font-display text-3xl font-bold sm:text-4xl">{subject.name}</h1>

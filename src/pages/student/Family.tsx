@@ -55,10 +55,10 @@ export default function Family() {
         <Aurora />
         <div className="relative flex flex-col gap-4 px-6 py-10 sm:px-10">
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-semibold text-white/80">
-            <UsersRound className="size-3.5 text-[#ff8562]" /> Для родителей
+            <UsersRound className="size-3.5 text-[#9be300]" /> Для родителей
           </span>
           <h1 className="max-w-2xl font-display text-4xl font-bold leading-tight sm:text-5xl">
-            Пусть родители видят <span className="bg-gradient-to-r from-[#ff8562] to-[#ff3b3b] bg-clip-text text-transparent">твой прогресс</span>
+            Пусть родители видят <span className="bg-gradient-to-r from-[#9be300] to-[#58cc02] bg-clip-text text-transparent">твой прогресс</span>
           </h1>
           <p className="max-w-xl text-white/70">
             Создай личную ссылку для мамы или папы. Они увидят баллы ЕНТ, SAT и IELTS, пробники, консультации и задания учителя, а по пятницам получат короткий отчёт на почту или в Telegram. Регистрироваться им не нужно,

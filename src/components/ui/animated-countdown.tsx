@@ -59,7 +59,7 @@ export function AnimatedCountdown({ target, units = ["days", "hours", "minutes",
             dark ? "border-white/10 bg-white/[0.06] text-white" : "border-border bg-card",
           )}
         >
-          <span className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-[#ff8562] to-transparent" />
+          <span className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-[#9be300] to-transparent" />
           <span className="font-display text-2xl font-bold leading-none sm:text-4xl">
             <Digit value={String(left[u]).padStart(2, "0")} />
           </span>

@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowRight, BookOpen, CalendarClock, CheckCircle2, Circle, Code2, Flame, Mic, Timer, Trophy, Zap } from "lucide-react";
-import type { ConsultSlot, LeaderRow, StudentDashboard } from "@shared/types";
+import { ArrowRight, BookOpen, CheckCircle2, Circle, Code2, Flame, Mic, Timer, Trophy, Zap } from "lucide-react";
+import type { LeaderRow, StudentDashboard } from "@shared/types";
 import { useApi } from "@/hooks/useApi";
 import { ART, daysUntil, fmtDate, greeting, plural } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { ErrorBox, GreetingBanner, Loading } from "@/components/Page";
+import { PlantCard } from "@/components/Plant";
 import { Badge, Card, CardTitle, Progress } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { ActivityHeatmap } from "@/components/ui/activity-heatmap";
@@ -14,7 +15,6 @@ import NumberTicker, { type NumberTickerRef } from "@/components/ui/basic-number
 export default function StudentHome() {
   const { data, error, loading } = useApi<StudentDashboard>("/me/dashboard");
   const leaders = useApi<LeaderRow[]>("/me/leaderboard?scope=class");
-  const nextConsult = useApi<ConsultSlot | null>("/consult/next");
   const [params] = useSearchParams();
   if (loading) return <Loading />;
   if (!data) return <ErrorBox message={error} />;
@@ -45,6 +45,16 @@ export default function StudentHome() {
         }
       />
 
+      <Card className="flex flex-col items-center gap-3 sm:flex-row">
+        {user.plant ? (
+          <PlantCard species={user.plant} xp={user.xp} className="w-full" />
+        ) : (
+          <Link to="/profile#plant" className="font-display text-lg font-extrabold text-primary">
+            Выбери растение-спутника: оно будет расти вместе с тобой →
+          </Link>
+        )}
+      </Card>
+
       {data.activeLesson && (
         <Link to={`/coding/lessons/${data.activeLesson.lessonId}`} className="flex items-center justify-between gap-3 rounded-2xl bg-primary px-5 py-4 text-primary-foreground">
           <div>
@@ -52,23 +62,6 @@ export default function StudentHome() {
             <p className="font-display text-lg font-semibold">{data.activeLesson.title}</p>
           </div>
           <ArrowRight />
-        </Link>
-      )}
-
-      {nextConsult.data && (
-        <Link to="/consult" className="flex items-center gap-4 rounded-2xl border border-border bg-card px-5 py-4 hover:border-primary">
-          <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-secondary text-secondary-foreground">
-            <CalendarClock className="size-5" />
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">{nextConsult.data.kind === "lesson" ? "Ближайший доп. урок" : "Ближайшая консультация"}</span>
-            <span className="block truncate font-display font-semibold">{nextConsult.data.title}</span>
-            <span className="block text-sm text-muted-foreground">
-              {new Date(nextConsult.data.startsAt).toLocaleString("ru-RU", { weekday: "short", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })} · {nextConsult.data.teacher}
-              {nextConsult.data.place && ` · ${nextConsult.data.place}`}
-            </span>
-          </span>
-          <ArrowRight className="size-4 shrink-0" />
         </Link>
       )}
 

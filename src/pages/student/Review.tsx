@@ -57,10 +57,10 @@ export default function Review() {
         <div className="relative grid grid-cols-1 gap-6 px-6 py-8 sm:px-10 lg:grid-cols-[1.2fr_1fr]">
           <div className="flex flex-col gap-4">
             <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-semibold text-white/80">
-              <BrainCircuit className="size-3.5 text-[#ff8562]" /> Интервальное повторение
+              <BrainCircuit className="size-3.5 text-[#9be300]" /> Интервальное повторение
             </span>
             <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl">
-              Ошибки, которые <span className="bg-gradient-to-r from-[#ff8562] to-[#ff3b3b] bg-clip-text text-transparent">не повторятся</span>
+              Ошибки, которые <span className="bg-gradient-to-r from-[#9be300] to-[#58cc02] bg-clip-text text-transparent">не повторятся</span>
             </h1>
             <p className="max-w-xl text-white/70">Каждое задание ЕНТ или SAT, где ты ошибся, вернётся через 1 день, потом через 3 и через 7. Три верных ответа подряд — и тема закреплена.</p>
           </div>

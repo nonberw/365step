@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   Target,
   Box,
@@ -39,6 +39,10 @@ import {
   Zap,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
+import { plantGrowth } from "@shared/plants";
+import { PlantCard } from "@/components/Plant";
+import { useNotify } from "@/components/Notify";
+import MacOsDock, { DockTile, type DockApp } from "@/components/ui/macos-dock";
 import { cn } from "@/lib/utils";
 
 type Item = { to: string; label: string; icon: typeof Home; end?: boolean };
@@ -141,12 +145,69 @@ export function Logo({ className }: { className?: string }) {
   );
 }
 
+/** Quick launcher for the main modules (desktop): the 21st.dev macOS dock. */
+const DOCK: { id: string; label: string; to: string; color: [number, number, number]; icon: typeof Home }[] = [
+  { id: "home", label: "Главная", to: "/app", color: [88, 204, 2], icon: Home },
+  { id: "sat", label: "SAT", to: "/sat", color: [28, 176, 246], icon: LineChart },
+  { id: "ielts", label: "IELTS", to: "/ielts", color: [255, 150, 0], icon: Mic },
+  { id: "ent", label: "ЕНТ", to: "/ent", color: [206, 130, 255], icon: Medal },
+  { id: "code", label: "Кодинг", to: "/coding", color: [60, 60, 70], icon: Code2 },
+  { id: "world", label: "Поступление", to: "/admissions", color: [255, 75, 75], icon: Compass },
+];
+
+function AppDock() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const items: DockApp[] = DOCK.map((d) => ({
+    id: d.id,
+    label: d.label,
+    icon: (
+      <DockTile c={d.color}>
+        <d.icon />
+      </DockTile>
+    ),
+  }));
+  const active = DOCK.filter((d) => (d.to === "/app" ? pathname === "/app" : pathname.startsWith(d.to))).map((d) => d.id);
+  return (
+    <MacOsDock
+      items={items}
+      activeIds={active}
+      onSelect={(it) => navigate(DOCK.find((d) => d.id === it.id)!.to)}
+      commandLabel="Быстрые действия"
+      commands={[
+        { label: "Пробный тест SAT", key: "T", run: () => navigate("/sat/test") },
+        { label: "Повтор ошибок", key: "R", run: () => navigate("/review") },
+        { label: "Дуэль ЕНТ", key: "D", run: () => navigate("/duels") },
+        { label: "Тарифы", key: "P", run: () => navigate("/pricing") },
+      ]}
+    />
+  );
+}
+
 export default function AppShell() {
-  const { user, signOut } = useAuth();
+  const { user, signOut, refresh } = useAuth();
+  const notify = useNotify();
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useTheme();
   const location = useLocation();
   useEffect(() => setOpen(false), [location.pathname]);
+  // XP changes while the student works: re-read the profile on navigation so the plant grows in front of them.
+  useEffect(() => {
+    void refresh();
+  }, [location.pathname, refresh]);
+  const stage = user ? plantGrowth(user.xp).stage : 1;
+  useEffect(() => {
+    if (!user?.plant) return;
+    const key = `nc-stage-${user.id}`;
+    let seen = 0;
+    try {
+      seen = Number(localStorage.getItem(key) ?? 0);
+      localStorage.setItem(key, String(Math.max(seen, stage)));
+    } catch {
+      // per-viewer convenience only
+    }
+    if (seen && stage > seen) notify({ variant: "success", title: "Растение выросло!", body: `Новая стадия: «${plantGrowth(user.xp).name}». Так держать.` });
+  }, [stage, user?.id, user?.plant]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!user) return null;
   const nav = STUDENT_NAV;
 
@@ -184,7 +245,14 @@ export default function AppShell() {
           ))}
         </div>
       ))}
-      <div className="mt-auto flex items-center gap-3 rounded-2xl bg-card p-3 ring-1 ring-border">
+      <Link to="/profile#plant" className="mt-auto rounded-2xl border-2 border-border bg-card p-3 hover:border-primary" aria-label="Растение-спутник">
+        {user.plant ? (
+          <PlantCard species={user.plant} xp={user.xp} compact />
+        ) : (
+          <p className="text-sm font-extrabold text-primary">Выбери растение-спутника →</p>
+        )}
+      </Link>
+      <div className="flex items-center gap-3 rounded-2xl bg-card p-3 ring-1 ring-border">
         <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary font-display text-sm font-bold text-primary-foreground">
           {user.firstName.slice(0, 1)}
           {user.lastName.slice(0, 1)}
@@ -219,10 +287,15 @@ export default function AppShell() {
       )}
 
       <main className="min-w-0 p-2 sm:p-3 lg:py-3 lg:pl-0 lg:pr-3">
-        <div className="min-h-[calc(100dvh-24px)] rounded-3xl bg-card px-4 py-5 ring-1 ring-border sm:px-6 lg:px-10 lg:py-8">
+        <div className="min-h-[calc(100dvh-24px)] rounded-3xl bg-card px-4 py-5 ring-1 ring-border sm:px-6 lg:px-10 lg:py-8 lg:pb-32">
           <Outlet />
         </div>
       </main>
+      <div className="pointer-events-none fixed bottom-3 left-[260px] right-0 z-30 hidden justify-center lg:flex">
+        <div className="pointer-events-auto">
+          <AppDock />
+        </div>
+      </div>
     </div>
   );
 }
