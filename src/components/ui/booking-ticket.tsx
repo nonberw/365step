@@ -13,7 +13,7 @@ export function icsFile(s: ConsultSlot) {
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Росток//RU",
+    "PRODID:-//365step//RU",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",

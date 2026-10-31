@@ -47,7 +47,7 @@ export function PhoneChat({ messages, className }: { messages: ChatMessage[]; cl
               </span>
               <span className="flex flex-col items-center gap-0.5">
                 <BrandMark className="size-9 rounded-full" />
-                <span className="text-[11px] font-semibold text-[#111]">росток ›</span>
+                <span className="text-[11px] font-semibold text-[#111]">365step ›</span>
               </span>
               <span className="grid size-7 place-items-center rounded-full bg-[#f1f2f4] text-[#333]">
                 <Video className="size-3.5" />

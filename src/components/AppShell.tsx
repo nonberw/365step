@@ -159,7 +159,7 @@ export function Logo({ className }: { className?: string }) {
   return (
     <span className={cn("inline-flex items-center gap-2 font-display text-[22px] font-bold lowercase leading-none tracking-tight", className)}>
       <BrandMark />
-      росток
+      365step
     </span>
   );
 }

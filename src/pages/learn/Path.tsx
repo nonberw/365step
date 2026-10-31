@@ -90,7 +90,7 @@ function Popover({ n, unit, course, onClose, onChest }: { n: PathNode; unit: Pat
       {!locked &&
         (n.href ? (
           <Link
-            to={n.href}
+            to={`${n.href}?from=path`}
             className="mt-3 flex h-11 items-center justify-center rounded-xl bg-white font-display text-[15px] font-bold shadow-[0_4px_0_0_rgba(0,0,0,0.18)] active:translate-y-1 active:shadow-none"
             style={{ color: unit.color }}
           >

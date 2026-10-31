@@ -1,6 +1,6 @@
 "use client";
 
-// Activity Heatmap Calendar by dhxwhy (21st.dev), localised to Russian for Росток.
+// Activity Heatmap Calendar by dhxwhy (21st.dev), localised to Russian for 365step.
 
 import * as React from "react";
 

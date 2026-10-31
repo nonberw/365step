@@ -154,7 +154,7 @@ export default function Register() {
   const labels = ["Аккаунт", "Цель", "Ритм", "Почти всё"];
 
   return (
-    <AuthLayout image={ART.athens} quote={{ text: "Начни с цели — и платформа построит путь к ней.", by: "Росток" }}>
+    <AuthLayout image={ART.athens} quote={{ text: "Начни с цели — и платформа построит путь к ней.", by: "365step" }}>
       <p className="eyebrow">7 дней Pro в подарок</p>
       <h1 className="mb-6 mt-2 font-display text-3xl font-semibold">{["Создай аккаунт", "К чему готовишься?", "Твой ритм", "Последний шаг"][step]}</h1>
       <Steps step={step} labels={labels} />

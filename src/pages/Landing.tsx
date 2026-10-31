@@ -128,7 +128,7 @@ export default function Landing() {
       {/* floating glass navigation (grader) */}
       <header className="fixed inset-x-0 top-3 z-50 px-3">
         <nav className="glass mx-auto flex max-w-5xl items-center justify-between rounded-full py-2 pl-4 pr-2 shadow-[0_10px_30px_-18px_rgba(24,61,154,0.5)]" aria-label="Разделы">
-          <Link to="/" aria-label="Росток — на главную">
+          <Link to="/" aria-label="365step — на главную">
             <Logo />
           </Link>
           <div className="hidden items-center gap-6 font-display text-[15px] font-semibold text-[#1f2a2f]/70 md:flex">
@@ -163,7 +163,7 @@ export default function Landing() {
               <em className="font-medium text-white/80">ещё до экзамена</em>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mx-auto mt-6 max-w-lg text-lg text-white/90 lg:mx-0">
-              росток — друг-репетитор в твоём телефоне. проверяет эссе и речь за секунды, показывает каждую ошибку и ведёт по плану до дня экзамена.
+              365step — друг-репетитор в твоём телефоне. проверяет эссе и речь за секунды, показывает каждую ошибку и ведёт по плану до дня экзамена.
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }} className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
               <Link to={home} className={cn(buttonVariants({ size: "lg" }), "rounded-full px-8")}>
@@ -254,18 +254,18 @@ export default function Landing() {
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,#dfe8ff,transparent_65%)]" />
         <div className="inline-flex items-center gap-4">
           <BrandMark className="size-20 rounded-[22px]" />
-          <span className="font-display text-7xl font-bold lowercase tracking-tight sm:text-8xl">росток</span>
+          <span className="font-display text-7xl font-bold lowercase tracking-tight sm:text-8xl">365step</span>
         </div>
         <p className="mx-auto mt-5 max-w-md font-display text-xl text-[#1f2a2f]/70">друг, который доведёт тебя до экзамена</p>
         <Link to={home} className={cn(buttonVariants({ size: "lg" }), "mt-8 rounded-full px-10")}>
-          {user ? "в кабинет" : "написать ростку"}
+          {user ? "в кабинет" : "написать в 365step"}
         </Link>
       </section>
 
       <footer className="mx-auto grid max-w-6xl gap-10 px-4 pb-14 pt-6 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Logo />
-          <p className="mt-4 text-sm text-muted-foreground">© {new Date().getFullYear()} росток</p>
+          <p className="mt-4 text-sm text-muted-foreground">© {new Date().getFullYear()} 365step</p>
         </div>
         <div>
           <h3 className="font-display text-[15px] font-bold">подготовка</h3>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
@@ -13,7 +13,7 @@ import { fmtDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { RichText } from "@/components/RichText";
 import { ErrorBox, Loading } from "@/components/Page";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge, Segmented } from "@/components/ui/card";
 import { Select } from "@/components/ui/input";
 import { DIFF_COLOR } from "./Problems";
@@ -43,13 +43,15 @@ const VERDICT = { optimal: { label: "Оптимально", tone: "ok" }, good: 
 
 export default function ProblemPage() {
   const { id = "" } = useParams();
+  // Opened from the learning path: lead back to it instead of the problem list.
+  const fromPath = useSearchParams()[0].get("from") === "path";
   const { data, error, loading, reload } = useApi<Detail>(`/coding/problems/${id}`);
   if (loading) return <Loading />;
   if (!data) return <ErrorBox message={error} />;
-  return <Workspace key={id} detail={data} onSubmitted={reload} />;
+  return <Workspace key={id} detail={data} onSubmitted={reload} fromPath={fromPath} />;
 }
 
-function Workspace({ detail, onSubmitted }: { detail: Detail; onSubmitted: () => void }) {
+function Workspace({ detail, onSubmitted, fromPath }: { detail: Detail; onSubmitted: () => void; fromPath: boolean }) {
   const p = detail.problem;
   const draftKey = `bsts-code-${p.id}`;
   const [lang, setLang] = useState<CodeLang>(detail.last?.lang ?? "python");
@@ -190,8 +192,8 @@ function Workspace({ detail, onSubmitted }: { detail: Detail; onSubmitted: () =>
 
   return (
     <div className="flex flex-col gap-4">
-      <Link to="/coding" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
-        <ArrowLeft className="size-4" /> Все задачи
+      <Link to={fromPath ? "/learn?course=code" : "/coding"} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+        <ArrowLeft className="size-4" /> {fromPath ? "На путь" : "Все задачи"}
       </Link>
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <section className="flex min-w-0 flex-col gap-4 rounded-2xl border border-border p-5">
@@ -430,6 +432,11 @@ function Workspace({ detail, onSubmitted }: { detail: Detail; onSubmitted: () =>
                   Пройдено {passedCount} из {p.tests.length} тестов{verdict.xp ? ` · +${verdict.xp} XP` : ""}
                 </p>
               </div>
+              {verdict.accepted && fromPath && (
+                <Link to="/learn?course=code" className={cn(buttonVariants(), "ml-auto")}>
+                  Дальше по пути
+                </Link>
+              )}
             </div>
           )}
 

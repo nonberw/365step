@@ -112,7 +112,7 @@ const esc = (s: string) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt
 export function reportText(r: WeeklyReport, url: string) {
   const d = r.data;
   const lines = [
-    `Отчёт Росток за неделю: ${d.child.name}`,
+    `Отчёт 365step за неделю: ${d.child.name}`,
     "",
     r.summary,
     "",
@@ -141,7 +141,7 @@ export async function deliver(link: { email: string; telegram_chat_id: string | 
       body: JSON.stringify({
         from: process.env.REPORT_FROM,
         to: link.email,
-        subject: `Неделя ${r.data.child.firstName} в Росток`,
+        subject: `Неделя ${r.data.child.firstName} в 365step`,
         html: `<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.55;max-width:560px">${esc(text)
           .replace(/\n/g, "<br>")
           .replace(esc(url), `<a href="${url}">${esc(url)}</a>`)}</div>`,

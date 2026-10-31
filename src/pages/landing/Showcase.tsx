@@ -100,7 +100,7 @@ export function WritingCard({ className }: { className?: string }) {
         <span className="size-2.5 rounded-full bg-[#ff5f57]" />
         <span className="size-2.5 rounded-full bg-[#febc2e]" />
         <span className="size-2.5 rounded-full bg-[#28c840]" />
-        <span className="ml-3 font-mono text-xs text-[#1f2a2f]/50">росток · Writing Task 2</span>
+        <span className="ml-3 font-mono text-xs text-[#1f2a2f]/50">365step · Writing Task 2</span>
       </div>
       <p className="mt-5 text-[15px] leading-8">
         In my opinion, <mark className="rounded bg-[#ffe3c7] px-1 text-inherit">technology have</mark> changed the way people communicate dramatically. Social media platforms{" "}

@@ -78,7 +78,7 @@ export function OfficialResources() {
   return (
     <Card className="flex flex-col gap-3">
       <CardTitle>Официальные бесплатные материалы</CardTitle>
-      <p className="text-sm text-muted-foreground">Задания College Board защищены авторским правом, поэтому мы не копируем их, а даём прямые ссылки. Решай их там, а в Росток тренируй слабые навыки и разбирай ошибки с ИИ.</p>
+      <p className="text-sm text-muted-foreground">Задания College Board защищены авторским правом, поэтому мы не копируем их, а даём прямые ссылки. Решай их там, а в 365step тренируй слабые навыки и разбирай ошибки с ИИ.</p>
       <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
         {links.map((l) => (
           <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="flex flex-col gap-1 rounded-xl border border-border p-3 hover:border-primary">

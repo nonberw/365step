@@ -34,9 +34,9 @@ export default function Login() {
   }
 
   return (
-    <AuthLayout image={ART.athens} quote={{ text: "Знание — это не то, что ты получил, а то, что ты можешь применить.", by: "Росток" }}>
+    <AuthLayout image={ART.athens} quote={{ text: "Знание — это не то, что ты получил, а то, что ты можешь применить.", by: "365step" }}>
       <p className="eyebrow">С возвращением</p>
-      <h1 className="mt-2 font-display text-3xl font-semibold">Вход в Росток</h1>
+      <h1 className="mt-2 font-display text-3xl font-semibold">Вход в 365step</h1>
       <p className="mt-2 text-sm text-muted-foreground">Один аккаунт для SAT, IELTS и кодинга.</p>
       <form onSubmit={submit} className="mt-8 flex flex-col gap-4">
         <Field label="Почта" htmlFor="email">

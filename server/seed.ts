@@ -13,9 +13,9 @@ const batch: InStatement[] = [];
 const run = (sql: string, ...args: unknown[]) => void batch.push({ sql, args: args.map((a) => (a === undefined ? null : a)) as InValue[] });
 
 export const DEMO = {
-  password: process.env.DEMO_PASSWORD || "Demo2026rostok",
-  teacher: "teacher@demo.rostok.app",
-  student: "student@demo.rostok.app",
+  password: process.env.DEMO_PASSWORD || "Demo2026step",
+  teacher: "teacher@demo.365step.app",
+  student: "student@demo.365step.app",
   classCode: "BSTS7B",
   unlockCode: "4815",
 };
@@ -90,9 +90,9 @@ export async function seedDemo() {
 
   const students: [string, string, string, number, number, Record<string, unknown>][] = [
     [DEMO.student, "Айым", "Демо", 10, 0.68, { goals: { sat: { target: 1450, date: "2027-03-13" }, ielts: { target: 7, date: "2027-02-20" }, coding: true }, interests: ["robotics", "design"] }],
-    ["arman@demo.rostok.app", "Арман", "Демо", 10, 0.74, { goals: { sat: { target: 1500, date: "2027-03-13" } } }],
-    ["aliya@demo.rostok.app", "Алия", "Демо", 10, 0.81, { goals: { ielts: { target: 7.5, date: "2027-01-15" } } }],
-    ["daniyar@demo.rostok.app", "Данияр", "Демо", 10, 0.55, { goals: { coding: true } }],
+    ["arman@demo.365step.app", "Арман", "Демо", 10, 0.74, { goals: { sat: { target: 1500, date: "2027-03-13" } } }],
+    ["aliya@demo.365step.app", "Алия", "Демо", 10, 0.81, { goals: { ielts: { target: 7.5, date: "2027-01-15" } } }],
+    ["daniyar@demo.365step.app", "Данияр", "Демо", 10, 0.55, { goals: { coding: true } }],
   ];
   students.forEach(([email, first, last, grade, skill, extra], i) => {
     const sid = user("student", email, first, last, { grade, classLetter: "А", ...extra });
