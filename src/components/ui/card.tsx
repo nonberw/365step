@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("min-w-0 rounded-3xl border-2 border-border bg-card p-5 text-card-foreground", className)} {...props} />;
+  return <div className={cn("min-w-0 rounded-3xl border border-border bg-card p-5 text-card-foreground shadow-[0_1px_2px_rgba(31,42,47,0.04),0_8px_24px_-16px_rgba(31,42,47,0.18)]", className)} {...props} />;
 }
 
 export function CardTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
@@ -13,7 +13,7 @@ export function Badge({ className, tone = "soft", ...props }: React.HTMLAttribut
   const tones = {
     soft: "bg-muted text-foreground",
     brand: "bg-primary text-primary-foreground",
-    ok: "bg-[#e3f3ea] text-success",
+    ok: "bg-[#e6f6ec] text-success",
     warn: "bg-[#fdeede] text-warning",
     bad: "bg-[#fde3e4] text-destructive",
     dark: "bg-secondary text-secondary-foreground",

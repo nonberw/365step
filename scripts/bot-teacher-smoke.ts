@@ -37,8 +37,8 @@ const press = async (data: string) => {
 };
 
 await ready;
-const teacher = (await one<{ id: string }>("SELECT id FROM users WHERE email = 'teacher@demo.nurbek.app'"))!.id;
-const arman = (await one<{ id: string }>("SELECT id FROM users WHERE email = 'arman@demo.nurbek.app'"))!.id;
+const teacher = (await one<{ id: string }>("SELECT id FROM users WHERE email = 'teacher@demo.rostok.app'"))!.id;
+const arman = (await one<{ id: string }>("SELECT id FROM users WHERE email = 'arman@demo.rostok.app'"))!.id;
 await run("INSERT INTO tg_codes (code, user_id, expires_at) VALUES ('tsmoke', ?, ?)", teacher, Date.now() + 60_000);
 await run("INSERT INTO parent_links (id, student_id, token, parent_name, telegram_chat_id, created_at) VALUES ('tsmoke-link', ?, 'tsmoke-token', 'Папа', ?, ?)", arman, String(PARENT_CHAT), Date.now());
 

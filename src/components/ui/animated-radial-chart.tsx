@@ -43,9 +43,9 @@ export function AnimatedRadialChart({
       <svg width={size} height={size * 0.62} viewBox={`0 0 ${size} ${size * 0.62}`} className="overflow-visible">
         <defs>
           <linearGradient id={`arc-${uid}`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#9be300" />
+            <stop offset="0%" stopColor="#8fb0ff" />
             <stop offset="55%" stopColor="#d12a2a" />
-            <stop offset="100%" stopColor="#2c7400" />
+            <stop offset="100%" stopColor="#1f48b0" />
           </linearGradient>
           <filter id={`shadow-${uid}`} x="-50%" y="-50%" width="200%" height="200%">
             <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#000" floodOpacity="0.25" />

@@ -143,8 +143,8 @@ function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
 export function Aurora() {
   const blobs = [
     { c: "#b5121b", x: ["-10%", "15%", "-10%"], y: ["-20%", "10%", "-20%"], s: "60%", d: 18 },
-    { c: "#9be300", x: ["60%", "35%", "60%"], y: ["40%", "5%", "40%"], s: "45%", d: 22 },
-    { c: "#2c7400", x: ["20%", "55%", "20%"], y: ["50%", "60%", "50%"], s: "55%", d: 26 },
+    { c: "#8fb0ff", x: ["60%", "35%", "60%"], y: ["40%", "5%", "40%"], s: "45%", d: 22 },
+    { c: "#1f48b0", x: ["20%", "55%", "20%"], y: ["50%", "60%", "50%"], s: "55%", d: 26 },
   ];
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -176,7 +176,7 @@ function Hero({ meta, best, hasPair, busy, onStart, onPick }: { meta: EntMeta; b
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur"
           >
-            <span className="size-1.5 animate-pulse rounded-full bg-[#9be300]" /> ЕНТ 2027 · основная сессия с 10 мая
+            <span className="size-1.5 animate-pulse rounded-full bg-[#8fb0ff]" /> ЕНТ 2027 · основная сессия с 10 мая
           </motion.span>
           <h1 className="font-display text-4xl font-bold leading-[1.05] sm:text-6xl">
             {words.map((w, i) => (
@@ -185,7 +185,7 @@ function Hero({ meta, best, hasPair, busy, onStart, onPick }: { meta: EntMeta; b
                 initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ delay: 0.08 * i, duration: 0.6, ease }}
-                className={cn("mr-3 inline-block", w === "максимум" && "bg-gradient-to-r from-[#9be300] to-[#58cc02] bg-clip-text text-transparent")}
+                className={cn("mr-3 inline-block", w === "максимум" && "bg-gradient-to-r from-[#8fb0ff] to-[#4f7cf0] bg-clip-text text-transparent")}
               >
                 {w}
               </motion.span>
@@ -373,7 +373,7 @@ function ScoreBar({ mine, thresholds, best }: { mine: EntMeta["subjects"]; thres
             whileInView={{ width: `${(best / 140) * 100}%` }}
             viewport={{ once: true }}
             transition={{ delay: 0.8, duration: 0.8, ease }}
-            className="mt-2 h-2 rounded-full bg-gradient-to-r from-[#9be300] to-primary"
+            className="mt-2 h-2 rounded-full bg-gradient-to-r from-[#8fb0ff] to-primary"
           />
         )}
         <p className="mt-2 text-xs text-muted-foreground">
@@ -455,9 +455,9 @@ function SubjectCard({
 function FormatCard({ meta }: { meta: EntMeta }) {
   const parts = [
     { label: "Один ответ", count: 25, pts: "по 1 баллу", color: "#1d1919" },
-    { label: "Контекстные", count: 5, pts: "по 1 баллу", color: "#2c7400" },
+    { label: "Контекстные", count: 5, pts: "по 1 баллу", color: "#1f48b0" },
     { label: "Несколько ответов", count: 5, pts: "до 2 баллов", color: "#b5121b" },
-    { label: "Соответствие", count: 5, pts: "до 2 баллов", color: "#9be300" },
+    { label: "Соответствие", count: 5, pts: "до 2 баллов", color: "#8fb0ff" },
   ];
   return (
     <Card className="flex flex-col gap-5">
@@ -523,13 +523,13 @@ function Resources({ meta }: { meta: EntMeta }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.06 }}
-          className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-3 transition-colors hover:border-[#9be300]/60 hover:bg-white/[0.07]"
+          className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-3 transition-colors hover:border-[#8fb0ff]/60 hover:bg-white/[0.07]"
         >
           <span className="min-w-0 flex-1">
             <span className="block font-display font-semibold">{r.title}</span>
             <span className="text-xs text-white/60">{r.text}</span>
           </span>
-          <ArrowUpRight className="size-5 shrink-0 text-white/50 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#9be300]" />
+          <ArrowUpRight className="size-5 shrink-0 text-white/50 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#8fb0ff]" />
         </motion.a>
       ))}
     </Card>
@@ -550,7 +550,7 @@ function History({ meta }: { meta: EntMeta }) {
                 <span className="text-xs text-muted-foreground">{fmtDate(t.startedAt)}</span>
                 {t.total !== null && (
                   <span className="mt-2 block h-1.5 overflow-hidden rounded-full bg-muted">
-                    <span className="block h-full rounded-full bg-gradient-to-r from-[#9be300] to-primary" style={{ width: `${(t.total / Math.max(1, t.max ?? 1)) * 100}%` }} />
+                    <span className="block h-full rounded-full bg-gradient-to-r from-[#8fb0ff] to-primary" style={{ width: `${(t.total / Math.max(1, t.max ?? 1)) * 100}%` }} />
                   </span>
                 )}
               </span>

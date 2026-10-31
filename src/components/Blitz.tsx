@@ -166,7 +166,7 @@ export default function Blitz({
                 className={cn(
                   "rounded-xl border-2 px-4 py-3 text-left text-sm transition-colors",
                   mono && "font-mono",
-                  state === "right" ? "border-success bg-[#e3f3ea] dark:bg-success/15" : state === "wrong" ? "border-destructive bg-[#fde3e4] dark:bg-destructive/15" : "border-border hover:border-primary",
+                  state === "right" ? "border-success bg-[#e6f6ec] dark:bg-success/15" : state === "wrong" ? "border-destructive bg-[#fde3e4] dark:bg-destructive/15" : "border-border hover:border-primary",
                 )}
               >
                 <RichText text={o} />

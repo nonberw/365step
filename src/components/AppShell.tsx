@@ -137,10 +137,27 @@ function useTheme() {
   return [dark, setDark] as const;
 }
 
+/** App icon: a dark rounded square with the sprout mascot (folk-style app tile). */
+export function BrandMark({ className }: { className?: string }) {
+  return (
+    <span aria-hidden className={cn("grid size-8 shrink-0 place-items-center rounded-[10px] bg-[#0b1014] shadow-[0_2px_6px_rgba(0,0,0,0.25)]", className)}>
+      <svg viewBox="0 0 32 32" className="size-[78%]">
+        <path d="M16 20 V13" stroke="#7fd36b" strokeWidth={2.4} strokeLinecap="round" />
+        <path d="M16 14 C 12 14, 9.5 11.5, 9.5 8.5 C 13 8.5, 16 10.5, 16 14 Z" fill="#7fd36b" />
+        <path d="M16 13 C 20 13, 22.5 10.5, 22.5 7.5 C 19 7.5, 16 9.5, 16 13 Z" fill="#a6e88f" />
+        <path d="M9.5 20 H22.5 L21 27 H11 Z" fill="#f2efe9" />
+        <circle cx={13.6} cy={23.2} r={1} fill="#0b1014" />
+        <circle cx={18.4} cy={23.2} r={1} fill="#0b1014" />
+      </svg>
+    </span>
+  );
+}
+
 export function Logo({ className }: { className?: string }) {
   return (
-    <span className={cn("font-display text-[17px] font-extrabold tracking-wide", className)}>
-      НУРБЕК <span className="text-primary">ЧУРБЕК</span>
+    <span className={cn("inline-flex items-center gap-2 font-display text-[22px] font-bold lowercase leading-none tracking-tight", className)}>
+      <BrandMark />
+      росток
     </span>
   );
 }

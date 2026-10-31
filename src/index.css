@@ -3,63 +3,67 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Нурбек Чурбек: зелёно-белая тема в духе Duolingo: плотные цвета, толстые контуры, объёмные кнопки */
+/* Росток: светлая сине-белая тема (folk + grader): мягкий серо-белый фон, пастельно-голубые карточки,
+   глянцевые синие кнопки, заголовки с засечками и стеклянные панели */
 :root {
-  --radius: 1rem;
-  --background: #f7fbf2;
-  --foreground: #1c2b14;
+  --radius: 1.25rem;
+  --background: #f5f6f8;
+  --foreground: #1f2a2f;
   --card: #ffffff;
-  --card-foreground: #1c2b14;
+  --card-foreground: #1f2a2f;
   --popover: #ffffff;
-  --popover-foreground: #1c2b14;
-  --primary: #3f9f00;
-  --primary-edge: #2c7400;
+  --popover-foreground: #1f2a2f;
+  --primary: #2f5bc8;
+  --primary-edge: #183d9a;
   --primary-foreground: #ffffff;
-  --secondary: #17340c;
+  --secondary: #0b1014;
   --secondary-foreground: #ffffff;
-  --muted: #ebf5e1;
-  --muted-foreground: #5a6b50;
-  --accent: #ffc800;
-  --accent-foreground: #3a2a00;
+  --muted: #eef1fb;
+  --muted-foreground: #5d6670;
+  --accent: #ff5a4e;
+  --accent-foreground: #ffffff;
   --destructive: #e0312c;
-  --success: #2f8a00;
-  --warning: #b86a00;
-  --border: #dfe9d4;
-  --input: #d3e0c6;
-  --ring: #58cc02;
-  --chart-1: #3f9f00;
-  --chart-2: #58cc02;
-  --chart-3: #ffc800;
-  --chart-4: #17340c;
-  --sidebar: #f7fbf2;
+  --success: #1f9d55;
+  --warning: #c27803;
+  --border: #e3e7f0;
+  --input: #d8deea;
+  --ring: #4f7cf0;
+  --chart-1: #2f5bc8;
+  --chart-2: #6f95ff;
+  --chart-3: #ff5a4e;
+  --chart-4: #0b1014;
+  --sidebar: #f5f6f8;
+  --glass: rgba(255, 255, 255, 0.55);
+  --bubble-me: linear-gradient(#5f8dff, #2f5bc8);
+  --bubble-them: #e9e9eb;
 }
 
 .dark {
-  --background: #0d1a09;
-  --foreground: #eaf6df;
-  --card: #15260f;
-  --card-foreground: #eaf6df;
-  --popover: #1a2e13;
-  --popover-foreground: #eaf6df;
-  --primary: #58cc02;
-  --primary-edge: #3d8f00;
-  --primary-foreground: #0d1a09;
-  --secondary: #eaf6df;
-  --secondary-foreground: #0d1a09;
-  --muted: #1d3315;
-  --muted-foreground: #9db38f;
-  --accent: #ffc800;
-  --accent-foreground: #3a2a00;
-  --border: #284319;
-  --input: #2f4d1e;
-  --ring: #89e219;
-  --chart-2: #89e219;
-  --sidebar: #0d1a09;
+  --background: #0b0f17;
+  --foreground: #e8edf6;
+  --card: #121826;
+  --card-foreground: #e8edf6;
+  --popover: #161d2d;
+  --popover-foreground: #e8edf6;
+  --primary: #5f8dff;
+  --primary-edge: #2f5bc8;
+  --primary-foreground: #ffffff;
+  --secondary: #e8edf6;
+  --secondary-foreground: #0b0f17;
+  --muted: #1a2234;
+  --muted-foreground: #98a3b6;
+  --border: #232d42;
+  --input: #2b3650;
+  --ring: #7fa4ff;
+  --chart-2: #9db8ff;
+  --sidebar: #0b0f17;
+  --glass: rgba(18, 24, 38, 0.6);
+  --bubble-them: #262b36;
 }
 
 @theme inline {
-  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Nunito", ui-rounded, ui-sans-serif, sans-serif;
+  --font-sans: "Onest", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+  --font-display: "Lora", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -109,7 +113,7 @@
   h2,
   h3,
   h4 {
-    @apply font-display font-extrabold;
+    @apply font-display font-bold;
     text-wrap: balance;
   }
   :focus-visible {
@@ -119,7 +123,7 @@
 
 @layer utilities {
   .eyebrow {
-    @apply font-display text-[12px] font-extrabold uppercase tracking-[0.14em] text-primary;
+    @apply font-sans text-[12px] font-semibold uppercase tracking-[0.16em] text-primary;
   }
   .tabular {
     font-variant-numeric: tabular-nums;
@@ -223,4 +227,33 @@ mark.hl {
 /* grain used by the video hero */
 .noise-overlay {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
+}
+
+/* Sticker look (folk): white die-cut outline and a soft shadow around any glyph or image */
+.sticker {
+  filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 8px 12px rgba(31, 42, 47, 0.22));
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--r, 0deg));
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Glass panels (grader) */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+.dark .glass {
+  border-color: rgba(255, 255, 255, 0.08);
 }

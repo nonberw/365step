@@ -13,7 +13,7 @@ const DAILY_LIMIT = 60;
 const TEACHER_LIMIT = 150;
 const RESEARCH_LIMIT = 15;
 const HISTORY = 12;
-const site = () => process.env.PUBLIC_URL || "https://nurbek-churbek.vercel.app";
+const site = () => process.env.PUBLIC_URL || "https://rostok.vercel.app";
 
 interface TgCallback {
   id: string;
@@ -93,20 +93,20 @@ async function start(chat: string, arg: string) {
     await run("DELETE FROM tg_chats WHERE user_id = ?", c.user_id);
     await run("INSERT INTO tg_chats (chat_id, user_id, created_at) VALUES (?, ?, ?) ON CONFLICT(chat_id) DO UPDATE SET user_id = excluded.user_id", chat, c.user_id, Date.now());
     const u = await one<{ first_name: string; role: string }>("SELECT first_name, role FROM users WHERE id = ?", c.user_id);
-    if (u?.role === "teacher") return say(chat, `Здравствуйте, ${u.first_name}! Я подключён к вашему аккаунту учителя Нурбек Чурбек.\n\n${HELP_TEACHER}`);
-    return say(chat, `Привет, ${u?.first_name ?? ""}! Я подключён к твоему аккаунту Нурбек Чурбек и вижу твои результаты.\n\n${HELP}`);
+    if (u?.role === "teacher") return say(chat, `Здравствуйте, ${u.first_name}! Я подключён к вашему аккаунту учителя Росток.\n\n${HELP_TEACHER}`);
+    return say(chat, `Привет, ${u?.first_name ?? ""}! Я подключён к твоему аккаунту Росток и вижу твои результаты.\n\n${HELP}`);
   }
   if (arg) {
     const l = await one<{ id: string; student_id: string }>("SELECT id, student_id FROM parent_links WHERE token = ? AND revoked = 0", arg.slice(0, 64));
     if (l) {
       await run("UPDATE parent_links SET telegram_chat_id = ? WHERE id = ?", chat, l.id);
       const s = await one<{ first_name: string }>("SELECT first_name FROM users WHERE id = ?", l.student_id);
-      return say(chat, `Готово! По пятницам сюда будет приходить отчёт об учёбе: ${s?.first_name ?? "ребёнок"} в Нурбек Чурбек. А ещё можно спрашивать меня об успехах ребёнка и о подготовке к экзаменам.\n\n${HELP}`);
+      return say(chat, `Готово! По пятницам сюда будет приходить отчёт об учёбе: ${s?.first_name ?? "ребёнок"} в Росток. А ещё можно спрашивать меня об успехах ребёнка и о подготовке к экзаменам.\n\n${HELP}`);
     }
   }
   return say(
     chat,
-    "Чтобы я знал, с кем говорю, откройте меня по кнопке с сайта Нурбек Чурбек:\n— ученик: раздел «Для родителей» → «Мой ИИ-помощник в Telegram»\n— учитель: главная страница учителя → «ИИ-ассистент в Telegram»\n— родитель: страница по ссылке от ребёнка → «Получать в Telegram»",
+    "Чтобы я знал, с кем говорю, откройте меня по кнопке с сайта Росток:\n— ученик: раздел «Для родителей» → «Мой ИИ-помощник в Telegram»\n— учитель: главная страница учителя → «ИИ-ассистент в Telegram»\n— родитель: страница по ссылке от ребёнка → «Получать в Telegram»",
   );
 }
 
@@ -305,6 +305,6 @@ export async function setupBot() {
   await tg("setMyShortDescription", { short_description: "ИИ-помощник школы BSTS: учёба, ЕНТ, SAT, IELTS и отчёты родителям." });
   await tg("setMyDescription", {
     description:
-      "ИИ-помощник учебной платформы Нурбек Чурбек. Ученикам объясняет темы и задачи (можно по фото) и помогает готовиться к ЕНТ, SAT и IELTS. Учителям помогает с уроками, ищет и исследует в интернете, работает с классом на платформе. Родителям честно рассказывает об успехах ребёнка. Только учёба. Подключение — с сайта Нурбек Чурбек.",
+      "ИИ-помощник учебной платформы Росток. Ученикам объясняет темы и задачи (можно по фото) и помогает готовиться к ЕНТ, SAT и IELTS. Учителям помогает с уроками, ищет и исследует в интернете, работает с классом на платформе. Родителям честно рассказывает об успехах ребёнка. Только учёба. Подключение — с сайта Росток.",
   });
 }

@@ -99,7 +99,7 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
                     className={cn(
                       "flex min-w-0 flex-1 items-start gap-3 rounded-xl border-2 px-4 py-3 text-left transition-colors",
                       selected ? "border-primary bg-primary/5" : "border-border hover:border-foreground/30",
-                      right && "border-success bg-[#e3f3ea] dark:bg-success/15",
+                      right && "border-success bg-[#e6f6ec] dark:bg-success/15",
                       wrong && "border-destructive bg-[#fde3e4] dark:bg-destructive/15",
                     )}
                   >

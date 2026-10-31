@@ -14,7 +14,7 @@ export const PLANTS: Record<PlantSpecies, { name: string; blurb: string }> = {
 /** Total XP at which each stage (1–5) starts. */
 export const STAGE_XP = [0, 40, 150, 400, 1000] as const;
 
-export const STAGE_NAMES = ["Росток", "Побег", "Подросток", "Расцвет", "Мастер"] as const;
+export const STAGE_NAMES = ["Первый лист", "Побег", "Подросток", "Расцвет", "Мастер"] as const;
 
 export interface PlantGrowth {
   stage: 1 | 2 | 3 | 4 | 5;

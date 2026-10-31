@@ -1,4 +1,4 @@
-// Built-in textbooks: short original chapters written for Нурбек Чурбек.
+// Built-in textbooks: short original chapters written for Росток.
 // Teachers add full textbooks the school has rights to as PDF/DOCX uploads.
 
 export interface BookChapter {
@@ -30,7 +30,7 @@ export const BUILTIN_BOOKS: Book[] = [
     subject: "Физика",
     grade: 7,
     language: "ru",
-    author: "Нурбек Чурбек",
+    author: "Росток",
     description: "Работа, кинетическая и потенциальная энергия, закон сохранения и КПД — с интерактивными опытами в каждой главе.",
     chapters: [
       {
@@ -111,7 +111,7 @@ export const BUILTIN_BOOKS: Book[] = [
     subject: "Алгебра",
     grade: 8,
     language: "ru",
-    author: "Нурбек Чурбек",
+    author: "Росток",
     description: "От определения до теоремы Виета: дискриминант, графики парабол и задачи в формате SAT.",
     chapters: [
       {
@@ -170,7 +170,7 @@ $x^2 - 7x + 12 = 0$: ищем два числа с суммой 7 и произ�
     subject: "Информатика",
     grade: 7,
     language: "ru",
-    author: "Нурбек Чурбек",
+    author: "Росток",
     description: "Переменные, условия и циклы — с задачами, которые можно сразу решить в разделе «Кодинг».",
     chapters: [
       {
@@ -227,7 +227,7 @@ $x^2 - 7x + 12 = 0$: ищем два числа с суммой 7 и произ�
     subject: "Английский язык",
     grade: 10,
     language: "en",
-    author: "Нурбек Чурбек",
+    author: "Росток",
     description: "The Standard English Conventions rules that appear most often, with short practice in the SAT section.",
     chapters: [
       {

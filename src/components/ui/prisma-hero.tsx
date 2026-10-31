@@ -98,18 +98,18 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
 export const PrismaHero = ({ brand, nav, description, cta, videoSrc = VIDEO }: PrismaHeroProps) => {
   return (
     <section className="h-screen min-h-[560px] w-full p-2 sm:p-3">
-      <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[linear-gradient(160deg,#17340c,#2c7400_55%,#58cc02)] md:rounded-[2rem]">
+      <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[linear-gradient(160deg,#0b1014,#1f48b0_55%,#4f7cf0)] md:rounded-[2rem]">
         {/* Background video */}
         <video autoPlay loop muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" src={videoSrc} />
 
         {/* Green tint keeps the brand colors over any footage */}
-        <div className="pointer-events-none absolute inset-0 bg-[#2c7400]/35 mix-blend-multiply" />
+        <div className="pointer-events-none absolute inset-0 bg-[#1f48b0]/35 mix-blend-multiply" />
         <div className="noise-overlay pointer-events-none absolute inset-0 opacity-[0.5] mix-blend-overlay" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#0d1a09]/80" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#0b0f17]/80" />
 
         {/* Navbar */}
         <nav className="absolute left-1/2 top-0 z-20 -translate-x-1/2" aria-label="Разделы">
-          <div className="flex items-center gap-3 rounded-b-2xl bg-[#0d1a09] px-4 py-2 sm:gap-6 md:gap-10 md:rounded-b-3xl md:px-8">
+          <div className="flex items-center gap-3 rounded-b-2xl bg-[#0b0f17] px-4 py-2 sm:gap-6 md:gap-10 md:rounded-b-3xl md:px-8">
             {nav.map((item) => (
               <NavLink key={item.label} href={item.href}>
                 {item.label}
@@ -135,11 +135,11 @@ export const PrismaHero = ({ brand, nav, description, cta, videoSrc = VIDEO }: P
               <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }} className="self-start">
                 <Link
                   to={cta.href}
-                  className="group inline-flex items-center gap-2 rounded-full bg-[#9be300] py-1 pl-5 pr-1 text-sm font-extrabold text-[#0d1a09] shadow-[0_4px_0_0_#5c8f00] transition-all hover:gap-3 active:translate-y-1 active:shadow-none sm:text-base"
+                  className="group inline-flex items-center gap-2 rounded-full bg-[#8fb0ff] py-1 pl-5 pr-1 text-sm font-extrabold text-[#0b0f17] shadow-[0_4px_0_0_#163a8f] transition-all hover:gap-3 active:translate-y-1 active:shadow-none sm:text-base"
                 >
                   {cta.label}
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0d1a09] transition-transform group-hover:scale-110 sm:h-10 sm:w-10">
-                    <ArrowRight className="h-4 w-4 text-[#9be300]" />
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0b0f17] transition-transform group-hover:scale-110 sm:h-10 sm:w-10">
+                    <ArrowRight className="h-4 w-4 text-[#8fb0ff]" />
                   </span>
                 </Link>
               </motion.div>

@@ -422,7 +422,7 @@ function Workspace({ detail, onSubmitted }: { detail: Detail; onSubmitted: () =>
           {lang === "python" && busy !== "" && !out && <p className="text-xs text-muted-foreground">Первый запуск Python загружает интерпретатор в браузер, это займёт несколько секунд.</p>}
 
           {verdict && (
-            <div className={cn("flex items-center gap-3 rounded-2xl p-4", verdict.accepted ? "bg-[#e3f3ea] dark:bg-success/15" : "bg-[#fde3e4] dark:bg-destructive/15")}>
+            <div className={cn("flex items-center gap-3 rounded-2xl p-4", verdict.accepted ? "bg-[#e6f6ec] dark:bg-success/15" : "bg-[#fde3e4] dark:bg-destructive/15")}>
               {verdict.accepted ? <CheckCircle2 className="size-6 text-success" /> : <XCircle className="size-6 text-destructive" />}
               <div>
                 <p className={cn("font-display text-lg font-semibold", verdict.accepted ? "text-success" : "text-destructive")}>{verdict.accepted ? "Accepted" : "Wrong Answer"}</p>

@@ -2,12 +2,14 @@ import type { ReactNode } from "react";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/** The painting banner with a greeting, like the reference dashboard. */
-export function GreetingBanner({ title, subtitle, image, position = "center 30%", action, children }: { title: string; subtitle?: string; image: string; position?: string; action?: ReactNode; children?: ReactNode }) {
+/** Greeting banner on a sky gradient with soft clouds (same look as the landing hero).
+ *  `image` and `position` are kept for existing callers; the sky replaces the painting. */
+export function GreetingBanner({ title, subtitle, action, children }: { title: string; subtitle?: string; image?: string; position?: string; action?: ReactNode; children?: ReactNode }) {
   return (
-    <section className="relative isolate overflow-hidden rounded-3xl bg-secondary text-white">
-      <img src={image} alt="" className="absolute inset-0 -z-10 size-full object-cover" style={{ objectPosition: position }} />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#1a0001]/90 via-[#1a0001]/45 to-transparent sm:bg-gradient-to-r sm:from-[#2a0002]/90 sm:via-[#2a0002]/50 sm:to-transparent" />
+    <section className="relative isolate overflow-hidden rounded-3xl text-white">
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,#3a6fd0_0%,#5e95e6_45%,#9cc2f2_100%)]" />
+      <div aria-hidden className="absolute -right-10 -top-6 -z-10 h-32 w-80 rounded-full bg-white/35 blur-3xl" />
+      <div aria-hidden className="absolute -bottom-10 left-1/3 -z-10 h-28 w-96 rounded-full bg-white/30 blur-3xl" />
       <div className="flex flex-col gap-4 px-6 py-7 sm:flex-row sm:items-end sm:justify-between sm:px-8 sm:py-9">
         <div className="min-w-0">
           <h1 className="font-display text-[28px] font-semibold leading-tight sm:text-[34px]">{title}</h1>

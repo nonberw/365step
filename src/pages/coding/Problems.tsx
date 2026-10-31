@@ -93,7 +93,7 @@ export default function Problems() {
                   </span>
                   <span className="line-clamp-1 text-[11px] text-muted-foreground">{pt.blurb}</span>
                   <span className="h-1.5 overflow-hidden rounded-full bg-muted">
-                    <span className="block h-full rounded-full bg-gradient-to-r from-[#9be300] to-primary" style={{ width: `${all.length ? (done / all.length) * 100 : 0}%` }} />
+                    <span className="block h-full rounded-full bg-gradient-to-r from-[#8fb0ff] to-primary" style={{ width: `${all.length ? (done / all.length) * 100 : 0}%` }} />
                   </span>
                 </button>
               );

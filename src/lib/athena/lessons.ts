@@ -1,7 +1,7 @@
 import type { Preset } from "./circuit";
 import type { SimCondition } from "./sim/checks";
 
-// Arduino lessons for Нурбек Чурбек on top of Athena IDE's breadboard simulator: each lesson opens a ready circuit
+// Arduino lessons for Росток on top of Athena IDE's breadboard simulator: each lesson opens a ready circuit
 // (an Athena preset), gives an unfinished sketch and checks the student's code on the virtual board with the
 // simulator's own automatic tests. Proven by scripts/arduino-check.ts: the generated reference sketch passes,
 // the starter does not.

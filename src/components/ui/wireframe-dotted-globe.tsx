@@ -96,7 +96,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
 
       context.beginPath();
       context.arc(containerWidth / 2, containerHeight / 2, currentScale, 0, 2 * Math.PI);
-      context.fillStyle = "#0d1a09";
+      context.fillStyle = "#0b0f17";
       context.fill();
       context.strokeStyle = "#89e219";
       context.lineWidth = 2 * scaleFactor;
@@ -113,7 +113,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
 
         context.beginPath();
         landFeatures.features.forEach((feature: any) => path(feature));
-        context.strokeStyle = "#c7f08a";
+        context.strokeStyle = "#c9d8ff";
         context.lineWidth = 1 * scaleFactor;
         context.stroke();
 
@@ -122,7 +122,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
           if (projected && projected[0] >= 0 && projected[0] <= containerWidth && projected[1] >= 0 && projected[1] <= containerHeight) {
             context.beginPath();
             context.arc(projected[0], projected[1], 1.2 * scaleFactor, 0, 2 * Math.PI);
-            context.fillStyle = "#58cc02";
+            context.fillStyle = "#4f7cf0";
             context.fill();
           }
         });

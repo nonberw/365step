@@ -82,7 +82,7 @@ export default function Profile() {
           </Button>
         }
       />
-      {msg && <p className="rounded-xl bg-[#e3f3ea] px-4 py-3 text-sm text-success">{msg}</p>}
+      {msg && <p className="rounded-xl bg-[#e6f6ec] px-4 py-3 text-sm text-success">{msg}</p>}
       <ErrorBox message={error} />
 
       {user.role === "student" ? (

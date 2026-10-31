@@ -31,7 +31,7 @@ export function Hero({ eyebrow = "Innovate Without Limits", title, subtitle, cta
 
       {/* Radial Accent */}
       <div
-        className="animate-fade-up absolute left-1/2 top-[calc(100%-90px)] h-[500px] w-[700px] -translate-x-1/2 rounded-[100%] border-[#58cc02] bg-white opacity-0 dark:bg-black md:h-[500px] md:w-[1100px] lg:top-[calc(100%-150px)] lg:h-[750px] lg:w-[140%] bg-[radial-gradient(closest-side,#fff_82%,#d9efc3)] dark:bg-[radial-gradient(closest-side,#000_82%,#58cc02)]"
+        className="animate-fade-up absolute left-1/2 top-[calc(100%-90px)] h-[500px] w-[700px] -translate-x-1/2 rounded-[100%] border-[#4f7cf0] bg-white opacity-0 dark:bg-black md:h-[500px] md:w-[1100px] lg:top-[calc(100%-150px)] lg:h-[750px] lg:w-[140%] bg-[radial-gradient(closest-side,#fff_82%,#d9efc3)] dark:bg-[radial-gradient(closest-side,#000_82%,#4f7cf0)]"
       />
 
       {eyebrow && (
@@ -43,7 +43,7 @@ export function Hero({ eyebrow = "Innovate Without Limits", title, subtitle, cta
         </a>
       )}
 
-      <h1 className="animate-fade-in -translate-y-4 text-balance bg-gradient-to-br from-[#17340c] from-30% to-[#17340c]/40 bg-clip-text py-6 text-5xl font-black leading-none tracking-tighter text-transparent opacity-0 sm:text-6xl md:text-7xl lg:text-8xl dark:from-white dark:to-white/40">
+      <h1 className="animate-fade-in -translate-y-4 text-balance bg-gradient-to-br from-[#0b1014] from-30% to-[#0b1014]/40 bg-clip-text py-6 text-5xl font-black leading-none tracking-tighter text-transparent opacity-0 sm:text-6xl md:text-7xl lg:text-8xl dark:from-white dark:to-white/40">
         {title}
       </h1>
 

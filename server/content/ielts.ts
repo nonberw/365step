@@ -1,7 +1,7 @@
 import { BANK365 } from "../../shared/bank365";
 import type { IeltsChoiceQuestion } from "../../shared/types";
 
-// Original IELTS-style practice material written for Нурбек Чурбек.
+// Original IELTS-style practice material written for Росток.
 // Not taken from official IELTS tests or from other prep platforms.
 
 export const SPEAKING_PART1: { id: string; topic: string; questions: string[] }[] = [

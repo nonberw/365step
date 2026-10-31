@@ -13,5 +13,5 @@ if (fs.existsSync(dist)) {
 // API_PORT, not PORT: dev tools often set PORT for the web server (vite) itself.
 const port = Number(process.env.API_PORT) || 8787;
 app.listen(port, () => {
-  console.log(`Нурбек Чурбек API: http://localhost:${port} (ИИ: ${aiMode === "ai" ? "Claude" : "демо-режим"})`);
+  console.log(`Росток API: http://localhost:${port} (ИИ: ${aiMode === "ai" ? "Claude" : "демо-режим"})`);
 });

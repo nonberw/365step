@@ -62,15 +62,15 @@ export function BentoCard({
       whileHover="active"
       variants={{ idle: {}, active: {} }}
       data-dark={dark ? "true" : undefined}
-      className={clsx(className, "group relative flex flex-col overflow-hidden rounded-3xl", "transform-gpu bg-[#0f2a08] shadow-[0_6px_0_0_#17340c] ring-1 ring-white/10", "data-[dark]:bg-gray-800 data-[dark]:ring-white/15")}
+      className={clsx(className, "group relative flex flex-col overflow-hidden rounded-3xl", "transform-gpu bg-[#0f1a33] shadow-[0_6px_0_0_#0b1014] ring-1 ring-white/10", "data-[dark]:bg-gray-800 data-[dark]:ring-white/15")}
     >
       <div className="relative h-[22rem] shrink-0 overflow-hidden">
         {graphic}
         {fade.includes("top") && <div className="absolute inset-0 bg-gradient-to-b from-white to-50% opacity-25" />}
         {fade.includes("bottom") && <div className="absolute inset-0 bg-gradient-to-t from-white to-50% opacity-25" />}
       </div>
-      <div className="relative isolate z-20 mt-[-110px] h-[14rem] bg-gradient-to-t from-[#0f2a08] via-[#0f2a08]/85 to-transparent p-8 text-white backdrop-blur-sm">
-        <h3 className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#9be300]">{eyebrow}</h3>
+      <div className="relative isolate z-20 mt-[-110px] h-[14rem] bg-gradient-to-t from-[#0f1a33] via-[#0f1a33]/85 to-transparent p-8 text-white backdrop-blur-sm">
+        <h3 className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#8fb0ff]">{eyebrow}</h3>
         <p className="mt-1 text-2xl/8 font-extrabold tracking-tight">{title}</p>
         <p className="mt-2 max-w-[600px] text-sm/6 text-white/75">{description}</p>
       </div>

@@ -140,7 +140,7 @@ export default function QuestionPage() {
       <ErrorBox message={error} />
 
       {checked && (
-        <div className={cn("rounded-2xl p-5", checked.correct ? "bg-[#e3f3ea] dark:bg-success/15" : "bg-[#fde3e4] dark:bg-destructive/15")}>
+        <div className={cn("rounded-2xl p-5", checked.correct ? "bg-[#e6f6ec] dark:bg-success/15" : "bg-[#fde3e4] dark:bg-destructive/15")}>
           <p className={cn("font-display text-lg font-semibold", checked.correct ? "text-success" : "text-destructive")}>{checked.correct ? "Верно!" : "Неверно — вопрос попал в повтор ошибок"}</p>
           <RichText text={checked.explanation} className="mt-2 text-sm" />
           {ai && (

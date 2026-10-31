@@ -162,7 +162,7 @@ function Quiz({ unit }: { unit: Unit }) {
           {results.map((r) => {
             const w = unit.words.find((x) => x.id === r.wordId)!;
             return (
-              <li key={r.wordId} className={cn("rounded-lg px-3 py-1.5 text-sm", r.correct ? "bg-[#e3f3ea] dark:bg-success/15" : "bg-[#fde3e4] dark:bg-destructive/15")}>
+              <li key={r.wordId} className={cn("rounded-lg px-3 py-1.5 text-sm", r.correct ? "bg-[#e6f6ec] dark:bg-success/15" : "bg-[#fde3e4] dark:bg-destructive/15")}>
                 <b>{w.word}</b> — {w.ru}
               </li>
             );
@@ -185,7 +185,7 @@ function Quiz({ unit }: { unit: Unit }) {
             type="button"
             disabled={picked !== null}
             onClick={() => choose(k)}
-            className={cn("rounded-xl border-2 px-4 py-3 text-left font-medium", picked === null ? "border-border hover:border-primary" : k === q!.answer ? "border-success bg-[#e3f3ea] dark:bg-success/15" : k === picked ? "border-destructive bg-[#fde3e4] dark:bg-destructive/15" : "border-border opacity-60")}
+            className={cn("rounded-xl border-2 px-4 py-3 text-left font-medium", picked === null ? "border-border hover:border-primary" : k === q!.answer ? "border-success bg-[#e6f6ec] dark:bg-success/15" : k === picked ? "border-destructive bg-[#fde3e4] dark:bg-destructive/15" : "border-border opacity-60")}
           >
             {o}
           </button>

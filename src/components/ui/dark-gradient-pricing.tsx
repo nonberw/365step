@@ -48,7 +48,7 @@ export const PricingCard = ({ tier, price, bestFor, CTA, benefits, featured, bad
           "relative h-full w-full overflow-hidden border-2 p-6",
           "border-zinc-200 bg-gradient-to-br from-zinc-50/50 to-zinc-100/80",
           "dark:border-zinc-700 dark:from-zinc-950/50 dark:to-zinc-900/80",
-          featured && "border-primary from-[#f1fae6] to-[#dff3c8] dark:border-primary dark:from-[#10260a] dark:to-[#173a0d]",
+          featured && "border-primary from-[#f1f5ff] to-[#dde7ff] dark:border-primary dark:from-[#0f1a33] dark:to-[#16254a]",
           className,
         )}
       >

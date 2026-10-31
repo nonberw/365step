@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// Athena IDE's school catalog is not part of Нурбек Чурбек: these keep the wiring guide's imports working.
+// Athena IDE's school catalog is not part of Росток: these keep the wiring guide's imports working.
 // A lab has no catalog guide, and "assembled" is remembered in the browser.
 
 export function guideOf(_project: string): { id: string; title: string; goal: string; minutes: number } | null {
