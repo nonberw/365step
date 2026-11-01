@@ -4,7 +4,11 @@ import { requireStudent, requireUser } from "../auth";
 import { all, id, one, run } from "../db";
 import { HttpError, must, str, wrap } from "../http";
 import { channels, deliver, snapshot, weeklyReport } from "../family";
-import { handleUpdate, setupBot } from "../bot";
+import { handleUpdate, notify, setupBot } from "../bot";
+import { remindersFor } from "./admissions";
+import { REMIND_AT } from "../../shared/admissions";
+import { longDate } from "../../shared/examDates";
+import type { Goals } from "../../shared/types";
 
 // Parent access: a student creates a private link for a parent (no account needed).
 // The parent sees the child's progress and gets a report every Friday by email or Telegram.
@@ -181,6 +185,26 @@ cronRouter.get(
       }
     }
     res.json({ links: links.length, processed: done.length, sent: done.filter((d) => d.sent.length).length });
+  }),
+);
+
+/** Daily: Telegram reminders 30, 14, 7 and 1 days before (and on the day of) a student's admissions deadlines. */
+cronRouter.get(
+  "/deadlines",
+  wrap(async (req, res) => {
+    cronAuth(req);
+    const students = await all<{ chat_id: string; user_id: string; goals: string }>("SELECT c.chat_id, c.user_id, u.goals FROM tg_chats c JOIN users u ON u.id = c.user_id WHERE u.role = 'student'");
+    let sent = 0;
+    for (const s of students) {
+      const due = (await remindersFor(s.user_id, JSON.parse(s.goals) as Goals)).filter((r) => REMIND_AT.includes(r.days));
+      const fresh = [];
+      for (const r of due) if ((await run("INSERT OR IGNORE INTO reminders_sent (user_id, key, at) VALUES (?, ?, ?)", s.user_id, `${r.id}:${r.date}:${r.days}`, Date.now())).changes) fresh.push(r);
+      if (!fresh.length) continue;
+      const lines = fresh.map((r) => `• ${r.title} — ${r.days === 0 ? "сегодня" : r.days === 1 ? "завтра" : `через ${r.days} дн.`} (${longDate(r.date)})`);
+      const body = ["⏰ Дедлайны 365step", ...lines, "", `Всё в разделе «Поступление»: ${process.env.PUBLIC_URL || "https://365step.vercel.app"}/admissions`].join("\n");
+      if (await notify(s.chat_id, body)) sent++;
+    }
+    res.json({ students: students.length, sent });
   }),
 );
 

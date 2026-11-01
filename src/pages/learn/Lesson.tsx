@@ -159,7 +159,7 @@ export default function Lesson() {
         </div>
       </div>
     );
-  if (!lesson) return <Loading label={course === "ent" ? "ИИ составляет задания по теме, это может занять до минуты…" : "Готовлю урок…"} />;
+  if (!lesson) return <Loading label={course === "ent" || course === "nuet" ? "ИИ составляет задания по теме, это может занять до минуты…" : "Готовлю урок…"} />;
 
   // ---------- finished ----------
   if (phase === "done" && summary) {

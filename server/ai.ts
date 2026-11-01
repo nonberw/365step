@@ -1227,3 +1227,56 @@ export async function activityReview(facts: string, position: string, descriptio
   const out = await ask<{ verdict: string; issues: string[]; missing: string[] }>(ACTIVITY_SYSTEM, `Факты ученика:\n${facts}\n\nРоль: ${position}\nОписание: ${description}`, obj({ verdict: S, issues: arr(S), missing: arr(S) }), "low");
   return { ...out, issues: [...issues, ...out.issues], mode: "ai" };
 }
+
+// ---------- NUET: Nazarbayev University entrance test practice ----------
+
+export type NuetSection = "math" | "ctps";
+
+export interface NuetQuestion {
+  id: string;
+  section: NuetSection;
+  topic: string;
+  passage?: string;
+  stem: string;
+  options: string[];
+  answer: number;
+  explanation: string;
+}
+
+const NUET_SYSTEM = `You write original practice questions for NUET, the Nazarbayev University Entrance Test (Kazakhstan). Two sections, both in English: Mathematics (school algebra, geometry, functions, statistics and probability, word problems) and Critical Thinking & Problem Solving (arguments, assumptions and conclusions, logical deduction, reading data from tables, patterns, spatial and numerical reasoning). On the real test each section has 30 multiple-choice questions in 60 minutes, so a question should take about 2 minutes.
+Never reproduce real or leaked NUET items or questions from published prep books: write new ones in the same style.
+- Each question has exactly 4 options and one correct answer (answer = index 0–3). Distractors reflect typical mistakes.
+- passage: only when the question needs a short text, an argument or a data table (write tables as plain text lines like "Year | Sales"); otherwise an empty string.
+- Formulas in LaTeX between $...$.
+- explanation: 1–3 sentences in Russian: why the answer is right and where the usual mistake is.
+- Mix easy, medium and hard items.`;
+
+const NUET_DEMO: Record<NuetSection, Omit<NuetQuestion, "id" | "section" | "topic">[]> = {
+  math: [
+    { stem: "A jacket costs 24 000 ₸ after a 20% discount. What was the original price?", options: ["28 800 ₸", "30 000 ₸", "29 000 ₸", "26 400 ₸"], answer: 1, explanation: "24 000 — это 80% цены, поэтому цена = 24 000 / 0,8 = 30 000. Частая ошибка — прибавить 20% к 24 000." },
+    { stem: "If $3x - 7 = 2x + 5$, what is $x$?", options: ["-2", "12", "2", "-12"], answer: 1, explanation: "Переносим: 3x − 2x = 5 + 7, x = 12." },
+    { stem: "The mean of five numbers is 8. Four of them are 6, 7, 9 and 10. What is the fifth?", options: ["8", "6", "9", "7"], answer: 0, explanation: "Сумма пяти чисел 40, известные дают 32, значит пятое 8." },
+    { stem: "A right triangle has legs 6 and 8. What is the length of the hypotenuse?", options: ["10", "14", "12", "$\\sqrt{48}$"], answer: 0, explanation: "По теореме Пифагора $\\sqrt{36+64}=10$." },
+    { stem: "A bag has 3 red and 5 blue balls. One ball is drawn at random. What is the probability it is red?", options: ["3/5", "3/8", "5/8", "1/3"], answer: 1, explanation: "Всего 8 шаров, красных 3: вероятность 3/8. Ошибка — делить на число синих." },
+  ],
+  ctps: [
+    { passage: "All members of the robotics club can code. Aliya can code.", stem: "Which conclusion follows for certain?", options: ["Aliya is in the robotics club", "Aliya is not in the robotics club", "It cannot be determined whether Aliya is in the club", "Nobody outside the club can code"], answer: 2, explanation: "Из «все члены клуба умеют программировать» не следует, что все, кто умеет, — в клубе." },
+    { stem: "What number comes next: 2, 6, 12, 20, 30, ?", options: ["40", "42", "36", "44"], answer: 1, explanation: "Разности 4, 6, 8, 10, дальше 12: 30 + 12 = 42." },
+    { passage: "Month | Visitors\nJan | 1200\nFeb | 1500\nMar | 1800", stem: "If the trend continues, how many visitors will there be in May?", options: ["2100", "2400", "2700", "2000"], answer: 1, explanation: "Каждый месяц +300: апрель 2100, май 2400." },
+    { passage: "Since the school introduced a longer lunch break, test scores have risen. So the longer break caused the higher scores.", stem: "Which statement, if true, most weakens the argument?", options: ["Students like the longer break", "The school also hired three new maths teachers that year", "Test scores rose in many schools", "The break is 15 minutes longer"], answer: 1, explanation: "Другая возможная причина роста баллов (новые учителя) ослабляет вывод о причинности." },
+    { stem: "Dana sits to the left of Erlan, and Erlan sits to the left of Bota. Who cannot be in the rightmost seat of the row?", options: ["Bota", "Dana", "Someone other than these three", "Any of them can"], answer: 1, explanation: "Дана левее Ерлана, значит она точно не крайняя справа." },
+  ],
+};
+
+export async function nuetGenerate(section: NuetSection, topic: string, count: number): Promise<Omit<NuetQuestion, "id">[]> {
+  if (!client) return NUET_DEMO[section].map((q) => ({ ...q, section, topic }));
+  const out = await ask<{ items: { passage: string; stem: string; options: string[]; answer: number; explanation: string }[] }>(
+    NUET_SYSTEM,
+    `Section: ${section === "math" ? "Mathematics" : "Critical Thinking & Problem Solving"}\nTopic: ${topic}\nNumber of questions: ${count}`,
+    obj({ items: arr(obj({ passage: S, stem: S, options: arr(S), answer: I, explanation: S })) }),
+    "medium",
+  );
+  return out.items
+    .filter((x) => x.stem && x.options.length === 4 && x.answer >= 0 && x.answer <= 3)
+    .map((x) => ({ section, topic, ...(x.passage?.trim() ? { passage: x.passage.trim() } : {}), stem: x.stem, options: x.options, answer: x.answer, explanation: x.explanation }));
+}

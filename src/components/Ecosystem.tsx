@@ -7,6 +7,7 @@ import { daysTo, longDate, monthLabel } from "@shared/examDates";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { Plant } from "@/components/Plant";
+import { DeadlineChip } from "@/components/Deadlines";
 
 // What ties the sections together: one plant, one XP and streak, one set of exam dates,
 // and links between sections that feed each other (the path, review of mistakes, duels, admissions).
@@ -19,7 +20,7 @@ export const MODULES: Record<ModuleId, { label: string; emoji: string; to: strin
   ielts: { label: "IELTS", emoji: "🎧", to: "/ielts", color: "#ff9600", blurb: "4 навыка с ИИ" },
   ent: { label: "ЕНТ", emoji: "🏛️", to: "/ent", color: "#9b5cf6", blurb: "пробники и дуэли" },
   code: { label: "Код и лаба", emoji: "💻", to: "/engineering", color: "#1cb0f6", blurb: "задачи, дроны, CAD → портфолио" },
-  admissions: { label: "Поступление", emoji: "🎓", to: "/admissions", color: "#ff4b4b", blurb: "заявки, эссе, портфолио" },
+  admissions: { label: "Поступление", emoji: "🎓", to: "/admissions", color: "#ff4b4b", blurb: "заявки, эссе, стипендии" },
 };
 
 export interface ExamCountdown {
@@ -48,6 +49,7 @@ const L = {
   pathRw: { to: "/learn?course=sat-rw", label: "🌱 Путь · SAT R&W" },
   pathIelts: { to: "/learn?course=ielts-reading", label: "🌱 Путь · IELTS" },
   pathEnt: { to: "/learn?course=ent", label: "🌱 Путь · ЕНТ" },
+  pathNuet: { to: "/learn?course=nuet", label: "🌱 Путь · NUET" },
   pathCode: { to: "/learn?course=code", label: "🌱 Путь · Код" },
   review: { to: "/review", label: "🔁 Повтор ошибок" },
   duels: { to: "/duels", label: "⚔️ Дуэли" },
@@ -63,20 +65,23 @@ const L = {
   portfolio: { to: "/admissions?tab=portfolio", label: "🧰 Портфолио" },
   essays: { to: "/admissions?tab=essays", label: "✍️ Эссе с ИИ" },
   apps: { to: "/admissions?tab=apps", label: "📋 Мои заявки" },
+  recs: { to: "/admissions?tab=recs", label: "🤝 Рекомендации" },
+  money: { to: "/admissions?tab=money", label: "💸 Стипендии" },
+  nu: { to: "/admissions?tab=nu", label: "🎯 NU и NUET" },
 } satisfies Record<string, Rel>;
 
 /** Sections that feed each other, by route prefix (longest prefix wins). */
 const RELATED: [string, Rel[]][] = [
-  ["/learn", [L.review, L.duels, L.leaderboard, L.admissions]],
-  ["/sat", [L.pathSat, L.pathRw, L.review, L.apps]],
-  ["/ielts", [L.pathIelts, L.essays, L.apps, L.library]],
-  ["/ent", [L.pathEnt, L.duels, L.review, L.library]],
+  ["/learn", [L.review, L.duels, L.nu, L.admissions]],
+  ["/sat", [L.pathSat, L.pathRw, L.review, L.money]],
+  ["/ielts", [L.pathIelts, L.essays, L.nu, L.library]],
+  ["/ent", [L.pathEnt, L.nu, L.duels, L.review]],
   ["/duels", [L.pathEnt, L.ent, L.leaderboard, L.review]],
   ["/review", [L.pathSat, L.pathEnt, L.duels, L.leaderboard]],
   ["/coding", [L.pathCode, L.engineering, L.portfolio]],
   ["/engineering", [L.portfolio, L.pathCode, L.code]],
   ["/library", [L.ent, L.sat, L.ielts]],
-  ["/admissions", [L.engineering, L.code, L.sat, L.ielts]],
+  ["/admissions", [L.engineering, L.pathNuet, L.sat, L.ielts]],
   ["/leaderboard", [L.duels, L.review, L.pathSat]],
   ["/family", [L.leaderboard, L.review]],
   ["/profile", [L.family, L.leaderboard, L.admissions]],
@@ -122,6 +127,7 @@ export function EcosystemBar() {
             </b>
           </Link>
         ))}
+        <DeadlineChip />
       </div>
       {related.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 text-xs">

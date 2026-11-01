@@ -2,10 +2,13 @@ import { Router } from "express";
 import { requireStudent } from "../auth";
 import { activityReview, essayBrainstorm, essayFeedback, type EssayKind } from "../ai";
 import { addXp, all, id, one, run } from "../db";
-import { HttpError, must, str, wrap } from "../http";
+import { HttpError, must, num, str, wrap } from "../http";
+import type { Goals } from "../../shared/types";
+import { REC_ROLES, REC_STATUSES, nuReadiness, upcomingDeadlines, type NuProfile, type Reminder } from "../../shared/admissions";
 
 // Admissions workspace: the student's applications with deadlines and checklists, essay drafts with an AI coach,
-// and the activity list for Common App, which the portfolio fills from work done on the platform.
+// the activity list for Common App, which the portfolio fills from work done on the platform, recommenders,
+// the Nazarbayev University readiness check and deadline reminders.
 
 export const admissionsRouter = Router();
 
@@ -256,5 +259,137 @@ admissionsRouter.get(
     const u = requireStudent(req);
     const apps = await all<{ name: string }>("SELECT name FROM applications WHERE user_id = ?", u.id);
     res.json({ strict: apps.filter((a) => STRICT_AI.some((re) => re.test(a.name))).map((a) => a.name) });
+  }),
+);
+
+// ---------- recommenders ----------
+
+interface RecRow {
+  id: string;
+  name: string;
+  role: string;
+  subject: string;
+  status: string;
+  due: string | null;
+  asked_at: number | null;
+  notes: string;
+}
+
+const recOf = async (userId: string, recId: string) => must(await one<RecRow>("SELECT * FROM recommenders WHERE id = ? AND user_id = ?", recId, userId), 404, "Рекомендатель не найден");
+
+admissionsRouter.get(
+  "/recs",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    res.json(await all<RecRow>("SELECT id, name, role, subject, status, due, asked_at, notes FROM recommenders WHERE user_id = ? ORDER BY due IS NULL, due, created_at", u.id));
+  }),
+);
+
+admissionsRouter.post(
+  "/recs",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const b = req.body ?? {};
+    const name = str(b.name, 80);
+    if (!name) throw new HttpError(400, "Как зовут рекомендателя?");
+    const n = (await one<{ n: number }>("SELECT COUNT(*) n FROM recommenders WHERE user_id = ?", u.id))?.n ?? 0;
+    if (n >= 8) throw new HttpError(400, "Обычно нужно 2–3 рекомендателя, 8 — это предел");
+    const recId = id();
+    await run(
+      "INSERT INTO recommenders (id, user_id, name, role, subject, status, due, notes, created_at) VALUES (?, ?, ?, ?, ?, 'idea', ?, '', ?)",
+      recId,
+      u.id,
+      name,
+      b.role in REC_ROLES ? String(b.role) : "teacher",
+      str(b.subject, 60),
+      DATE.test(String(b.due)) ? String(b.due) : null,
+      Date.now(),
+    );
+    res.status(201).json(await recOf(u.id, recId));
+  }),
+);
+
+admissionsRouter.patch(
+  "/recs/:id",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const row = await recOf(u.id, String(req.params.id));
+    const b = req.body ?? {};
+    const status = b.status in REC_STATUSES ? String(b.status) : row.status;
+    const due = b.due === null ? null : DATE.test(String(b.due)) ? String(b.due) : row.due;
+    const askedAt = row.asked_at ?? (status !== "idea" ? Date.now() : null);
+    await run("UPDATE recommenders SET status = ?, due = ?, asked_at = ?, notes = ? WHERE id = ?", status, due, askedAt, b.notes !== undefined ? str(b.notes, 3000) : row.notes, row.id);
+    if (status === "submitted" && row.status !== "submitted") await addXp(u.id, 10, "recommendation");
+    res.json(await recOf(u.id, row.id));
+  }),
+);
+
+admissionsRouter.delete(
+  "/recs/:id",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    await run("DELETE FROM recommenders WHERE id = ? AND user_id = ?", String(req.params.id), u.id);
+    res.json({ ok: true });
+  }),
+);
+
+// ---------- Nazarbayev University readiness ----------
+
+const score = (v: unknown, min: number, max: number, step = 1) => {
+  if (v === undefined || v === null || v === "") return undefined;
+  const n = Math.round(num(v, NaN) / step) * step;
+  return n >= min && n <= max ? n : undefined;
+};
+
+function cleanNu(b: Record<string, unknown>): NuProfile {
+  const category = b.category === "sat" || b.category === "olympiad" ? b.category : "nuet";
+  return {
+    category,
+    nuetMath: score(b.nuetMath, 0, 120),
+    nuetCtps: score(b.nuetCtps, 0, 120),
+    sat: score(b.sat, 400, 1600, 10),
+    ieltsOverall: score(b.ieltsOverall, 0, 9, 0.5),
+    ieltsWriting: score(b.ieltsWriting, 0, 9, 0.5),
+    ieltsOther: score(b.ieltsOther, 0, 9, 0.5),
+    ieltsOnline: !!b.ieltsOnline,
+    olympiad: str(b.olympiad, 120) || undefined,
+  };
+}
+
+admissionsRouter.get(
+  "/nu",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const row = await one<{ nu: string }>("SELECT nu FROM adm_profiles WHERE user_id = ?", u.id);
+    const goals = JSON.parse(u.goals) as Goals;
+    // Until the student fills it in, start from what onboarding already knows.
+    const profile: NuProfile = row ? (JSON.parse(row.nu) as NuProfile) : { category: goals.sat ? "sat" : "nuet", sat: goals.sat?.current, ieltsOverall: goals.ielts?.current };
+    res.json({ profile, checks: nuReadiness(profile), saved: !!row });
+  }),
+);
+
+admissionsRouter.put(
+  "/nu",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const profile = cleanNu(req.body ?? {});
+    await run("INSERT INTO adm_profiles (user_id, nu, updated_at) VALUES (?, ?, ?) ON CONFLICT(user_id) DO UPDATE SET nu = excluded.nu, updated_at = excluded.updated_at", u.id, JSON.stringify(profile), Date.now());
+    res.json({ profile, checks: nuReadiness(profile), saved: true });
+  }),
+);
+
+// ---------- reminders ----------
+
+export async function remindersFor(userId: string, goals: Goals): Promise<Reminder[]> {
+  const apps = await all<{ id: string; name: string; deadline: string | null; status: string }>("SELECT id, name, deadline, status FROM applications WHERE user_id = ?", userId);
+  const recs = await all<{ id: string; name: string; due: string | null; status: string }>("SELECT id, name, due, status FROM recommenders WHERE user_id = ?", userId);
+  return upcomingDeadlines({ apps, recs, satDate: goals.sat?.date });
+}
+
+admissionsRouter.get(
+  "/reminders",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    res.json(await remindersFor(u.id, JSON.parse(u.goals) as Goals));
   }),
 );

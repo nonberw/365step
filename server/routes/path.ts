@@ -11,7 +11,7 @@ import { requireStudent } from "../auth";
 import { addXp, all, dayKey, id, one, run, xpSummary } from "../db";
 import { solvedProblems } from "../progress";
 import { reviewResult } from "../review";
-import { entGenerate } from "../ai";
+import { entGenerate, nuetGenerate, type NuetQuestion, type NuetSection } from "../ai";
 import { store as storeEnt } from "./ent";
 import { HttpError, str, wrap } from "../http";
 
@@ -33,6 +33,8 @@ interface NodeDef {
   setId?: string;
   /** ENT: subject and topic */
   ent?: { subject: string; topic?: string };
+  /** NUET: section and topic */
+  nuet?: { section: NuetSection; topic?: string };
   /** coding warm-up from Bug Blitz */
   blitz?: boolean;
   /** coding problem solved in the editor */
@@ -89,6 +91,50 @@ function entCourse(pair: string | null): UnitDef[] {
   });
 }
 
+/** NUET topics: Russian titles on the path, English names Claude writes questions for. */
+const NUET_UNITS: { section: NuetSection; title: string; description: string; topics: [string, string][] }[] = [
+  {
+    section: "math",
+    title: "📐 Mathematics",
+    description: "На экзамене 30 вопросов за 60 минут",
+    topics: [
+      ["Арифметика и проценты", "Arithmetic, ratios and percentages"],
+      ["Алгебра и уравнения", "Algebra, equations and inequalities"],
+      ["Функции и графики", "Functions and graphs"],
+      ["Геометрия", "Geometry: angles, areas, volumes, coordinates"],
+      ["Вероятность и статистика", "Probability and statistics"],
+      ["Текстовые задачи", "Word problems"],
+    ],
+  },
+  {
+    section: "ctps",
+    title: "🧠 Critical Thinking",
+    description: "Critical Thinking & Problem Solving: 30 вопросов за 60 минут",
+    topics: [
+      ["Аргументы и допущения", "Arguments: conclusions, assumptions, strengthen and weaken"],
+      ["Логические выводы", "Logical deduction and ordering"],
+      ["Таблицы и данные", "Reading data from tables and charts"],
+      ["Закономерности", "Number and letter patterns and sequences"],
+      ["Пространственное мышление", "Spatial reasoning described in words"],
+      ["Числовые головоломки", "Numerical problem solving"],
+    ],
+  },
+];
+
+function nuetCourse(): UnitDef[] {
+  return NUET_UNITS.map((u, ui) => ({
+    id: u.section,
+    title: u.title,
+    description: u.description,
+    color: UNIT_COLORS[(ui * 3 + 1) % UNIT_COLORS.length]!,
+    nodes: [
+      ...u.topics.map(([ru, en], ti) => ({ id: `n-${u.section}-${ti}`, kind: "lesson" as const, title: ru, subtitle: en, maxLevel: 3, nuet: { section: u.section, topic: en } })),
+      { id: `nr-${u.section}`, kind: "review" as const, title: "Мини-пробник", subtitle: "Вопросы по всем темам раздела", maxLevel: 3, nuet: { section: u.section } },
+      chest(u.section),
+    ],
+  }));
+}
+
 const DIFF_RU = { Easy: "Лёгкая", Medium: "Средняя", Hard: "Сложная" } as const;
 const DIFF_ORDER = { Easy: 0, Medium: 1, Hard: 2 } as const;
 
@@ -113,7 +159,7 @@ function codeCourse(): UnitDef[] {
   return [warmup, ...units];
 }
 
-const STATIC: Partial<Record<CourseId, UnitDef[]>> = { "sat-math": satCourse("math"), "sat-rw": satCourse("rw"), "ielts-reading": ieltsCourse(), code: codeCourse() };
+const STATIC: Partial<Record<CourseId, UnitDef[]>> = { "sat-math": satCourse("math"), "sat-rw": satCourse("rw"), "ielts-reading": ieltsCourse(), nuet: nuetCourse(), code: codeCourse() };
 
 async function entProfile(userId: string) {
   return one<{ pair: string; lang: EntLang }>("SELECT pair, lang FROM ent_profiles WHERE user_id = ?", userId);
@@ -308,6 +354,27 @@ async function entItems(userId: string, subjectId: string, topic: string | undef
   return picked.map((q) => ({ id: q.id, kind: "choice" as const, ...(q.passage ? { passage: q.passage } : {}), stem: q.stem, choices: q.options }));
 }
 
+/** NUET lessons draw from Claude-written questions per topic and top the topic up when it runs thin. */
+async function nuetItems(userId: string, section: NuetSection, topic: string | undefined): Promise<LessonItem[]> {
+  const load = async () =>
+    (await all<{ data: string }>(`SELECT data FROM nuet_questions WHERE section = ?${topic ? " AND topic = ?" : ""}`, section, ...(topic ? [topic] : []))).map((r) => JSON.parse(r.data) as NuetQuestion);
+  let pool = await load();
+  if (pool.length < LESSON_SIZE && topic) {
+    for (const q of await nuetGenerate(section, topic, LESSON_SIZE + 2)) {
+      const full: NuetQuestion = { ...q, id: `nuet-${id(6)}` };
+      await run("INSERT INTO nuet_questions (id, section, topic, data, created_at) VALUES (?, ?, ?, ?, ?)", full.id, section, topic, JSON.stringify(full), Date.now());
+    }
+    pool = await load();
+  }
+  if (!pool.length) throw new HttpError(503, topic ? "Не получилось подготовить задания по этой теме. Попробуй чуть позже" : "Мини-пробник собирается из вопросов пройденных тем: сначала пройди хотя бы одну тему");
+  const seen = new Set((await all<{ item_id: string }>("SELECT item_id FROM attempts WHERE user_id = ? AND module = 'nuet'", userId)).map((r) => r.item_id));
+  return pool
+    .map((q) => ({ q, score: (seen.has(q.id) ? 2 : 0) + Math.random() }))
+    .sort((a, b) => a.score - b.score)
+    .slice(0, LESSON_SIZE)
+    .map(({ q }) => ({ id: q.id, kind: "choice" as const, ...(q.passage ? { passage: q.passage } : {}), stem: q.stem, choices: q.options }));
+}
+
 pathRouter.post(
   "/:course/:node/start",
   wrap(async (req, res) => {
@@ -324,7 +391,9 @@ pathRouter.post(
         ? blitzItems(pn.level)
         : node.ent
           ? await entItems(u.id, node.ent.subject, node.ent.topic, pn.level)
-          : (await pickSat(u.id, node.skills ?? [], pn.level)).map(satItem);
+          : node.nuet
+            ? await nuetItems(u.id, node.nuet.section, node.nuet.topic)
+            : (await pickSat(u.id, node.skills ?? [], pn.level)).map(satItem);
     if (!items.length) throw new HttpError(404, "Для этого уровня пока нет заданий");
     const lessonId = id();
     await run(
@@ -357,13 +426,19 @@ async function lesson(userId: string, lessonId: string) {
   return l;
 }
 
-type Checked = AnswerResult & { skill: string; module: "sat" | "ielts-reading" | "ent" | "code"; review?: "sat" | "ent" };
+type Checked = AnswerResult & { skill: string; module: "sat" | "ielts-reading" | "ent" | "nuet" | "code"; review?: "sat" | "ent" };
 
 async function check(itemId: string, response: unknown): Promise<Checked> {
   if (itemId.startsWith(BLITZ_PREFIX)) {
     const b = BLITZ.find((x) => x.id === itemId.slice(BLITZ_PREFIX.length));
     if (!b) throw new HttpError(404, "Вопрос не найден");
     return { correct: Number(response) === b.answer, answer: b.options[b.answer]!, explanation: b.why, skill: b.skill, module: "code" };
+  }
+  if (itemId.startsWith("nuet-")) {
+    const row = await one<{ data: string }>("SELECT data FROM nuet_questions WHERE id = ?", itemId);
+    if (!row) throw new HttpError(404, "Вопрос не найден");
+    const q = JSON.parse(row.data) as NuetQuestion;
+    return { correct: Number(response) === q.answer, answer: q.options[q.answer] ?? "", explanation: q.explanation, skill: `${q.section}:${q.topic}`, module: "nuet" };
   }
   if (itemId.startsWith("ent-")) {
     const row = await one<{ data: string }>("SELECT data FROM ent_questions WHERE id = ?", itemId);

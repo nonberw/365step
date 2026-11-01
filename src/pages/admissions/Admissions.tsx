@@ -6,6 +6,10 @@ import { GreetingBanner } from "@/components/Page";
 import Apps from "./Apps";
 import Essays from "./Essays";
 import Portfolio from "./Portfolio";
+import Recs from "./Recs";
+import Money from "./Money";
+import Nu from "./Nu";
+import { DeadlineStrip } from "@/components/Deadlines";
 import { Badge, Card, Empty, Segmented } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { buttonVariants } from "@/components/ui/button";
@@ -225,25 +229,32 @@ function OpportunityCard({ o, today, saved, onToggle }: { o: Opportunity; today:
   );
 }
 
-type Tab = "apps" | "essays" | "portfolio" | "catalog";
+type Tab = "apps" | "recs" | "essays" | "portfolio" | "money" | "nu" | "catalog";
 const TABS: { value: Tab; label: string }[] = [
   { value: "apps", label: "📋 Мои заявки" },
+  { value: "recs", label: "🤝 Рекомендации" },
   { value: "essays", label: "✍️ Эссе с ИИ" },
   { value: "portfolio", label: "🧰 Портфолио" },
+  { value: "money", label: "💸 Стипендии" },
+  { value: "nu", label: "🎯 NU и NUET" },
   { value: "catalog", label: "🏆 Конкурсы" },
 ];
 
-/** Admissions workspace: applications, essays, the portfolio built from the labs, and the opportunity catalog. */
+/** Admissions workspace: applications, recommenders, essays, the portfolio built from the labs, scholarships, NU and the opportunity catalog. */
 export default function Admissions() {
   const [params, setParams] = useSearchParams();
   const tab = (TABS.find((t) => t.value === params.get("tab"))?.value ?? "apps") as Tab;
   return (
     <div className="flex flex-col gap-6">
-      <GreetingBanner eyebrow="Поступление без паники" title="Подавайся как про" subtitle="Список вузов с дедлайнами и чек-листами, эссе с ИИ-коучем (он не пишет за тебя, а помогает найти свою историю) и портфолио, которое само собирается из лаборатории, кода и пути." />
+      <GreetingBanner eyebrow="Поступление без паники" title="Подавайся как про" subtitle="Список вузов с дедлайнами и чек-листами, рекомендатели, эссе с ИИ-коучем (он не пишет за тебя, а помогает найти свою историю), портфолио из лаборатории, кода и пути, стипендии и путь в NU." />
+      <DeadlineStrip />
       <Segmented value={tab} onChange={(v) => setParams({ tab: v })} options={TABS} className="self-start" />
       {tab === "apps" && <Apps />}
+      {tab === "recs" && <Recs />}
       {tab === "essays" && <Essays />}
       {tab === "portfolio" && <Portfolio />}
+      {tab === "money" && <Money />}
+      {tab === "nu" && <Nu />}
       {tab === "catalog" && <Catalog />}
     </div>
   );

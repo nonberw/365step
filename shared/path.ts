@@ -1,12 +1,13 @@
 // Duolingo-style learning path: courses split into units, units into nodes the student walks through.
 
-export type CourseId = "sat-math" | "sat-rw" | "ielts-reading" | "ent" | "code";
+export type CourseId = "sat-math" | "sat-rw" | "ielts-reading" | "ent" | "nuet" | "code";
 
 export const COURSES: Record<CourseId, { title: string; short: string; emoji: string }> = {
   "sat-math": { title: "SAT Math", short: "Math", emoji: "📐" },
   "sat-rw": { title: "SAT Reading & Writing", short: "R&W", emoji: "📖" },
   "ielts-reading": { title: "IELTS Reading", short: "IELTS", emoji: "🎧" },
   ent: { title: "ЕНТ", short: "ЕНТ", emoji: "🏛️" },
+  nuet: { title: "NUET · Nazarbayev University", short: "NUET", emoji: "🎯" },
   code: { title: "Программирование", short: "Код", emoji: "💻" },
 };
 

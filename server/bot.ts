@@ -35,6 +35,11 @@ async function tg(method: string, body: object) {
   return res?.ok ? ((await res.json()) as { result: unknown }).result : null;
 }
 
+/** One-way message from the platform (deadline reminders). */
+export async function notify(chat: string, text: string) {
+  return !!(await tg("sendMessage", { chat_id: chat, text, disable_web_page_preview: true }));
+}
+
 /** Telegram allows 4096 characters per message. */
 async function say(chat: string, text: string, extra: object = {}) {
   for (let i = 0; i < text.length; i += 4000) await tg("sendMessage", { chat_id: chat, text: text.slice(i, i + 4000), disable_web_page_preview: true, ...(i + 4000 >= text.length ? extra : {}) });
