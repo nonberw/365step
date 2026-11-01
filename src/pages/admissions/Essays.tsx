@@ -55,7 +55,7 @@ const PROMPTS: Record<Kind, string[]> = {
   ],
   "why-us": ["Why are you interested in this university? (обычно 150–300 слов — уточни на сайте вуза)"],
   ucas: [
-    "1. Why do you want to study this course or subject?",
+    "1. Why do you want to study this course or subject? (всего 4 000 знаков на три ответа, минимум 350 на каждый)",
     "2. How have your qualifications and studies helped you to prepare for this course or subject?",
     "3. What else have you done to prepare outside of education, and why are these experiences useful?",
   ],
@@ -72,7 +72,8 @@ export default function Essays() {
   const [busy, setBusy] = useState<"" | "save" | "feedback" | "brainstorm">("");
   const [err, setErr] = useState("");
   const [notes, setNotes] = useState("");
-  const [ideas, setIdeas] = useState<{ questions: string[]; angles: string[]; outline: string[] } | null>(null);
+  const [ideas, setIdeas] = useState<{ questions: string[]; angles: string[] } | null>(null);
+  const policy = useApi<{ strict: string[] }>("/admissions/policy");
 
   useEffect(() => {
     if (!active && list.data?.length) setActive(list.data[0]!);
@@ -145,9 +146,14 @@ export default function Essays() {
       <div className="flex items-start gap-3 rounded-3xl border border-primary/20 bg-primary/5 p-4 text-sm">
         <ShieldCheck className="mt-0.5 size-5 shrink-0 text-primary" />
         <p>
-          <b>ИИ здесь коуч, а не гострайтер.</b> Он задаёт вопросы, помогает с планом и честно комментирует черновик — но не пишет текст за тебя. Common App считает выдачу текста ИИ за свой обманом, а приёмные комиссии ищут именно твой голос.
+          <b>ИИ здесь коуч, а не гострайтер.</b> Он задаёт вопросы и честно комментирует черновик — но не пишет, не переписывает, не переводит текст и не составляет план. Common App считает выдачу текста ИИ за свой обманом, UCAS проверяет все тексты системой Copycatch, а приёмные комиссии ищут именно твой голос.
         </p>
       </div>
+      {policy.data && policy.data.strict.length > 0 && (
+        <div className="rounded-3xl border border-[#ff9600]/40 bg-[#fff4e0] p-4 text-sm text-[#7a4300]">
+          В твоём списке {policy.data.strict.join(", ")}: там ИИ для эссе разрешён только для орфографии и грамматики. Common App эссе уходит во все вузы сразу, поэтому для него включён режим «только грамматика» — действует самая строгая политика.
+        </div>
+      )}
 
       <div className="grid gap-5 xl:grid-cols-[260px_minmax(0,1fr)_320px]">
         <aside className="flex flex-col gap-2">
@@ -274,13 +280,10 @@ export default function Essays() {
                     <ul className="mt-1 list-disc pl-5">{ideas.questions.map((q) => <li key={q}>{q}</li>)}</ul>
                   </div>
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">возможные углы</p>
+                    <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">над чем подумать</p>
                     <ul className="mt-1 list-disc pl-5">{ideas.angles.map((q) => <li key={q}>{q}</li>)}</ul>
                   </div>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">план (пишешь ты)</p>
-                    <ol className="mt-1 list-decimal pl-5">{ideas.outline.map((q) => <li key={q}>{q}</li>)}</ol>
-                  </div>
+                  <p className="text-[11px] text-muted-foreground">План и текст — твои. ИИ не составляет план эссе: некоторые вузы (Caltech, Georgia Tech) прямо это запрещают.</p>
                 </div>
               )}
             </Card>

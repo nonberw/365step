@@ -6,9 +6,31 @@ import { plantGrowth } from "@shared/plants";
 import { Aurora } from "@/components/Aurora";
 import { Plant } from "@/components/Plant";
 import { HeroPill, StarIcon } from "@/components/ui/hero-pill";
+import { useLocation } from "react-router-dom";
+import { Sticker } from "@/pages/landing/PhoneChat";
 
 /** Section banner shared by every module: the sky with drifting clouds, a 21st Hero Pill, a serif headline
  *  and the student's plant on the right. `image` and `position` are kept for existing callers. */
+/** Folk-style sticker per section: tap it for a burst of emoji and a Gen Z caption. */
+const STICKERS: [string, { emoji: string; burst: string[]; caption: string }][] = [
+  ["/sat", { emoji: "📐", burst: ["📐", "🧮", "💯", "✨"], caption: "1600 — не мечта, а план" }],
+  ["/ielts", { emoji: "🎧", burst: ["🎧", "🗣️", "🇬🇧", "✨"], caption: "band 7 на изи" }],
+  ["/coding", { emoji: "💻", burst: ["💻", "🐍", "⚡", "🤖"], caption: "код компилится — вайб ловится" }],
+  ["/library", { emoji: "📚", burst: ["📚", "🤓", "💡", "✨"], caption: "читать — это база" }],
+  ["/leaderboard", { emoji: "🏆", burst: ["🏆", "🥇", "👑", "🎉"], caption: "топ-1 смотрит на тебя" }],
+  ["/admissions", { emoji: "🎓", burst: ["🎓", "📨", "🌍", "✨"], caption: "подаёмся без паники" }],
+  ["/profile", { emoji: "🪴", burst: ["🌱", "🌸", "🌻", "🍀"], caption: "это ты. и ты растёшь" }],
+  ["/app", { emoji: "🔥", burst: ["🔥", "⚡", "💪", "🔥"], caption: "серия горит — не сливай" }],
+];
+
+function BannerSticker() {
+  const { pathname } = useLocation();
+  const hit = STICKERS.find(([p]) => pathname === p || pathname.startsWith(`${p}/`));
+  if (!hit) return null;
+  const st = hit[1];
+  return <Sticker emoji={st.emoji} burst={st.burst} caption={st.caption} className="right-6 top-4 hidden sm:block" rotate={10} size={44} />;
+}
+
 export function GreetingBanner({ title, subtitle, eyebrow, action, children }: { title: string; subtitle?: string; eyebrow?: string; image?: string; position?: string; action?: ReactNode; children?: ReactNode }) {
   const { user } = useAuth();
   return (
@@ -29,6 +51,7 @@ export function GreetingBanner({ title, subtitle, eyebrow, action, children }: {
             <Plant species={user.plant} stage={plantGrowth(user.xp).stage} mood="happy" />
           </div>
         )}
+        <BannerSticker />
       </div>
     </section>
   );

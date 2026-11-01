@@ -49,7 +49,8 @@ export default function Portfolio() {
   const code = useApi<{ id: string; title: string; status: string; pattern: string }[]>("/coding/problems");
   const path = useApi<{ courses: { id: string; title: string; done: number; total: number }[] }>("/path");
   const acts = useApi<Activity[]>("/admissions/activities");
-  const [edit, setEdit] = useState<{ source: string; facts: string; position: string; organization: string; description: string; hours: number; weeks: number; tips: string[] } | null>(null);
+  const [edit, setEdit] = useState<{ source: string; facts: string; position: string; organization: string; description: string; hours: number; weeks: number } | null>(null);
+  const [review, setReview] = useState<{ verdict: string; issues: string[]; missing: string[] } | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
 
@@ -80,13 +81,12 @@ export default function Portfolio() {
   const today = new Date().toISOString().slice(0, 10);
   const matches = OPPORTUNITIES.filter((o) => (fields.size ? fields.has(o.field as "stem" | "it") : o.field === "stem") && (o.rolling || (o.deadline && o.deadline >= today))).slice(0, 4);
 
-  async function phrase() {
+  async function check() {
     if (!edit) return;
     setBusy(true);
     setErr("");
     try {
-      const r = await api<{ position: string; organization: string; description: string; tips: string[] }>("/admissions/activities/phrase", { body: { facts: edit.facts } });
-      setEdit({ ...edit, ...r });
+      setReview(await api("/admissions/activities/review", { body: { facts: edit.facts, position: edit.position, description: edit.description } }));
     } catch (x) {
       setErr((x as Error).message);
     } finally {
@@ -138,7 +138,7 @@ export default function Portfolio() {
                   </p>
                   <p className="text-xs text-muted-foreground">{s.facts}</p>
                   <div className="mt-auto flex flex-wrap gap-2 pt-1">
-                    <Button size="sm" variant={used.has(s.id) ? "outline" : "default"} onClick={() => setEdit({ source: s.id, facts: s.facts, position: "", organization: "365step", description: "", hours: 3, weeks: 20, tips: [] })}>
+                    <Button size="sm" variant={used.has(s.id) ? "outline" : "default"} onClick={() => setEdit({ source: s.id, facts: s.facts, position: "", organization: "365step", description: "", hours: 3, weeks: 20 })}>
                       <Wand2 /> {used.has(s.id) ? "Ещё вариант" : "Оформить для Common App"}
                     </Button>
                     <Link to={s.href} className={buttonVariants({ size: "sm", variant: "ghost" })}>
@@ -149,7 +149,7 @@ export default function Portfolio() {
               ))}
             </div>
           )}
-          <Button variant="ghost" className="self-start" onClick={() => setEdit({ source: "custom", facts: "", position: "", organization: "", description: "", hours: 2, weeks: 30, tips: [] })}>
+          <Button variant="ghost" className="self-start" onClick={() => setEdit({ source: "custom", facts: "", position: "", organization: "", description: "", hours: 2, weeks: 30 })}>
             + Своя активность (кружок, волонтёрство, спорт)
           </Button>
         </Card>
@@ -157,10 +157,9 @@ export default function Portfolio() {
         {edit && (
           <Card className="flex flex-col gap-3 border-primary">
             <p className="font-display text-lg font-bold">Оформляем активность</p>
+            <p className="text-xs font-semibold text-muted-foreground">факты (сырьё для записи — цифры уже посчитаны платформой)</p>
             <textarea aria-label="Факты" value={edit.facts} onChange={(e) => setEdit({ ...edit, facts: e.target.value })} placeholder="Факты: что делал, сколько часов, каких результатов добился" className="min-h-[90px] rounded-2xl border border-border bg-card p-3 text-sm outline-none focus:border-primary" />
-            <Button variant="outline" onClick={phrase} disabled={busy} className="self-start">
-              <Sparkles /> {busy ? "ИИ формулирует…" : "Сформулировать по фактам"}
-            </Button>
+            <p className="text-xs text-muted-foreground">Запись в Activities пишешь ты, на английском. ИИ проверит лимиты, цифры и конкретику, но не напишет текст за тебя.</p>
             <Field label="Position / role" max={50} value={edit.position} onChange={(v) => setEdit({ ...edit, position: v })} />
             <Field label="Organization" max={100} value={edit.organization} onChange={(v) => setEdit({ ...edit, organization: v })} />
             <Field label="Description" max={150} value={edit.description} onChange={(v) => setEdit({ ...edit, description: v })} area />
@@ -174,8 +173,16 @@ export default function Portfolio() {
                 <Input type="number" min={0} max={52} value={edit.weeks} onChange={(e) => setEdit({ ...edit, weeks: Number(e.target.value) })} />
               </label>
             </div>
-            {edit.tips.length > 0 && <p className="rounded-2xl bg-muted p-3 text-xs">💡 {edit.tips.join(" ")}</p>}
-            <p className="text-[11px] text-muted-foreground">ИИ берёт только твои факты и ничего не преувеличивает. Проверь текст перед отправкой.</p>
+            <Button variant="outline" onClick={check} disabled={busy || edit.description.length < 10} className="self-start">
+              <Sparkles /> {busy ? "ИИ читает…" : "Проверить с ИИ"}
+            </Button>
+            {review && (
+              <div className="rounded-2xl bg-muted p-3 text-xs">
+                <p className="font-semibold">{review.verdict}</p>
+                {review.issues.length > 0 && <ul className="mt-1 list-disc pl-4">{review.issues.map((i) => <li key={i}>{i}</li>)}</ul>}
+                {review.missing.length > 0 && <p className="mt-1">💡 {review.missing.join(" ")}</p>}
+              </div>
+            )}
             <ErrorBox message={err} />
             <div className="flex gap-2">
               <Button onClick={saveActivity}>Сохранить в Activities</Button>

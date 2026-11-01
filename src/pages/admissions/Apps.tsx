@@ -22,13 +22,14 @@ export interface AppItem {
   status: string;
   checklist: { id: string; label: string; done: boolean }[];
   notes: string;
+  tier: string | null;
 }
 
 export const SYSTEMS: Record<string, { label: string; hint: string }> = {
-  "us-ed": { label: "США · Early Decision", hint: "обязывающее решение; дедлайн обычно 1 или 15 ноября" },
-  "us-ea": { label: "США · Early Action", hint: "необязывающее; обычно 1 или 15 ноября" },
-  "us-rd": { label: "США · Regular Decision", hint: "обычно 1–15 января" },
-  ucas: { label: "Великобритания · UCAS", hint: "основной срок — январь; Оксфорд, Кембридж и медицина — 15 октября" },
+  "us-ed": { label: "США · Early Decision", hint: "обязывающее решение; дедлайн обычно 1 или 15 ноября. 1 августа Common App обнуляет рекомендателей и supplements" },
+  "us-ea": { label: "США · Early Action", hint: "необязывающее; обычно 1 или 15 ноября. 1 августа Common App обнуляет рекомендателей и supplements" },
+  "us-rd": { label: "США · Regular Decision", hint: "обычно 1–15 января; время дедлайна — по времени вуза" },
+  ucas: { label: "Великобритания · UCAS", hint: "основной срок — январь, 18:00 по UK = 23:00 по Астане; Оксфорд, Кембридж и медицина — 15 октября" },
   eu: { label: "Европа", hint: "у каждого вуза свои сроки, часто январь–май" },
   asia: { label: "Азия", hint: "сроки зависят от страны и вуза" },
   kz: { label: "Казахстан", hint: "NU и другие вузы — уточняй сроки на сайте вуза" },
@@ -43,6 +44,11 @@ const STATUS: Record<string, { label: string; emoji: string; tone: "soft" | "bra
   waitlist: { label: "waitlist", emoji: "⏳", tone: "warn" },
   rejected: { label: "отказ", emoji: "🫠", tone: "bad" },
 };
+
+const TIERS: Record<string, string> = { reach: "🚀 reach", target: "🎯 target", likely: "✅ likely" };
+
+const AFFIRM =
+  "Перед отправкой: подтверждаешь, что эссе и ответы написаны тобой, а ИИ использовался только для вопросов и отзывов? Common App считает выдачу текста ИИ за свой обманом.";
 
 const QUICK: { name: string; country: string; system: string }[] = [
   { name: "Nazarbayev University", country: "Казахстан", system: "kz" },
@@ -75,6 +81,7 @@ export default function Apps() {
   }
 
   async function patch(app: AppItem, change: Partial<AppItem>) {
+    if (change.status === "submitted" && app.status !== "submitted" && !window.confirm(AFFIRM)) return;
     setData((list) => list?.map((a) => (a.id === app.id ? { ...a, ...change } : a)) ?? null);
     try {
       const saved = await api<AppItem>(`/admissions/apps/${app.id}`, { method: "PATCH", body: change });
@@ -134,6 +141,14 @@ export default function Apps() {
                   )}
                   <input type="date" aria-label="Дедлайн" value={a.deadline ?? ""} onChange={(e) => patch(a, { deadline: e.target.value || null })} className="ml-auto h-9 rounded-xl border border-border bg-card px-2 text-sm" />
                 </div>
+                <div className="flex flex-wrap items-center gap-1.5" role="radiogroup" aria-label="Шансы">
+                  <span className="text-xs text-muted-foreground">шансы:</span>
+                  {Object.entries(TIERS).map(([k, v]) => (
+                    <button key={k} type="button" role="radio" aria-checked={a.tier === k} onClick={() => patch(a, { tier: a.tier === k ? null : k })} className={cn("rounded-full border px-2.5 py-1 text-xs font-semibold", a.tier === k ? "border-primary bg-primary/10 text-primary" : "border-border hover:bg-muted")}>
+                      {v}
+                    </button>
+                  ))}
+                </div>
                 <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Статус">
                   {Object.entries(STATUS).map(([k, v]) => (
                     <button key={k} type="button" role="radio" aria-checked={a.status === k} onClick={() => patch(a, { status: k })} className={cn("rounded-full border px-2.5 py-1 text-xs font-semibold", a.status === k ? "border-primary bg-primary/10 text-primary" : "border-border hover:bg-muted")}>
@@ -175,6 +190,9 @@ export default function Apps() {
             вузов в списке: <b className="text-foreground">{data.length}</b> · заявок отправлено: <b className="text-foreground">{submitted}</b>
           </p>
           <p className="text-xs text-muted-foreground">Каждая отправленная заявка = +30 XP для твоего растения 🌱</p>
+          <p className="text-xs text-muted-foreground">
+            баланс: {["reach", "target", "likely"].map((t) => `${TIERS[t]} ${data.filter((a) => a.tier === t).length}`).join(" · ")}
+          </p>
         </Card>
         <Card>
           <form onSubmit={add} className="flex flex-col gap-3">

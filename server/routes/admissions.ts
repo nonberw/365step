@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { requireStudent } from "../auth";
-import { activityPhrase, essayBrainstorm, essayFeedback, type EssayKind } from "../ai";
+import { activityReview, essayBrainstorm, essayFeedback, type EssayKind } from "../ai";
 import { addXp, all, id, one, run } from "../db";
 import { HttpError, must, str, wrap } from "../http";
 
@@ -24,10 +24,15 @@ interface AppRow {
   status: string;
   checklist: string;
   notes: string;
+  tier: string | null;
   created_at: number;
 }
 
 const appOut = (r: AppRow) => ({ ...r, checklist: JSON.parse(r.checklist) as { id: string; label: string; done: boolean }[] });
+
+/** Universities whose policies allow AI on application essays only for spelling and grammar. */
+export const STRICT_AI = [/brown/i, /caltech|california institute of technology/i, /georgia tech|georgia institute of technology/i];
+const TIERS = ["reach", "target", "likely"] as const;
 
 /** Default checklist by application system. */
 function checklistFor(system: string) {
@@ -39,6 +44,14 @@ function checklistFor(system: string) {
   if (system.startsWith("us"))
     return [...base, { id: "essay", label: "Common App personal statement", done: false }, { id: "supp", label: "Supplements («Why us»)", done: false }, { id: "recs", label: "2 рекомендации учителей + counselor", done: false }, { id: "activities", label: "Activities list (10 позиций)", done: false }, { id: "aid", label: "CSS Profile / финансовая помощь", done: false }];
   if (system === "ucas") return [...base, { id: "essay", label: "UCAS personal statement (3 вопроса)", done: false }, { id: "recs", label: "Reference от школы", done: false }];
+  if (system === "kz")
+    return [
+      { id: "list", label: "Категория приёма выбрана (NUET, SAT, олимпиада, NIS, IB)", done: false },
+      { id: "nuet", label: "NUET: математика + Critical Thinking (по 30 вопросов за 60 мин)", done: false },
+      { id: "ielts", label: "IELTS 6.0, Writing 6.0 (IELTS Online не принимается)", done: false },
+      { id: "transcript", label: "Аттестат и оценки", done: false },
+      { id: "essay", label: "Эссе / мотивационное письмо", done: false },
+    ];
   if (system === "eu") return [...base, { id: "essay", label: "Мотивационное письмо", done: false }, { id: "cv", label: "CV", done: false }, { id: "recs", label: "Рекомендательное письмо", done: false }];
   return [...base, { id: "essay", label: "Эссе / мотивационное письмо", done: false }];
 }
@@ -87,7 +100,8 @@ admissionsRouter.patch(
     const status = STATUSES.includes(b.status) ? (b.status as string) : row.status;
     const checklist = Array.isArray(b.checklist) ? JSON.stringify(b.checklist.slice(0, 20).map((c: { id: unknown; label: unknown; done: unknown }) => ({ id: str(c.id, 30), label: str(c.label, 120), done: !!c.done }))) : row.checklist;
     const deadline = b.deadline === null ? null : DATE.test(String(b.deadline)) ? String(b.deadline) : row.deadline;
-    await run("UPDATE applications SET status = ?, checklist = ?, deadline = ?, notes = ? WHERE id = ?", status, checklist, deadline, b.notes !== undefined ? str(b.notes, 2000) : row.notes, row.id);
+    const tier = b.tier === null ? null : TIERS.includes(b.tier) ? (b.tier as string) : row.tier;
+    await run("UPDATE applications SET status = ?, checklist = ?, deadline = ?, notes = ?, tier = ? WHERE id = ?", status, checklist, deadline, b.notes !== undefined ? str(b.notes, 2000) : row.notes, tier, row.id);
     // Sending an application is a milestone: it grows the plant like a finished lesson.
     if (status === "submitted" && row.status !== "submitted") await addXp(u.id, 30, "application");
     res.json(appOut((await one<AppRow>("SELECT * FROM applications WHERE id = ?", row.id))!));
@@ -157,7 +171,10 @@ admissionsRouter.post(
     const u = requireStudent(req);
     const row = must(await one<EssayRow>("SELECT * FROM essays WHERE id = ? AND user_id = ?", String(req.params.id), u.id), 404, "Эссе не найдено");
     if (row.text.trim().split(/\s+/).filter(Boolean).length < 60) throw new HttpError(400, "Напиши хотя бы 60 слов — так отзыв будет полезным");
-    const fb = await essayFeedback(row.kind, row.prompt, row.text);
+    // The strictest policy among the student's universities applies: the personal statement goes to all of them.
+    const apps = await all<{ name: string }>("SELECT name FROM applications WHERE user_id = ?", u.id);
+    const grammarOnly = row.kind === "common-app" && apps.some((a) => STRICT_AI.some((re) => re.test(a.name)));
+    const fb = await essayFeedback(row.kind, row.prompt, row.text, grammarOnly);
     await run("UPDATE essays SET feedback = ? WHERE id = ?", JSON.stringify(fb), row.id);
     await addXp(u.id, 15, "essay");
     res.json(fb);
@@ -224,11 +241,20 @@ admissionsRouter.delete(
 );
 
 admissionsRouter.post(
-  "/activities/phrase",
+  "/activities/review",
   wrap(async (req, res) => {
     requireStudent(req);
-    const facts = str(req.body?.facts, 2000);
-    if (facts.length < 20) throw new HttpError(400, "Опиши факты подробнее: что делал, сколько, какой результат");
-    res.json(await activityPhrase(facts));
+    const description = str(req.body?.description, 400);
+    if (description.length < 10) throw new HttpError(400, "Сначала напиши описание сам — я подскажу, что улучшить");
+    res.json(await activityReview(str(req.body?.facts, 2000), str(req.body?.position, 100), description));
+  }),
+);
+
+admissionsRouter.get(
+  "/policy",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const apps = await all<{ name: string }>("SELECT name FROM applications WHERE user_id = ?", u.id);
+    res.json({ strict: apps.filter((a) => STRICT_AI.some((re) => re.test(a.name))).map((a) => a.name) });
   }),
 );

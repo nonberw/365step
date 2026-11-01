@@ -1157,7 +1157,15 @@ const ESSAY_SYSTEM = `Ты консультант по поступлению з
 - comments: 3–6 замечаний с точной короткой цитатой из текста (quote должен дословно встречаться в тексте) и что с ней сделать (без готовой замены).
 - questions: 3–5 вопросов, которые помогут ученику достать детали из своей истории.
 - nextSteps: 3 конкретных шага к следующему черновику.
-Учитывай лимит слов: если превышен — скажи, что сократить.`;
+Учитывай лимит слов: если превышен — скажи, что сократить. Не составляй план эссе и не переводи текст.`;
+
+/** For students applying to universities that allow AI only for spelling and grammar (e.g. Brown). */
+const GRAMMAR_SYSTEM = `Ты проверяешь орфографию, грамматику и пунктуацию в эссе школьника. Не оценивай содержание, не предлагай идей, структуры и формулировок по смыслу: в списке вузов ученика есть вуз, который разрешает ИИ только для проверки грамматики.
+- overall: одно предложение о грамотности текста, по-русски.
+- scores: один элемент {name: "Грамотность", score 1–5, comment}.
+- comments: до 8 ошибок: quote — точная цитата с ошибкой из текста, comment — какое правило нарушено и как исправить это слово или знак.
+- questions: пустой список.
+- nextSteps: 1–2 шага про грамматику.`;
 
 const LIMITS: Record<EssayKind, string> = {
   "common-app": "Common App personal statement, до 650 слов",
@@ -1166,7 +1174,7 @@ const LIMITS: Record<EssayKind, string> = {
   motivation: "Мотивационное письмо в европейский вуз, около 1 страницы",
 };
 
-export async function essayFeedback(kind: EssayKind, prompt: string, text: string): Promise<EssayFeedback> {
+export async function essayFeedback(kind: EssayKind, prompt: string, text: string, grammarOnly = false): Promise<EssayFeedback> {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
   if (!client) {
     return {
@@ -1179,7 +1187,7 @@ export async function essayFeedback(kind: EssayKind, prompt: string, text: strin
     };
   }
   const out = await ask<Omit<EssayFeedback, "mode">>(
-    ESSAY_SYSTEM,
+    grammarOnly ? GRAMMAR_SYSTEM : ESSAY_SYSTEM,
     `Тип: ${LIMITS[kind]}\nВопрос эссе: ${prompt || "не указан"}\nСлов в черновике: ${words}\n\nЧерновик ученика:\n${text}`,
     obj({ overall: S, scores: arr(obj({ name: S, score: I, comment: S })), comments: arr(obj({ quote: S, comment: S })), questions: arr(S), nextSteps: arr(S) }),
     "medium",
@@ -1187,36 +1195,35 @@ export async function essayFeedback(kind: EssayKind, prompt: string, text: strin
   return { ...out, comments: out.comments.filter((c) => text.includes(c.quote)), mode: "ai" };
 }
 
-const BRAINSTORM_SYSTEM = `Ты коуч по эссе для поступления. Ученик ещё не написал текст: помоги найти историю. Не пиши эссе и не предлагай готовые предложения.
+const BRAINSTORM_SYSTEM = `Ты коуч по эссе для поступления. Ученик ещё не написал текст: помоги ему самому найти историю. Не пиши эссе, не предлагай готовые предложения и не составляй план эссе (Caltech и Georgia Tech прямо запрещают ИИ-планы).
 - questions: 6–8 вопросов, чтобы вспомнить конкретные истории (место, момент, выбор, ошибку, что изменилось).
-- angles: 3 возможных угла для эссе на основе заметок ученика, каждый — одной фразой, что в нём раскрыть (без готового текста).
-- outline: план из 4–5 пунктов, что ученик напишет своими словами (по одному короткому пункту).
+- angles: 3 вопроса-направления для размышлений по заметкам ученика (например «что ты почувствовал, когда…?»), без готового текста и без структуры эссе.
 Пиши по-русски, на «ты».`;
 
-export async function essayBrainstorm(kind: EssayKind, prompt: string, notes: string): Promise<{ questions: string[]; angles: string[]; outline: string[]; mode: "ai" | "demo" }> {
+export async function essayBrainstorm(kind: EssayKind, prompt: string, notes: string): Promise<{ questions: string[]; angles: string[]; mode: "ai" | "demo" }> {
   if (!client) {
     return {
       questions: ["Когда ты в последний раз забыл о времени, потому что было интересно?", "Какую проблему ты решил сам, без подсказки?", "Что ты делаешь иначе, чем твои друзья?", "Какое решение далось тебе тяжело?"],
-      angles: ["История про проект, который сначала провалился", "Привычка или хобби, которое многое о тебе говорит", "Место или человек, которые изменили твой взгляд"],
-      outline: ["Сцена-крючок", "Контекст: что было до", "Твой выбор и действие", "Что ты понял", "Как это связано с тем, что ты хочешь изучать"],
+      angles: ["Какой проект сначала провалился и что ты сделал дальше?", "Какая привычка или хобби многое о тебе говорит?", "Какой человек или место изменили твой взгляд?"],
       mode: "demo",
     };
   }
-  const out = await ask<{ questions: string[]; angles: string[]; outline: string[] }>(BRAINSTORM_SYSTEM, `Тип: ${LIMITS[kind]}\nВопрос эссе: ${prompt || "не указан"}\nЗаметки ученика:\n${notes || "пока нет"}`, obj({ questions: arr(S), angles: arr(S), outline: arr(S) }), "low");
+  const out = await ask<{ questions: string[]; angles: string[] }>(BRAINSTORM_SYSTEM, `Тип: ${LIMITS[kind]}\nВопрос эссе: ${prompt || "не указан"}\nЗаметки ученика:\n${notes || "пока нет"}`, obj({ questions: arr(S), angles: arr(S) }), "low");
   return { ...out, mode: "ai" };
 }
 
-const ACTIVITY_SYSTEM = `Ты помогаешь оформить внеучебную деятельность для раздела Activities в Common App. Используй ТОЛЬКО факты, которые дал ученик, ничего не выдумывай и не преувеличивай.
-- position: должность/роль на английском, до 50 символов.
-- organization: название организации или проекта на английском, до 100 символов.
-- description: описание на английском, до 150 символов, с глаголов действия и цифр из фактов.
-- tips: 1–2 совета по-русски, какие факты добавить, чтобы описание стало сильнее.`;
+const ACTIVITY_SYSTEM = `Ты проверяешь описание внеучебной деятельности, которое ученик написал сам для раздела Activities в Common App. Ты НЕ пишешь и не переписываешь описание: только указываешь, что улучшить.
+Лимиты Common App: роль до 50 знаков (с 2026–27 поле необязательное), организация до 100, описание до 150.
+- verdict: одно предложение по-русски.
+- issues: 1–4 замечания по-русски (лимит, нет глагола действия, нет цифр или результата, общие слова, факты не совпадают с фактами ученика).
+- missing: 1–3 вопроса, на которые стоит ответить цифрами из фактов (часы, люди, результат).`;
 
-export async function activityPhrase(facts: string): Promise<{ position: string; organization: string; description: string; tips: string[]; mode: "ai" | "demo" }> {
-  if (!client) {
-    const first = facts.split(/[.\n]/)[0]?.trim() ?? "";
-    return { position: "Builder", organization: "Independent project", description: first.slice(0, 150), tips: ["Добавь цифры: сколько часов, сколько людей, какой результат."], mode: "demo" };
-  }
-  const out = await ask<{ position: string; organization: string; description: string; tips: string[] }>(ACTIVITY_SYSTEM, `Факты ученика:\n${facts}`, obj({ position: S, organization: S, description: S, tips: arr(S) }), "low");
-  return { position: out.position.slice(0, 50), organization: out.organization.slice(0, 100), description: out.description.slice(0, 150), tips: out.tips, mode: "ai" };
+export async function activityReview(facts: string, position: string, description: string): Promise<{ verdict: string; issues: string[]; missing: string[]; mode: "ai" | "demo" }> {
+  const issues: string[] = [];
+  if (position.length > 50) issues.push(`Роль длиннее 50 знаков (${position.length}).`);
+  if (description.length > 150) issues.push(`Описание длиннее 150 знаков (${description.length}).`);
+  if (!/\d/.test(description)) issues.push("Нет ни одной цифры: часы, люди, результат.");
+  if (!client) return { verdict: "Демо-режим: проверил только лимиты и цифры.", issues, missing: ["Сколько часов в неделю?", "Какой измеримый результат?"], mode: "demo" };
+  const out = await ask<{ verdict: string; issues: string[]; missing: string[] }>(ACTIVITY_SYSTEM, `Факты ученика:\n${facts}\n\nРоль: ${position}\nОписание: ${description}`, obj({ verdict: S, issues: arr(S), missing: arr(S) }), "low");
+  return { ...out, issues: [...issues, ...out.issues], mode: "ai" };
 }

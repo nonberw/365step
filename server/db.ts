@@ -524,7 +524,7 @@ export const ready = (async () => {
   await db.execute("PRAGMA foreign_keys = ON");
   await db.executeMultiple(SCHEMA);
   // Columns added after the first release: ALTER fails harmlessly when they already exist.
-  for (const sql of ["ALTER TABLE ent_profiles ADD COLUMN plan TEXT", "ALTER TABLE ent_profiles ADD COLUMN plan_stale INTEGER NOT NULL DEFAULT 1", "ALTER TABLE review_queue ADD COLUMN card TEXT", "ALTER TABLE users ADD COLUMN plan TEXT NOT NULL DEFAULT 'free'", "ALTER TABLE users ADD COLUMN plan_until INTEGER", "ALTER TABLE users ADD COLUMN trial_used INTEGER NOT NULL DEFAULT 0", "ALTER TABLE users ADD COLUMN plant TEXT"]) await db.execute(sql).catch(() => {});
+  for (const sql of ["ALTER TABLE ent_profiles ADD COLUMN plan TEXT", "ALTER TABLE ent_profiles ADD COLUMN plan_stale INTEGER NOT NULL DEFAULT 1", "ALTER TABLE review_queue ADD COLUMN card TEXT", "ALTER TABLE users ADD COLUMN plan TEXT NOT NULL DEFAULT 'free'", "ALTER TABLE users ADD COLUMN plan_until INTEGER", "ALTER TABLE users ADD COLUMN trial_used INTEGER NOT NULL DEFAULT 0", "ALTER TABLE users ADD COLUMN plant TEXT", "ALTER TABLE applications ADD COLUMN tier TEXT"]) await db.execute(sql).catch(() => {});
 })();
 
 export type Row = Record<string, unknown>;
