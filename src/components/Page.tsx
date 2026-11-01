@@ -1,22 +1,34 @@
 import type { ReactNode } from "react";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/auth";
+import { plantGrowth } from "@shared/plants";
+import { Aurora } from "@/components/Aurora";
+import { Plant } from "@/components/Plant";
+import { HeroPill, StarIcon } from "@/components/ui/hero-pill";
 
-/** Greeting banner on a sky gradient with soft clouds (same look as the landing hero).
- *  `image` and `position` are kept for existing callers; the sky replaces the painting. */
-export function GreetingBanner({ title, subtitle, action, children }: { title: string; subtitle?: string; image?: string; position?: string; action?: ReactNode; children?: ReactNode }) {
+/** Section banner shared by every module: the sky with drifting clouds, a 21st Hero Pill, a serif headline
+ *  and the student's plant on the right. `image` and `position` are kept for existing callers. */
+export function GreetingBanner({ title, subtitle, eyebrow, action, children }: { title: string; subtitle?: string; eyebrow?: string; image?: string; position?: string; action?: ReactNode; children?: ReactNode }) {
+  const { user } = useAuth();
   return (
-    <section className="relative isolate overflow-hidden rounded-3xl text-white">
-      <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,#3a6fd0_0%,#5e95e6_45%,#9cc2f2_100%)]" />
-      <div aria-hidden className="absolute -right-10 -top-6 -z-10 h-32 w-80 rounded-full bg-white/35 blur-3xl" />
-      <div aria-hidden className="absolute -bottom-10 left-1/3 -z-10 h-28 w-96 rounded-full bg-white/30 blur-3xl" />
-      <div className="flex flex-col gap-4 px-6 py-7 sm:flex-row sm:items-end sm:justify-between sm:px-8 sm:py-9">
-        <div className="min-w-0">
-          <h1 className="font-display text-[28px] font-semibold leading-tight sm:text-[34px]">{title}</h1>
-          {subtitle && <p className="mt-1.5 max-w-xl text-sm text-white/80 sm:text-[15px]">{subtitle}</p>}
-          {children}
+    <section className="relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] text-white">
+      <Aurora />
+      <div className="relative flex items-end gap-4 px-6 py-7 sm:px-8 sm:py-9">
+        <div className="flex min-w-0 flex-1 flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="min-w-0">
+            {eyebrow && <HeroPill tone="glass" icon={<StarIcon />} text={eyebrow} className="mb-3" />}
+            <h1 className="font-display text-[28px] font-bold leading-tight [text-shadow:0_2px_18px_rgba(24,61,154,0.35)] sm:text-[38px]">{title}</h1>
+            {subtitle && <p className="mt-1.5 max-w-xl text-sm text-white/90 sm:text-[15px]">{subtitle}</p>}
+            {children}
+          </div>
+          {action && <div className="shrink-0">{action}</div>}
         </div>
-        {action && <div className="shrink-0">{action}</div>}
+        {user?.plant && (
+          <div className="hidden w-24 shrink-0 md:block" title="Твоё растение растёт от заданий в любом разделе">
+            <Plant species={user.plant} stage={plantGrowth(user.xp).stage} mood="happy" />
+          </div>
+        )}
       </div>
     </section>
   );

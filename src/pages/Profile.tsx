@@ -6,7 +6,7 @@ import type { PlantSpecies } from "@shared/plants";
 import { PlantCard, PlantPicker } from "@/components/Plant";
 import { api } from "@/api";
 import { useAuth } from "@/lib/auth";
-import { ErrorBox, PageHeader } from "@/components/Page";
+import { ErrorBox, GreetingBanner } from "@/components/Page";
 import { Button } from "@/components/ui/button";
 import { Badge, Card, CardTitle } from "@/components/ui/card";
 import { Field, Input } from "@/components/ui/input";
@@ -72,10 +72,10 @@ export default function Profile() {
 
   return (
     <div className="flex max-w-3xl flex-col gap-5">
-      <PageHeader
+      <GreetingBanner
         eyebrow="Профиль"
         title={user.role === "teacher" ? `${user.title ? TITLES[user.title] : ""} ${user.lastName}` : `${user.firstName} ${user.lastName}`}
-        description={`${user.email} · ${user.plan === "pro" ? `Pro до ${new Date(user.planUntil ?? 0).toLocaleDateString("ru-RU")}` : "Тариф «Старт»"}`}
+        subtitle={`${user.email} · ${user.plan === "pro" ? `Pro до ${new Date(user.planUntil ?? 0).toLocaleDateString("ru-RU")}` : "Тариф «Старт»"}`}
         action={
           <Button variant="outline" onClick={signOut}>
             <LogOut /> Выйти

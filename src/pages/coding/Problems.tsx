@@ -44,7 +44,7 @@ export default function Problems() {
 
   return (
     <div className="flex flex-col gap-6">
-      <GreetingBanner
+      <GreetingBanner eyebrow="Программирование"
         title="Задачи по программированию"
         subtitle={`${(data ?? []).length} задач по 12 темам: тесты, JavaScript или Python прямо в браузере, ИИ-разбор решения и тренировка собеседования. Подсказки ИИ не выдают решение целиком.`}
         image={ART.wave}

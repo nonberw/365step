@@ -10,20 +10,25 @@ import { cn } from "@/lib/utils";
 import { Plant, PlantPicker, type PlantMood } from "@/components/Plant";
 import { ErrorBox } from "@/components/Page";
 import { Sky } from "@/pages/landing/Showcase";
+import { ENT_SESSIONS_2027, SAT_DATES, daysTo, ieltsMonths, longDate, monthLabel } from "@shared/examDates";
+import { EcosystemMap, type ModuleId } from "@/components/Ecosystem";
 
 // Sign-up as an onboarding quiz (grader-style): a welcome screen with the mascot, one question per screen
 // with a progress bar and the plant reacting to each answer, a sample task, a "building your plan" pause,
 // the plan itself, and only then the account form.
 
 type Exam = "sat" | "ielts" | "ent" | "code";
-type Timeline = "1" | "3" | "6" | "12" | "?";
+type Grade = "8" | "9" | "10" | "11" | "student" | "grad";
 
 interface Answers {
   exams: Exam[];
   sat: number | null;
   ielts: number | null;
   ent: number | null;
-  timeline: Timeline | null;
+  grade: Grade | null;
+  satDate: string | null;
+  ieltsMonth: string | null;
+  entSession: string | null;
   level: "beginner" | "middle" | "advanced" | null;
   hardest: string | null;
   minutes: number | null;
@@ -32,13 +37,23 @@ interface Answers {
   cards: number[];
 }
 
-const EMPTY: Answers = { exams: [], sat: null, ielts: null, ent: null, timeline: null, level: null, hardest: null, minutes: null, plant: null, sampleOk: null, cards: [] };
+const EMPTY: Answers = { exams: [], sat: null, ielts: null, ent: null, grade: null, satDate: null, ieltsMonth: null, entSession: null, level: null, hardest: null, minutes: null, plant: null, sampleOk: null, cards: [] };
 const STORE = "365step-onboarding";
 
-type StepId = "hello" | "goal" | "exams" | "sat" | "ielts" | "ent" | "timeline" | "level" | "hardest" | "minutes" | "plant" | "sample" | "cards" | "loading" | "plan" | "account";
+type StepId = "hello" | "goal" | "exams" | "sat" | "ielts" | "ent" | "grade" | "satDate" | "ieltsDate" | "entDate" | "level" | "hardest" | "minutes" | "plant" | "sample" | "cards" | "loading" | "plan" | "account";
 
 const EXAM_LABEL: Record<Exam, string> = { sat: "Digital SAT", ielts: "IELTS", ent: "ЕНТ", code: "Программирование" };
-const TIMELINE_LABEL: Record<Timeline, string> = { "1": "Меньше месяца", "3": "1–3 месяца", "6": "3–6 месяцев", "12": "Больше полугода", "?": "Ещё не знаю" };
+const GRADE_LABEL: Record<Grade, string> = { "8": "8 класс", "9": "9 класс", "10": "10 класс", "11": "11 класс", student: "Студент", grad: "Уже окончил школу" };
+
+/** Exam date of the answers, for countdowns and the plan. */
+function examDates(a: Answers) {
+  const out: { id: Exam; label: string; date: string; approx: boolean }[] = [];
+  if (a.satDate) out.push({ id: "sat", label: `SAT${a.sat ? ` ${a.sat}` : ""}`, date: a.satDate, approx: false });
+  if (a.ieltsMonth) out.push({ id: "ielts", label: `IELTS${a.ielts ? ` ${a.ielts.toFixed(1)}` : ""}`, date: `${a.ieltsMonth}-15`, approx: true });
+  const ent = ENT_SESSIONS_2027.find((x) => x.id === a.entSession);
+  if (ent) out.push({ id: "ent", label: `ЕНТ${a.ent ? ` ${a.ent}` : ""} · ${ent.name.toLowerCase()}`, date: ent.date, approx: false });
+  return out.sort((x, y) => x.date.localeCompare(y.date));
+}
 
 /** A ready-made task per exam, checked right in the browser. */
 const SAMPLES: Record<Exam, { q: string; choices: string[]; answer: number; why: string }> = {
@@ -80,7 +95,10 @@ const REACT: Partial<Record<StepId, (a: Answers) => string>> = {
   sat: (a) => ((a.sat ?? 0) >= 1450 ? "Амбициозно! 1450+ реально при регулярной практике." : "Отличная цель, дойдём до неё шаг за шагом."),
   ielts: (a) => ((a.ielts ?? 0) >= 7 ? "Амбициозно! Band 7+ вполне достижим." : "Хорошая цель — сделаем упор на сильные стороны."),
   ent: (a) => ((a.ent ?? 0) >= 110 ? "Это уровень грантов — работаем!" : "Хорошая цель, разложим по предметам."),
-  timeline: (a) => (a.timeline === "1" ? "Времени мало — сделаю план плотнее." : a.timeline === "?" ? "Не страшно, начнём спокойно и уточним позже." : "Отлично, успеем без спешки."),
+  grade: (a) => (a.grade === "11" ? "Выпускной год — сделаем его продуктивным!" : a.grade === "grad" || a.grade === "student" ? "Отлично, учиться никогда не поздно." : "Время есть — начнём без спешки."),
+  satDate: (a) => (a.satDate ? `До SAT ${daysTo(a.satDate)} дн. — разложу подготовку по неделям.` : ""),
+  ieltsDate: () => "Компьютерный IELTS идёт почти каждую неделю — точную дату выберешь при записи.",
+  entDate: (a) => (a.entSession === "2027-main" ? "Основная сессия — это гранты. Работаем!" : "Хорошо, подстрою план под эту сессию."),
   level: () => "Понял — начнём с того, что ты уже знаешь!",
   hardest: (a) => `«${a.hardest}» — сделаем на этом упор.`,
   minutes: () => "Напомню, чтобы это стало привычкой!",
@@ -188,8 +206,10 @@ function Building({ species }: { species: PlantSpecies }) {
 function PlanReady({ a, species }: { a: Answers; species: PlantSpecies }) {
   const goal = [a.sat && `SAT ${a.sat}`, a.ielts && `IELTS ${a.ielts.toFixed(1)}`, a.ent && `ЕНТ ${a.ent}`, a.exams.includes("code") && "Кодинг"].filter(Boolean).join(" · ") || "Подготовка";
   const weak = a.hardest ?? "сложные темы";
+  const dates = examDates(a);
+  const nearest = dates[0] ? daysTo(dates[0].date) : null;
   const roadmap =
-    a.timeline === "1"
+    nearest !== null && nearest < 35
       ? [
           ["Неделя 1", "База и диагностика", "Короткие уроки по каждой теме и первый пробник."],
           ["Неделя 2", "Слабые места", `Упор на «${weak}» с разбором ошибок.`],
@@ -211,7 +231,7 @@ function PlanReady({ a, species }: { a: Answers; species: PlantSpecies }) {
       <div className="grid grid-cols-2 gap-3">
         {[
           ["Цель", goal],
-          ["Срок", a.timeline ? TIMELINE_LABEL[a.timeline] : "—"],
+          ["Класс", a.grade ? GRADE_LABEL[a.grade] : "—"],
           ["Каждый день", `${a.minutes ?? 30} минут`],
           ["Спутник", a.plant ? PLANTS[a.plant].name : "—"],
         ].map(([k, v]) => (
@@ -220,6 +240,25 @@ function PlanReady({ a, species }: { a: Answers; species: PlantSpecies }) {
             <p className="font-display text-base font-bold text-[#1f2a2f]">{v}</p>
           </div>
         ))}
+      </div>
+      {dates.length > 0 && (
+        <div className="rounded-2xl border-2 border-[#e5e7eb] p-4">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-[#94a3b8]">Твои экзамены</p>
+          <ul className="mt-2 flex flex-col gap-2">
+            {dates.map((d) => (
+              <li key={d.id} className="flex items-center justify-between gap-3 text-sm">
+                <span className="font-bold text-[#1f2a2f]">{d.label}</span>
+                <span className="text-right text-[#64748b]">
+                  {d.approx ? monthLabel(d.date) : longDate(d.date)} · <b className="text-[#0c6fa3]">{d.approx ? "~" : ""}{daysTo(d.date)} дн.</b>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <div className="rounded-2xl bg-[#f8fafc] p-3">
+        <p className="mb-1 text-center text-[11px] font-bold uppercase tracking-wider text-[#94a3b8]">Всё связано: одно растение, один XP, один план</p>
+        <EcosystemMap species={species} stage={3} highlight={["learn", ...a.exams.map((e) => (e === "code" ? "code" : e) as ModuleId), ...(a.exams.some((e) => e === "sat" || e === "ielts") ? (["admissions"] as ModuleId[]) : [])]} compact className="max-w-[300px] text-[#1f2a2f]" />
       </div>
       <ol className="flex flex-col gap-2">
         {roadmap.map(([when, title, text], k) => (
@@ -260,11 +299,11 @@ export default function Register() {
   }, [a]);
 
   const steps = useMemo<StepId[]>(() => {
-    const s: StepId[] = ["hello", "goal", "exams"];
-    if (a.exams.includes("sat")) s.push("sat");
-    if (a.exams.includes("ielts")) s.push("ielts");
-    if (a.exams.includes("ent")) s.push("ent");
-    s.push("timeline", "level", "hardest", "minutes", "plant", "sample", "cards", "loading", "plan", "account");
+    const s: StepId[] = ["hello", "goal", "grade", "exams"];
+    if (a.exams.includes("sat")) s.push("sat", "satDate");
+    if (a.exams.includes("ielts")) s.push("ielts", "ieltsDate");
+    if (a.exams.includes("ent")) s.push("ent", "entDate");
+    s.push("level", "hardest", "minutes", "plant", "sample", "cards", "loading", "plan", "account");
     return s;
   }, [a.exams]);
   const step = steps[Math.min(i, steps.length - 1)]!;
@@ -278,7 +317,10 @@ export default function Register() {
     sat: a.sat !== null,
     ielts: a.ielts !== null,
     ent: a.ent !== null,
-    timeline: a.timeline !== null,
+    grade: a.grade !== null,
+    satDate: a.satDate !== null,
+    ieltsDate: a.ieltsMonth !== null,
+    entDate: a.entSession !== null,
     level: a.level !== null,
     hardest: a.hardest !== null,
     minutes: a.minutes !== null,
@@ -315,16 +357,17 @@ export default function Register() {
     if (!form.consent) return setError("Нужно согласие на обработку данных");
     setBusy(true);
     setError("");
-    const months = a.timeline && a.timeline !== "?" ? Number(a.timeline) : 6;
-    const date = addMonths(months);
+    const fallback = addMonths(6);
     const goals: Goals = { dailyMinutes: a.minutes ?? 30, hardest: a.hardest ?? undefined, level: a.level ?? undefined };
-    if (a.sat) goals.sat = { target: a.sat, date };
-    if (a.ielts) goals.ielts = { target: a.ielts, date };
-    if (a.ent) goals.ent = { target: a.ent };
+    if (a.sat) goals.sat = { target: a.sat, date: a.satDate ?? fallback };
+    if (a.ielts) goals.ielts = { target: a.ielts, date: a.ieltsMonth ? `${a.ieltsMonth}-15` : fallback };
+    const entSession = ENT_SESSIONS_2027.find((x) => x.id === a.entSession);
+    if (a.ent) goals.ent = { target: a.ent, ...(entSession ? { date: entSession.date, session: entSession.id } : {}) };
+    const grade = a.grade && /^\d+$/.test(a.grade) ? Number(a.grade) : null;
     if (a.exams.includes("code")) goals.coding = true;
     try {
       const r = await api<{ token: string; user: PublicUser }>("/auth/register", {
-        body: { firstName: form.firstName, lastName: form.lastName, email: form.email, password: form.password, grade: null, goals, plant: a.plant ?? "sunflower", consent: form.consent },
+        body: { firstName: form.firstName, lastName: form.lastName, email: form.email, password: form.password, grade, goals, plant: a.plant ?? "sunflower", consent: form.consent },
       });
       try {
         sessionStorage.removeItem(STORE);
@@ -440,12 +483,57 @@ export default function Register() {
                 </div>
               </Question>
             )}
-            {step === "timeline" && (
-              <Question title="Когда экзамен?">
-                <div className="grid gap-3">
-                  {(Object.keys(TIMELINE_LABEL) as Timeline[]).map((t) => (
-                    <Choice key={t} on={a.timeline === t} onClick={() => set({ timeline: t })}>
-                      {TIMELINE_LABEL[t]}
+            {step === "grade" && (
+              <Question title="В каком ты классе?">
+                <div className="grid grid-cols-2 gap-3">
+                  {(Object.keys(GRADE_LABEL) as Grade[]).map((g) => (
+                    <Choice key={g} on={a.grade === g} onClick={() => set({ grade: g })}>
+                      {GRADE_LABEL[g]}
+                    </Choice>
+                  ))}
+                </div>
+              </Question>
+            )}
+            {step === "satDate" && (
+              <Question title="Когда сдаёшь SAT?" hint="Официальные даты College Board — одни для всех стран">
+                <div className="grid gap-2.5">
+                  {SAT_DATES.filter((d) => daysTo(d.date) > 0).map((d) => {
+                    const closed = d.deadline ? daysTo(d.deadline) < 0 : false;
+                    return (
+                      <Choice key={d.date} on={a.satDate === d.date} onClick={() => set({ satDate: d.date })} className="justify-between text-left">
+                        <span>
+                          {longDate(d.date)}
+                          {d.tentative && <span className="ml-1.5 text-xs font-medium text-[#94a3b8]">предварительно</span>}
+                        </span>
+                        <span className={cn("text-xs font-medium", closed ? "text-[#b42318]" : "text-[#94a3b8]")}>
+                          {closed ? "регистрация закрыта" : d.deadline ? `регистрация до ${longDate(d.deadline).replace(/ \d{4}$/, "")}` : `через ${daysTo(d.date)} дн.`}
+                        </span>
+                      </Choice>
+                    );
+                  })}
+                </div>
+              </Question>
+            )}
+            {step === "ieltsDate" && (
+              <Question title="Когда планируешь IELTS?" hint="Выбери месяц: точную дату подтвердишь при записи в центре">
+                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                  {ieltsMonths().map((m) => (
+                    <Choice key={m.value} on={a.ieltsMonth === m.value} onClick={() => set({ ieltsMonth: m.value })} className="capitalize">
+                      {m.label}
+                    </Choice>
+                  ))}
+                </div>
+              </Question>
+            )}
+            {step === "entDate" && (
+              <Question title="На какую сессию ЕНТ идёшь?" hint="Ориентировочно по графику 2026 года — НЦТ ещё не опубликовал даты 2027">
+                <div className="grid gap-2.5">
+                  {ENT_SESSIONS_2027.map((x) => (
+                    <Choice key={x.id} on={a.entSession === x.id} onClick={() => set({ entSession: x.id })} className="flex-col items-start text-left">
+                      <span>
+                        {x.name} · {x.dates}
+                      </span>
+                      <span className="text-xs font-medium text-[#94a3b8]">{x.note}</span>
                     </Choice>
                   ))}
                 </div>

@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import type { NextFunction, Request, Response } from "express";
 import type { Campus, Goals, PlanId, PublicUser, Role, TeacherTitle } from "../shared/types";
-import { all, id, one, run } from "./db";
+import { all, id, one, run, xpSummary } from "./db";
 import { PLANT_SPECIES, type PlantSpecies } from "../shared/plants";
 import { HttpError } from "./http";
 
@@ -73,7 +73,7 @@ export async function toPublic(u: UserRow): Promise<PublicUser> {
     planUntil: u.plan_until,
     trialUsed: !!u.trial_used,
     plant: PLANT_SPECIES.includes(u.plant as PlantSpecies) ? (u.plant as PlantSpecies) : null,
-    xp: (await one<{ s: number | null }>("SELECT SUM(amount) s FROM xp_log WHERE user_id = ?", u.id))?.s ?? 0,
+    ...(await xpSummary(u.id).then((x) => ({ xp: x.total, streak: x.streak }))),
     isAdmin: u.role === "teacher" ? await isAdmin(u) : false,
   };
 }

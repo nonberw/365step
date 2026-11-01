@@ -33,7 +33,7 @@ export default function StudentHome() {
 
   return (
     <div className="flex flex-col gap-6">
-      <GreetingBanner
+      <GreetingBanner eyebrow="Сводка"
         title={`${greeting()}, ${user.firstName}`}
         subtitle={params.get("welcome") ? "Аккаунт готов. Мы собрали первый план по твоим ответам — начни с него." : subtitle}
         image={ART.athens}

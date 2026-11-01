@@ -9,6 +9,7 @@ import { Plant, PlantPicker } from "@/components/Plant";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { PricingBlock } from "./Pricing";
+import { EcosystemMap } from "@/components/Ecosystem";
 import { SatMock } from "./landing/Mocks";
 import { PhoneChat, Sticker, type ChatMessage } from "./landing/PhoneChat";
 import { PlanCard, ScoreCard, Sky, SpeakingCard, WritingCard } from "./landing/Showcase";
@@ -62,9 +63,7 @@ function FeatureCard({ f }: { f: (typeof FEATURES)[number] }) {
   return (
     <div className="flex h-full flex-col rounded-[32px] bg-[linear-gradient(160deg,#eef1fd,#f7f8ff_60%,#ffffff)] p-7 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_10px_30px_-20px_rgba(24,61,154,0.35)]">
       <div className="relative mb-7 h-[92px]">
-        <span className="sticker absolute left-0 top-0 text-[64px] leading-none" style={{ transform: "rotate(-8deg)" }}>
-          {f.emoji}
-        </span>
+        <Sticker emoji={f.emoji} burst={[f.emoji, "✨", "⭐", "💙"]} className="left-0 top-0" rotate={-8} size={64} />
         <span className="absolute bottom-1 left-16 max-w-[240px] rounded-[18px] rounded-bl-[6px] border border-[#2f5bc8]/25 px-3.5 py-2 text-sm leading-snug text-[#0b1a3a] shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_6px_14px_-8px_rgba(24,61,154,0.5)]" style={{ background: "linear-gradient(#d8e6ff,#a9c6ff)" }}>
           {f.bubble}
         </span>
@@ -134,6 +133,7 @@ export default function Landing() {
           <div className="hidden items-center gap-6 font-display text-[15px] font-semibold text-[#1f2a2f]/70 md:flex">
             <a href="#features" className="hover:text-[#1f2a2f]">возможности</a>
             <a href="#plant" className="hover:text-[#1f2a2f]">растение</a>
+            <a href="#ecosystem" className="hover:text-[#1f2a2f]">экосистема</a>
             <a href="#pricing" className="hover:text-[#1f2a2f]">тарифы</a>
           </div>
           <div className="flex items-center gap-2">
@@ -179,12 +179,12 @@ export default function Landing() {
           </div>
 
           <div className="relative mx-auto h-[600px] w-full max-w-[460px]">
-            <Sticker emoji="📚" className="left-0 top-6" rotate={-12} />
-            <Sticker emoji="🎯" className="right-2 top-0" rotate={10} delay={1.2} />
-            <Sticker emoji="🔥" className="-left-2 top-[46%]" rotate={8} delay={0.6} size={50} />
-            <Sticker emoji="🏆" className="right-0 top-[42%]" rotate={-8} delay={1.8} />
-            <Sticker emoji="✏️" className="bottom-10 left-4" rotate={18} delay={0.9} size={48} />
-            <Sticker emoji="🌱" className="bottom-4 right-6" rotate={-6} delay={2.2} />
+            <Sticker emoji="📚" burst={["📖", "✏️", "📝", "💡"]} caption="1600+ вопросов SAT" className="left-0 top-6" rotate={-12} />
+            <Sticker emoji="🎯" burst={["🎯", "⭐", "💯", "✨"]} caption="цель 1450 — в прицеле" className="right-2 top-0" rotate={10} delay={1.2} />
+            <Sticker emoji="🔥" burst={["🔥", "⚡", "💪", "🔥"]} caption="серия 12 дней!" className="-left-2 top-[46%]" rotate={8} delay={0.6} size={50} />
+            <Sticker emoji="🏆" burst={["🏆", "🥇", "🎉", "👑"]} caption="1 место в лиге недели" className="right-0 top-[42%]" rotate={-8} delay={1.8} />
+            <Sticker emoji="✏️" burst={["✍️", "📄", "✅", "✨"]} caption="эссе проверено за 15 сек" className="bottom-10 left-4" rotate={18} delay={0.9} size={48} />
+            <Sticker emoji="🌱" burst={["🌱", "🌸", "🌻", "🍀"]} caption="растение выросло!" className="bottom-4 right-6" rotate={-6} delay={2.2} />
             <PhoneChat messages={CHAT} className="top-4" />
           </div>
         </div>
@@ -225,6 +225,36 @@ export default function Landing() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      {/* one ecosystem: every section feeds the same plant, XP, plan and review */}
+      <section id="ecosystem" className="mx-auto grid max-w-6xl scroll-mt-24 items-center gap-10 px-4 pb-20 sm:px-6 lg:grid-cols-2">
+        <Reveal>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">одна экосистема</p>
+          <h2 className="mt-3 font-display text-4xl font-bold leading-[1.05] sm:text-5xl">
+            всё связано
+            <br />
+            <em className="font-medium text-[#1f2a2f]/45">в одном плане</em>
+          </h2>
+          <ul className="mt-6 flex flex-col gap-4 text-[16px] leading-relaxed text-muted-foreground">
+            {[
+              ["🌱", "Одно растение и один XP", "растут от любого раздела: SAT, IELTS, ЕНТ, код."],
+              ["🗓️", "Даты экзаменов в одном плане", "официальные сессии SAT, месяц IELTS и сессия ЕНТ — путь подстраивается под ближайший."],
+              ["🔁", "Общий повтор ошибок", "ошибка в SAT или ЕНТ возвращается в повтор и в уроки пути."],
+              ["⚔️", "Дуэли, рейтинг и родители", "видят один и тот же прогресс."],
+            ].map(([e, t, d]) => (
+              <li key={t} className="flex gap-3">
+                <span className="sticker text-2xl leading-none">{e}</span>
+                <span>
+                  <b className="text-[#1f2a2f]">{t}</b> — {d}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <EcosystemMap className="text-[#1f2a2f]" />
+        </Reveal>
       </section>
 
       {/* grader alternating sections */}

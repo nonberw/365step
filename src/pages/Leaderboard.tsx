@@ -19,7 +19,7 @@ export default function Leaderboard() {
 
   return (
     <div className="flex flex-col gap-6">
-      <GreetingBanner title={`Рейтинг · ${month}`} subtitle={`Очки за практику во всех модулях. Рейтинг обнуляется ${nextMonth}, у каждого новый шанс.`} image={ART.wave} position="center 40%" />
+      <GreetingBanner eyebrow="Рейтинг · все разделы" title={`Рейтинг · ${month}`} subtitle={`Очки за практику во всех модулях. Рейтинг обнуляется ${nextMonth}, у каждого новый шанс.`} image={ART.wave} position="center 40%" />
       {user?.role === "student" && (
         <Segmented
           value={scope}

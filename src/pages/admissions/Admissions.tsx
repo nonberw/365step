@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, Bookmark, CalendarDays, GraduationCap, Search, Trophy } from "lucide-react";
 import { OPPORTUNITIES, type Opportunity } from "@shared/opportunities";
-import { PageHeader } from "@/components/Page";
+import { GreetingBanner } from "@/components/Page";
 import { Badge, Card, Empty, Segmented } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { buttonVariants } from "@/components/ui/button";
@@ -77,7 +77,7 @@ export default function Admissions() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader eyebrow="Поступление" title="Конкурсы и программы" description="Олимпиады, летние школы и онлайн-курсы для усиления профиля. Условия, сроки и ссылки на организаторов — в одном месте." />
+      <GreetingBanner eyebrow="Поступление" title="Конкурсы и программы" subtitle="Олимпиады, летние школы и онлайн-курсы для усиления профиля. Условия, сроки и ссылки на организаторов — в одном месте." />
 
       <div className="grid gap-3 sm:grid-cols-3">
         {[

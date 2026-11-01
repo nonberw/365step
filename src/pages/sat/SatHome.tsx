@@ -35,7 +35,7 @@ export default function SatHome() {
 
   return (
     <div className="flex flex-col gap-6">
-      <GreetingBanner
+      <GreetingBanner eyebrow="Digital SAT"
         title="Digital SAT"
         subtitle={days !== null ? `До экзамена ${days} ${plural(days, "день", "дня", "дней")}${gap !== null && gap > 0 ? ` · до цели не хватает ${gap} баллов` : ""}` : "Укажи дату экзамена в профиле, и мы посчитаем дни"}
         image={ART.starry}

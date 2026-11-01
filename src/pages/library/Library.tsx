@@ -65,7 +65,7 @@ export default function Library() {
 
   return (
     <div className="flex flex-col gap-6">
-      <GreetingBanner title="Библиотека" subtitle="Читай учебники прямо на платформе: ИИ объяснит страницу, сделает конспект, тест и карточки, а в главах с опытами можно предсказать результат и проверить его." image={ART.painting} position="center 35%" />
+      <GreetingBanner eyebrow="Библиотека" title="Библиотека" subtitle="Читай учебники прямо на платформе: ИИ объяснит страницу, сделает конспект, тест и карточки, а в главах с опытами можно предсказать результат и проверить его." image={ART.painting} position="center 35%" />
 
       {reading.length > 0 && (
         <section className="flex flex-col gap-3">

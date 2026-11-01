@@ -1,5 +1,5 @@
-import { useRef, type ReactNode } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef, useState, type ReactNode } from "react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { ChevronLeft, FileText, Plus, Video } from "lucide-react";
 import { BrandMark } from "@/components/AppShell";
 import { cn } from "@/lib/utils";
@@ -79,15 +79,77 @@ export function PhoneChat({ messages, className }: { messages: ChatMessage[]; cl
   );
 }
 
-/** Folk-style sticker: an emoji with a white die-cut outline, gently floating. */
-export function Sticker({ emoji, className, rotate = 0, delay = 0, size = 56 }: { emoji: string; className?: string; rotate?: number; delay?: number; size?: number }) {
+/** Folk-style sticker: an emoji with a white die-cut outline, gently floating. A click makes it pop,
+ *  throws a burst of matching emoji out of it and shows a short caption. */
+export function Sticker({ emoji, burst = [], caption, className, rotate = 0, delay = 0, size = 56 }: { emoji: string; burst?: string[]; caption?: string; className?: string; rotate?: number; delay?: number; size?: number }) {
+  const reduce = useReducedMotion();
+  const [pops, setPops] = useState<{ id: number; parts: { e: string; x: number; y: number; r: number; s: number }[] }[]>([]);
+  const [hit, setHit] = useState(0);
+  const [showCaption, setShowCaption] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+
+  function pop() {
+    const id = Date.now() + Math.random();
+    const pool = burst.length ? burst : [emoji];
+    const parts = Array.from({ length: 9 }, (_, k) => {
+      const a = (Math.PI * 2 * k) / 9 + Math.random() * 0.5;
+      const d = 70 + Math.random() * 60;
+      return { e: pool[k % pool.length]!, x: Math.cos(a) * d, y: Math.sin(a) * d - 30, r: (Math.random() - 0.5) * 90, s: 0.9 + Math.random() * 0.7 };
+    });
+    setPops((p) => [...p, { id, parts }]);
+    setHit((h) => h + 1);
+    window.setTimeout(() => setPops((p) => p.filter((x) => x.id !== id)), 1300);
+    if (caption) {
+      setShowCaption(true);
+      window.clearTimeout(timer.current);
+      timer.current = window.setTimeout(() => setShowCaption(false), 1800);
+    }
+  }
+
   return (
-    <span
-      aria-hidden
-      className={cn("sticker animate-float pointer-events-none absolute select-none leading-none", className)}
-      style={{ fontSize: size, ["--r" as string]: `${rotate}deg`, animationDelay: `${delay}s` }}
-    >
-      {emoji}
+    <span className={cn("absolute z-10", className)}>
+      <motion.button
+        key={hit}
+        type="button"
+        onClick={pop}
+        aria-label={caption ?? "Наклейка"}
+        initial={hit && !reduce ? { scale: 1.35, rotate: rotate - 14 } : false}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 380, damping: 11 }}
+        className="sticker animate-float block cursor-pointer select-none leading-none outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+        style={{ fontSize: size, ["--r" as string]: `${rotate}deg`, animationDelay: `${delay}s` }}
+      >
+        {emoji}
+      </motion.button>
+      {!reduce &&
+        pops.map((p) =>
+          p.parts.map((q, k) => (
+            <motion.span
+              key={`${p.id}-${k}`}
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-1/2 select-none leading-none"
+              style={{ fontSize: size * 0.62 }}
+              initial={{ x: "-50%", y: "-50%", opacity: 1, scale: 0.3, rotate: 0 }}
+              animate={{ x: `calc(-50% + ${q.x}px)`, y: [`-50%`, `calc(-50% + ${q.y}px)`, `calc(-50% + ${q.y + 60}px)`], opacity: [1, 1, 0], scale: q.s, rotate: q.r }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+            >
+              {q.e}
+            </motion.span>
+          )),
+        )}
+      <AnimatePresence>
+        {showCaption && caption && (
+          <motion.span
+            initial={{ opacity: 0, y: 6, scale: 0.9, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, scale: 1, x: "-50%" }}
+            exit={{ opacity: 0, y: -6, x: "-50%" }}
+            className="pointer-events-none absolute -top-9 left-1/2 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-bold text-white shadow-[0_6px_16px_-6px_rgba(24,61,154,0.6)]"
+            style={{ background: "var(--bubble-me)" }}
+          >
+            {caption}
+          </motion.span>
+        )}
+      </AnimatePresence>
     </span>
   );
 }

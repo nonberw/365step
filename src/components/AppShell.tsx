@@ -43,6 +43,7 @@ import { useAuth } from "@/lib/auth";
 import { plantGrowth } from "@shared/plants";
 import { PlantCard } from "@/components/Plant";
 import { useNotify } from "@/components/Notify";
+import { EcosystemBar } from "@/components/Ecosystem";
 import MacOsDock, { DockTile, type DockApp } from "@/components/ui/macos-dock";
 import { cn } from "@/lib/utils";
 
@@ -308,6 +309,7 @@ export default function AppShell() {
 
       <main className="min-w-0 p-2 sm:p-3 lg:py-3 lg:pl-0 lg:pr-3">
         <div className="min-h-[calc(100dvh-24px)] rounded-3xl bg-card px-4 py-5 ring-1 ring-border sm:px-6 lg:px-10 lg:py-8 lg:pb-32">
+          <EcosystemBar />
           <Outlet />
         </div>
       </main>

@@ -28,7 +28,7 @@ export default function IeltsHome() {
 
   return (
     <div className="flex flex-col gap-6">
-      <GreetingBanner
+      <GreetingBanner eyebrow="IELTS Academic"
         title="IELTS"
         subtitle={days !== null ? `До экзамена ${days} ${plural(days, "день", "дня", "дней")}${target ? ` · цель ${target}` : ""}` : "Задай цель и дату IELTS в профиле, чтобы видеть обратный отсчёт"}
         image={ART.monet}

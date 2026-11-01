@@ -31,7 +31,7 @@ export interface Goals {
   country?: string;
   major?: string;
   /** ENT target score out of 140 */
-  ent?: { target: number };
+  ent?: { target: number; date?: string; session?: string };
   /** self-assessed level from the onboarding quiz */
   level?: "beginner" | "middle" | "advanced";
 }
@@ -58,6 +58,8 @@ export interface PublicUser {
   /** The chosen study companion and the XP that grows it */
   plant: PlantSpecies | null;
   xp: number;
+  /** days in a row with XP */
+  streak: number;
   /** Head of studies: sees the school report */
   isAdmin?: boolean;
 }
