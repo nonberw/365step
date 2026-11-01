@@ -18,8 +18,8 @@ export const MODULES: Record<ModuleId, { label: string; emoji: string; to: strin
   sat: { label: "SAT", emoji: "📐", to: "/sat", color: "#2f5bc8", blurb: "банк, пробники, Desmos" },
   ielts: { label: "IELTS", emoji: "🎧", to: "/ielts", color: "#ff9600", blurb: "4 навыка с ИИ" },
   ent: { label: "ЕНТ", emoji: "🏛️", to: "/ent", color: "#9b5cf6", blurb: "пробники и дуэли" },
-  code: { label: "Код", emoji: "💻", to: "/coding", color: "#1cb0f6", blurb: "задачи и ИИ-наставник" },
-  admissions: { label: "Поступление", emoji: "🎓", to: "/admissions", color: "#ff4b4b", blurb: "конкурсы и вузы" },
+  code: { label: "Код и лаба", emoji: "💻", to: "/engineering", color: "#1cb0f6", blurb: "задачи, дроны, CAD → портфолио" },
+  admissions: { label: "Поступление", emoji: "🎓", to: "/admissions", color: "#ff4b4b", blurb: "заявки, эссе, портфолио" },
 };
 
 export interface ExamCountdown {
@@ -60,20 +60,23 @@ const L = {
   ent: { to: "/ent", label: "🏛️ ЕНТ" },
   code: { to: "/coding", label: "💻 Код" },
   family: { to: "/family", label: "👪 Для родителей" },
+  portfolio: { to: "/admissions?tab=portfolio", label: "🧰 Портфолио" },
+  essays: { to: "/admissions?tab=essays", label: "✍️ Эссе с ИИ" },
+  apps: { to: "/admissions?tab=apps", label: "📋 Мои заявки" },
 } satisfies Record<string, Rel>;
 
 /** Sections that feed each other, by route prefix (longest prefix wins). */
 const RELATED: [string, Rel[]][] = [
   ["/learn", [L.review, L.duels, L.leaderboard, L.admissions]],
-  ["/sat", [L.pathSat, L.pathRw, L.review, L.admissions]],
-  ["/ielts", [L.pathIelts, L.library, L.admissions, L.leaderboard]],
+  ["/sat", [L.pathSat, L.pathRw, L.review, L.apps]],
+  ["/ielts", [L.pathIelts, L.essays, L.apps, L.library]],
   ["/ent", [L.pathEnt, L.duels, L.review, L.library]],
   ["/duels", [L.pathEnt, L.ent, L.leaderboard, L.review]],
   ["/review", [L.pathSat, L.pathEnt, L.duels, L.leaderboard]],
-  ["/coding", [L.pathCode, L.engineering, L.leaderboard]],
-  ["/engineering", [L.pathCode, L.code, L.leaderboard]],
+  ["/coding", [L.pathCode, L.engineering, L.portfolio]],
+  ["/engineering", [L.portfolio, L.pathCode, L.code]],
   ["/library", [L.ent, L.sat, L.ielts]],
-  ["/admissions", [L.sat, L.ielts, L.ent, L.pathSat]],
+  ["/admissions", [L.engineering, L.code, L.sat, L.ielts]],
   ["/leaderboard", [L.duels, L.review, L.pathSat]],
   ["/family", [L.leaderboard, L.review]],
   ["/profile", [L.family, L.leaderboard, L.admissions]],

@@ -1,0 +1,145 @@
+// Robot descriptions (URDF) and 3D-print profiles, ported from nwo-text-cad 0.1.0 (MIT, © NWO Robotics,
+// vendored in vendor/nwo-text-cad). Only the parts that work in the original are ported: its text-to-CAD
+// generator is a placeholder there (exports write a comment line), so CAD stays with our own replicad lab.
+// Additions here: link origins and inertia so the file loads in URDF viewers, and the mass from the payload.
+
+export type RobotKind = "manipulator" | "mobile" | "legged";
+
+export interface RobotParams {
+  kind: RobotKind;
+  name: string;
+  /** manipulator */
+  dof: number;
+  reach: number;
+  payload: number;
+  /** mobile */
+  drive: "diff-drive" | "mecanum";
+  wheelDia: number;
+  /** legged */
+  legLength: number;
+}
+
+export interface Link {
+  name: string;
+  geometry: { type: "box"; size: [number, number, number] } | { type: "cylinder"; radius: number; length: number };
+  massKg: number;
+}
+
+export interface Joint {
+  name: string;
+  type: "revolute" | "continuous" | "fixed";
+  parent: string;
+  child: string;
+  axis: [number, number, number];
+  origin: [number, number, number];
+  limits?: { lower: number; upper: number; effort: number; velocity: number };
+}
+
+export interface RobotModel {
+  name: string;
+  links: Link[];
+  joints: Joint[];
+}
+
+const r3 = (v: number) => Math.round(v * 1000) / 1000;
+
+export function buildRobot(p: RobotParams): RobotModel {
+  const links: Link[] = [{ name: "base_link", geometry: { type: "box", size: [0.5, 0.3, 0.1] }, massKg: 4 }];
+  const joints: Joint[] = [];
+  if (p.kind === "manipulator") {
+    const len = r3(p.reach / Math.max(1, p.dof));
+    // effort grows with the payload at the full reach (torque = m·g·r), as in nwo-text-cad's limits
+    const effort = r3(Math.max(10, p.payload * 9.81 * p.reach * 1.5));
+    for (let i = 0; i < p.dof; i++) {
+      links.push({ name: `link_${i + 1}`, geometry: { type: "cylinder", radius: 0.05, length: len }, massKg: r3(0.6 + p.payload * 0.08) });
+      joints.push({
+        name: `joint_${i + 1}`,
+        type: "revolute",
+        parent: i === 0 ? "base_link" : `link_${i}`,
+        child: `link_${i + 1}`,
+        axis: i % 2 === 0 ? [0, 0, 1] : [0, 1, 0],
+        origin: [0, 0, i === 0 ? 0.05 : len],
+        limits: { lower: -3.14, upper: 3.14, effort, velocity: 1.0 },
+      });
+    }
+  } else if (p.kind === "mobile") {
+    const sides = p.drive === "mecanum" ? ["front_left", "front_right", "rear_left", "rear_right"] : ["left", "right"];
+    sides.forEach((side) => {
+      links.push({ name: `${side}_wheel`, geometry: { type: "cylinder", radius: r3(p.wheelDia / 2), length: 0.05 }, massKg: 0.3 });
+      const y = side.includes("left") ? 0.18 : -0.18;
+      const x = side.startsWith("front") ? 0.18 : side.startsWith("rear") ? -0.18 : 0;
+      joints.push({ name: `${side}_wheel_joint`, type: "continuous", parent: "base_link", child: `${side}_wheel`, axis: [0, 1, 0], origin: [x, y, 0] });
+    });
+  } else {
+    for (let i = 0; i < 4; i++) {
+      links.push({ name: `leg_${i + 1}`, geometry: { type: "cylinder", radius: 0.02, length: p.legLength }, massKg: 0.4 });
+      joints.push({
+        name: `leg_${i + 1}_joint`,
+        type: "revolute",
+        parent: "base_link",
+        child: `leg_${i + 1}`,
+        axis: [0, 1, 0],
+        origin: [i < 2 ? 0.2 : -0.2, i % 2 === 0 ? 0.12 : -0.12, -0.05],
+        limits: { lower: -0.78, upper: 0.78, effort: 5, velocity: 5.0 },
+      });
+    }
+  }
+  return { name: p.name.trim().replace(/[^a-zA-Z0-9_]+/g, "_") || "robot", links, joints };
+}
+
+/** Every joint must point at existing links, and each link may have only one parent. */
+export function validateRobot(m: RobotModel): string[] {
+  const errors: string[] = [];
+  const names = new Set(m.links.map((l) => l.name));
+  const children = new Set<string>();
+  for (const j of m.joints) {
+    if (!names.has(j.parent)) errors.push(`Сустав ${j.name}: нет звена-родителя ${j.parent}`);
+    if (!names.has(j.child)) errors.push(`Сустав ${j.name}: нет звена-потомка ${j.child}`);
+    if (children.has(j.child)) errors.push(`Звено ${j.child} прикреплено дважды`);
+    children.add(j.child);
+  }
+  return errors;
+}
+
+function inertia(l: Link) {
+  const m = l.massKg;
+  if (l.geometry.type === "box") {
+    const [x, y, z] = l.geometry.size;
+    return { ixx: (m * (y * y + z * z)) / 12, iyy: (m * (x * x + z * z)) / 12, izz: (m * (x * x + y * y)) / 12 };
+  }
+  const { radius: r, length: h } = l.geometry;
+  const side = (m * (3 * r * r + h * h)) / 12;
+  return { ixx: side, iyy: side, izz: (m * r * r) / 2 };
+}
+
+const v3 = (v: [number, number, number]) => v.map((x) => r3(x)).join(" ");
+
+export function toUrdf(m: RobotModel): string {
+  const geo = (l: Link) => (l.geometry.type === "box" ? `<box size="${v3(l.geometry.size)}"/>` : `<cylinder radius="${l.geometry.radius}" length="${l.geometry.length}"/>`);
+  const lines = [`<?xml version="1.0"?>`, `<!-- generated by 365step from nwo-text-cad (MIT) -->`, `<robot name="${m.name}">`];
+  for (const l of m.links) {
+    const I = inertia(l);
+    lines.push(
+      `  <link name="${l.name}">`,
+      `    <visual><geometry>${geo(l)}</geometry></visual>`,
+      `    <collision><geometry>${geo(l)}</geometry></collision>`,
+      `    <inertial><mass value="${l.massKg}"/><inertia ixx="${I.ixx.toExponential(3)}" ixy="0" ixz="0" iyy="${I.iyy.toExponential(3)}" iyz="0" izz="${I.izz.toExponential(3)}"/></inertial>`,
+      `  </link>`,
+    );
+  }
+  for (const j of m.joints) {
+    lines.push(`  <joint name="${j.name}" type="${j.type}">`, `    <parent link="${j.parent}"/>`, `    <child link="${j.child}"/>`, `    <origin xyz="${v3(j.origin)}" rpy="0 0 0"/>`, `    <axis xyz="${v3(j.axis)}"/>`);
+    if (j.limits) lines.push(`    <limit lower="${j.limits.lower}" upper="${j.limits.upper}" effort="${j.limits.effort}" velocity="${j.limits.velocity}"/>`);
+    lines.push(`  </joint>`);
+  }
+  lines.push(`</robot>`);
+  return lines.join("\n");
+}
+
+/** Slicer starting points per material (nwo-text-cad production_planner.generate_print_settings). */
+export const PRINT_PROFILES = {
+  PLA: { temperature: 200, bedTemp: 60, speed: 60, layerHeight: 0.2, infill: 20 },
+  PETG: { temperature: 240, bedTemp: 80, speed: 40, layerHeight: 0.2, infill: 25 },
+  ABS: { temperature: 250, bedTemp: 100, speed: 50, layerHeight: 0.2, infill: 30 },
+} as const;
+export type PrintMaterial = keyof typeof PRINT_PROFILES;

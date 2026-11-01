@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nwo-text-cad"
+version = "0.1.0"
+description = "AI-Powered CAD Generation for NWO Robotics"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "NWO Robotics", email = "ciprian.pater@publicae.org"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.11"
+dependencies = [
+    "build123d>=0.8.0",
+    "numpy>=1.24.0",
+    "typing-extensions>=4.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black>=23.0",
+    "mypy>=1.0",
+]
+nwo = [
+    "nwo-robotics>=1.0.0",
+]
+
+[project.scripts]
+nwo-cad = "nwo_text_cad.cli.cad:main"
+nwo-urdf = "nwo_text_cad.cli.urdf:main"
+nwo-sdf = "nwo_text_cad.cli.sdf:main"
+nwo-assembly = "nwo_text_cad.cli.assembly:main"
+nwo-production = "nwo_text_cad.cli.production:main"
+
+[project.urls]
+Homepage = "https://github.com/RedCiprianPater/nwo-text-cad"
+Documentation = "https://github.com/RedCiprianPater/nwo-text-cad#readme"
+Repository = "https://github.com/RedCiprianPater/nwo-text-cad"
+Issues = "https://github.com/RedCiprianPater/nwo-text-cad/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nwo_text_cad*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true

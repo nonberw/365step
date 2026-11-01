@@ -1,13 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, Bookmark, CalendarDays, GraduationCap, Search, Trophy } from "lucide-react";
 import { OPPORTUNITIES, type Opportunity } from "@shared/opportunities";
+import { useSearchParams } from "react-router-dom";
 import { GreetingBanner } from "@/components/Page";
+import Apps from "./Apps";
+import Essays from "./Essays";
+import Portfolio from "./Portfolio";
 import { Badge, Card, Empty, Segmented } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const FIELDS = { stem: "Наука и STEM", it: "IT и технологии", humanities: "Гуманитарные", business: "Бизнес", arts: "Творчество", general: "Разные направления" } as const;
+export const FIELDS = { stem: "Наука и STEM", it: "IT и технологии", humanities: "Гуманитарные", business: "Бизнес", arts: "Творчество", general: "Разные направления" } as const;
 const REGIONS = { international: "Международные", kazakhstan: "Казахстан", usa: "США", europe: "Европа", asia: "Азия" } as const;
 const COSTS = { free: "Бесплатно", paid: "Платно", mixed: "Есть стипендии / разные условия" } as const;
 
@@ -26,7 +30,7 @@ function loadSaved(): string[] {
 
 const selectClass = "h-10 w-full rounded-xl border border-border bg-card px-3 text-sm focus:outline-2 focus:outline-primary";
 
-export default function Admissions() {
+export function Catalog() {
   const today = new Date().toISOString().slice(0, 10);
   const [query, setQuery] = useState("");
   const [kind, setKind] = useState<"all" | "competition" | "program">("all");
@@ -77,7 +81,6 @@ export default function Admissions() {
 
   return (
     <div className="flex flex-col gap-6">
-      <GreetingBanner eyebrow="Поступление" title="Конкурсы и программы" subtitle="Олимпиады, летние школы и онлайн-курсы для усиления профиля. Условия, сроки и ссылки на организаторов — в одном месте." />
 
       <div className="grid gap-3 sm:grid-cols-3">
         {[
@@ -219,5 +222,29 @@ function OpportunityCard({ o, today, saved, onToggle }: { o: Opportunity; today:
         </a>
       </div>
     </Card>
+  );
+}
+
+type Tab = "apps" | "essays" | "portfolio" | "catalog";
+const TABS: { value: Tab; label: string }[] = [
+  { value: "apps", label: "📋 Мои заявки" },
+  { value: "essays", label: "✍️ Эссе с ИИ" },
+  { value: "portfolio", label: "🧰 Портфолио" },
+  { value: "catalog", label: "🏆 Конкурсы" },
+];
+
+/** Admissions workspace: applications, essays, the portfolio built from the labs, and the opportunity catalog. */
+export default function Admissions() {
+  const [params, setParams] = useSearchParams();
+  const tab = (TABS.find((t) => t.value === params.get("tab"))?.value ?? "apps") as Tab;
+  return (
+    <div className="flex flex-col gap-6">
+      <GreetingBanner eyebrow="Поступление без паники" title="Подавайся как про" subtitle="Список вузов с дедлайнами и чек-листами, эссе с ИИ-коучем (он не пишет за тебя, а помогает найти свою историю) и портфолио, которое само собирается из лаборатории, кода и пути." />
+      <Segmented value={tab} onChange={(v) => setParams({ tab: v })} options={TABS} className="self-start" />
+      {tab === "apps" && <Apps />}
+      {tab === "essays" && <Essays />}
+      {tab === "portfolio" && <Portfolio />}
+      {tab === "catalog" && <Catalog />}
+    </div>
   );
 }

@@ -10,12 +10,12 @@ import { cn } from "@/lib/utils";
 import { RichText } from "@/components/RichText";
 import { Plant, type PlantMood } from "@/components/Plant";
 import { Loading } from "@/components/Page";
+import { comfort, lessonMeme, praise } from "@/lib/vibe";
 
 // One lesson of the path, Duolingo-style: a progress bar, hearts, one task at a time,
 // a check button and a green or red sheet; mistakes come back at the end of the lesson.
 
 const HEARTS = 5;
-const PRAISE = ["Отлично!", "Так держать!", "В точку!", "Супер!", "Правильно!"];
 const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
 type Phase = "answering" | "checked" | "done" | "failed";
@@ -164,13 +164,20 @@ export default function Lesson() {
   // ---------- finished ----------
   if (phase === "done" && summary) {
     const acc = Math.round((summary.firstTry / summary.total) * 100);
+    const meme = lessonMeme(summary.perfect);
     return (
       <div className="flex min-h-dvh flex-col bg-background">
         <main className="mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center px-4 text-center">
           <motion.div initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 200, damping: 14 }}>
-            <Plant species={species} stage={stage} mood="happy" className="w-48" />
+            <div className="relative">
+              <Plant species={species} stage={stage} mood="happy" className="w-48" />
+              <motion.span initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: -12 }} transition={{ delay: 0.35, type: "spring", stiffness: 260, damping: 12 }} className="sticker absolute -right-6 top-2 text-6xl">
+                {meme.sticker}
+              </motion.span>
+            </div>
           </motion.div>
           <h1 className="mt-4 font-display text-4xl font-bold text-[#ff9600]">{summary.perfect ? "Без единой ошибки!" : "Урок пройден!"}</h1>
+          <p className="mt-1 rounded-full bg-[#fff4e0] px-4 py-1 text-sm font-bold text-[#c56a00]">{meme.caption}</p>
           <p className="mt-2 text-muted-foreground">
             {summary.level >= summary.maxLevel ? "Уровень пройден полностью" : `Уровень ${summary.level} из ${summary.maxLevel}`} · {lesson.title}
           </p>
@@ -317,7 +324,7 @@ export default function Lesson() {
               <motion.div key="fb" initial={{ y: 16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className={cn("flex min-w-0 gap-3", result!.correct ? "text-[#58a700]" : "text-[#ea2b2b]")}>
                 {result!.correct ? <CheckCircle2 className="mt-0.5 size-9 shrink-0" /> : <XCircle className="mt-0.5 size-9 shrink-0" />}
                 <div className="min-w-0">
-                  <p className="font-display text-2xl font-bold">{result!.correct ? PRAISE[solved.size % PRAISE.length] : "Неправильно"}</p>
+                  <p className="font-display text-2xl font-bold">{result!.correct ? praise(solved.size) : comfort(retry.size)}</p>
                   {!result!.correct && (
                     <p className="text-sm font-semibold">
                       Правильный ответ: <RichText text={result!.answer} className="inline" />

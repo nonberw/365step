@@ -1,13 +1,16 @@
 import { t, tn } from "./i18n";
 import { deckClashes, BATTERY_MM, G as GRAV, adapterHole, trayFor, type Material, type Section, LINK_TUBES, MATERIALS, MOTOR_BOSS_MM, PROFILES, ROVER, allowablePrinted, armShoulderZ, ARM, beamFrequency, cantileverTip, departureDeg, fit, rect, roverClearance, simplySupportedSag, twoLinkIk, FIT_MIN, FIT_MAX } from "./physics";
 import type { KitItem, Layout, Preset } from "./circuit";
+import type { Assembly } from "./assembly/model";
+import { verifyAssembly } from "./assembly/checks";
+import { sampleCustom } from "./assembly/sample";
 import { applyKindToLayout } from "./circuitEdit";
 import { verifyBreadboard, sampleBreadboard, breadboardSteps, breadboardPowerProfile, jumperCount, setPreset } from "./circuit";
 
 // Device Graph: single source of truth. Every view (3D, electronics, BOM,
 // instructions, checks) is derived from this model.
 
-export type Template = "stand" | "arm" | "rover" | "breadboard";
+export type Template = "stand" | "arm" | "rover" | "breadboard" | "custom";
 export type ModuleKind = "profile" | "actuator" | "platform" | "camera" | "light" | "controller" | "psu" | "driver" | "link" | "gripper" | "base" | "wheel" | "battery" | "sensor" | "mcu" | "led" | "resistor" | "button" | "pot" | "buzzer" | "wire" | "module" | "motor" | "display";
 
 export interface CatalogModule {
@@ -43,6 +46,10 @@ export interface CatalogModule {
 }
 
 export const CATALOG: Record<string, CatalogModule> = {
+  // building blocks for designs assembled from parts (src/lib/assembly): a cut plate, a printed bracket, a ball caster
+  "plate-alu": { id: "plate-alu", name: "Aluminium plate, cut to size", kind: "base", massKg: 1.3, priceUsd: 15, inStock: true, for: ["custom"] },
+  "bracket-l": { id: "bracket-l", name: "Printed L-bracket", kind: "profile", massKg: 0.02, priceUsd: 1.5, inStock: true, for: ["custom"] },
+  "caster-ball": { id: "caster-ball", name: "Ball caster", kind: "wheel", massKg: 0.03, priceUsd: 2, inStock: true, for: ["custom"] },
   "profile-20": { id: "profile-20", name: "Aluminium profile 20×20", kind: "profile", massKg: 0.55, priceUsd: 6, inStock: true, stiffness: 1 },
   "profile-30": { id: "profile-30", name: "Aluminium profile 30×30", kind: "profile", massKg: 1.1, priceUsd: 11, inStock: true, stiffness: 2.6 },
   "nema17": { id: "nema17", name: "NEMA17 stepper 0.45 Nm", kind: "actuator", massKg: 0.35, priceUsd: 14, inStock: true, voltage: 24, currentA: 1.5, momentNm: 0.45 },
@@ -140,6 +147,8 @@ export interface DeviceGraph {
   safe?: boolean;
   /** a remix of someone's published design: the author stays credited */
   remixOf?: { author: string; title: string };
+  /** designs assembled from blocks (template "custom"): the block tree; `parts` is kept in step with it */
+  assembly?: Assembly;
   /** comments pinned to a part (module id) or to the whole project; they travel with the design to teammates */
   comments?: DesignComment[];
 }
@@ -205,7 +214,7 @@ export function sampleRover(): DeviceGraph {
   };
 }
 
-export const sampleFor = (t: Template) => (t === "arm" ? sampleArm() : t === "rover" ? sampleRover() : t === "breadboard" ? sampleBreadboard() : sampleProject());
+export const sampleFor = (t: Template) => (t === "arm" ? sampleArm() : t === "rover" ? sampleRover() : t === "breadboard" ? sampleBreadboard() : t === "custom" ? sampleCustom() : sampleProject());
 
 // ---- Verifier (deterministic code, not AI) ---------------------------------
 
@@ -246,7 +255,7 @@ export function swap(g: DeviceGraph, from: string, to: string): DeviceGraph {
 }
 
 export function verify(g: DeviceGraph): Check[] {
-  const out = g.template === "arm" ? verifyArm(g) : g.template === "rover" ? verifyRover(g) : g.template === "breadboard" ? verifyBreadboard(g) : verifyStand(g);
+  const out = g.template === "arm" ? verifyArm(g) : g.template === "rover" ? verifyRover(g) : g.template === "breadboard" ? verifyBreadboard(g) : g.template === "custom" ? verifyAssembly(g) : verifyStand(g);
   return g.safe ? [...safetyChecks(g), ...out] : out;
 }
 

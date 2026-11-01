@@ -1,0 +1,234 @@
+import { Router } from "express";
+import { requireStudent } from "../auth";
+import { activityPhrase, essayBrainstorm, essayFeedback, type EssayKind } from "../ai";
+import { addXp, all, id, one, run } from "../db";
+import { HttpError, must, str, wrap } from "../http";
+
+// Admissions workspace: the student's applications with deadlines and checklists, essay drafts with an AI coach,
+// and the activity list for Common App, which the portfolio fills from work done on the platform.
+
+export const admissionsRouter = Router();
+
+const SYSTEMS = ["us-ed", "us-ea", "us-rd", "ucas", "eu", "asia", "kz", "other"] as const;
+const STATUSES = ["idea", "preparing", "submitted", "admitted", "waitlist", "rejected"] as const;
+const KINDS: EssayKind[] = ["common-app", "why-us", "ucas", "motivation"];
+const DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+interface AppRow {
+  id: string;
+  name: string;
+  country: string;
+  program: string;
+  system: string;
+  deadline: string | null;
+  status: string;
+  checklist: string;
+  notes: string;
+  created_at: number;
+}
+
+const appOut = (r: AppRow) => ({ ...r, checklist: JSON.parse(r.checklist) as { id: string; label: string; done: boolean }[] });
+
+/** Default checklist by application system. */
+function checklistFor(system: string) {
+  const base = [
+    { id: "list", label: "Вуз в списке и требования проверены", done: false },
+    { id: "tests", label: "Баллы SAT / IELTS отправлены", done: false },
+    { id: "transcript", label: "Оценки (transcript) от школы", done: false },
+  ];
+  if (system.startsWith("us"))
+    return [...base, { id: "essay", label: "Common App personal statement", done: false }, { id: "supp", label: "Supplements («Why us»)", done: false }, { id: "recs", label: "2 рекомендации учителей + counselor", done: false }, { id: "activities", label: "Activities list (10 позиций)", done: false }, { id: "aid", label: "CSS Profile / финансовая помощь", done: false }];
+  if (system === "ucas") return [...base, { id: "essay", label: "UCAS personal statement (3 вопроса)", done: false }, { id: "recs", label: "Reference от школы", done: false }];
+  if (system === "eu") return [...base, { id: "essay", label: "Мотивационное письмо", done: false }, { id: "cv", label: "CV", done: false }, { id: "recs", label: "Рекомендательное письмо", done: false }];
+  return [...base, { id: "essay", label: "Эссе / мотивационное письмо", done: false }];
+}
+
+admissionsRouter.get(
+  "/apps",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    res.json((await all<AppRow>("SELECT * FROM applications WHERE user_id = ? ORDER BY deadline IS NULL, deadline, created_at", u.id)).map(appOut));
+  }),
+);
+
+admissionsRouter.post(
+  "/apps",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const b = req.body ?? {};
+    const name = str(b.name, 120);
+    if (!name) throw new HttpError(400, "Укажи вуз или программу");
+    const system = SYSTEMS.includes(b.system) ? (b.system as string) : "other";
+    const n = (await one<{ n: number }>("SELECT COUNT(*) n FROM applications WHERE user_id = ?", u.id))?.n ?? 0;
+    if (n >= 40) throw new HttpError(400, "В списке уже 40 вузов — этого точно хватит");
+    const appId = id();
+    await run(
+      "INSERT INTO applications (id, user_id, name, country, program, system, deadline, status, checklist, notes, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'idea', ?, '', ?)",
+      appId,
+      u.id,
+      name,
+      str(b.country, 60),
+      str(b.program, 120),
+      system,
+      DATE.test(String(b.deadline)) ? String(b.deadline) : null,
+      JSON.stringify(checklistFor(system)),
+      Date.now(),
+    );
+    res.status(201).json(appOut((await one<AppRow>("SELECT * FROM applications WHERE id = ?", appId))!));
+  }),
+);
+
+admissionsRouter.patch(
+  "/apps/:id",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const row = must(await one<AppRow>("SELECT * FROM applications WHERE id = ? AND user_id = ?", String(req.params.id), u.id), 404, "Заявка не найдена");
+    const b = req.body ?? {};
+    const status = STATUSES.includes(b.status) ? (b.status as string) : row.status;
+    const checklist = Array.isArray(b.checklist) ? JSON.stringify(b.checklist.slice(0, 20).map((c: { id: unknown; label: unknown; done: unknown }) => ({ id: str(c.id, 30), label: str(c.label, 120), done: !!c.done }))) : row.checklist;
+    const deadline = b.deadline === null ? null : DATE.test(String(b.deadline)) ? String(b.deadline) : row.deadline;
+    await run("UPDATE applications SET status = ?, checklist = ?, deadline = ?, notes = ? WHERE id = ?", status, checklist, deadline, b.notes !== undefined ? str(b.notes, 2000) : row.notes, row.id);
+    // Sending an application is a milestone: it grows the plant like a finished lesson.
+    if (status === "submitted" && row.status !== "submitted") await addXp(u.id, 30, "application");
+    res.json(appOut((await one<AppRow>("SELECT * FROM applications WHERE id = ?", row.id))!));
+  }),
+);
+
+admissionsRouter.delete(
+  "/apps/:id",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    await run("DELETE FROM applications WHERE id = ? AND user_id = ?", String(req.params.id), u.id);
+    res.json({ ok: true });
+  }),
+);
+
+// ---------- essays ----------
+
+interface EssayRow {
+  id: string;
+  kind: EssayKind;
+  title: string;
+  prompt: string;
+  text: string;
+  feedback: string | null;
+  updated_at: number;
+}
+
+const essayOut = (r: EssayRow) => ({ ...r, feedback: r.feedback ? JSON.parse(r.feedback) : null });
+
+admissionsRouter.get(
+  "/essays",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    res.json((await all<EssayRow>("SELECT * FROM essays WHERE user_id = ? ORDER BY updated_at DESC", u.id)).map(essayOut));
+  }),
+);
+
+admissionsRouter.post(
+  "/essays",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const b = req.body ?? {};
+    const kind = KINDS.includes(b.kind) ? (b.kind as EssayKind) : "common-app";
+    if (b.id) {
+      const row = must(await one<EssayRow>("SELECT * FROM essays WHERE id = ? AND user_id = ?", str(b.id, 40), u.id), 404, "Эссе не найдено");
+      await run("UPDATE essays SET title = ?, prompt = ?, text = ?, kind = ?, updated_at = ? WHERE id = ?", str(b.title, 120) || row.title, str(b.prompt, 1500), String(b.text ?? "").slice(0, 20000), kind, Date.now(), row.id);
+      return res.json(essayOut((await one<EssayRow>("SELECT * FROM essays WHERE id = ?", row.id))!));
+    }
+    const essayId = id();
+    await run("INSERT INTO essays (id, user_id, kind, title, prompt, text, feedback, updated_at) VALUES (?, ?, ?, ?, ?, ?, NULL, ?)", essayId, u.id, kind, str(b.title, 120) || "Новое эссе", str(b.prompt, 1500), String(b.text ?? "").slice(0, 20000), Date.now());
+    res.status(201).json(essayOut((await one<EssayRow>("SELECT * FROM essays WHERE id = ?", essayId))!));
+  }),
+);
+
+admissionsRouter.delete(
+  "/essays/:id",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    await run("DELETE FROM essays WHERE id = ? AND user_id = ?", String(req.params.id), u.id);
+    res.json({ ok: true });
+  }),
+);
+
+admissionsRouter.post(
+  "/essays/:id/feedback",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const row = must(await one<EssayRow>("SELECT * FROM essays WHERE id = ? AND user_id = ?", String(req.params.id), u.id), 404, "Эссе не найдено");
+    if (row.text.trim().split(/\s+/).filter(Boolean).length < 60) throw new HttpError(400, "Напиши хотя бы 60 слов — так отзыв будет полезным");
+    const fb = await essayFeedback(row.kind, row.prompt, row.text);
+    await run("UPDATE essays SET feedback = ? WHERE id = ?", JSON.stringify(fb), row.id);
+    await addXp(u.id, 15, "essay");
+    res.json(fb);
+  }),
+);
+
+admissionsRouter.post(
+  "/brainstorm",
+  wrap(async (req, res) => {
+    requireStudent(req);
+    const b = req.body ?? {};
+    res.json(await essayBrainstorm(KINDS.includes(b.kind) ? b.kind : "common-app", str(b.prompt, 1500), str(b.notes, 3000)));
+  }),
+);
+
+// ---------- activity list ----------
+
+interface ActRow {
+  id: string;
+  source: string;
+  position: string;
+  organization: string;
+  description: string;
+  hours: number;
+  weeks: number;
+  created_at: number;
+}
+
+admissionsRouter.get(
+  "/activities",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    res.json(await all<ActRow>("SELECT * FROM activities WHERE user_id = ? ORDER BY created_at", u.id));
+  }),
+);
+
+admissionsRouter.post(
+  "/activities",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    const b = req.body ?? {};
+    const n = (await one<{ n: number }>("SELECT COUNT(*) n FROM activities WHERE user_id = ?", u.id))?.n ?? 0;
+    const existing = b.id ? await one<ActRow>("SELECT * FROM activities WHERE id = ? AND user_id = ?", str(b.id, 40), u.id) : undefined;
+    if (!existing && n >= 10) throw new HttpError(400, "В Common App помещается 10 активностей — убери одну, чтобы добавить новую");
+    const fields = [str(b.position, 50), str(b.organization, 100), str(b.description, 150), Math.max(0, Math.min(80, Number(b.hours) || 0)), Math.max(0, Math.min(52, Number(b.weeks) || 0))] as const;
+    if (!fields[0] && !fields[2]) throw new HttpError(400, "Заполни роль или описание");
+    if (existing) {
+      await run("UPDATE activities SET position = ?, organization = ?, description = ?, hours = ?, weeks = ? WHERE id = ?", ...fields, existing.id);
+      return res.json(await one<ActRow>("SELECT * FROM activities WHERE id = ?", existing.id));
+    }
+    const actId = id();
+    await run("INSERT INTO activities (id, user_id, source, position, organization, description, hours, weeks, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", actId, u.id, str(b.source, 60) || "custom", ...fields, Date.now());
+    res.status(201).json(await one<ActRow>("SELECT * FROM activities WHERE id = ?", actId));
+  }),
+);
+
+admissionsRouter.delete(
+  "/activities/:id",
+  wrap(async (req, res) => {
+    const u = requireStudent(req);
+    await run("DELETE FROM activities WHERE id = ? AND user_id = ?", String(req.params.id), u.id);
+    res.json({ ok: true });
+  }),
+);
+
+admissionsRouter.post(
+  "/activities/phrase",
+  wrap(async (req, res) => {
+    requireStudent(req);
+    const facts = str(req.body?.facts, 2000);
+    if (facts.length < 20) throw new HttpError(400, "Опиши факты подробнее: что делал, сколько, какой результат");
+    res.json(await activityPhrase(facts));
+  }),
+);

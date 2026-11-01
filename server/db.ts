@@ -452,6 +452,40 @@ CREATE TABLE IF NOT EXISTS cad_designs (
   verified INTEGER NOT NULL DEFAULT 0,
   at INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS applications (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  country TEXT NOT NULL DEFAULT '',
+  program TEXT NOT NULL DEFAULT '',
+  system TEXT NOT NULL,
+  deadline TEXT,
+  status TEXT NOT NULL,
+  checklist TEXT NOT NULL,
+  notes TEXT NOT NULL DEFAULT '',
+  created_at INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS essays (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  kind TEXT NOT NULL,
+  title TEXT NOT NULL,
+  prompt TEXT NOT NULL DEFAULT '',
+  text TEXT NOT NULL DEFAULT '',
+  feedback TEXT,
+  updated_at INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS activities (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  source TEXT NOT NULL,
+  position TEXT NOT NULL DEFAULT '',
+  organization TEXT NOT NULL DEFAULT '',
+  description TEXT NOT NULL DEFAULT '',
+  hours REAL NOT NULL DEFAULT 0,
+  weeks REAL NOT NULL DEFAULT 0,
+  created_at INTEGER NOT NULL
+);
 CREATE TABLE IF NOT EXISTS path_progress (
   user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   course TEXT NOT NULL,

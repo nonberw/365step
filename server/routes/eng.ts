@@ -22,6 +22,8 @@ function xpFor(item: string) {
   if (kind === "drone") return MISSIONS.find((m) => m.id === id)?.xp;
   if (kind === "cad") return CAD_LESSONS.find((l) => l.id === id)?.xp;
   if (kind === "arduino") return ARDUINO_LESSONS.find((l) => l.id === id)?.xp;
+  // robot descriptions from the URDF designer (one per robot type)
+  if (kind === "robot") return ["manipulator", "mobile", "legged"].includes(id ?? "") ? 25 : undefined;
   return undefined;
 }
 

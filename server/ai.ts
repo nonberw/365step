@@ -1135,3 +1135,88 @@ export async function entMasterGenerate(subject: { name: string }, topic: string
   );
   return out.items.filter((x) => x.stem && x.accept.length).slice(0, count);
 }
+
+// ---------- admissions: essay coach and activity list ----------
+// The coach never writes the essay: it asks questions, helps outline the student's own ideas and gives feedback.
+// Common App treats submitting AI-generated substantive content as one's own as fraud, so we keep to coaching.
+
+export type EssayKind = "common-app" | "why-us" | "ucas" | "motivation";
+
+export interface EssayFeedback {
+  overall: string;
+  scores: { name: string; score: number; comment: string }[];
+  comments: { quote: string; comment: string }[];
+  questions: string[];
+  nextSteps: string[];
+  mode: "ai" | "demo";
+}
+
+const ESSAY_SYSTEM = `Ты консультант по поступлению за рубеж и коуч по эссе для школьников из Казахстана. Ты НИКОГДА не пишешь и не переписываешь эссе за ученика: ни абзацев, ни предложений на замену. Ты только задаёшь вопросы, указываешь на места в тексте и объясняешь, что улучшить своими словами. Это требование честности: Common App считает выдачу текста ИИ за свой обманом.
+Оцени черновик по рубрике (score 1–5): «Крючок и начало», «Конкретика (show, don't tell)», «Рефлексия и рост», «Свой голос», «Структура», «Ответ на вопрос». Для «Why us» добавь «Знание вуза».
+- overall: 2–3 предложения на «ты», честно и по-доброму, на русском.
+- comments: 3–6 замечаний с точной короткой цитатой из текста (quote должен дословно встречаться в тексте) и что с ней сделать (без готовой замены).
+- questions: 3–5 вопросов, которые помогут ученику достать детали из своей истории.
+- nextSteps: 3 конкретных шага к следующему черновику.
+Учитывай лимит слов: если превышен — скажи, что сократить.`;
+
+const LIMITS: Record<EssayKind, string> = {
+  "common-app": "Common App personal statement, до 650 слов",
+  "why-us": "Supplement «Why us», обычно 150–300 слов",
+  ucas: "UCAS personal statement (3 вопроса, всего до 4000 знаков)",
+  motivation: "Мотивационное письмо в европейский вуз, около 1 страницы",
+};
+
+export async function essayFeedback(kind: EssayKind, prompt: string, text: string): Promise<EssayFeedback> {
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  if (!client) {
+    return {
+      overall: `Демо-режим без ключа ИИ: в тексте ${words} слов. Проверь, есть ли в начале конкретная сцена, а в конце — что ты понял о себе.`,
+      scores: ["Крючок и начало", "Конкретика (show, don't tell)", "Рефлексия и рост", "Свой голос", "Структура", "Ответ на вопрос"].map((name) => ({ name, score: 3, comment: "Оценку даст ИИ, когда будет ключ." })),
+      comments: [],
+      questions: ["Какой момент ты помнишь в деталях — звуки, место, слова?", "Что ты сделал сам, а не команда?", "Что изменилось в тебе после этой истории?"],
+      nextSteps: ["Начни с конкретной сцены", "Убери общие фразы вроде «я всегда любил»", "Допиши абзац о том, что ты понял"],
+      mode: "demo",
+    };
+  }
+  const out = await ask<Omit<EssayFeedback, "mode">>(
+    ESSAY_SYSTEM,
+    `Тип: ${LIMITS[kind]}\nВопрос эссе: ${prompt || "не указан"}\nСлов в черновике: ${words}\n\nЧерновик ученика:\n${text}`,
+    obj({ overall: S, scores: arr(obj({ name: S, score: I, comment: S })), comments: arr(obj({ quote: S, comment: S })), questions: arr(S), nextSteps: arr(S) }),
+    "medium",
+  );
+  return { ...out, comments: out.comments.filter((c) => text.includes(c.quote)), mode: "ai" };
+}
+
+const BRAINSTORM_SYSTEM = `Ты коуч по эссе для поступления. Ученик ещё не написал текст: помоги найти историю. Не пиши эссе и не предлагай готовые предложения.
+- questions: 6–8 вопросов, чтобы вспомнить конкретные истории (место, момент, выбор, ошибку, что изменилось).
+- angles: 3 возможных угла для эссе на основе заметок ученика, каждый — одной фразой, что в нём раскрыть (без готового текста).
+- outline: план из 4–5 пунктов, что ученик напишет своими словами (по одному короткому пункту).
+Пиши по-русски, на «ты».`;
+
+export async function essayBrainstorm(kind: EssayKind, prompt: string, notes: string): Promise<{ questions: string[]; angles: string[]; outline: string[]; mode: "ai" | "demo" }> {
+  if (!client) {
+    return {
+      questions: ["Когда ты в последний раз забыл о времени, потому что было интересно?", "Какую проблему ты решил сам, без подсказки?", "Что ты делаешь иначе, чем твои друзья?", "Какое решение далось тебе тяжело?"],
+      angles: ["История про проект, который сначала провалился", "Привычка или хобби, которое многое о тебе говорит", "Место или человек, которые изменили твой взгляд"],
+      outline: ["Сцена-крючок", "Контекст: что было до", "Твой выбор и действие", "Что ты понял", "Как это связано с тем, что ты хочешь изучать"],
+      mode: "demo",
+    };
+  }
+  const out = await ask<{ questions: string[]; angles: string[]; outline: string[] }>(BRAINSTORM_SYSTEM, `Тип: ${LIMITS[kind]}\nВопрос эссе: ${prompt || "не указан"}\nЗаметки ученика:\n${notes || "пока нет"}`, obj({ questions: arr(S), angles: arr(S), outline: arr(S) }), "low");
+  return { ...out, mode: "ai" };
+}
+
+const ACTIVITY_SYSTEM = `Ты помогаешь оформить внеучебную деятельность для раздела Activities в Common App. Используй ТОЛЬКО факты, которые дал ученик, ничего не выдумывай и не преувеличивай.
+- position: должность/роль на английском, до 50 символов.
+- organization: название организации или проекта на английском, до 100 символов.
+- description: описание на английском, до 150 символов, с глаголов действия и цифр из фактов.
+- tips: 1–2 совета по-русски, какие факты добавить, чтобы описание стало сильнее.`;
+
+export async function activityPhrase(facts: string): Promise<{ position: string; organization: string; description: string; tips: string[]; mode: "ai" | "demo" }> {
+  if (!client) {
+    const first = facts.split(/[.\n]/)[0]?.trim() ?? "";
+    return { position: "Builder", organization: "Independent project", description: first.slice(0, 150), tips: ["Добавь цифры: сколько часов, сколько людей, какой результат."], mode: "demo" };
+  }
+  const out = await ask<{ position: string; organization: string; description: string; tips: string[] }>(ACTIVITY_SYSTEM, `Факты ученика:\n${facts}`, obj({ position: S, organization: S, description: S, tips: arr(S) }), "low");
+  return { position: out.position.slice(0, 50), organization: out.organization.slice(0, 100), description: out.description.slice(0, 150), tips: out.tips, mode: "ai" };
+}

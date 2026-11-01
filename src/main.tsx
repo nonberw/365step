@@ -17,6 +17,7 @@ try {
 const Landing = lazy(() => import("@/pages/Landing"));
 const LearnPath = lazy(() => import("@/pages/learn/Path"));
 const LearnLesson = lazy(() => import("@/pages/learn/Lesson"));
+const RobotDesigner = lazy(() => import("@/pages/engineering/RobotDesigner"));
 const Pricing = lazy(() => import("@/pages/Pricing"));
 const Admissions = lazy(() => import("@/pages/admissions/Admissions"));
 const Login = lazy(() => import("@/pages/auth/Login"));
@@ -178,6 +179,7 @@ function App() {
           <Route path="/engineering/cad/:lesson" element={<CadLab />} />
           <Route path="/engineering/arduino/:lesson" element={<ArduinoLab />} />
           <Route path="/engineering/cad-studio" element={<CadStudio />} />
+          <Route path="/engineering/robot" element={<RobotDesigner />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

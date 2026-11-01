@@ -227,7 +227,7 @@ export default function AppShell() {
     } catch {
       // per-viewer convenience only
     }
-    if (seen && stage > seen) notify({ variant: "success", title: "Растение выросло!", body: `Новая стадия: «${plantGrowth(user.xp).name}». Так держать.` });
+    if (seen && stage > seen) notify({ variant: "success", title: "растение выросло 🌱✨", body: `новая стадия: «${plantGrowth(user.xp).name}». ты растёшь вместе с ним — это база.` });
   }, [stage, user?.id, user?.plant]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!user) return null;
   const nav = STUDENT_NAV;

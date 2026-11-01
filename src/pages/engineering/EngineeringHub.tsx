@@ -53,6 +53,13 @@ export default function EngineeringHub() {
       tint: "from-[#e6b422]/25",
     },
     {
+      to: "/engineering/robot",
+      icon: Bot,
+      title: "Робот → URDF",
+      text: "Манипулятор, колёсный или четвероногий робот: параметры → файл URDF со звеньями, суставами и инерцией для ROS и Gazebo. Генератор из nwo-text-cad.",
+      tint: "from-[#ff9600]/25",
+    },
+    {
       to: "/coding",
       icon: Code2,
       title: "Алгоритмы",
@@ -83,12 +90,15 @@ export default function EngineeringHub() {
             Здесь инженерия как в настоящем конструкторском бюро: детали из каталога, расчёты по формулам физики, CAD-модели для 3D-печати и симулятор, где ошибка в расчёте — это падение дрона, а не двойка.
           </p>
           <div className="flex flex-wrap gap-2 text-xs text-white/60">
-            {["Физика полёта 6DOF", "Каскадный PID", "OpenCascade CAD", "Экспорт STL / STEP", "Автопилот на JavaScript", "Arduino в браузере"].map((t) => (
-              <span key={t} className="rounded-full border border-white/10 px-3 py-1">
+            {["Физика полёта 6DOF", "Каскадный PID", "OpenCascade CAD", "Экспорт STL / STEP", "Автопилот на JavaScript", "Arduino в браузере", "URDF для роботов"].map((t) => (
+              <span key={t} className="rounded-full border border-white/30 px-3 py-1 text-white/85">
                 {t}
               </span>
             ))}
           </div>
+          <Link to="/admissions?tab=portfolio" className="inline-flex w-fit items-center gap-2 rounded-2xl bg-white/25 px-4 py-2 text-sm font-bold text-white backdrop-blur hover:bg-white/35">
+            🎓 Всё, что построишь здесь, попадает в портфолио для поступления →
+          </Link>
         </div>
       </section>
 
