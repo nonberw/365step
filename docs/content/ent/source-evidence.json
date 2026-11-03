@@ -1,0 +1,77 @@
+[
+  {
+    "id": "siyavula-physical",
+    "url": "https://www.siyavula.com/read/za/physical-sciences/grade-12",
+    "checkedAt": "2026-11-03",
+    "sha256": "10709fe4265e8b0726fc4fd43de4f98d8a12736e1952ce3dfcdf31b1528d339d",
+    "bytes": 164229,
+    "permissionExcerpt": "All Siyavula textbook content made available on this site is released under the terms of a Creative Commons Attribution License",
+    "links": [
+      "https://creativecommons.org/licenses/by/3.0/"
+    ]
+  },
+  {
+    "id": "siyavula-biology",
+    "url": "https://www.siyavula.com/read/za/life-sciences/grade-10",
+    "checkedAt": "2026-11-03",
+    "sha256": "b6ee5e97d27c3652858b8f9318de6804f40bdf5aefa8e5dafa5d7f7d424516a6",
+    "bytes": 157176,
+    "permissionExcerpt": "All Siyavula textbook content made available on this site is released under the terms of a Creative Commons Attribution License",
+    "links": [
+      "https://creativecommons.org/licenses/by/3.0/"
+    ]
+  },
+  {
+    "id": "siyavula-formats",
+    "url": "https://www.siyavula.com/read",
+    "checkedAt": "2026-11-03",
+    "sha256": "6d2d738453796752e6b980cc9b9afbd7606184547e55702e7c4245cc2a7b1465",
+    "bytes": 247379,
+    "permissionExcerpt": "Creative Commons Attribution 3.0 Unported . Information Technology and Computer Applications Technology These books have been provided by MTN and",
+    "links": [
+      "http://creativecommons.org/licenses/by-nd/3.0/",
+      "http://creativecommons.org/licenses/by/3.0/"
+    ]
+  },
+  {
+    "id": "precalc",
+    "url": "https://www.opentextbookstore.com/precalc/",
+    "checkedAt": "2026-11-03",
+    "sha256": "dd56eeac604ee28901b2f2a3df16a608d01ea53832f7ebf7ac6e8981eb668d33",
+    "bytes": 12186,
+    "permissionExcerpt": "Creative Commons Attribution-ShareAlike 4.0 International License . The detailed solutions manual was contributed by Shoreline Community College and Evergreen State",
+    "links": [
+      "http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US",
+      "http://creativecommons.org/licenses/by-sa/4.0/"
+    ]
+  },
+  {
+    "id": "society",
+    "url": "https://www.opentextbookstore.com/mathinsociety/",
+    "checkedAt": "2026-11-03",
+    "sha256": "579cf2daa12c33718d724614369f13a070ae0eacdecc81b463356ec9a841d444",
+    "bytes": 9911,
+    "permissionExcerpt": "Creative Commons Attribution-ShareAlike 4.0 International License . This license means that you have full permission to modify the text to",
+    "links": [
+      "http://creativecommons.org/licenses/by-sa/4.0/"
+    ]
+  },
+  {
+    "id": "python",
+    "url": "https://docs.python.org/3/license.html",
+    "checkedAt": "2026-11-03",
+    "sha256": "516e895142e3056ad7701e92043cf3917e7e96474eff3784b60741cf5b1866c3",
+    "bytes": 95023,
+    "permissionExcerpt": "All Python releases are Open Source (see https://opensource.org for the Open Source Definition). Historically, most, but not all, Python releases",
+    "links": []
+  },
+  {
+    "id": "sqlite",
+    "url": "https://sqlite.org/copyright.html",
+    "checkedAt": "2026-11-03",
+    "sha256": "44ca9f793055c8e32fc65f65a4f5bcf813a33f5bdaaa084067dd617a4ed3cc70",
+    "bytes": 8351,
+    "permissionExcerpt": "",
+    "links": []
+  }
+]
