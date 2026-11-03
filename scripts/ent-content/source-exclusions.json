@@ -1,0 +1,110 @@
+[
+  {
+    "id": "es-kq-geo0141geo",
+    "reason": "Raw mare milk is not the fermented drink kumys; source question/key mismatch"
+  },
+  {
+    "id": "es-kq-geo0683geo",
+    "reason": "Question says Northern Hemisphere, source evidence says Southern Hemisphere; wrong source key"
+  },
+  {
+    "id": "es-kq-woh0167woh",
+    "reason": "Incomplete fragment instead of an answer to the regime-characteristic question"
+  },
+  {
+    "id": "es-me-1010",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{1}{3}"
+  },
+  {
+    "id": "es-me-1122",
+    "reason": "invalid-math: KaTeX parse error: Got function '\\\"' with no arguments as superscript at position 5: 110^\\̲\"̲ir\""
+  },
+  {
+    "id": "es-me-1737",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\l at position 1: \\̲l̲\"eil x \\r\"eil"
+  },
+  {
+    "id": "es-me-1739",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 7: \\left(\\̲f̲r̲a̲\"{1}{a}\\right)^…"
+  },
+  {
+    "id": "es-me-3567",
+    "reason": "Unusable translation of retail agglomeration concept"
+  },
+  {
+    "id": "es-me-4089",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 6: f(x)=\\̲f̲r̲a̲\"{x+6}{\\sqrt{x^…"
+  },
+  {
+    "id": "es-me-4282",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{4^{(3^3)}}{(4…"
+  },
+  {
+    "id": "es-me-4602",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{1}{n}"
+  },
+  {
+    "id": "es-me-5312",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{17}{40}"
+  },
+  {
+    "id": "es-me-6115",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 14: \\log_{b}343=-\\̲f̲r̲a̲\"{3}{2}"
+  },
+  {
+    "id": "es-me-6166",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\dfra at position 2: -\\̲d̲f̲r̲a̲\"{1}{-3}\\\"dot\\\"…"
+  },
+  {
+    "id": "es-me-6690",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{1}{2}"
+  },
+  {
+    "id": "es-me-6693",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{q}{p}"
+  },
+  {
+    "id": "es-me-6694",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{q}{p}"
+  },
+  {
+    "id": "es-me-8474",
+    "reason": "Corrupted translated fraction notation; not published without repair"
+  },
+  {
+    "id": "es-me-8679",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 11: b(b+2\") = \\̲f̲r̲a̲\"{7}{9}"
+  },
+  {
+    "id": "es-me-8845",
+    "reason": "Missing exponent in potential-energy expression; mathematical condition ambiguous"
+  },
+  {
+    "id": "es-me-9399",
+    "reason": "Integration is not a form of residential segregation; incorrect source key"
+  },
+  {
+    "id": "es-me-9542",
+    "reason": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{x}{y}"
+  },
+  {
+    "id": "es-me-495",
+    "reason": "Source falsely says ADH is secreted by kidneys; condition contains a biological error"
+  },
+  {
+    "id": "es-me-414",
+    "reason": "Reaction only; original stem omits the actual question and equilibrium assumptions"
+  },
+  {
+    "id": "es-me-213",
+    "reason": "Corrupt translation of monoprotic acid as monoprotein acid"
+  },
+  {
+    "id": "es-me-8589",
+    "reason": "Elementary simplification below selected upper-school practice level"
+  },
+  {
+    "id": "es-me-8596",
+    "reason": "Elementary simplification below selected upper-school practice level"
+  }
+]

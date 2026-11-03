@@ -1,0 +1,2 @@
+# Only needed for offline INCLUDE imports; the application makes no external calls.
+pyarrow==19.0.1
