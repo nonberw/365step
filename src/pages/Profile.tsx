@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { LogOut } from "lucide-react";
 import type { PublicUser } from "@shared/types";
 import { TITLES } from "@shared/types";
+import { entSessionsForYear, entTargetFor, entYearChoices } from "@shared/entSchedule";
 import type { PlantSpecies } from "@shared/plants";
 import { PlantCard, PlantPicker } from "@/components/Plant";
 import { api } from "@/api";
@@ -9,13 +10,18 @@ import { useAuth } from "@/lib/auth";
 import { ErrorBox, GreetingBanner } from "@/components/Page";
 import { Button } from "@/components/ui/button";
 import { Badge, Card, CardTitle } from "@/components/ui/card";
-import { Field, Input } from "@/components/ui/input";
+import { Field, Input, Select } from "@/components/ui/input";
 
 export default function Profile() {
   const { user, refresh, signOut } = useAuth();
   const [code, setCode] = useState("");
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
+  const [entChanged, setEntChanged] = useState(false);
+  const [ent, setEnt] = useState(() => {
+    const exam = entTargetFor(user?.goals ?? {}, user?.grade);
+    return { target: user?.goals.ent?.target ?? 0, year: exam.year, session: exam.session };
+  });
   const [goals, setGoals] = useState(() => ({
     sat: user?.goals.sat?.target ?? 0,
     satDate: user?.goals.sat?.date ?? "",
@@ -53,11 +59,18 @@ export default function Profile() {
     setError("");
     setMsg("");
     try {
+      const previous = user!.goals.ent;
+      const previousExam = entTargetFor(user!.goals, user!.grade);
+      const sameSchedule = ent.year === previousExam.year && ent.session === previousExam.session;
+      const entGoal = !entChanged ? previous : !ent.target ? undefined : previous && sameSchedule ? { ...previous, target: ent.target } : {
+        target: ent.target, year: ent.year, session: ent.session, date: entSessionsForYear(ent.year).find((s) => s.id === ent.session)!.date, tentative: true,
+      };
       await api<PublicUser>("/auth/me", {
         method: "PATCH",
         body: {
           goals: {
             ...user!.goals,
+            ent: entGoal,
             sat: goals.sat ? { target: goals.sat, date: goals.satDate, current: user!.goals.sat?.current } : undefined,
             ielts: goals.ielts ? { target: goals.ielts, date: goals.ieltsDate, current: user!.goals.ielts?.current } : undefined,
           },
@@ -92,9 +105,23 @@ export default function Profile() {
             {user.plant && <PlantCard species={user.plant} xp={user.xp} />}
             <PlantPicker value={user.plant} onChange={choosePlant} />
           </Card>
-          <Card>
+          <Card id="goals">
             <CardTitle>Цели</CardTitle>
             <form onSubmit={saveGoals} className="mt-4 grid gap-4 sm:grid-cols-2">
+              <Field label="Цель ЕНТ (50–140, 0 — не готовлюсь)" htmlFor="g-ent">
+                <Input id="g-ent" type="number" min={ent.target ? 50 : 0} max={140} value={ent.target || ""} onChange={(e) => { setEntChanged(true); setEnt({ ...ent, target: Number(e.target.value) }); }} />
+              </Field>
+              <Field label="Год сдачи ЕНТ" htmlFor="g-ent-year">
+                <Select id="g-ent-year" value={ent.year} onChange={(e) => { const year = Number(e.target.value); setEntChanged(true); setEnt({ ...ent, year, session: `${year}-${ent.session.split("-")[1]}` }); }}>
+                  {entYearChoices(user.grade, ent.year).map((year) => <option key={year} value={year}>{year}</option>)}
+                </Select>
+              </Field>
+              <Field label="Сессия ЕНТ · сроки ориентировочные" htmlFor="g-ent-session">
+                <Select id="g-ent-session" value={ent.session} onChange={(e) => { setEntChanged(true); setEnt({ ...ent, session: e.target.value }); }}>
+                  {entSessionsForYear(ent.year).map((session) => <option key={session.id} value={session.id}>{session.name} · {session.dates}</option>)}
+                </Select>
+              </Field>
+              <p className="self-center text-sm text-muted-foreground">План и отсчёт до ЕНТ учитывают выбранный год. Точную дату нужно будет сверить с официальным расписанием.</p>
               <Field label="Цель SAT (400–1600, 0 — не готовлюсь)" htmlFor="g-sat">
                 <Input id="g-sat" inputMode="numeric" value={goals.sat || ""} onChange={(e) => setGoals({ ...goals, sat: Number(e.target.value.replace(/\D/g, "")) })} />
               </Field>
