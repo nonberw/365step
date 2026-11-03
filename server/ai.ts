@@ -1,3 +1,5 @@
+import { transcriptCriteria } from "../shared/ieltsAssessment";
+import { ENT_DEMO_TOPICS, isUsableEnt } from "../shared/entQuality";
 import Anthropic from "@anthropic-ai/sdk";
 import { consumeAi } from "./quota";
 import type { EntLang, EntQuestion, EntType } from "../shared/ent";
@@ -218,9 +220,9 @@ export async function ieltsWriting(task: 1 | 2, prompt: string, text: string, ch
   return { ...out, annotations: out.annotations.filter((a) => text.includes(a.quote)), wordCount, mode: "ai" };
 }
 
-const SPEAKING_SYSTEM = `Ты экзаменатор IELTS Speaking. Тебе дана расшифровка ответа ученика (автоматическое распознавание речи, без пунктуации и с возможными ошибками распознавания — не наказывай за них) и длительность ответа. Оцени по публичным дескрипторам: Fluency and Coherence, Lexical Resource, Grammatical Range and Accuracy, Pronunciation. Баллы шагами по 0.5.
-Произношение по тексту оценить нельзя точно: оценивай его осторожно по косвенным признакам (полнота ответа, темп) и прямо напиши в comment, что это приблизительно.
-- criteria: 4 элемента {name, band, comment по-русски}.
+const SPEAKING_SYSTEM = `Ты экзаменатор IELTS Speaking. Тебе дана расшифровка ответа ученика (автоматическое распознавание речи, без пунктуации и с возможными ошибками распознавания — не наказывай за них) и длительность ответа. Оцени по публичным дескрипторам: Fluency and Coherence (только связность текста, без аудиоплавности), Lexical Resource, Grammatical Range and Accuracy. Баллы шагами по 0.5.
+Произношение по тексту не оценивается. Не делай выводов о звуках, ударении, интонации или паузах.
+- criteria: 3 элемента {name, band, comment по-русски}.
 - feedback: 3–5 конкретных наблюдений по-русски с цитатами из ответа.
 - plan: 3 упражнения на следующую неделю.
 - predicted — балл после работы над ошибками.
@@ -237,7 +239,7 @@ export async function ieltsSpeaking(part: number, prompt: string, transcript: st
     obj({ overall: N, criteria: arr(obj({ name: S, band: N, comment: S })), feedback: arr(S), plan: arr(S), predicted: N }),
     "medium",
   );
-  return { ...out, wordsPerMinute: wpm, mode: "ai" };
+  return { ...out, ...transcriptCriteria(out.criteria), predicted: null, wordsPerMinute: wpm, mode: "ai" };
 }
 
 // ---------- coding ----------
@@ -308,43 +310,20 @@ function demoPlan(goals: Goals, stats: string): StudyPlan {
   };
 }
 
-function demoWriting(task: 1 | 2, text: string, wordCount: number): WritingResult {
+function demoWriting(task: 1 | 2, _text: string, wordCount: number): WritingResult {
   const min = task === 1 ? 150 : 250;
-  const base = wordCount >= min ? 6 : 5;
-  const sentences = text.split(/(?<=[.!?])\s+/).filter((s) => s.split(/\s+/).length >= 3);
-  const first = sentences[0]?.split(/\s+/).slice(0, 6).join(" ") ?? "";
-  const annotations = first && text.includes(first) ? [{ quote: first, kind: "good" as const, category: "Task", comment: "Хорошее начало: тема обозначена сразу.", fix: "" }] : [];
   return {
-    overall: base,
-    criteria: [
-      { name: task === 1 ? "Task Achievement" : "Task Response", band: base, comment: wordCount < min ? `Меньше ${min} слов — за это снижают балл.` : "Объём достаточный." },
-      { name: "Coherence and Cohesion", band: base, comment: "Демо-оценка: с Claude здесь будет разбор связок и абзацев." },
-      { name: "Lexical Resource", band: base, comment: "Демо-оценка лексики." },
-      { name: "Grammatical Range and Accuracy", band: base, comment: "Демо-оценка грамматики." },
-    ],
-    annotations,
-    plan: ["Сделай план из 4 абзацев до начала письма", "Добавь в каждый абзац пример", "Проверь артикли и времена в конце"],
-    predicted: base + 0.5,
-    wordCount,
-    mode: "demo",
+    overall: null, predicted: null, wordCount, mode: "demo", annotations: [],
+    criteria: [{ name: "Объём", band: null, comment: `${wordCount} слов; учебный ориентир по объёму — ${min}. Качество текста не оценивалось.` }],
+    plan: ["Проверь, что ответ раскрывает задание", "Сопоставь абзацы с основными идеями", "Для содержательной проверки нужна подключённая модель или преподаватель"],
   };
 }
-
 function demoSpeaking(words: number, wpm: number): SpeakingResult {
-  const band = words > 120 ? 6.5 : words > 60 ? 6 : 5;
   return {
-    overall: band,
-    criteria: [
-      { name: "Fluency and Coherence", band, comment: `Темп ${wpm} слов/мин.` },
-      { name: "Lexical Resource", band, comment: "Демо-оценка." },
-      { name: "Grammatical Range and Accuracy", band, comment: "Демо-оценка." },
-      { name: "Pronunciation", band, comment: "По тексту произношение оценивается приблизительно." },
-    ],
-    feedback: ["Демо-режим: с подключённым Claude здесь будет разбор с цитатами из твоего ответа."],
-    plan: ["Отвечай минимум 2 минуты в Part 2", "Используй связки: firstly, on top of that, as a result", "Записывай себя и переслушивай"],
-    predicted: band + 0.5,
-    wordsPerMinute: wpm,
-    mode: "demo",
+    overall: null, predicted: null, wordsPerMinute: wpm, mode: "demo",
+    criteria: [{ name: "Pronunciation", band: null, comment: "Не оценивалось: требуется анализ аудио." }],
+    feedback: [`Расшифровано ${words} слов, средний темп ${wpm} слов/мин. Эти числа не измеряют языковой уровень.`, "Демонстрация интерфейса: содержательная оценка ответа не выполнена."],
+    plan: ["Переслушай запись и сравни её с расшифровкой", "Проверь, раскрыты ли все пункты карточки"],
   };
 }
 
@@ -688,7 +667,7 @@ export async function entGenerate(subject: { id: string; name: string }, topic: 
       items.push({ ...base, left: x.left, options: x.options, answer: x.answer });
     }
   }
-  return items;
+  return items.filter(isUsableEnt);
 }
 
 const ENT_EXPLAIN_SYSTEM = `Ты репетитор по подготовке к ЕНТ. Объясни ученику решение задания: короткий разбор по шагам (3–6 шагов), почему верный ответ верный и почему выбранный учеником ответ неверен (если он ошибся), и одна подсказка, как не ошибаться в похожих заданиях. Пиши на языке задания, на «ты». Формулы в LaTeX между $...$.`;
@@ -701,26 +680,24 @@ export async function entExplain(q: EntQuestion, given: unknown): Promise<{ text
 }
 
 /** Without Claude: parametric math-literacy items so the section still works in demo mode. */
-function demoEnt(subject: string, topic: string, type: EntType, count: number, lang: EntLang | "en"): EntDraft[] {
-  if (type !== "single") return [];
-  return Array.from({ length: count }, () => {
+export function demoEnt(subject: string, topic: string, type: EntType, count: number, lang: EntLang | "en"): EntDraft[] {
+  if (type !== "single" || subject !== "math-lit" || !ENT_DEMO_TOPICS.includes(topic) || lang !== "ru") return [];
+  return Array.from({ length: Math.max(0, Math.min(count, 30)) }, () => {
     const price = 1000 * (2 + Math.floor(Math.random() * 18));
-    const pct = [5, 10, 15, 20, 25, 30][Math.floor(Math.random() * 6)];
-    const right = price - (price * pct) / 100;
-    const opts = [right, price - pct * 10, price + (price * pct) / 100, (price * pct) / 100].map((v) => `${v.toLocaleString("ru-RU")} ₸`);
+    const pct = [5, 10, 15, 20, 25, 30][Math.floor(Math.random() * 6)]!;
+    const discount = price * pct / 100, right = price - discount;
+    // Typical errors: report discount, add discount, or subtract the percentage as currency.
+    const wrong = [...new Set([discount, price + discount, price - pct, price])].filter((n) => n !== right).slice(0, 3);
+    const answer = Math.floor(Math.random() * 4);
+    wrong.splice(answer, 0, right);
     return {
-      subject,
-      topic,
-      type,
-      lang,
+      subject, topic, type, lang,
       stem: `Товар стоил ${price.toLocaleString("ru-RU")} ₸, на него сделали скидку ${pct}%. Сколько он стоит теперь?`,
-      options: opts,
-      answer: 0,
-      explanation: `${pct}% от ${price} — это ${(price * pct) / 100}; вычитаем из цены.`,
-      difficulty: "A" as const,
-      source: "seed" as const,
+      options: wrong.map((v) => `${v.toLocaleString("ru-RU")} ₸`), answer,
+      explanation: `${pct}% от ${price} — это ${discount}; вычитаем из цены: ${price} − ${discount} = ${right} ₸. Демонстрационное упражнение.`,
+      difficulty: "A" as const, source: "seed" as const,
     };
-  });
+  }).filter(isUsableEnt);
 }
 
 // ---------- ЕНТ: adaptive plan until the main session ----------
@@ -741,6 +718,11 @@ export interface EntPlan {
 }
 
 export interface EntPlanInput {
+  grade: number | null;
+  examDate: string;
+  examYear: number;
+  sessionName: string;
+  tentative: boolean;
   subjects: { id: string; name: string; max: number; topics: string[] }[];
   target: number;
   daysLeft: number;
@@ -751,16 +733,17 @@ export interface EntPlanInput {
   fullTests: number;
 }
 
-const ENT_PLAN_SYSTEM = `Ты методист, который готовит ученика школы BSTS к ЕНТ (Казахстан). По данным ученика составь план подготовки:
+const ENT_PLAN_SYSTEM = `Ты помогаешь ученику самостоятельно готовиться к ЕНТ (Казахстан). Учитывай его класс, выбранный год и сессию экзамена. По данным ученика составь план подготовки:
 - weeks — ровно 4 ближайшие недели, в каждой 4–6 задач. Типы задач: practice (тренировка темы, count — число заданий 10–20), mini (мини-пробник по предмету), full (полный пробный ЕНТ на 240 минут, не чаще раза в 2 недели; первая неделя — если полных пробников ещё не было), review (повтор ошибок, count — минуты 15–30). subject — id предмета из списка, topic — точное название темы из списка тем этого предмета (для mini, full, review — пустая строка). title — короткая формулировка задачи для ученика на «ты».
 - Больше времени — слабым темам и блокам, но не забывай про пороги: история и профильные предметы минимум 5 баллов, грамотности минимум 3.
-- milestones — контрольные точки по месяцам до основной сессии (с 10 мая): месяц по-русски, целевой балл (реалистичный рост к цели), короткая заметка.
+- Если до экзамена больше 365 дней, сначала укрепляй базу и темы текущего класса; в ближайшие недели используй мини-пробники вместо обязательных полных пробников. Не превращай долгую подготовку в финальный спринт.
+- milestones — контрольные точки до выбранной сессии: месяц и год по-русски, целевой балл (реалистичный рост к цели), короткая заметка. Если дата ориентировочная, не выдавай её за официальное расписание.
 - summary — 2–3 предложения стратегии, на «ты».
 Используй только id предметов и темы из входных данных.`;
 
 export async function entPlan(input: EntPlanInput): Promise<EntPlan> {
   if (!client) return demoEntPlan(input);
-  const user = `Предметы ученика:\n${input.subjects.map((s) => `- ${s.id} (${s.name}, ${s.max} баллов): темы — ${s.topics.join("; ")}`).join("\n")}\n\nЦель: ${input.target} из 140\nДо основной сессии: ${input.daysLeft} дней\nЛучший полный пробник: ${input.best ?? "ещё не было"}\nПоследний пробник по блокам: ${input.last ? input.last.map((b) => `${b.id} ${b.points}/${b.max}`).join(", ") : "нет"}\nТочность в тренировках: ${Object.entries(
+  const user = `Предметы ученика:\n${input.subjects.map((s) => `- ${s.id} (${s.name}, ${s.max} баллов): темы — ${s.topics.join("; ")}`).join("\n")}\n\nЦель: ${input.target} из 140\nКласс: ${input.grade ?? "не указан"}\nГод сдачи: ${input.examYear}\nСессия: ${input.sessionName}\nДата для планирования: ${input.examDate}${input.tentative ? " (ориентировочная)" : ""}\nДо выбранной сессии: ${input.daysLeft} дней\nЛучший полный пробник: ${input.best ?? "ещё не было"}\nПоследний пробник по блокам: ${input.last ? input.last.map((b) => `${b.id} ${b.points}/${b.max}`).join(", ") : "нет"}\nТочность в тренировках: ${Object.entries(
     input.accuracy,
   )
     .map(([k, v]) => `${k} ${v === null ? "нет данных" : v + "%"}`)
@@ -792,11 +775,11 @@ function demoEntPlan(input: EntPlanInput): EntPlan {
       { kind: "practice", subject: a.id, topic: a.topics[w % a.topics.length] ?? "", count: 15, title: `Тренировка: ${a.name}` },
       { kind: "practice", subject: b.id, topic: b.topics[w % b.topics.length] ?? "", count: 10, title: `Тренировка: ${b.name}` },
       { kind: "review", subject: a.id, topic: "", count: 20, title: "Повтор ошибок 20 минут" },
-      w % 2 === 0 ? { kind: "full", subject: "", topic: "", count: 1, title: "Полный пробный ЕНТ" } : { kind: "mini", subject: a.id, topic: "", count: 1, title: `Мини-пробник: ${a.name}` },
+      input.daysLeft <= 365 && w % 2 === 0 ? { kind: "full", subject: "", topic: "", count: 1, title: "Полный пробный ЕНТ" } : { kind: "mini", subject: a.id, topic: "", count: 1, title: `Мини-пробник: ${a.name}` },
     ];
     return { week: w + 1, focus: `${a.name} и ${b.name}`, tasks };
   });
-  return { summary: "Демо-план без Claude: сначала самые слабые предметы, полный пробник раз в две недели и повтор ошибок каждую неделю.", weeks, milestones: [], mode: "demo" };
+  return { summary: `${input.grade ? `${input.grade}-й класс. ` : ""}Готовимся к ЕНТ ${input.examYear}: ${input.sessionName.toLowerCase()} сессия${input.tentative ? " (срок ориентировочный)" : ""}. ${input.daysLeft > 365 ? "Времени больше года: укрепляй базу и темы текущего класса, проверяй прогресс мини-пробниками." : "Начни со слабых предметов, повторяй ошибки каждую неделю и проходи полный пробник раз в две недели."} Это базовый план без ИИ.`, weeks, milestones: [], mode: "demo" };
 }
 
 // ---------- weekly report for parents ----------

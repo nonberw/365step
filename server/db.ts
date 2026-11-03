@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { createClient, type InValue } from "@libsql/client";
+import { ENT_OPEN } from "./content/ent";
 
 // libSQL: the same SQLite dialect locally (a file in data/) and in production
 // (Turso, connected to Vercel through TURSO_DATABASE_URL and TURSO_AUTH_TOKEN).
@@ -15,6 +16,15 @@ export const db = createClient(REMOTE ? { url: REMOTE, authToken: process.env.TU
 export const storage: "turso" | "file" = REMOTE ? "turso" : "file";
 
 const SCHEMA = `
+CREATE TABLE IF NOT EXISTS ent_source_attempts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  item_id TEXT NOT NULL,
+  correct INTEGER NOT NULL,
+  given TEXT NOT NULL,
+  at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS ent_source_attempts_user ON ent_source_attempts (user_id,item_id,at);
 CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
   role TEXT NOT NULL CHECK (role IN ('student','teacher')),
@@ -517,6 +527,16 @@ CREATE TABLE IF NOT EXISTS activities (
   weeks REAL NOT NULL DEFAULT 0,
   created_at INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS ielts_reading_runs (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  exam_id TEXT NOT NULL,
+  started_at INTEGER NOT NULL,
+  ends_at INTEGER NOT NULL,
+  answers TEXT NOT NULL DEFAULT '{}',
+  result TEXT
+);
+CREATE INDEX IF NOT EXISTS ielts_reading_runs_user ON ielts_reading_runs(user_id, started_at);
 CREATE TABLE IF NOT EXISTS path_progress (
   user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   course TEXT NOT NULL,
@@ -556,6 +576,11 @@ export const ready = (async () => {
   await db.executeMultiple(SCHEMA);
   // Columns added after the first release: ALTER fails harmlessly when they already exist.
   for (const sql of ["ALTER TABLE ent_profiles ADD COLUMN plan TEXT", "ALTER TABLE ent_profiles ADD COLUMN plan_stale INTEGER NOT NULL DEFAULT 1", "ALTER TABLE review_queue ADD COLUMN card TEXT", "ALTER TABLE users ADD COLUMN plan TEXT NOT NULL DEFAULT 'free'", "ALTER TABLE users ADD COLUMN plan_until INTEGER", "ALTER TABLE users ADD COLUMN trial_used INTEGER NOT NULL DEFAULT 0", "ALTER TABLE users ADD COLUMN plant TEXT", "ALTER TABLE applications ADD COLUMN tier TEXT"]) await db.execute(sql).catch(() => {});
+  // Versioned immutable content IDs: never replace a student's history or AI rows.
+  // A marker keeps subsequent server starts cheap; first insertion is atomic.
+  if (!(await db.execute({sql:"SELECT 1 FROM ai_cache WHERE key = ?",args:["content:ent-open:2026-11-03-v1"]})).rows.length) {
+    await db.batch([...ENT_OPEN.map(q=>({sql:"INSERT OR IGNORE INTO ent_questions (id,subject,topic,type,lang,group_id,data,created_at) VALUES (?,?,?,?,?,?,?,?)",args:[q.id,q.subject,q.topic,q.type,q.lang,q.groupId??null,JSON.stringify(q),1793664000000]})),{sql:"INSERT OR IGNORE INTO ai_cache (key,value,created_at) VALUES (?,?,?)",args:["content:ent-open:2026-11-03-v1",String(ENT_OPEN.length),Date.now()]}],"write");
+  }
 })();
 
 export type Row = Record<string, unknown>;

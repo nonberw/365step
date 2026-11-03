@@ -27,7 +27,7 @@ export async function satStats(userId: string) {
 }
 
 export async function ieltsEstimate(userId: string): Promise<number | null> {
-  const subs = await all<{ overall: number }>("SELECT overall FROM ielts_submissions WHERE user_id = ? ORDER BY at DESC LIMIT 6", userId);
+  const subs = await all<{ overall: number }>("SELECT overall FROM ielts_submissions WHERE user_id = ? AND kind LIKE 'writing%' AND json_extract(result, '$.mode') = 'ai' AND overall > 0 ORDER BY at DESC LIMIT 6", userId);
   if (!subs.length) return null;
   const avg = subs.reduce((s, r) => s + r.overall, 0) / subs.length;
   return Math.round(avg * 2) / 2;
