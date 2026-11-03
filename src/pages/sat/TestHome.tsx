@@ -39,7 +39,7 @@ export default function TestHome() {
 
   return (
     <div className="flex flex-col gap-6">
-      <GreetingBanner title="Пробный тест Digital SAT" subtitle="Два раздела по два модуля. Второй модуль подстраивается под результат первого — как на настоящем экзамене." image={ART.astronomer} position="center 30%" />
+      <GreetingBanner title="Пробный тест Digital SAT" subtitle="Два раздела по два модуля. Учебная адаптация по ответам; авторский банк без статистической калибровки." image={ART.astronomer} position="center 30%" />
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.3fr_1fr]">
         <Card className="flex flex-col gap-4">
           <CardTitle>Как устроен тест</CardTitle>
