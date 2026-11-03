@@ -1,8 +1,13 @@
+import { SAT_ORIGINAL } from "./satOriginal";
+import { SAT_OPEN } from "./satOpen";
+import { SAT_SCALE } from "./satScale";
+import { annotateBank } from "./satQuality";
+import { choiceKey, exactFraction, numericEqual } from "./numeric";
 import type { Difficulty, SatDomain, SatQuestion } from "./types";
 import { BANK365 } from "./bank365";
 
 // Original practice items written for 365step, in the Digital SAT format.
-// None of them are copied from College Board or third-party question banks.
+// Open adaptations have per-item attribution; no College Board question bank is copied.
 // Math items come from seeded generators, so the bank is large and repeatable;
 // Claude "Remix" adds more on demand.
 
@@ -24,9 +29,14 @@ const pick = <T,>(r: () => number, arr: T[]) => arr[Math.floor(r() * arr.length)
 
 /** Puts the right answer among distractors at a random position; returns choices + answer index. */
 function mc(r: () => number, right: string, wrong: string[]): { choices: string[]; answer: number } {
-  const unique = [...new Set(wrong.filter((w) => w !== right))].slice(0, 3);
-  let k = 1;
-  while (unique.length < 3) unique.push(`${right}${"′".repeat(k++)}`);
+  const keys = new Set([choiceKey(right)]);
+  const unique = wrong.filter((w) => {
+    const key = choiceKey(w);
+    if (keys.has(key)) return false;
+    keys.add(key);
+    return true;
+  }).slice(0, 3);
+  if (unique.length < 3) throw new Error(`Not enough distinct distractors for ${right}`);
   const pos = int(r, 0, 3);
   const choices = [...unique];
   choices.splice(pos, 0, right);
@@ -452,15 +462,15 @@ const RW_ITEMS: RW[] = [
 
 // ---------- Reading & Writing: generated grammar items ----------
 
-const SUBJECTS: [string, boolean][] = [
-  ["The list of finalists", false],
-  ["The students in the robotics club", true],
-  ["A collection of old maps", false],
-  ["The teachers at the new campus", true],
-  ["One of the experiments", false],
-  ["The results of the survey", true],
-  ["The team of engineers", false],
-  ["Several members of the debate team", true],
+const SUBJECTS: [string, boolean, string][] = [
+  ["The list of finalists", false, "list"],
+  ["The students in the robotics club", true, "students"],
+  ["A collection of old maps", false, "collection"],
+  ["The teachers at the new campus", true, "teachers"],
+  ["One of the experiments", false, "One"],
+  ["The results of the survey", true, "results"],
+  ["The team of engineers", false, "team"],
+  ["Several members of the debate team", true, "members"],
 ];
 const PREDICATES: [string, string, string][] = [
   ["is", "are", "displayed in the main hall."],
@@ -473,7 +483,7 @@ function grammarItems(): RW[] {
   const r = rng(77);
   const out: RW[] = [];
   let n = 0;
-  for (const [subject, plural] of SUBJECTS) {
+  for (const [subject, plural, head] of SUBJECTS) {
     for (const [sing, plur, tail] of PREDICATES.slice(0, 2)) {
       n++;
       const right = plural ? plur : sing;
@@ -488,7 +498,8 @@ function grammarItems(): RW[] {
         stem: "Which choice completes the text so that it conforms to the conventions of Standard English?",
         choices,
         answer,
-        explanation: `Главное слово подлежащего — «${subject.replace(/^(The|A|One of the|Several members of the)\s/, "").split(" ")[0]}»${plural ? " (множественное число)" : " (единственное число)"}. Слова между подлежащим и глаголом не меняют число, поэтому нужно «${right}».`,
+        subjectHead: head,
+        explanation: `Главное слово подлежащего — «${head}»${plural ? " (множественное число)" : " (единственное число)"}. Слова между подлежащим и глаголом не меняют число, поэтому нужно «${right}».`,
       });
     }
   }
@@ -546,9 +557,9 @@ const BOUNDARY_ITEMS: [string, string, string, "semicolon" | "colon"][] = [
   ["The recipe for baursak needs only four", "ingredients", "flour, milk, yeast and a little sugar.", "colon"],
   ["The olympiad had three", "rounds", "a written test, a lab task and an oral defence.", "colon"],
   ["The volunteers planted two hundred trees along the", "river", "by spring most of them had new leaves.", "semicolon"],
-  ["The report explained the main", "problem", "the school's old servers could not handle so many users.", "colon"],
+  ["The report explained the main", "problem", "the inability of the school's old servers to handle so many users.", "colon"],
   ["Snow leopards are rarely seen in the", "wild", "scientists track them with motion-activated cameras.", "semicolon"],
-  ["The debate club chose its", "topic", "should homework be optional for senior students?", "colon"],
+  ["The debate club chose its", "topic", "the possibility of making homework optional for senior students.", "colon"],
 ];
 
 function boundaryItems(): RW[] {
@@ -606,7 +617,7 @@ const GENS: Gen[] = [
       const y1 = int(r, -5, 6);
       const x2 = x1 + dx * (m === 0.5 ? 2 : 1);
       const y2 = y1 + m * (x2 - x1);
-      const { choices, answer } = mc(r, fmt(m), [fmt(-m), fmt(1 / m), fmt(m + 1), fmt(m * 2)]);
+      const { choices, answer } = mc(r, fmt(m), [fmt(-m), fmt(1 / m), fmt(m + 1), fmt(m * 2), fmt(m - 1), fmt(m - 2), fmt(m + 2)]);
       return {
         difficulty: 1,
         stem: `A line passes through the points $(${x1}, ${y1})$ and $(${x2}, ${fmt(y2)})$. What is the slope of the line?`,
@@ -644,7 +655,7 @@ const GENS: Gen[] = [
       const b = int(r, 1, 4);
       const s1 = x + y;
       const s2 = a * x - b * y;
-      const { choices, answer } = mc(r, String(x), [String(y), String(s1), String(x + 1), String(-x)]);
+      const { choices, answer } = mc(r, String(x), [String(y), String(s1), String(x + 1), String(-x), String(x - 1), String(x + 2), String(x - 2)]);
       return {
         difficulty: 2,
         stem: `$x + y = ${s1}$\n$${a === 1 ? "" : a}x - ${b === 1 ? "" : b}y = ${s2}$\nIf $(x, y)$ is the solution to the system of equations above, what is the value of $x$?`,
@@ -664,9 +675,9 @@ const GENS: Gen[] = [
       const k = int(r, 2, 4);
       const c = int(r, 3, 12);
       const right = String(a * k);
-      const { choices, answer } = mc(r, right, [String(a), String(b * k), String(a + k), String(a * k + 1)]);
+      const { choices, answer } = mc(r, right, [String(a), String(b * k), String(a + k), String(a * k + 1), String(a * k - 1), String(a * k + 2)]);
       return {
-        difficulty: 3,
+        difficulty: 2,
         stem: `$${a}x + ${b}y = ${c}$\n$px + ${b * k}y = ${c * k + 1}$\nIn the system of equations above, $p$ is a constant. For what value of $p$ does the system have no solution?`,
         choices,
         answer,
@@ -736,9 +747,9 @@ const GENS: Gen[] = [
       const k = int(r, -8, 8);
       const b = -2 * h;
       const c = h * h + k;
-      const { choices, answer } = mc(r, String(k), [String(c), String(h), String(-k), String(k + h)]);
+      const { choices, answer } = mc(r, String(k), [String(c), String(h), String(-k), String(k + h), String(k + 1), String(k - 1), String(k + 2)]);
       return {
-        difficulty: 3,
+        difficulty: 2,
         stem: `The graph of $y = x^2 ${b >= 0 ? "+" : "-"} ${Math.abs(b)}x ${c >= 0 ? "+" : "-"} ${Math.abs(c)}$ is a parabola. What is the minimum value of $y$?`,
         choices,
         answer,
@@ -811,12 +822,13 @@ const GENS: Gen[] = [
     make: (r) => {
       const speed = pick(r, [40, 45, 60, 72, 90]);
       const minutes = pick(r, [20, 30, 40, 50]);
-      const km = (speed * minutes) / 60;
+      const km = exactFraction(speed * minutes, 60);
       return {
         difficulty: 1,
         stem: `A bus travels at a constant speed of ${speed} kilometres per hour. How many kilometres does it travel in ${minutes} minutes?`,
-        answer: fmt(km),
-        explanation: `${minutes} минут = ${fmt(minutes / 60)} часа. Расстояние: $${speed} \\cdot ${fmt(minutes / 60)} = ${fmt(km)}$ км.`,
+        answer: km,
+        numericRule: { kind: "exact" },
+        explanation: `${minutes} минут = $\\frac{${minutes}}{60}$ часа. Расстояние: $${speed} \\cdot \\frac{${minutes}}{60} = ${km.includes("/") ? `\\frac{${km.split("/")[0]}}{${km.split("/")[1]}}` : km}$ км.`,
       };
     },
   },
@@ -861,7 +873,7 @@ const GENS: Gen[] = [
       const right = `$\\frac{${a}}{${c}}$`;
       const { choices, answer } = mc(r, right, [`$\\frac{${b}}{${c}}$`, `$\\frac{${a}}{${b}}$`, `$\\frac{${c}}{${a}}$`, `$\\frac{${b}}{${a}}$`]);
       return {
-        difficulty: 3,
+        difficulty: 1,
         stem: `In right triangle $ABC$, angle $C$ is the right angle, $BC = ${a}$, $AC = ${b}$, and $AB = ${c}$. What is the value of $\\sin A$?`,
         choices,
         answer,
@@ -884,14 +896,19 @@ function mathItems(): RW[] {
   return out;
 }
 
-export const SAT_BANK: SatQuestion[] = [
+export const SAT_BANK: SatQuestion[] = annotateBank([
   ...RW_ITEMS.map((q) => ({ ...q, section: "rw" as const, source: "bank" as const })),
   ...grammarItems().map((q) => ({ ...q, section: "rw" as const, source: "generated" as const })),
   ...transitionItems().map((q) => ({ ...q, section: "rw" as const, source: "generated" as const })),
   ...boundaryItems().map((q) => ({ ...q, section: "rw" as const, source: "generated" as const })),
   ...mathItems().map((q) => ({ ...q, section: "math" as const, source: "generated" as const })),
   ...BANK365.sat,
-];
+  ...SAT_ORIGINAL,
+  ...SAT_OPEN,
+  ...SAT_SCALE,
+]);
+
+export const SAT_ACTIVE_BANK = SAT_BANK.filter((q) => q.canonicalId === q.id);
 
 export const SAT_BY_ID = new Map(SAT_BANK.map((q) => [q.id, q]));
 
@@ -900,27 +917,15 @@ export function freshMath(seed: number): SatQuestion {
   const r = rng(seed);
   const gi = Math.floor(r() * GENS.length);
   const g = GENS[gi]!;
-  return { id: `m-${g.key}-x${seed}`, domain: g.domain, skill: g.skill, section: "math", source: "generated", ...g.make(rng(seed * 7 + 3)) };
+  return annotateBank([{ id: `m-${g.key}-x${seed}`, domain: g.domain, skill: g.skill, section: "math", source: "generated", ...g.make(rng(seed * 7 + 3)) }])[0]!;
 }
 
 export function isCorrect(q: SatQuestion, response: unknown): boolean {
-  if (q.choices) return Number(response) === q.answer;
-  const norm = (v: unknown) => String(v ?? "").trim().replace(",", ".").replace(/\s+/g, "");
-  const given = norm(response);
-  if (!given) return false;
-  const want = norm(q.answer);
-  if (given === want) return true;
-  // Accept equivalent fractions/decimals for grid-ins, as the real test does.
-  const toNum = (s: string) => {
-    if (/^-?\d+\/\d+$/.test(s)) {
-      const [a, b] = s.split("/").map(Number);
-      return b ? a! / b : NaN;
-    }
-    return Number(s);
-  };
-  const a = toNum(given);
-  const b = toNum(want);
-  return Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) < 1e-3;
+  if (q.choices) {
+    if (response === null || response === undefined || response === "" || typeof response === "boolean") return false;
+    return /^(0|1|2|3)$/.test(String(response)) && Number(response) === q.answer;
+  }
+  return [q.answer, ...(q.acceptedAnswers ?? [])].some((want) => numericEqual(response, want, q.numericRule));
 }
 
 // ---------- scoring ----------

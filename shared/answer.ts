@@ -1,10 +1,10 @@
-// Answer comparison shared by the browser test runner and the server.
-
-export function sameAnswer(a: unknown, b: unknown, unordered = false): boolean {
-  const norm = (v: unknown): unknown => {
+// Only the requested levels may ignore order; permutations and subsets retain inner order.
+export function sameAnswer(a: unknown, b: unknown, unordered = false, unorderedInner = false): boolean {
+  const norm = (v: unknown, depth = 0): unknown => {
     if (Array.isArray(v)) {
-      const items = v.map(norm);
-      return unordered ? items.map((x) => JSON.stringify(Array.isArray(x) ? [...x].sort() : x)).sort() : items;
+      const items = v.map((x) => norm(x, depth + 1));
+      return (depth === 0 && unordered) || (depth === 1 && unorderedInner)
+        ? items.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b))) : items;
     }
     if (typeof v === "number") return Math.round(v * 1e6) / 1e6;
     return v;

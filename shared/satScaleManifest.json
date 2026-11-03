@@ -1,0 +1,21 @@
+{
+  "total": 3099,
+  "hard": 1056,
+  "source": {
+    "total": 659,
+    "hard": 31,
+    "families": 434
+  },
+  "reading": {
+    "total": 40,
+    "hard": 25,
+    "families": 40
+  },
+  "practice": {
+    "total": 2400,
+    "hard": 1000,
+    "families": 21
+  },
+  "bankTotal": 4806,
+  "bankHard": 1116
+}

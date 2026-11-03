@@ -31,7 +31,7 @@ export interface Goals {
   country?: string;
   major?: string;
   /** ENT target score out of 140 */
-  ent?: { target: number; date?: string; session?: string };
+  ent?: { target: number; date?: string; session?: string; year?: number; tentative?: boolean };
   /** self-assessed level from the onboarding quiz */
   level?: "beginner" | "middle" | "advanced";
 }
@@ -174,10 +174,18 @@ export interface SatQuestion {
   answer: number | string;
   explanation: string;
   source: "bank" | "generated" | "ai";
+  attribution?: { sourceId: string; locator: string; changes: string; license?: string; licenseUrl?: string; download?: string };
+  numericRule?: import("./numeric").NumericRule;
+  acceptedAnswers?: string[];
+  subjectHead?: string;
+  familyId?: string;
+  canonicalId?: string;
+  purpose?: "warmup" | "reinforcement" | "assessment";
+  difficultyReview?: { basis: "editorial"; previous: Difficulty; reason: string };
 }
 
 /** What the client sees before answering. */
-export type SatQuestionPublic = Omit<SatQuestion, "answer" | "explanation">;
+export type SatQuestionPublic = Omit<SatQuestion, "answer" | "explanation" | "acceptedAnswers">;
 
 export interface SatQuestionSummary {
   id: string;
@@ -185,6 +193,7 @@ export interface SatQuestionSummary {
   domain: SatDomain;
   skill: string;
   difficulty: Difficulty;
+  purpose?: SatQuestion["purpose"];
   preview: string;
   status: "new" | "correct" | "wrong";
   saved: boolean;
@@ -236,7 +245,7 @@ export interface VocabUnit {
 
 export interface IeltsCriterion {
   name: string;
-  band: number;
+  band: number | null;
   comment: string;
 }
 
@@ -249,30 +258,32 @@ export interface WritingAnnotation {
 }
 
 export interface WritingResult {
-  overall: number;
+  overall: number | null;
   criteria: IeltsCriterion[];
   annotations: WritingAnnotation[];
   plan: string[];
-  predicted: number;
+  predicted: number | null;
   wordCount: number;
   mode: "ai" | "demo";
 }
 
 export interface SpeakingResult {
-  overall: number;
+  overall: number | null;
   criteria: IeltsCriterion[];
   feedback: string[];
   plan: string[];
-  predicted: number;
+  predicted: number | null;
   wordsPerMinute: number;
   mode: "ai" | "demo";
 }
 
 export interface IeltsChoiceQuestion {
   id: string;
-  kind: "tfng" | "mcq" | "gap";
+  kind: "tfng" | "mcq" | "gap" | "headings";
   text: string;
   options?: string[];
+  maxWords?: number;
+  headingGroup?: { id: string; instruction: string; options: { value: string; text: string }[]; reuse: boolean };
 }
 
 // ---------- coding ----------
@@ -299,6 +310,7 @@ export interface CodingProblem {
   hints: string[];
   /** Compare ignoring order of the top-level array. */
   unordered?: boolean;
+  unorderedInner?: boolean;
 }
 
 // ---------- dashboards ----------

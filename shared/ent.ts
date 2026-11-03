@@ -150,7 +150,24 @@ export interface EntQuestion {
   answer: number | number[];
   explanation: string;
   difficulty: "A" | "B" | "C";
-  source: "ai" | "seed";
+  source: "ai" | "seed" | "open";
+  /** Same learning item across translations. Parameter variants share a family. */
+  contentId?: string;
+  familyId?: string;
+  variant?: boolean;
+  attribution?: {
+    sourceId: string;
+    title: string;
+    authors: string;
+    url: string;
+    locator: string;
+    sourceLicense: string;
+    sourceLicenseUrl: string;
+    license: string;
+    licenseUrl: string;
+    changes: string;
+    checkedAt: string;
+  };
 }
 
 export type EntQuestionPublic = Omit<EntQuestion, "answer" | "explanation">;
@@ -168,6 +185,9 @@ export function entScore(q: Pick<EntQuestion, "type" | "answer">, given: EntAnsw
   const right = q.answer as number[];
   const g = given as number[];
   if (!Array.isArray(g) || !g.length) return 0;
+  if(g.some(i=>!Number.isInteger(i)||i<0))return 0;
+  if(q.type==="match"&&(g.length!==right.length||g.some(i=>i>3)))return 0;
+  if(q.type==="multi"&&(g.length>3||new Set(g).size!==g.length||g.some(i=>i>5)))return 0;
   let mistakes: number;
   if (q.type === "multi") {
     const want = new Set(right);

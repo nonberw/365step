@@ -1,3 +1,4 @@
+import { CODING_EDGES } from "./codingEdges";
 import type { CodingProblem, ProblemPattern } from "./types";
 import { MORE } from "./problemsMore";
 export { sameAnswer } from "./answer";
@@ -496,6 +497,8 @@ const ALL = [...DEFS.map((d) => ({ ...d, pattern: PATTERN_OF[d.id] ?? "arrays" }
 
 export const PROBLEMS: CodingProblem[] = ALL.map(({ name, pyName, ...p }) => ({
   ...p,
+  tests: [...p.tests, ...(CODING_EDGES[p.id] ?? [])],
+  unorderedInner: p.id === "group-anagrams",
   fn: { js: name, py: pyName },
   starter: { javascript: js(name, p.params), python: py(pyName, p.params) },
 }));
