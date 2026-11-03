@@ -1,3 +1,4 @@
+import { entSessionsForYear, entSessionById, entYearChoices, normaliseEntDraft, suggestEntYear } from "@shared/entSchedule";
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { Plant, PlantPicker, type PlantMood } from "@/components/Plant";
 import { ErrorBox } from "@/components/Page";
 import { Sky } from "@/pages/landing/Showcase";
-import { ENT_SESSIONS_2027, SAT_DATES, daysTo, ieltsMonths, longDate, monthLabel } from "@shared/examDates";
+import { SAT_DATES, daysTo, ieltsMonths, longDate, monthLabel } from "@shared/examDates";
 import { EcosystemMap, type ModuleId } from "@/components/Ecosystem";
 
 // Sign-up as an onboarding quiz (grader-style): a welcome screen with the mascot, one question per screen
@@ -29,6 +30,7 @@ interface Answers {
   satDate: string | null;
   ieltsMonth: string | null;
   entSession: string | null;
+  entYear: number | null;
   level: "beginner" | "middle" | "advanced" | null;
   hardest: string | null;
   minutes: number | null;
@@ -37,7 +39,7 @@ interface Answers {
   cards: number[];
 }
 
-const EMPTY: Answers = { exams: [], sat: null, ielts: null, ent: null, grade: null, satDate: null, ieltsMonth: null, entSession: null, level: null, hardest: null, minutes: null, plant: null, sampleOk: null, cards: [] };
+const EMPTY: Answers = { exams: [], sat: null, ielts: null, ent: null, grade: null, satDate: null, ieltsMonth: null, entSession: null, entYear: null, level: null, hardest: null, minutes: null, plant: null, sampleOk: null, cards: [] };
 const STORE = "365step-onboarding";
 
 type StepId = "hello" | "goal" | "exams" | "sat" | "ielts" | "ent" | "grade" | "satDate" | "ieltsDate" | "entDate" | "level" | "hardest" | "minutes" | "plant" | "sample" | "cards" | "loading" | "plan" | "account";
@@ -50,8 +52,8 @@ function examDates(a: Answers) {
   const out: { id: Exam; label: string; date: string; approx: boolean }[] = [];
   if (a.satDate) out.push({ id: "sat", label: `SAT${a.sat ? ` ${a.sat}` : ""}`, date: a.satDate, approx: false });
   if (a.ieltsMonth) out.push({ id: "ielts", label: `IELTS${a.ielts ? ` ${a.ielts.toFixed(1)}` : ""}`, date: `${a.ieltsMonth}-15`, approx: true });
-  const ent = ENT_SESSIONS_2027.find((x) => x.id === a.entSession);
-  if (ent) out.push({ id: "ent", label: `ЕНТ${a.ent ? ` ${a.ent}` : ""} · ${ent.name.toLowerCase()}`, date: ent.date, approx: false });
+  const ent = entSessionById(a.entSession);
+  if (ent) out.push({ id: "ent", label: `ЕНТ${a.ent ? ` ${a.ent}` : ""} · ${ent.name.toLowerCase()}`, date: ent.date, approx: true });
   return out.sort((x, y) => x.date.localeCompare(y.date));
 }
 
@@ -98,7 +100,7 @@ const REACT: Partial<Record<StepId, (a: Answers) => string>> = {
   grade: (a) => (a.grade === "11" ? "Выпускной год — сделаем его продуктивным!" : a.grade === "grad" || a.grade === "student" ? "Отлично, учиться никогда не поздно." : "Время есть — начнём без спешки."),
   satDate: (a) => (a.satDate ? `До SAT ${daysTo(a.satDate)} дн. — разложу подготовку по неделям.` : ""),
   ieltsDate: () => "Компьютерный IELTS идёт почти каждую неделю — точную дату выберешь при записи.",
-  entDate: (a) => (a.entSession === "2027-main" ? "Основная сессия — это гранты. Работаем!" : "Хорошо, подстрою план под эту сессию."),
+  entDate: (a) => (a.entSession?.endsWith("-main") ? "Основная сессия — это гранты. Работаем!" : "Хорошо, подстрою план под эту сессию."),
   level: () => "Понял — начнём с того, что ты уже знаешь!",
   hardest: (a) => `«${a.hardest}» — сделаем на этом упор.`,
   minutes: () => "Напомню, чтобы это стало привычкой!",
@@ -107,7 +109,7 @@ const REACT: Partial<Record<StepId, (a: Answers) => string>> = {
 
 function load(): Answers {
   try {
-    return { ...EMPTY, ...JSON.parse(sessionStorage.getItem(STORE) ?? "{}") };
+    return normaliseEntDraft({ ...EMPTY, ...JSON.parse(sessionStorage.getItem(STORE) ?? "{}") });
   } catch {
     return EMPTY;
   }
@@ -203,13 +205,22 @@ function Building({ species }: { species: PlantSpecies }) {
   );
 }
 
+const mainIsEnt = (a: Answers) => a.exams[0] === "ent";
+
 function PlanReady({ a, species }: { a: Answers; species: PlantSpecies }) {
   const goal = [a.sat && `SAT ${a.sat}`, a.ielts && `IELTS ${a.ielts.toFixed(1)}`, a.ent && `ЕНТ ${a.ent}`, a.exams.includes("code") && "Кодинг"].filter(Boolean).join(" · ") || "Подготовка";
   const weak = a.hardest ?? "сложные темы";
   const dates = examDates(a);
   const nearest = dates[0] ? daysTo(dates[0].date) : null;
   const roadmap =
-    nearest !== null && nearest < 35
+    nearest !== null && nearest > 365
+      ? [
+          ["Ближайшие месяцы", "Создаём базу без спешки", `${a.grade && /^\d+$/.test(a.grade) ? `${a.grade} класс: ` : ""}диагностика, школьная программа и регулярные короткие занятия.`],
+          ["Следующий этап", "Укрепляем навыки", `Постепенно закрываем «${weak}», повторяем пройденное и проверяем прогресс.`],
+          ["В год перед экзаменом", "Практикуем формат", "Добавляем задания на время и пробники по готовности, без постоянного экзаменационного режима."],
+          [`За 2–3 месяца до экзамена${a.entYear && a.exams.length === 1 && mainIsEnt(a) ? ` ${a.entYear}` : ""}`, "Финальное повторение", "Полные пробники, разбор ошибок и проверка официального расписания."],
+        ]
+      : nearest !== null && nearest < 35
       ? [
           ["Неделя 1", "База и диагностика", "Короткие уроки по каждой теме и первый пробник."],
           ["Неделя 2", "Слабые места", `Упор на «${weak}» с разбором ошибок.`],
@@ -320,7 +331,7 @@ export default function Register() {
     grade: a.grade !== null,
     satDate: a.satDate !== null,
     ieltsDate: a.ieltsMonth !== null,
-    entDate: a.entSession !== null,
+    entDate: !!entSessionById(a.entSession) && a.entSession!.startsWith(`${a.entYear}-`),
     level: a.level !== null,
     hardest: a.hardest !== null,
     minutes: a.minutes !== null,
@@ -361,8 +372,8 @@ export default function Register() {
     const goals: Goals = { dailyMinutes: a.minutes ?? 30, hardest: a.hardest ?? undefined, level: a.level ?? undefined };
     if (a.sat) goals.sat = { target: a.sat, date: a.satDate ?? fallback };
     if (a.ielts) goals.ielts = { target: a.ielts, date: a.ieltsMonth ? `${a.ieltsMonth}-15` : fallback };
-    const entSession = ENT_SESSIONS_2027.find((x) => x.id === a.entSession);
-    if (a.ent) goals.ent = { target: a.ent, ...(entSession ? { date: entSession.date, session: entSession.id } : {}) };
+    const entSession = entSessionById(a.entSession);
+    if (a.ent) goals.ent = { target: a.ent, year: a.entYear ?? suggestEntYear(a.grade), tentative: true, ...(entSession ? { date: entSession.date, session: entSession.id } : {}) };
     const grade = a.grade && /^\d+$/.test(a.grade) ? Number(a.grade) : null;
     if (a.exams.includes("code")) goals.coding = true;
     try {
@@ -487,7 +498,7 @@ export default function Register() {
               <Question title="В каком ты классе?">
                 <div className="grid grid-cols-2 gap-3">
                   {(Object.keys(GRADE_LABEL) as Grade[]).map((g) => (
-                    <Choice key={g} on={a.grade === g} onClick={() => set({ grade: g })}>
+                    <Choice key={g} on={a.grade === g} onClick={() => set(a.grade === g ? { grade: g } : { grade: g, entYear: suggestEntYear(g), entSession: null })}>
                       {GRADE_LABEL[g]}
                     </Choice>
                   ))}
@@ -526,9 +537,16 @@ export default function Register() {
               </Question>
             )}
             {step === "entDate" && (
-              <Question title="На какую сессию ЕНТ идёшь?" hint="Ориентировочно по графику 2026 года — НЦТ ещё не опубликовал даты 2027">
+              <Question title="На какую сессию ЕНТ идёшь?" hint="Сроки ниже — ориентиры для подготовки. Точные даты и правила сессии нужно будет подтвердить по расписанию НЦТ.">
+                <label className="mb-4 flex flex-col gap-2 text-sm font-semibold text-[#334155]">
+                  Год сдачи ЕНТ
+                  <select aria-label="Год сдачи ЕНТ" value={a.entYear ?? suggestEntYear(a.grade)} onChange={(e) => set({ entYear: Number(e.target.value), entSession: null })} className="h-12 rounded-2xl border-2 border-[#e5e7eb] bg-[#f8fafc] px-4">
+                    {entYearChoices(a.grade, a.entYear).map((year) => <option key={year} value={year}>{year}</option>)}
+                  </select>
+                  <span className="text-xs font-normal text-[#64748b]">{a.grade && /^\d+$/.test(a.grade) ? `Для ${a.grade}-го класса предлагаем ${suggestEntYear(a.grade)} год. Можно выбрать другой.` : "Выбери год, в который планируешь сдавать экзамен."}</span>
+                </label>
                 <div className="grid gap-2.5">
-                  {ENT_SESSIONS_2027.map((x) => (
+                  {entSessionsForYear(a.entYear ?? suggestEntYear(a.grade)).map((x) => (
                     <Choice key={x.id} on={a.entSession === x.id} onClick={() => set({ entSession: x.id })} className="flex-col items-start text-left">
                       <span>
                         {x.name} · {x.dates}
