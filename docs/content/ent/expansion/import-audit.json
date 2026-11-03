@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-03",
+  "records": 6700,
+  "distinctConditions": 4337,
+  "sources": {
+    "include": 327,
+    "kazqad": 678,
+    "mera": 1834,
+    "belebele": 2692,
+    "openstax-algebra": 1138,
+    "rubq": 31
+  },
+  "subjects": {
+    "history-kz": 376,
+    "kazakh-lit": 264,
+    "world-history": 165,
+    "kazakh": 24,
+    "biology": 334,
+    "geography": 275,
+    "physics": 256,
+    "math": 1268,
+    "chemistry": 140,
+    "law": 10,
+    "informatics": 63,
+    "math-lit": 42,
+    "russian": 760,
+    "reading": 1794,
+    "english": 898,
+    "russian-lit": 31
+  },
+  "languages": {
+    "kk": 2470,
+    "ru": 3332,
+    "en": 898
+  },
+  "formats": {
+    "choice": 4943,
+    "short": 1757
+  },
+  "excluded": {
+    "include-history-region-uncertain": 173,
+    "duplicate-condition": 47,
+    "invalid-options-or-key": 14,
+    "include-missing-figure": 2,
+    "kazqad-ambiguous-or-insufficient-evidence": 1732,
+    "kazqad-disagreeing-answer-spans": 58,
+    "mera-off-syllabus-domain": 8666,
+    "review-exclusion": 7,
+    "missing-figure-or-context": 59,
+    "long-quoted-third-party-excerpt": 139,
+    "java-not-ent-python": 1,
+    "ambiguous-source-math-notation": 14,
+    "missing-or-placeholder-option": 2,
+    "corrupt-source-math": 44,
+    "near-duplicate-source-condition": 106,
+    "corrupt-source-math-variable": 18,
+    "stem-length": 1,
+    "malformed-json": 2,
+    "unbalanced-math": 1,
+    "mathlogic-elementary-or-synthetic": 638,
+    "use-non-grammar-or-literary-context": 2669,
+    "use-quoted-long-excerpt": 5,
+    "math-warmup-excluded": 82,
+    "rubq-non-literature-or-ambiguous": 2879
+  },
+  "pins": {
+    "kazqad": "ab8684a667109f2a7345f4f89ab3b123e8d78e1f",
+    "mera": "e9628afed9c1da102066e80e9e844621613fa3cf",
+    "include": "d2e1f6015f67a43c02a9a68db98e2298e2d6a660",
+    "belebele": "918890beb2290a8d3ef2d7a90369925959e1bacf",
+    "rubq": "fade3eae6a4807c35b19cfce20dfa805fc8c0cdf"
+  },
+  "inputSHA256": {
+    "include/download/Kazakh/test-00000-of-00001.parquet": "7936befd8368560e8b1b57556a44f676e269c2c616dfa2e5bb121870b13593b8",
+    "include/download/Kazakh/validation-00000-of-00001.parquet": "9582a2de85dfa1a22c1b8775c02781cf282ab8eb46371790083f2d1164225619",
+    "kazqad/data/reading-comprehension/kazqad-reading-comprehension-v1.0-kk-validation.jsonl": "2458291a74bdf0ea47e18ca626c71139d63cf7ee1380d660c6246ec3c4b0126b",
+    "kazqad/data/reading-comprehension/kazqad-reading-comprehension-v1.0-kk-test.jsonl": "9bcf199095c745b14a8e4af704d488313720e51c7d476ebc9f4d97441fa29d36",
+    "mera/download/data/rummlu/train.jsonl": "82515d77c4eabe6f6b432ecff91873097610b224dc04cb688349345c515219f9",
+    "mera/download/data/mathlogicqa/train.jsonl": "e801c22053f9c3a74a5f4c5a2cf883a9fe14baf43644f94d96dc600475e48726",
+    "mera/download/data/use/train.jsonl": "a68771e8dfc4ff6aac826745877f6cfd8229feab7a2f31a9cbf0a9113a67df3d",
+    "mera/download/data/use/dev.jsonl": "090041bc15b0fdf46e74f2dcbaba1b9d7bf1f9e3164f8ebc2a1f4af264f53b8d",
+    "belebele/download/rus_Cyrl.jsonl": "e8b81853605b97e993af07a34ad2c0a48ccd8dab80956b0650a161e8fea00de5",
+    "belebele/download/kaz_Cyrl.jsonl": "3baa165870f64091b0eb9181da3671b36ed4b4262ad0533df76a2b881a931ec9",
+    "belebele/download/eng_Latn.jsonl": "15af884c2b5994fdc71199e79d553a1864b08ce1b31894aa87f6be925a064a31",
+    "shared/satScaleSource.json": "ed736ef45855d56d02760fbb4b8a047a57886a7b577f5775a9c596feebdd4ce3",
+    "rubq/RuBQ_2.0/RuBQ_2.0_dev.json": "6cd20dcfad3404736691c5dcee271d19f579b6c5755a1aad4c4de644bc9dfd05",
+    "rubq/RuBQ_2.0/RuBQ_2.0_test.json": "63d9e32a1bdefb2de713a9ccf3a0f9f0a4a48f2fdddd35b3908d6846b63dc85b"
+  },
+  "verifiedDownloadSnapshots": [
+    "mera/download/data/mathlogicqa/train.jsonl",
+    "mera/download/data/rummlu/train.jsonl",
+    "mera/download/data/use/dev.jsonl",
+    "mera/download/data/use/train.jsonl",
+    "include/download/Kazakh/test-00000-of-00001.parquet",
+    "include/download/Kazakh/validation-00000-of-00001.parquet",
+    "include/download/Russian/test-00000-of-00001.parquet",
+    "include/download/Russian/validation-00000-of-00001.parquet"
+  ],
+  "outputSHA256": "f9d44f0a17a9f3e8ace6b64f68dc3870b5e2eb6be8624580bd8e7051a538e9f2",
+  "editorialCorrections": [
+    "es-me-1169",
+    "es-bb-53cc0f6c914a09fe-ru",
+    "es-bb-53cc0f6c914a09fe-kk",
+    "es-bb-53cc0f6c914a09fe-en"
+  ],
+  "correctionsSHA256": "1f2d45c12089c4da42ab888cef6e81f2b7a81b381252a4dc6a232dcd30336024"
+}

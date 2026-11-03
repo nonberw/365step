@@ -1,5 +1,6 @@
 import { Router } from "express";
 import type { Goals } from "../../shared/types";
+import { entSessionById, entTargetFor, isEntYear } from "../../shared/entSchedule";
 import { PLANT_SPECIES, type PlantSpecies } from "../../shared/plants";
 import { checkPassword, createSession, hashPassword, requireUser, revokeSession, toPublic, type UserRow } from "../auth";
 import { id, one, run } from "../db";
@@ -22,7 +23,7 @@ async function validateCommon(body: Record<string, unknown>) {
   return { email, password, firstName, lastName };
 }
 
-function sanitizeGoals(raw: unknown): Goals {
+function sanitizeGoals(raw: unknown, grade: number | null = null): Goals {
   const g = (raw ?? {}) as Goals;
   const out: Goals = {};
   const satNum = (v: unknown) => (Number(v) >= 400 && Number(v) <= 1600 ? Math.round(Number(v) / 10) * 10 : undefined);
@@ -35,8 +36,16 @@ function sanitizeGoals(raw: unknown): Goals {
   if (g.university) out.university = str(g.university, 80);
   if (g.country) out.country = str(g.country, 40);
   if (g.major) out.major = str(g.major, 60);
-  if (g.ent && Number(g.ent.target) >= 50 && Number(g.ent.target) <= 140)
-    out.ent = { target: Math.round(Number(g.ent.target)), ...(/^\d{4}-\d{2}-\d{2}$/.test(String(g.ent.date)) ? { date: String(g.ent.date) } : {}), ...(g.ent.session ? { session: str(g.ent.session, 20) } : {}) };
+  if (g.ent && Number(g.ent.target) >= 50 && Number(g.ent.target) <= 140) {
+    const { year, session, date } = g.ent;
+    if (year !== undefined && !isEntYear(year)) throw new HttpError(400, "Проверьте год сдачи ЕНТ");
+    if (session !== undefined && !entSessionById(session)) throw new HttpError(400, "Проверьте сессию ЕНТ");
+    if (date !== undefined && (typeof date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(date)) || new Date(date).toISOString().slice(0, 10) !== date || !isEntYear(Number(date.slice(0, 4))))) throw new HttpError(400, "Проверьте дату ЕНТ");
+    const years = [year, session ? Number(session.slice(0, 4)) : undefined, date ? Number(date.slice(0, 4)) : undefined].filter((v) => v !== undefined);
+    if (new Set(years).size > 1) throw new HttpError(400, "Год, дата и сессия ЕНТ должны совпадать");
+    const exam = entTargetFor(g, grade);
+    out.ent = { target: Math.round(Number(g.ent.target)), year: exam.year, date: exam.date, tentative: g.ent.tentative !== false, ...(session || !date ? { session: exam.session } : {}) };
+  }
   if (g.level && ["beginner", "middle", "advanced"].includes(g.level)) out.level = g.level;
   return out;
 }
@@ -65,7 +74,7 @@ authRouter.post(
       common.firstName,
       common.lastName,
       grade,
-      JSON.stringify(sanitizeGoals(b.goals)),
+      JSON.stringify(sanitizeGoals(b.goals, grade)),
       JSON.stringify(interests),
       Date.now(),
       Date.now() + TRIAL_DAYS * 86_400_000,
@@ -107,7 +116,11 @@ authRouter.patch(
   wrap(async (req, res) => {
     const u = requireUser(req);
     const b = req.body ?? {};
-    if (b.goals !== undefined && u.role === "student") await run("UPDATE users SET goals = ? WHERE id = ?", JSON.stringify(sanitizeGoals(b.goals)), u.id);
+    if (b.goals !== undefined && u.role === "student") {
+      const goals = sanitizeGoals(b.goals, u.grade);
+      await run("UPDATE users SET goals = ? WHERE id = ?", JSON.stringify(goals), u.id);
+      if (JSON.stringify(goals.ent) !== JSON.stringify(JSON.parse(u.goals).ent)) await run("UPDATE ent_profiles SET plan_stale = 1 WHERE user_id = ?", u.id);
+    }
     if (b.plant !== undefined) {
       if (!PLANT_SPECIES.includes(b.plant)) throw new HttpError(400, "Выберите растение из списка");
       await run("UPDATE users SET plant = ? WHERE id = ?", b.plant, u.id);

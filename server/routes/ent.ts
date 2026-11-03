@@ -1,3 +1,8 @@
+import { entOpenCoverage } from "../content/ent";
+import {ENT_SOURCE_META} from '../content/ent/source-bank';
+import {entSourcesRouter} from './entSources';
+import { chooseEnt, chooseEntContexts } from "../entSelection";
+import { isUsableEnt } from "../../shared/entQuality";
 import { Router } from "express";
 import {
   ENT_MANDATORY,
@@ -5,7 +10,6 @@ import {
   ENT_PAIR,
   ENT_PAIRS,
   ENT_RESOURCES,
-  ENT_SESSIONS_2026,
   ENT_SUBJECT,
   ENT_SUBJECTS,
   ENT_THRESHOLDS,
@@ -22,14 +26,16 @@ import {
 import { requireStudent, requireTeacher, type UserRow } from "../auth";
 import { addXp, all, getCache, id, one, run, setCache } from "../db";
 import { HttpError, must, str, wrap } from "../http";
-import { entExplain, entGenerate, entPlan, type EntPlan } from "../ai";
+import { entExplain, entPlan, type EntPlan } from "../ai";
 import { reviewResult } from "../review";
+import { entSessionsForYear, entTargetFor, entTargetTime } from "../../shared/entSchedule";
 
 // ЕНТ preparation: practice by subject and topic, full 240-minute mock tests in the ENT format
-// and mini-tests for one subject. All questions are original (AI-written to the public НЦТ format)
-// and stay in the bank, so every new test makes the bank bigger.
+// and mini-tests for one subject. The shipped open bank works without provider APIs.
+// Existing user history and previously generated material retain their stable IDs.
 
 export const entRouter = Router();
+entRouter.use('/sources',entSourcesRouter);
 
 const TYPES: EntType[] = ["single", "context", "multi", "match"];
 const BATCH: Record<EntType, number> = { single: 10, context: 10, multi: 5, match: 5 };
@@ -48,12 +54,12 @@ async function profileOf(u: UserRow) {
 }
 
 async function bankCount(subject: string, lang: string, type: EntType) {
-  return (await one<{ n: number }>("SELECT COUNT(*) n FROM ent_questions WHERE subject = ? AND lang = ? AND type = ?", subject, lang, type))?.n ?? 0;
+  return (await all<{ data: string }>("SELECT data FROM ent_questions WHERE subject = ? AND lang = ? AND type = ?", subject, lang, type)).filter((r) => isUsableEnt(JSON.parse(r.data))).length;
 }
 
 export async function store(items: Omit<EntQuestion, "id">[]) {
   const saved: EntQuestion[] = [];
-  for (const q of items) {
+  for (const q of items.filter(isUsableEnt)) {
     const full = { ...q, id: `ent-${id(6)}` } as EntQuestion;
     await run(
       "INSERT INTO ent_questions (id, subject, topic, type, lang, group_id, data, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
@@ -71,23 +77,10 @@ export async function store(items: Omit<EntQuestion, "id">[]) {
   return saved;
 }
 
-/** Makes sure the bank has at least `need` questions of this kind, writing new ones with Claude in parallel. */
+/** The shipped bank is inserted at startup; ordinary practice never calls a provider. */
 export async function fill(subject: EntSubject, lang: string, type: EntType, need: number, topic?: string) {
   const have = await bankCount(subject.id, lang, type);
-  let missing = need - have;
-  for (let round = 0; missing > 0 && round < 2; round++) {
-    const calls = Math.ceil(missing / BATCH[type]);
-    const results = await Promise.all(
-      Array.from({ length: calls }, () =>
-        entGenerate(subject, topic ?? pick(subject.topics), type, BATCH[type], lang as EntLang).catch((err) => {
-          console.error("ent generate", subject.id, type, err);
-          return [];
-        }),
-      ),
-    );
-    const saved = await store(results.flat());
-    missing -= saved.length;
-  }
+  if (have < need) throw new HttpError(503, `Недостаточно проверенных заданий: ${subject.name}, ${type}`);
 }
 
 async function loadQuestions(ids: string[]) {
@@ -101,23 +94,10 @@ async function pickBlock(u: UserRow, subject: EntSubject, lang: string): Promise
   const seen = new Set((await all<{ item_id: string }>("SELECT item_id FROM attempts WHERE user_id = ? AND module = 'ent'", u.id)).map((r) => r.item_id));
   const ids: string[] = [];
   for (const part of subject.plan) {
-    const rows = await all<{ id: string; group_id: string | null }>("SELECT id, group_id FROM ent_questions WHERE subject = ? AND lang = ? AND type = ?", subject.id, lang, part.type);
-    if (part.type === "context") {
-      const groups = new Map<string, string[]>();
-      for (const r of rows) groups.set(r.group_id ?? r.id, [...(groups.get(r.group_id ?? r.id) ?? []), r.id]);
-      const full = [...groups.values()].filter((g) => g.length >= 5);
-      const ordered = [...shuffle(full.filter((g) => !g.some((x) => seen.has(x)))), ...shuffle(full.filter((g) => g.some((x) => seen.has(x))))];
-      const take: string[] = [];
-      for (const g of ordered) {
-        if (take.length >= part.count) break;
-        take.push(...g.slice(0, Math.min(5, part.count - take.length)));
-      }
-      ids.push(...take);
-    } else {
-      const fresh = shuffle(rows.filter((r) => !seen.has(r.id)));
-      const old = shuffle(rows.filter((r) => seen.has(r.id)));
-      ids.push(...[...fresh, ...old].slice(0, part.count).map((r) => r.id));
-    }
+    const rows = (await all<{ id: string; group_id: string | null; data: string }>("SELECT id, group_id, data FROM ent_questions WHERE subject = ? AND lang = ? AND type = ?", subject.id, lang, part.type)).filter((r) => isUsableEnt(JSON.parse(r.data)));
+    const pool=rows.map(r=>JSON.parse(r.data) as EntQuestion);
+    const chosen=part.type==="context"?chooseEntContexts(pool,part.count,seen,Math.random,true):chooseEnt(pool,part.count,seen);
+    ids.push(...chosen.map(q=>q.id));
   }
   return ids;
 }
@@ -147,11 +127,13 @@ entRouter.get(
     );
     res.json({
       profile: profile ?? null,
-      subjects: ENT_SUBJECTS.map(({ id, name, kind, count, max, topics, threshold, icon, plan }) => ({ id, name, kind, count, max, topics, threshold, icon, plan })),
+      sourceBank:ENT_SOURCE_META,
+      subjects: ENT_SUBJECTS.map(({ id, name, kind, count, max, topics, threshold, icon, plan, fixedLang }) => ({ id, name, kind, count, max, topics, threshold, icon, plan, coverage:entOpenCoverage(id,fixedLang??profile?.lang??"ru") })),
       pairs: ENT_PAIRS,
       thresholds: ENT_THRESHOLDS,
       resources: ENT_RESOURCES,
-      sessions: ENT_SESSIONS_2026,
+      sessions: entSessionsForYear(entTargetFor(JSON.parse(u.goals), u.grade).year),
+      exam: entTargetFor(JSON.parse(u.goals), u.grade),
       stats: Object.fromEntries(bySubject),
       topicStats: Object.fromEntries(stats.map((s) => [s.skill, { total: s.total, right: s.ok ?? 0 }])),
       tests: tests.map((t) => {
@@ -199,21 +181,12 @@ entRouter.post(
         `SELECT id, group_id, data FROM ent_questions WHERE subject = ? AND lang = ? AND type = ?${topic ? " AND topic = ?" : ""} ORDER BY created_at`,
         ...[subject.id, lang, type, ...(topic ? [topic] : [])],
       );
-    let rows = (await query()).filter((r) => !seen.has(r.id));
-    if (rows.length < count || req.body?.fresh) {
-      const made = await entGenerate(subject, topic || pick(subject.topics), type, count, lang as EntLang);
-      if (!made.length && !rows.length) throw new HttpError(503, "Не получилось составить задания. Попробуйте ещё раз через минуту");
-      await store(made);
-      rows = (await query()).filter((r) => !seen.has(r.id));
-    }
-    // Context questions stay together with their text.
-    let chosen = rows;
-    if (type === "context") {
-      const groups = new Map<string, typeof rows>();
-      for (const r of rows) groups.set(r.group_id ?? r.id, [...(groups.get(r.group_id ?? r.id) ?? []), r]);
-      chosen = [...groups.values()].slice(-2).flat();
-    } else chosen = rows.slice(-count);
-    res.json({ items: chosen.map((r) => toPublic(JSON.parse(r.data) as EntQuestion)) });
+    const difficulty=["A","B","C"].includes(req.body?.difficulty)?String(req.body.difficulty):"";
+    const pool=(await query()).map(r=>JSON.parse(r.data) as EntQuestion).filter(isUsableEnt).filter(q=>!difficulty||q.difficulty===difficulty);
+    const chosen=type==="context"?chooseEntContexts(pool,count,seen):chooseEnt(pool,count,seen);
+    const repeated=chosen.some(q=>seen.has(q.id));
+    const message=!chosen.length?"По выбранным фильтрам проверенных заданий нет. Измените тему, формат или сложность.":repeated?"Новые задания по этим фильтрам закончились. В набор включены задания для повторения.":chosen.length<count?`По этим фильтрам доступно ${chosen.length} проверенных заданий.`:"";
+    res.json({items:chosen.map(toPublic),total:pool.length,review:repeated,unavailable:!chosen.length,message});
   }),
 );
 
@@ -292,8 +265,8 @@ entRouter.post(
     } else subjects = [must(ENT_SUBJECT[str(req.body?.subject, 40)], 404, "Предмет не найден").id];
     const lang = profile?.lang ?? "ru";
     const blocks = await Promise.all(subjects.map(async (sid) => ({ subject: sid, ids: await buildBlock(u, ENT_SUBJECT[sid]!, langFor(ENT_SUBJECT[sid]!, lang)) })));
-    const short = blocks.find((b) => b.ids.length < ENT_SUBJECT[b.subject]!.count * 0.8);
-    if (short) throw new HttpError(503, `Не хватило заданий по предмету «${ENT_SUBJECT[short.subject]!.name}». Попробуйте ещё раз через минуту`);
+    const short = blocks.find((b) => b.ids.length !== ENT_SUBJECT[b.subject]!.count);
+    if (short) throw new HttpError(503, `Недостаточно проверенных материалов по предмету «${ENT_SUBJECT[short.subject]!.name}» для пробника`);
     const testId = id();
     const now = Date.now();
     await run(
@@ -504,9 +477,10 @@ entRouter.get(
 // ---------- adaptive plan until the main session ----------
 
 const WEEK = 7 * 86_400_000;
-const MAIN_SESSION = Date.UTC(2027, 4, 10) - 5 * 3600_000;
 
 async function buildPlan(u: UserRow, profile: { pair: string; target: number | null }) {
+  const goals = JSON.parse(u.goals);
+  const exam = entTargetFor(goals, u.grade);
   const pair = ENT_PAIR[profile.pair]!;
   const subjects = [...ENT_MANDATORY, ...pair.subjects].map((sid) => ENT_SUBJECT[sid]!);
   const stats = await all<{ skill: string; total: number; ok: number }>("SELECT skill, COUNT(*) total, SUM(correct) ok FROM attempts WHERE user_id = ? AND module = 'ent' GROUP BY skill", u.id);
@@ -526,8 +500,13 @@ async function buildPlan(u: UserRow, profile: { pair: string; target: number | n
   const last = full.at(-1);
   return entPlan({
     subjects: subjects.map((s) => ({ id: s.id, name: s.name, max: s.max, topics: s.topics })),
-    target: profile.target ?? 100,
-    daysLeft: Math.max(0, Math.ceil((MAIN_SESSION - Date.now()) / 86_400_000)),
+    target: goals.ent?.target ?? profile.target ?? 100,
+    daysLeft: Math.max(0, Math.ceil((entTargetTime(exam.date) - Date.now()) / 86_400_000)),
+    grade: u.grade,
+    examDate: exam.date,
+    examYear: exam.year,
+    sessionName: exam.name,
+    tentative: exam.tentative,
     best: full.length ? Math.max(...full.map((f) => f.total)) : null,
     last: last ? last.subjects.map((b) => ({ id: b.id, points: b.points, max: b.max })) : null,
     accuracy,
@@ -583,13 +562,15 @@ entRouter.get(
       400,
       "Сначала выберите профильные предметы",
     );
-    let stored = p.plan ? (JSON.parse(p.plan) as { plan: EntPlan; createdAt: number }) : null;
+    const exam = entTargetFor(JSON.parse(u.goals), u.grade);
+    let stored = p.plan ? (JSON.parse(p.plan) as { plan: EntPlan; createdAt: number; exam: typeof exam; grade: number | null }) : null;
     const old = stored && Date.now() - stored.createdAt > 4 * WEEK;
-    if (!stored || p.plan_stale || old || req.query.rebuild) {
+    const changedExam = stored && (stored.exam?.date !== exam.date || stored.exam?.session !== exam.session || stored.grade !== u.grade);
+    if (!stored || p.plan_stale || old || changedExam || req.query.rebuild) {
       const plan = await buildPlan(u, p);
-      stored = { plan, createdAt: Date.now() };
+      stored = { plan, createdAt: Date.now(), exam, grade: u.grade };
       await run("UPDATE ent_profiles SET plan = ?, plan_stale = 0 WHERE user_id = ?", JSON.stringify(stored), u.id);
     }
-    res.json({ ...stored, progress: await planProgress(u.id, stored.plan, stored.createdAt), mainSession: MAIN_SESSION });
+    res.json({ ...stored, progress: await planProgress(u.id, stored.plan, stored.createdAt), mainSession: entTargetTime(exam.date), exam });
   }),
 );

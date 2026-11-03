@@ -14,8 +14,8 @@ import QuestionView, { type Response } from "./QuestionView";
 // pace bar; the summary compares accuracy and time with the pace and lists mistakes to review.
 
 const KINDS = [
-  { kind: "hard-math", title: "Самые трудные: Math", text: "10 вопросов уровня Hard — как во втором трудном модуле. Без калькулятора не обойтись.", icon: Flame },
-  { kind: "hard-rw", title: "Самые трудные: R&W", text: "10 трудных вопросов Reading & Writing: тонкая логика, структура, перевод смысла.", icon: Flame },
+  { kind: "hard-math", title: "Самые трудные: Math", text: "До 10 вопросов с редакционной меткой Hard. После ревизии сложных заданий немного; число в наборе зависит от наличия.", icon: Flame },
+  { kind: "hard-rw", title: "Самые трудные: R&W", text: "До 10 сложных авторских вопросов Reading & Writing. Редакционная оценка, без статистической калибровки.", icon: Flame },
   { kind: "spr", title: "Вписать ответ", text: "10 задач grid-in: вариантов нет, ответ вводится числом или дробью, как в настоящем SAT.", icon: Keyboard },
   { kind: "weak", title: "Моя слабая тема", text: "Платформа найдёт домен с самой низкой точностью и соберёт по нему 10 вопросов.", icon: Target },
   { kind: "sprint", title: "Спринт 20 вопросов", text: "Смешанные средние и трудные вопросы на скорость — тренировка темпа всего теста.", icon: Zap },

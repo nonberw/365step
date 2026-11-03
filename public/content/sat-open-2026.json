@@ -1,0 +1,2699 @@
+{
+  "title": "365step open SAT-style practice adaptations, November 2026",
+  "authors": "365step contributors; original source authors credited per source and question",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "notice": "Source texts and exercises are adapted; new questions, options and Russian solutions are by 365step. Not official SAT questions; no endorsement by College Board or source authors. Difficulty is editorial, not statistically calibrated. Source-text public-domain status is distinct from the license on these new adaptations. This content license does not license application code.",
+  "sourceNotices": {
+    "precalc": "Source: https://www.opentextbookstore.com/precalc/current2.php?chapter=all&format=pdf\nEdition 2.3, 2022. Downloaded 2026-11-02.\n\n=== PDF PAGE 2 ===\nCopyright © 2022 David Lippman and Melonie Rasmussen \n \nThis text is licensed under the Creative Commons Attribution-Share Alike 4.0 \nInternational License.  \n \nTo view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to \nCreative Commons, PO Box 1866, Mountain View, CA 94042, USA. \n \nYou are free: \nto Share — copy and redistribute the material in any medium or format \nto Adapt — remix, transform, and build upon the material for any purpose \n \nUnder the following conditions: \nAttribution. You must give appropriate credit, provide a link to the license, and indicate if changes \nwere made. You may do so in any reasonable manner, but not in any way that suggests the \nlicensor endorses you or your use. \nShare Alike. If you remix, transform, or build upon the material, you must distribute your \ncontributions under the same license as the original \nNo additional restrictions. You may not apply legal terms or technological measures that legally \nrestrict others from doing anything the license permits. \n \n \nIn addition to these rights, we give explicit permission to remix small portions of this \nbook (less than 10% cumulative) into works that are CC-BY, CC-BY-SA-NC, or GFDL \nlicensed. \n \nSelected exercises were remixed from Precalculus by D.H. Collingwood and K.D. \nPrince, originally licensed under the GNU Free Document License, with permission from \nthe authors.  These are marked in the book as [UW]. \n \nPortions of chapter 3 were remixed from College Algebra by Carl Stitz and Jeff Zeager, \noriginally licensed under a Creative Commons Attribution ShareAlike Non-Commercial \nlicense, used with permission from the authors. \n \nPortions of chapter 9 were remixed from work by Lara Michaels, and contains content \nremixed from Precalculus by OpenStax, originally licensed under a Creative Commons \nAttribution license.  The original version is available online for free at OpenStax.org. \n \nCover photos by Ralph Morasch and David Lippman, of artwork by John Rogers. \nLituus, 2010.  Dichromatic glass and aluminum.  \nWashington State Arts Commission in partnership with Pierce College \n \n \nA screen reader friendly HTML version of the book can be found on LibreTexts.\n\n",
+    "society": "Source: https://www.opentextbookstore.com/mathinsociety/current2.php?chapter=FrontMatter.pdf\nEdition 2.6, 2022. Downloaded 2026-11-02.\n\n=== PDF PAGE 2 ===\nCopyright © 2022 David Lippman \n \nThis book was edited by David Lippman, Pierce College Ft Steilacoom \nDevelopment of this book was supported, in part, by the Transition Math Project and the \nOpen Course Library Project. \n \nStatistics, Describing Data, and Probability contain portions derived from works by: \nJeff Eldridge, Edmonds Community College (used under CC-BY-SA license) \nwww.onlinestatbook.com (used under public domain declaration) \n \nApportionment is largely based on work by: \n  Mike Kenyon, Green River Community College  (used under CC-BY-SA license) \n \nHistorical Counting Systems derived from work by: \nLawrence Morales, Seattle Central Community College (used under CC-BY-SA license) \n \nCryptography contains portions taken from Precalculus: An investigation of functions by: \n   David Lippman and Melonie Rasmussen (used under CC-BY-SA license) \n \nFront cover photo:  \nJan Tik, http://www.flickr.com/photos/jantik/, CC-BY 2.0 \n \n \n \n \nThis text is licensed under the Creative Commons Attribution-Share Alike 4.0 \nInternational License.  \n \nTo view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative \nCommons, PO Box 1866, Mountain View, CA 94042, USA. \n \nYou are free: \nto Share — copy and redistribute the material in any medium or format \nto Adapt — remix, transform, and build upon the material for any purpose \n \nUnder the following conditions: \nAttribution. You must give appropriate credit, provide a link to the license, and indicate if changes were \nmade. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses \nyou or your use. \nShare Alike. If you remix, transform, or build upon the material, you must distribute your contribut ions \nunder the same license as the original \nNo additional restrictions. You may not apply legal terms or technological measures that legally restrict \nothers from doing anything the license permits. \n \n \n \nA screen reader friendly HTML version of the book can be found on LibreTexts. \nNote that the graph theory, scheduling, and fractals chapters do not yet have alt-text for images. \n\n"
+  },
+  "sources": {
+    "openstax-2026-08": {
+      "title": "OpenStax College Algebra / Algebra and Trigonometry source modules",
+      "authors": "Jay Abramson and contributing authors; OpenStax, Rice University",
+      "url": "https://github.com/openstax/osbooks-college-algebra-bundle/tree/4922e46ebc04326979e19392ccc2384cb8b9076c",
+      "license": "CC BY 4.0 (this pinned edition)",
+      "licenseUrl": "https://github.com/openstax/osbooks-college-algebra-bundle/blob/4922e46ebc04326979e19392ccc2384cb8b9076c/LICENSE",
+      "edition": "Source snapshot 4922e46e (2026); source exercise IDs preserved"
+    },
+    "deepmind-math": {
+      "title": "Mathematics Dataset — offline generator",
+      "authors": "DeepMind Technologies Limited; David Saxton and contributors",
+      "url": "https://github.com/google-deepmind/mathematics_dataset",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0",
+      "edition": "1.0.1; local seed 36520261103; generated practice, not official SAT"
+    },
+    "mill": {
+      "title": "On Liberty",
+      "authors": "John Stuart Mill (1806–1873)",
+      "url": "https://www.gutenberg.org/ebooks/34901",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "1859; original English work"
+    },
+    "emerson": {
+      "title": "Nature",
+      "authors": "Ralph Waldo Emerson (1803–1882)",
+      "url": "https://www.gutenberg.org/ebooks/29433",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "1836; original English work"
+    },
+    "shelley": {
+      "title": "Frankenstein",
+      "authors": "Mary Shelley (1797–1851)",
+      "url": "https://www.gutenberg.org/ebooks/84",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "Original English work"
+    },
+    "thoreau": {
+      "title": "Walden",
+      "authors": "Henry David Thoreau (1817–1862)",
+      "url": "https://www.gutenberg.org/ebooks/205",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "1854; original English work"
+    },
+    "smith": {
+      "title": "The Wealth of Nations",
+      "authors": "Adam Smith (1723–1790)",
+      "url": "https://www.gutenberg.org/ebooks/3300",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "1776; original English work"
+    },
+    "precalc": {
+      "title": "Precalculus: An Investigation of Functions",
+      "authors": "David Lippman, Melonie Rasmussen",
+      "url": "https://www.opentextbookstore.com/precalc/",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "edition": "2.3 (2022)"
+    },
+    "society": {
+      "title": "Math in Society",
+      "authors": "David Lippman; Statistics/Describing Data/Probability contributors: Jeff Eldridge, onlinestatbook.com",
+      "url": "https://www.opentextbookstore.com/mathinsociety/",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "edition": "2.6 (2022)"
+    },
+    "alice": {
+      "title": "Alice's Adventures in Wonderland",
+      "authors": "Lewis Carroll (1832–1898)",
+      "url": "https://www.gutenberg.org/ebooks/11",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "1865; original English text"
+    },
+    "austen": {
+      "title": "Pride and Prejudice",
+      "authors": "Jane Austen (1775–1817)",
+      "url": "https://www.gutenberg.org/ebooks/1342",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "1813; original English text"
+    },
+    "darwin": {
+      "title": "On the Origin of Species",
+      "authors": "Charles Darwin (1809–1882)",
+      "url": "https://www.gutenberg.org/ebooks/1228",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "1859; first edition"
+    },
+    "douglass": {
+      "title": "Narrative of the Life of Frederick Douglass",
+      "authors": "Frederick Douglass (1818–1895)",
+      "url": "https://www.gutenberg.org/ebooks/23",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "1845; original English text"
+    },
+    "holmes": {
+      "title": "The Adventures of Sherlock Holmes",
+      "authors": "Arthur Conan Doyle (1859–1930)",
+      "url": "https://www.gutenberg.org/ebooks/1661",
+      "license": "Public domain source text",
+      "licenseUrl": "https://www.gutenberg.org/policy/license.html",
+      "edition": "1892; original English text"
+    }
+  },
+  "questions": [
+    {
+      "id": "open-math-gym-budget",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear models",
+      "difficulty": 3,
+      "stem": "A gym charges a fixed membership fee plus a constant fee per training session. Membership with 2 sessions costs $125; membership with 5 sessions costs $260. What is the greatest number of sessions that can be purchased with membership for at most $370?",
+      "choices": [
+        "7",
+        "6",
+        "8",
+        "9"
+      ],
+      "answer": 0,
+      "explanation": "Три дополнительные тренировки стоят 135, значит одна — 45 долларов. Членство стоит 125−2·45=35. Неравенство 35+45n≤370 даёт n≤7,44; целое максимальное n=7. Нельзя округлять вверх.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.1, exercise 26; added integer budget restriction",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-phone-model",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear models",
+      "difficulty": 2,
+      "stem": "A phone plan has a fixed monthly fee and a constant per-minute charge. Using 410 minutes costs $71.50, and using 720 minutes costs $118. What is the charge, in dollars, for 600 minutes?",
+      "answer": "100",
+      "explanation": "Цена минуты: (118−71,50)/(720−410)=0,15. Фиксированная часть 71,50−410·0,15=10. За 600 минут: 10+600·0,15=100.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.3, exercise 3; new evaluation point",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-data-plan",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear models",
+      "difficulty": 2,
+      "stem": "A data plan charges a fixed fee plus a constant amount per megabyte. A month with 20 MB costs $11.20, and a month with 130 MB costs $17.80. How many megabytes can be used in a month costing exactly $25?",
+      "choices": [
+        "110",
+        "150",
+        "250",
+        "300"
+      ],
+      "answer": 2,
+      "explanation": "Ставка (17,80−11,20)/(130−20)=0,06 за MB. Фиксированная часть 10. Решаем 10+0,06x=25: x=250.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.3, exercise 4; inverse model question",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-school-threshold",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear models",
+      "difficulty": 3,
+      "stem": "A school had 1,001 students in 2004 and 1,697 in 2008. A linear model gives the enrollment at the start of each calendar year. According to the model, what is the first integer year with enrollment at least 2,400?",
+      "choices": [
+        "2011",
+        "2012",
+        "2014",
+        "2013"
+      ],
+      "answer": 3,
+      "explanation": "Рост 696 за 4 года, то есть 174 в год. 1001+174(y−2004)≥2400 ⇒ y≥2012,04. Первый целый год 2013; в 2012 прогноз 2393.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.3, exercise 1; added first-integer-year threshold",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-moose-prediction",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear models",
+      "difficulty": 2,
+      "stem": "A linear model describes a park's moose population. The population was 4,360 in 1991 and 5,880 in 1999. What population does the model predict for 2003?",
+      "answer": "6640",
+      "explanation": "За 8 лет прибавилось 1520, по 190 в год. От 1999 до 2003 ещё 4 года: 5880+4·190=6640.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.3, exercise 5; shortened to one SAT response",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-tariff-switch",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear inequalities",
+      "difficulty": 3,
+      "stem": "Two plans charge A(m)=3+0.12m and B(m)=15+0.08m dollars for m minutes, where m is a nonnegative integer. Both plans must cost no more than $39. What is the greatest m for which plan A is strictly cheaper than plan B?",
+      "choices": [
+        "298",
+        "299",
+        "300",
+        "325"
+      ],
+      "answer": 1,
+      "explanation": "A<B даёт 0,04m<12, значит m<300. Условия бюджета дают m≤300 для A и B. Максимальное целое со строгим неравенством — 299, а не 300.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.3, linear cost modeling; new comparison and budget conditions",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-singular-systems",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Systems of linear equations",
+      "difficulty": 3,
+      "stem": "For a real constant k, the system (k−1)x+3y=8 and 4x+(k+1)y=6 has no solution. What is the sum of the squares of all possible values of k?",
+      "answer": "26",
+      "explanation": "Определитель равен (k−1)(k+1)−12=k²−13. Особые значения ±√13. Совместность потребовала бы коэффициент пропорции 6/8=3/4 и 4/(k−1)=3/4, то есть k=19/3, что не является особым значением. Поэтому оба ±√13 дают отсутствие решений; сумма квадратов 26.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.2, parallel lines and intercepts; new parameter system",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-coincident-lines",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Systems of linear equations",
+      "difficulty": 2,
+      "stem": "The equations 2x+3y=12 and ax+by=24 represent the same line. What is a+b?",
+      "choices": [
+        "5",
+        "12",
+        "24",
+        "10"
+      ],
+      "answer": 3,
+      "explanation": "Правая часть второй строки вдвое больше первой, поэтому a=4 и b=6. Сумма 10. Совпадение только наклона без совпадения свободного члена недостаточно.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.2, equations of lines; new coefficient question",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-identity-coefficients",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": 2,
+      "stem": "The equation 2(px+q)−3=5x+9 is true for every real x. What is p+q?",
+      "answer": "8.5",
+      "explanation": "Сравниваем коэффициенты: 2p=5, 2q−3=9. Получаем p=2,5, q=6 и p+q=8,5.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.1, linear equations; new identity condition",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-tank-stages",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear models",
+      "difficulty": 3,
+      "stem": "Pipe A fills an empty tank in 6 hours, and pipe B fills it in 4 hours. Both run for 1 hour, after which B is closed. For how many additional hours must A run to fill the tank?",
+      "choices": [
+        "2.5",
+        "3.5",
+        "3",
+        "4.5"
+      ],
+      "answer": 1,
+      "explanation": "За час заполнено 1/6+1/4=5/12 бака. Осталось 7/12; со скоростью 1/6 бака в час требуется (7/12)/(1/6)=3,5 дополнительных часа. 4,5 — полное время, а не дополнительное.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.7, rational rate models; new staged tank conditions",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-mixture",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": 2,
+      "stem": "Ten liters of a 20% salt solution are mixed with x liters of a 50% salt solution to produce a 30% solution. What is x? Assume volumes add.",
+      "answer": "5",
+      "explanation": "Баланс соли: 0,2·10+0,5x=0,3(10+x). Тогда 0,2x=1, откуда x=5. Проценты нельзя просто усреднить без учёта объёмов.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Problem Solving, percentage and mixture models; new quantities",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-evaporation",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": 2,
+      "stem": "A container holds 40 liters of a 12% salt solution. Only water evaporates, leaving the amount of salt unchanged. How many liters of water must evaporate for the solution to become 20% salt?",
+      "choices": [
+        "8",
+        "20",
+        "24",
+        "16"
+      ],
+      "answer": 3,
+      "explanation": "Соли 40·0,12=4,8 литра. При доле 20% общий объём должен быть 4,8/0,2=24. Испаряется 40−24=16 литров; 24 — оставшийся объём.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Problem Solving, percent concentrations; new conservation constraint",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-absolute-integers",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear inequalities",
+      "difficulty": 2,
+      "stem": "What is the sum of all integer x satisfying |3x−9|≤4?",
+      "answer": "9",
+      "explanation": "−4≤3x−9≤4 ⇒ 5/3≤x≤13/3. Целые решения 2, 3 и 4; их сумма 9.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.5, exercises 25–26; changed coefficients and integer-response task",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-absolute-both-branches",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": 3,
+      "stem": "What is the sum of all real solutions of |2x−5|=x+1?",
+      "choices": [
+        "6",
+        "22/3",
+        "4/3",
+        "10/3"
+      ],
+      "answer": 1,
+      "explanation": "Правая часть требует x≥−1. В ветви x≥2,5 получаем 2x−5=x+1 ⇒ x=6. В ветви x<2,5: 5−2x=x+1 ⇒ x=4/3. Оба допустимы, сумма 22/3.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.5, absolute-value equations; variable on both sides",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-weighted-orders",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Systems of linear equations",
+      "difficulty": 2,
+      "stem": "Three notebooks and two folders cost $76. A notebook costs $2 more than a folder. What is the price, in dollars, of one notebook?",
+      "choices": [
+        "14",
+        "15.2",
+        "16",
+        "18"
+      ],
+      "answer": 2,
+      "explanation": "Пусть папка стоит y, тогда тетрадь y+2. 3(y+2)+2y=76 ⇒ 5y=70 ⇒ y=14. Тетрадь стоит 16.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "2.3, linear modeling; new two-product system",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-negative-composition",
+      "section": "math",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": 3,
+      "stem": "Let f(x)=ax+b, where a<0. For every real x, f(f(x))=9x+8. What is f(2)?",
+      "answer": "-10",
+      "explanation": "Композиция равна a²x+b(a+1). Из a²=9 и a<0 следует a=−3. Тогда −2b=8 ⇒ b=−4. Поэтому f(2)=−6−4=−10.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "1.4, composition of linear functions; new sign and parameter conditions",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-vertex-coefficients",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 2,
+      "stem": "The graph of f(x)=−8x²+bx+c has vertex (−2,7). What is b+c?",
+      "choices": [
+        "-57",
+        "-25",
+        "-32",
+        "7"
+      ],
+      "answer": 0,
+      "explanation": "Записываем f(x)=−8(x+2)²+7=−8x²−32x−25. Значит b=−32, c=−25, сумма −57. Координата вершины не равна коэффициенту b.",
+      "source": "bank",
+      "purpose": "assessment",
+      "familyId": "open-math:vertex-coefficients",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 17; asks coefficient sum",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-vertex-second-parameter",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 2,
+      "stem": "The function g(x)=6x²+bx+c has its minimum at (7,−9). What is c−b?",
+      "answer": "369",
+      "explanation": "g(x)=6(x−7)²−9=6x²−84x+285. Поэтому c−b=285−(−84)=369. Знак перед b существенен.",
+      "source": "bank",
+      "purpose": "assessment",
+      "familyId": "open-math:vertex-coefficients",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 18; asks difference of coefficients",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-roots-to-maximum",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 2,
+      "stem": "A quadratic has x-intercepts −3 and 1 and y-intercept 2. What is the maximum value of the function?",
+      "choices": [
+        "2",
+        "4/3",
+        "8/3",
+        "-8/3"
+      ],
+      "answer": 2,
+      "explanation": "f(x)=a(x+3)(x−1). Из f(0)=2 получаем a=−2/3. Ось симметрии x=(−3+1)/2=−1. f(−1)=(−2/3)·2·(−2)=8/3; a<0, значит это максимум.",
+      "source": "bank",
+      "purpose": "assessment",
+      "familyId": "open-math:roots-to-extremum",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 19; requires maximum rather than equation",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-roots-to-minimum",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 2,
+      "stem": "A quadratic function has zeros 2 and 5 and satisfies f(0)=6. What is its minimum value?",
+      "answer": "-27/20",
+      "explanation": "f(x)=(3/5)(x−2)(x−5), поскольку 10a=6. Вершина при x=7/2. Значение (3/5)(3/2)(−3/2)=−27/20; положительный старший коэффициент гарантирует минимум.",
+      "source": "bank",
+      "purpose": "assessment",
+      "familyId": "open-math:roots-to-extremum",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 21; new extremum response",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-vertex-reconstruction",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 2,
+      "stem": "A parabola has vertex (5,6) and passes through (0,−1). What is its y-coordinate when x=15?",
+      "choices": [
+        "-22",
+        "-1",
+        "-16",
+        "34"
+      ],
+      "answer": 0,
+      "explanation": "f(x)=a(x−5)²+6. Точка (0,−1) даёт a=−7/25. Тогда f(15)=−(7/25)·100+6=−22.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 24; new evaluation point",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-vertex-point",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 2,
+      "stem": "A quadratic has vertex (−3,2) and passes through (3,−2). What is f(0)?",
+      "answer": "1",
+      "explanation": "f(x)=a(x+3)²+2. Из −2=36a+2 следует a=−1/9. Поэтому f(0)=−1+2=1.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 25; new y-intercept response",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-folded-box",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 2,
+      "stem": "A square sheet is made into an open box by cutting 6-inch squares from its four corners and folding the sides up. The box holds 864 cubic inches. What was the area, in square inches, of the original sheet?",
+      "choices": [
+        "144",
+        "288",
+        "576",
+        "432"
+      ],
+      "answer": 2,
+      "explanation": "Высота 6, значит площадь дна 864/6=144 и сторона дна 12. Сторона листа 12+2·6=24, исходная площадь 24²=576. Площадь дна не равна площади листа.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 31; changed volume, asks original sheet area",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-box-material-left",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 3,
+      "stem": "An open box is formed from a square sheet by removing four 4-inch squares and folding up the sides. Its volume is 2,304 cubic inches. What is the area, in square inches, of the material remaining after the corner squares are removed?",
+      "answer": "960",
+      "explanation": "Дно имеет площадь 2304/4=576, его сторона 24. Лист имел сторону 24+8=32 и площадь 1024. Удалено 4·4²=64, осталось 960.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 32; changed volume and asks remaining material",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-two-pens",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 3,
+      "stem": "A rectangular enclosure is divided into two pens by one interior fence parallel to its width W. The total fencing is 500 feet, so 2L+3W=500. What is the greatest possible enclosed area, in square feet?",
+      "choices": [
+        "31250/3",
+        "15625",
+        "62500/3",
+        "6250"
+      ],
+      "answer": 0,
+      "explanation": "L=(500−3W)/2. Площадь A=250W−1,5W² достигает максимума при W=250/3, L=125. Тогда A=31250/3. Внутренняя перегородка расходует ещё одну ширину.",
+      "source": "bank",
+      "purpose": "assessment",
+      "familyId": "open-math:fenced-pens",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 33; diagram replaced by explicit fencing condition",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-three-pens",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 3,
+      "stem": "A rectangular enclosure is split into three pens by two fences parallel to its width W. Exactly 700 feet of fencing are used, so 2L+4W=700. What length L maximizes the total enclosed area?",
+      "answer": "175",
+      "explanation": "L=350−2W, A=350W−2W². Вершина W=350/4=87,5. Отсюда L=350−175=175. Не следует подставлять формулу периметра без перегородок.",
+      "source": "bank",
+      "purpose": "assessment",
+      "familyId": "open-math:fenced-pens",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 34; explicit diagram-free condition and length response",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-stadium-revenue",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 3,
+      "stem": "A stadium can seat 62,000 people. At $11 per ticket, attendance is 26,000; at $9, attendance is 31,000. Assume attendance is linear in price over the relevant range. What ticket price, in dollars, maximizes revenue?",
+      "choices": [
+        "9",
+        "11",
+        "10.7",
+        "21.4"
+      ],
+      "answer": 2,
+      "explanation": "Посещаемость меняется на −2500 при росте цены на 1. N(p)=53500−2500p, R(p)=53500p−2500p². Вершина p=53500/5000=10,7. Посещаемость 26750 ниже вместимости, значит ограничение не мешает.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 37; adapted to single numeric response",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-orchard-domain",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Quadratic functions",
+      "difficulty": 3,
+      "stem": "An orchard already contains 75 trees per acre, each yielding 20 bushels. For every additional tree per acre, the yield of each tree decreases by 3 bushels. The farmer may add trees but may not remove any. What number of additional trees maximizes the modeled harvest?",
+      "answer": "0",
+      "explanation": "При x≥0 урожай H=(75+x)(20−3x)=1500−205x−3x². Для любого x>0 он меньше 1500. Вершина без ограничения лежала бы при отрицательном x, но удалять деревья нельзя: ответ 0.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, exercise 38; explicit nonnegative-addition restriction",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-positive-distinct-roots",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear equations",
+      "difficulty": 3,
+      "stem": "For an integer k with 1≤k≤7, the equation x²−(k+4)x+4k=0 must have two distinct positive real solutions. How many values of k satisfy this requirement?",
+      "choices": [
+        "6",
+        "3",
+        "5",
+        "7"
+      ],
+      "answer": 0,
+      "explanation": "Левая часть раскладывается в (x−k)(x−4). При всех k от 1 до 7 корни положительны, но при k=4 совпадают. Из 7 значений исключаем одно: остаётся 6.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, zeros of quadratics; new parameter and distinctness conditions",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-one-root-positive-parameter",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear equations",
+      "difficulty": 2,
+      "stem": "For a positive real constant k, the equation 2x²−3kx+18=0 has exactly one real solution. What is k?",
+      "answer": "4",
+      "explanation": "Для единственного корня дискриминант 9k²−4·2·18=0. Тогда k²=16. Из условия k>0 выбираем 4, а не −4.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, quadratic roots; added positive parameter restriction",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-root-square-sum",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear equations",
+      "difficulty": 2,
+      "stem": "The roots r and s of x²+ax+b=0 satisfy r+s=6 and r²+s²=20. What is b?",
+      "choices": [
+        "10",
+        "16",
+        "8",
+        "20"
+      ],
+      "answer": 2,
+      "explanation": "(r+s)²=r²+s²+2rs. 36=20+2rs ⇒ rs=8. По формулам Виета b=rs=8.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.2, relationships between roots and coefficients; new constraints",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-transformed-zeros",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear functions",
+      "difficulty": 2,
+      "stem": "The only zeros of f are 2 and 5. What is the sum of all solutions to f(3x−1)=0?",
+      "answer": "3",
+      "explanation": "Нужно 3x−1=2 или 3x−1=5. Решения x=1 и x=2; сумма 3. Нули исходной функции 2 и 5 нельзя складывать без преобразования аргумента.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "1.4 and 1.5, composition and horizontal transformations; new zero task",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-hole-exception",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear functions",
+      "difficulty": 3,
+      "stem": "For x≠3, define f(x)=(x²−9)/(x−3). For which real k does f(x)=k have no solution?",
+      "choices": [
+        "6",
+        "-3",
+        "0",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "При x≠3 функция равна x+3. Уравнение x+3=k обычно имеет решение x=k−3, но при k=6 оно равно запрещённому 3. Поэтому именно 6 отсутствует в области значений.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.7, removable discontinuities; new excluded-output question",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-rational-domain-check",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear equations",
+      "difficulty": 2,
+      "stem": "Solve (x²−4)/(x−2)=6, where x≠2. What is x?",
+      "answer": "4",
+      "explanation": "Числитель (x−2)(x+2). При допустимом x сокращаем: x+2=6 ⇒ x=4. Умножение на знаменатель также даёт посторонний x=2, который запрещён.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.7, rational equations and domain; changed right side",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-radical-extraneous",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear equations",
+      "difficulty": 2,
+      "stem": "What is the real solution of √(3x+4)=x−2?",
+      "choices": [
+        "0",
+        "2",
+        "7",
+        "4"
+      ],
+      "answer": 2,
+      "explanation": "Правая часть должна быть неотрицательной: x≥2. После возведения в квадрат 3x+4=x²−4x+4 ⇒ x(x−7)=0. Из 0 и 7 условию отвечает только 7; √25=5=7−2.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.8, radical equations; new coefficients and domain check",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-rational-two-roots",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear equations",
+      "difficulty": 3,
+      "stem": "What is the sum of all real solutions of 2/(x−1)+3/(x+1)=1?",
+      "answer": "5",
+      "explanation": "Запрещены x=±1. Умножая на (x−1)(x+1), получаем 2(x+1)+3(x−1)=x²−1, то есть x²−5x=0. Корни 0 и 5 допустимы, их сумма 5.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.7, rational equations; new two-denominator equation",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-inverse-rational",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear functions",
+      "difficulty": 2,
+      "stem": "For x≠−2, f(x)=x/(x+2). If f(b)=3/5, what is b?",
+      "choices": [
+        "3",
+        "1.5",
+        "2",
+        "6"
+      ],
+      "answer": 0,
+      "explanation": "5b=3(b+2), поэтому 2b=6 и b=3. Значение не равно −2, проверка области определения пройдена.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "1.6, exercise 24; new inverse-value response",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-composition-domain",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear functions",
+      "difficulty": 3,
+      "stem": "Let f(u)=√(u−2) and g(x)=3/(x−1). How many integer x belong to the real domain of f(g(x))?",
+      "answer": "1",
+      "explanation": "Требуется x≠1 и 3/(x−1)≥2. При x<1 дробь отрицательна, что невозможно. При x>1 имеем x≤5/2. В интервале (1,2,5] единственное целое — 2.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "1.4, composite domains; new rational inner function",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-composition-coefficients",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear functions",
+      "difficulty": 3,
+      "stem": "Let f(u)=u²+1 and g(x)=ax+b, where a>0. For every x, f(g(x))=9x²−12x+5. What is g(5)?",
+      "choices": [
+        "7",
+        "15",
+        "13",
+        "17"
+      ],
+      "answer": 2,
+      "explanation": "Сравниваем a²=9, 2ab=−12, b²+1=5. Поскольку a>0, a=3 и b=−2; третье равенство подтверждает совместность. g(5)=15−2=13.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "1.4, polynomial compositions; new coefficient matching",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-two-factors",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear equations",
+      "difficulty": 3,
+      "stem": "The polynomial P(x)=x³+ax²+bx−6 has factors x−1 and x+2. What is its third real zero?",
+      "answer": "-3",
+      "explanation": "P(1)=0 даёт a+b=5; P(−2)=0 даёт 2a−b=7. Значит a=4,b=1. P=(x−1)(x+2)(x+3), третий корень −3. Знак свободного члена помогает проверить произведение корней.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.4, factor theorem; new two-parameter reconstruction",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-factor-positive-zero",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Nonlinear equations",
+      "difficulty": 3,
+      "stem": "The polynomial 2x³+kx²−8x−4 is divisible by x+2. What is its positive real zero?",
+      "choices": [
+        "2",
+        "0.5",
+        "1",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "Подставляем −2: 4k−4=0, поэтому k=1. Деление на x+2 даёт 2x²−3x−2=(2x+1)(x−2). Нули −2, −1/2 и 2; положительный — 2.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "3.4, factor theorem and quotient; new parameter and sign restriction",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-exponential-backward",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Exponential models",
+      "difficulty": 2,
+      "stem": "An exponential function f(x)=abˣ, with a>0 and b>0, passes through (0,6) and (3,750). What is f(−1)?",
+      "answer": "6/5",
+      "explanation": "f(0)=a=6. Из 6b³=750 следует b³=125 и b=5. Поэтому f(−1)=6/5.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "4.1, exercise 13; new backward evaluation",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-exponential-decay",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Exponential models",
+      "difficulty": 2,
+      "stem": "An exponential function f(x)=abˣ has f(0)=2,000 and f(2)=20, where b>0. What is f(3)?",
+      "choices": [
+        "0.2",
+        "10",
+        "2",
+        "200"
+      ],
+      "answer": 2,
+      "explanation": "a=2000 и b²=20/2000=0,01. Так как b>0, b=0,1. Значит f(3)=2000·0,001=2.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "4.1, exercise 15; new evaluation point",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-exponential-intercept",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Exponential models",
+      "difficulty": 2,
+      "stem": "An exponential function f(x)=abˣ satisfies f(1)=3/2 and f(3)=24, where a,b>0. What is a?",
+      "answer": "3/8",
+      "explanation": "Делим значения: b²=24/(3/2)=16, значит b=4. Тогда a=(3/2)/4=3/8. Нельзя принять f(1) за начальное значение f(0).",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "4.1, exercise 17; asks initial-value parameter",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-half-life",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Exponential models",
+      "difficulty": 2,
+      "stem": "A substance initially has mass 100 milligrams and decays exponentially. After 35 hours, its mass is 50 milligrams. What mass, in milligrams, remains after 105 hours?",
+      "choices": [
+        "12.5",
+        "0",
+        "25",
+        "33.3333333333333"
+      ],
+      "answer": 0,
+      "explanation": "105 часов — три периода полураспада по 35. Масса 100·(1/2)³=12,5. Экспоненциальный распад нельзя заменять вычитанием 50 каждые 35 часов.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "4.1, exercise 23; changed endpoint to exact half-life multiple",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-exponential-ratio",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Exponential models",
+      "difficulty": 2,
+      "stem": "For f(t)=abᵗ with a,b>0, f(2)=12 and f(5)=96. What is f(0)?",
+      "answer": "3",
+      "explanation": "f(5)/f(2)=b³=8, значит b=2. Из 4a=12 получаем a=3. Начальный момент отстоит на два шага от первого данного значения.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "4.1, fitting exponentials from two points; new points",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-growth-percent",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Exponential models",
+      "difficulty": 2,
+      "stem": "A population grows by 4% each year. What is the percent increase over two years, assuming the same annual percentage growth?",
+      "choices": [
+        "4.16",
+        "8",
+        "8.16",
+        "16"
+      ],
+      "answer": 2,
+      "explanation": "Двухлетний множитель 1,04²=1,0816. Рост (1,0816−1)·100%=8,16%, а не 8%: второй рост применяется уже к увеличенному населению.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "4.1, percent growth models; new comparison period",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-exponent-bases",
+      "section": "math",
+      "domain": "Advanced Math",
+      "skill": "Exponential models",
+      "difficulty": 2,
+      "stem": "If 4^(x+1)/8^(x−1)=16, what is x?",
+      "answer": "1",
+      "explanation": "Переходим к основанию 2: показатель 2(x+1)−3(x−1)=5−x. Поскольку 16=2⁴, 5−x=4, значит x=1.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "4.1, exponential equations; new common-base expression",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-conditional-jar",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Probability",
+      "difficulty": 2,
+      "stem": "A jar contains 6 red, 2 white, and 5 yellow balls. One ball is chosen uniformly at random. Given that it is not yellow, what is the probability that it is red?",
+      "choices": [
+        "3/4",
+        "6/13",
+        "2/13",
+        "6/11"
+      ],
+      "answer": 0,
+      "explanation": "После условия остаются только 6 красных и 2 белых, всего 8. Условная вероятность 6/8=3/4. Знаменатель 13 игнорировал бы данное условие.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Probability, exercise 1; added conditional sample space",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-two-colors-no-replacement",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Probability",
+      "difficulty": 3,
+      "stem": "A jar contains 6 red, 2 white, and 5 yellow balls. Two balls are chosen randomly without replacement. What is the probability that one is red and the other is white?",
+      "answer": "2/13",
+      "explanation": "Порядка два: красный-белый и белый-красный. Вероятность 6/13·2/12+2/13·6/12=24/156=2/13. При втором выборе в банке 12 шаров.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Probability, exercise 1 and dependent-event rule; added second draw",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-red-pair",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Probability",
+      "difficulty": 2,
+      "stem": "A jar contains 17 red and 32 blue marbles. Two are drawn randomly without replacement. What is the probability that both are red?",
+      "choices": [
+        "17/49",
+        "289/2401",
+        "17/147",
+        "1/3"
+      ],
+      "answer": 2,
+      "explanation": "Вероятность 17/49·16/48=272/2352=17/147. Множитель 17/49 во второй раз был бы верен при возвращении первого шарика, которого здесь нет.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Probability, exercise 21; SAT-format exact response",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-cards-conditional",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Probability",
+      "difficulty": 2,
+      "stem": "A survey records credit cards owned. Among men, 9 own zero, 5 own one, and 19 own at least two. Among women, the counts are 18, 10, and 20, respectively. Given that a person owns at least one card, what is the probability the person is a woman?",
+      "answer": "5/9",
+      "explanation": "С хотя бы одной картой мужчин 5+19=24, женщин 10+20=30. Условная группа содержит 54 человека; доля женщин 30/54=5/9.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Probability, exercise 8; added conditional question",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-grades-conditioned",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Probability",
+      "difficulty": 2,
+      "stem": "A class has the following grades: men—8 A, 18 B, 13 C; women—10 A, 4 B, 12 C. One student who did not earn C is selected at random. What is the probability the student is a woman?",
+      "choices": [
+        "7/20",
+        "14/26",
+        "26/65",
+        "14/65"
+      ],
+      "answer": 0,
+      "explanation": "Без C остаются 26 мужчин и 14 женщин. Условная вероятность 14/40=7/20. Общий размер класса 65 больше не является нужным знаменателем.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Probability, exercises 7 and 15; combined conditional event",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-recover-subgroup",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Percentages",
+      "difficulty": 3,
+      "stem": "Of 200 students, 60% passed an exam. Exactly 30% of the students who passed are in club A. Club A has 45 members. What percent of club A members passed?",
+      "answer": "80",
+      "explanation": "Прошли 200·0,60=120 студентов. Из них 120·0,30=36 состоят в клубе A. Доля прошедших внутри A равна 36/45=0,8=80%. Три процента относятся к разным базам.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Probability, conditional probabilities and two-way tables; new nested percentages",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-weighted-paradox",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Statistical claims",
+      "difficulty": 3,
+      "stem": "In easy tasks, method A succeeds in 9 of 10 trials and method B in 80 of 100. In difficult tasks, A succeeds in 20 of 100 and B in 1 of 10. Which statement correctly compares success rates?",
+      "choices": [
+        "A is higher in each group and overall.",
+        "B is higher in each group and overall.",
+        "A is higher in each task group, but B is higher overall.",
+        "The overall rates are equal."
+      ],
+      "answer": 2,
+      "explanation": "В лёгкой группе A:90% против 80%, в сложной A:20% против 10%. Но суммарно A=29/110, B=81/110. Веса групп различаются, поэтому общий результат меняет направление сравнения.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Statistics and Probability, group comparisons; new unequal-weight example",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-combined-mean",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "One-variable data",
+      "difficulty": 2,
+      "stem": "Twenty students have mean score 70, and another 30 students have mean score 80. What is the mean score of all 50 students?",
+      "answer": "76",
+      "explanation": "Общая сумма 20·70+30·80=3800. Среднее 3800/50=76. Среднее средних 75 было бы верным только для равных групп.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Describing Data, weighted means; new group sizes",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-add-score",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "One-variable data",
+      "difficulty": 2,
+      "stem": "The data set is 2,4,6,8,10. One value x is added, making the mean of all six values 7. What is x?",
+      "choices": [
+        "12",
+        "7",
+        "11",
+        "42"
+      ],
+      "answer": 0,
+      "explanation": "Сумма исходных данных 30. Новая сумма 6·7=42. Поэтому x=42−30=12.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Describing Data, mean and totals; new appended-value question",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-frequency-median",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "One-variable data",
+      "difficulty": 3,
+      "stem": "A data set contains two values equal to 10, k values equal to 20, and three values equal to 40. Its mean is 25. What is its median?",
+      "answer": "20",
+      "explanation": "Сумма 140+20k, размер 5+k. Из 140+20k=25(5+k) получаем k=3. В упорядоченном наборе из 8 значений четвёртое и пятое равны 20, значит медиана 20.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Describing Data, frequency distributions and center; new unknown frequency",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-mean-equals-median",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "One-variable data",
+      "difficulty": 2,
+      "stem": "The numbers 2,5,8,x are listed in nondecreasing order. Their mean equals their median. What is x?",
+      "choices": [
+        "6.5",
+        "8",
+        "11",
+        "13"
+      ],
+      "answer": 2,
+      "explanation": "Медиана (5+8)/2=6,5. Тогда (15+x)/4=6,5 ⇒ x=11. Порядок соблюдён: 11≥8.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Describing Data, mean versus median; new ordering constraint",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-linear-statistics",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "One-variable data",
+      "difficulty": 2,
+      "stem": "A data set has mean 12 and standard deviation 3. Each value x is replaced by 5x−7. What is the sum of the new mean and the new standard deviation?",
+      "answer": "68",
+      "explanation": "Новое среднее 5·12−7=53. Стандартное отклонение умножается на |5| и не зависит от сдвига: 15. Сумма 68.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Describing Data, spread and shifts; new affine transformation",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-interval-population",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Sample statistics",
+      "difficulty": 2,
+      "stem": "In a survey, 52% of respondents support a proposal, with a margin of error of 4 percentage points. If the interval is used to estimate support among 2,500 people, what is the upper endpoint of the estimated number supporting it?",
+      "choices": [
+        "1400",
+        "1200",
+        "1300",
+        "1352"
+      ],
+      "answer": 0,
+      "explanation": "Верхняя граница доли 52%+4 процентных пункта=56%. Оценка количества 0,56·2500=1400. Это граница оценки, а не гарантия точного числа.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Statistics, samples and estimation; new interval-to-count task",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-sampling-frame",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Sample statistics",
+      "difficulty": 2,
+      "stem": "To estimate support for a citywide renovation, a researcher randomly samples only people working in downtown businesses. Which change most directly improves the study's ability to describe all city residents?",
+      "choices": [
+        "Survey more downtown employees using the same sampling frame.",
+        "Randomly sample from a list covering residents throughout the city.",
+        "Ask only downtown managers instead of employees.",
+        "Remove undecided answers from the existing sample."
+      ],
+      "answer": 1,
+      "explanation": "Случайность внутри узкой группы не делает выборку репрезентативной для всех жителей. Нужна рамка отбора, охватывающая весь город; увеличение прежней выборки не исправляет её охват.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Statistics, exercise 4; reframed as study improvement",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-study-design",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Statistical claims",
+      "difficulty": 3,
+      "stem": "Volunteers are randomly assigned to study with music or in silence before taking the same test. Average scores differ. Which conclusion best respects both the random assignment and the way participants were recruited?",
+      "choices": [
+        "The study proves music raises scores for every student in the country.",
+        "Random assignment makes a causal comparison impossible.",
+        "The study can support a causal comparison for participants, but generalization beyond the volunteers requires caution.",
+        "Because participants volunteered, the assigned groups must have identical test scores."
+      ],
+      "answer": 2,
+      "explanation": "Случайное назначение помогает причинному сравнению внутри опыта. Добровольный набор не является случайной выборкой всей страны. Ни всеобщую гарантию, ни равенство результатов дизайн не обещает.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Statistics, exercise 12 and sampling methods; added scope-of-inference condition",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-relative-share",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Percentages",
+      "difficulty": 3,
+      "stem": "A club's membership rises from 80 of a school's 200 students to 120 of its 250 students. By what percent did the club's share of school enrollment increase, relative to its original share?",
+      "answer": "20",
+      "explanation": "Старая доля 80/200=40%, новая 120/250=48%. Относительный рост доли (48−40)/40·100%=20%. 8 — прирост в процентных пунктах, 50% — рост числа членов, а не доли.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Problem Solving, relative change and percentages; new changing denominators",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-successive-percent",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Percentages",
+      "difficulty": 2,
+      "stem": "A price is raised by 25% and then reduced by 20% of the raised price. The final price is $84. What was the original price, in dollars?",
+      "choices": [
+        "84",
+        "80",
+        "88.2",
+        "105"
+      ],
+      "answer": 0,
+      "explanation": "Последовательный множитель 1,25·0,80=1. Поэтому конечная цена совпадает с исходной: 84. Проценты применяются к разным базам.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Problem Solving, percentage changes; new inverse-price question",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-missing-group-mean",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "One-variable data",
+      "difficulty": 2,
+      "stem": "A class of 30 students has mean score 72. After 6 students leave, the remaining 24 students have mean 75. What was the mean score of the 6 students who left?",
+      "answer": "60",
+      "explanation": "Исходная сумма 30·72=2160, оставшаяся 24·75=1800. У ушедших сумма 360 на 6 человек, значит среднее 60. Разность средних 3 не является средним ушедшей группы.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Describing Data, weighted totals; new removed-subgroup question",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-independent-draws",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Probability",
+      "difficulty": 2,
+      "stem": "A fair six-sided die is rolled twice. What is the probability of a 5 on the first roll and an even number on the second?",
+      "choices": [
+        "1/6",
+        "1/3",
+        "1/12",
+        "2/3"
+      ],
+      "answer": 2,
+      "explanation": "События независимы: 1/6 для первой пятёрки и 3/6 для второго чётного. Произведение равно 3/36=1/12. Здесь нужен союз «и», а не сложение вероятностей.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Probability, exercise 19; SAT-format response",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-probability-complement",
+      "section": "math",
+      "domain": "Problem-Solving and Data Analysis",
+      "skill": "Probability",
+      "difficulty": 3,
+      "stem": "A bag contains 4 blue and 6 red tokens. Two tokens are drawn randomly without replacement. Given that at least one is blue, what is the probability both are blue?",
+      "answer": "1/5",
+      "explanation": "Всего пар C(10,2)=45; без синих C(6,2)=15, значит условию отвечает 30 пар. Обе синие в C(4,2)=6 парах. Условная вероятность 6/30=1/5.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Probability, dependent events and complements; new conditional pair event",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-diameter-constant",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Circles",
+      "difficulty": 2,
+      "stem": "A circle has diameter endpoints (2,6) and (8,10). Its equation is x²+y²−10x−16y+c=0. What is c?",
+      "choices": [
+        "76",
+        "13",
+        "63",
+        "89"
+      ],
+      "answer": 0,
+      "explanation": "Центр — середина (5,8). Квадрат диаметра 6²+4²=52, значит r²=13. Раскрываем (x−5)²+(y−8)²=13: c=25+64−13=76.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.1, exercise 7; coefficient response instead of full equation",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-radius-through-point",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Circles",
+      "difficulty": 2,
+      "stem": "A circle has center (3,−7) and passes through (15,13). What is the square of its diameter?",
+      "answer": "2176",
+      "explanation": "r²=(15−3)²+(13+7)²=144+400=544. Диаметр вдвое больше радиуса, поэтому d²=4r²=2176.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.1, exercise 6; asks squared diameter",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-circle-reconstruction",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Circles",
+      "difficulty": 2,
+      "stem": "A circle has center (7,−2) and passes through (−10,0). In the equation x²+y²−14x+4y+c=0, what is c?",
+      "choices": [
+        "-293",
+        "-53",
+        "-240",
+        "240"
+      ],
+      "answer": 2,
+      "explanation": "r²=(−17)²+2²=293. Из (x−7)²+(y+2)²=293 получаем c=49+4−293=−240.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.1, exercise 5; asks expanded constant",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-horizontal-tangent",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Circles",
+      "difficulty": 2,
+      "stem": "The circle x²+y²−6x+8y+9=0 has two horizontal tangent lines. What is the y-coordinate of the upper tangent line?",
+      "answer": "0",
+      "explanation": "Дополняя квадраты: (x−3)²+(y+4)²=16. Центр имеет y=−4, радиус 4. Верхняя касательная y=−4+4=0.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.1, circle equations and intercepts; new completion-of-squares tangent task",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-line-circle",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Circles",
+      "difficulty": 2,
+      "stem": "The line y=2x+5 intersects the circle x²+(y−5)²=9 at a point in the first quadrant. What is the square of that point's x-coordinate?",
+      "choices": [
+        "9/5",
+        "3/5",
+        "9",
+        "45"
+      ],
+      "answer": 0,
+      "explanation": "Подставляем y−5=2x: x²+4x²=9, значит x²=9/5. Первая четверть выбирает положительный x; квадрат уже определён. Использовать y вместо y−5 было бы ошибкой.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.1, exercise 13; exact squared-coordinate response",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-circle-tangent-distance",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Circles",
+      "difficulty": 3,
+      "stem": "The line 3x+4y=k is tangent to x²+y²=25, and k>0. What is k?",
+      "answer": "25",
+      "explanation": "Радиус 5. Расстояние от начала координат до прямой |k|/√(3²+4²)=|k|/5. При касании оно равно 5, значит |k|=25. Из k>0 выбираем 25.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.1, circles and lines; new tangency parameter",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-nested-shapes",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Circles",
+      "difficulty": 3,
+      "stem": "A square is inscribed in a circle of radius 5. A second circle is inscribed in that square. What fraction of the area of the first circle is the area of the second circle?",
+      "choices": [
+        "1/4",
+        "1/3",
+        "1/2",
+        "2/3"
+      ],
+      "answer": 2,
+      "explanation": "Диагональ квадрата 10, его сторона 5√2. Радиус внутренней окружности — половина стороны: 5/√2. Отношение площадей равно отношению квадратов радиусов: (25/2)/25=1/2.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.1 and 5.5, circles and right triangles; new nested construction",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-cone-water",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Area and volume",
+      "difficulty": 3,
+      "stem": "A cone has height 12 cm and base radius 8 cm, with its vertex downward. Water initially reaches 6 cm above the vertex and is then added until it reaches 9 cm. What fraction of the cone's total volume was added?",
+      "answer": "19/64",
+      "explanation": "Для подобных конусов объёмная доля — куб отношения высот. Первоначально (6/12)³=1/8=8/64, затем (9/12)³=27/64. Добавили 27/64−8/64=19/64 полного объёма.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "society",
+        "locator": "Problem Solving, geometry and volume models; new two-stage similar-cone question",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-right-triangle-altitude",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Right triangles",
+      "difficulty": 3,
+      "stem": "The altitude from the right angle of a right triangle divides the hypotenuse into segments of lengths 9 and 16. What is the triangle's area?",
+      "choices": [
+        "150",
+        "72",
+        "108",
+        "300"
+      ],
+      "answer": 0,
+      "explanation": "По подобию h²=9·16=144, поэтому h=12. Гипотенуза 25 служит основанием. Площадь (1/2)·25·12=150.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.5, right-triangle similarity; new altitude construction",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-ladder-height",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Right triangle trigonometry",
+      "difficulty": 2,
+      "stem": "A 33-foot ladder leans against a vertical building. The angle between the ladder and level ground is 80°. How high does the ladder reach, in feet? Round to the nearest tenth.",
+      "answer": "32.5",
+      "explanation": "Высота — противолежащий катет, 33 — гипотенуза: h=33·sin80°≈32,4987. До десятых 32,5. Калькулятор должен работать в градусах.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.5, exercise 9; explicit rounding rule",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-tower-two-angles",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Right triangle trigonometry",
+      "difficulty": 3,
+      "stem": "A tower is 400 feet horizontally from a window. From the window, the angle of elevation to the tower's top is 36° and the angle of depression to its base is 23°. What is the tower's height, in feet, to the nearest tenth?",
+      "answer": "460.4",
+      "explanation": "Высота выше окна 400·tan36°, ниже окна 400·tan23°. Складываем: 400(tan36°+tan23°)≈460,407. До десятых 460,4. Только один угол учитывал бы лишь часть башни.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.5, exercise 13; explicit horizontal distance and rounding",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-math-antenna-difference",
+      "section": "math",
+      "domain": "Geometry and Trigonometry",
+      "skill": "Right triangle trigonometry",
+      "difficulty": 3,
+      "stem": "From a point 300 feet horizontally from a building, the angle of elevation is 40° to the roof and 43° to the top of an antenna on the roof. What is the antenna's height, in feet, to the nearest tenth?",
+      "answer": "28",
+      "explanation": "Высоты крыши и верхушки антенны: 300·tan40° и 300·tan43°. Антенна равна их разности: 300(tan43°−tan40°)≈28,0246, до десятых 28,0.",
+      "source": "bank",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "precalc",
+        "locator": "5.5, exercise 17; single response with explicit rounding",
+        "changes": "Адаптация 365step: условия и формат SAT, варианты ответов и новое русское решение. Материал адаптации: CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-elizabeth-self-knowledge",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "difficulty": 3,
+      "passage": "After reading a letter that challenges her view of two acquaintances, Elizabeth Bennet does more than exchange one favorable judgment for another. She recognizes that she welcomed the man who flattered her and distrusted the one who wounded her pride. She had regarded these reactions as evidence of exceptional discernment. Now the very confidence with which she judged others becomes part of what she must examine. Her admission that she had not known herself follows her acknowledgment that vanity encouraged her to seek confirmation rather than to weigh evidence impartially.",
+      "stem": "Which inference about Elizabeth's revised judgment is best supported?",
+      "choices": [
+        "It involves questioning the motives that made her earlier judgments seem reliable.",
+        "It replaces an unfavorable judgment with a favorable one while leaving her confidence in her judging method intact.",
+        "It shows that a judgment influenced by vanity must reach a factually incorrect conclusion in every instance.",
+        "It depends on determining whether the flattering acquaintance intended to deceive her."
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Она проверяет не только сведения о знакомых, но и собственную заинтересованность, которую раньше принимала за проницательность.\n\nB — неверно: Подмена оценки людей недостаточна: Элизабет ставит под вопрос сам способ суждения.\n\nC — неверно: Выявленный риск пристрастности не доказывает ложность каждого отдельного прежнего вывода.\n\nD — неверно: Рассуждение касается влияния лести на Элизабет, а не необходимости установить чужой умысел.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapter 36, Elizabeth's reassessment after Darcy's letter",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-mary-distinction",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": 2,
+      "passage": "Mary Bennet observes that pride and vanity are often treated as interchangeable. She nevertheless distinguishes them by the object of a person's concern. Pride, she says, relates chiefly to the opinion people hold of themselves; vanity concerns the opinion they want others to hold of them. On her account, a person might have a high estimate of personal worth without making the admiration of other people an essential goal. The two dispositions can coexist, but the presence of one does not by itself establish the presence of the other.",
+      "stem": "Which statement best captures Mary's distinction?",
+      "choices": [
+        "Pride is always imaginary, whereas vanity is based on genuine achievement.",
+        "A favorable self-opinion does not necessarily entail a desire for others' admiration.",
+        "Anyone who seeks admiration must have a low opinion of personal worth.",
+        "The words differ only in politeness and describe exactly the same concern."
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Мэри не связывает различие с подлинностью достижений.\n\nB — верно: Различаются мнение о себе и желаемое мнение окружающих; первое не обязательно влечёт второе.\n\nC — неверно: Такой обратной зависимости текст не устанавливает.\n\nD — неверно: Это отрицает содержательное различие, которое она проводит.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapter 5, Mary's distinction between pride and vanity",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-darcy-correction",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "difficulty": 3,
+      "passage": "Darcy explains that he once interfered in his friend's attachment because he believed the woman did not return it. Later, he tells his friend that this interpretation was mistaken. He also admits that he had concealed information relevant to the relationship. The friend's attachment, Darcy observes, has not diminished. Darcy therefore expects happiness from a renewed courtship. His changed expectation follows the correction of his own account of the woman's feelings, rather than a claim that his friend's feelings have suddenly become stronger.",
+      "stem": "Which finding would most directly undermine the reasoning behind Darcy's new expectation?",
+      "choices": [
+        "His friend had cared for the woman before Darcy changed his advice.",
+        "Darcy admits that his previous interference was inappropriate.",
+        "Reliable evidence shows that the woman remains indifferent to his friend.",
+        "Some information was withheld during the earlier courtship."
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Это прямо согласуется с тем, что чувство не ослабло.\n\nB — неверно: Признание ошибки уже входит в новый рассказ, а не опровергает его.\n\nC — верно: Прогноз опирается на исправленное представление о взаимности; доказанное равнодушие разрушало бы именно эту опору.\n\nD — неверно: Сокрытие объясняет прежнюю ошибку и не доказывает неверность новой оценки.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapter 58, Darcy's account of correcting his advice to Bingley",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-seen-observed",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "difficulty": 3,
+      "passage": "Watson has used the staircase to Holmes's rooms many times, yet he cannot say how many steps it contains. Holmes can give the number: seventeen. For Holmes, the contrast illustrates a distinction between encountering something repeatedly and attending to its features. Watson has certainly looked at the stairs; Holmes does not accuse him of having failed to use his eyes. Instead, the detective treats the absence of a particular piece of knowledge as evidence that repeated visual exposure need not amount to deliberate observation.",
+      "stem": "Which conclusion follows most directly from Holmes's example?",
+      "choices": [
+        "A person who cannot count the steps must be unable to recognize the staircase.",
+        "Holmes's count proves that only detectives can learn from ordinary surroundings.",
+        "The greater a person's familiarity, the less accurate every observation becomes.",
+        "Frequent exposure can coexist with failure to register a specific observable detail."
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Незнание числа не означает неспособности узнавать лестницу.\n\nB — неверно: Профессиональная исключительность из примера не следует.\n\nC — неверно: Текст допускает отсутствие одного знания, а не всеобщее ухудшение с опытом.\n\nD — верно: Уотсон видел лестницу много раз, но не выделял число ступеней как объект внимания.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "holmes",
+        "locator": "A Scandal in Bohemia, staircase conversation",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-theory-before-data",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": 3,
+      "passage": "Holmes warns that constructing a theory before collecting evidence can alter the direction of an inquiry. Once attached to a theory, an investigator may begin to reinterpret observations so that they support it, instead of allowing observations to test it. The warning does not require investigators to work without any expectations. It concerns a tendency to protect a favored explanation by making the evidence conform to it, particularly when contrary details would otherwise prompt revision.",
+      "stem": "Which investigator's behavior most clearly illustrates the risk Holmes describes?",
+      "choices": [
+        "An investigator treats confirming details as reliable but dismisses comparable contrary details solely because they conflict with the preferred theory.",
+        "An investigator uses a provisional explanation to choose the next test while retaining results that could count against the explanation.",
+        "An investigator discounts a contrary measurement after independent calibration shows that the instrument was unreliable.",
+        "An investigator reinterprets an ambiguous record after newly obtained independent evidence challenges the initial interpretation."
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Одинаковые по качеству данные оцениваются по совпадению с любимой теорией; это и есть подгонка.\n\nB — неверно: Теория направляет проверку, но не защищается от опровержения: именно этого отличия требует оговорка текста.\n\nC — неверно: Основание для исключения — независимо установленное качество измерения, а не само противоречие любимой теории.\n\nD — неверно: Трактовка меняется под воздействием новых данных, а не ради сохранения первоначальной теории.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "holmes",
+        "locator": "A Scandal in Bohemia, warning about theorizing before evidence",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-geological-absence",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "difficulty": 3,
+      "passage": "Darwin addresses the objection that gradual changes should have left more intermediate forms in the fossil record. He argues that the record is not a continuous inventory of everything that lived. Preservation requires particular circumstances, and the deposits available for study represent only portions of past environments and time. On this account, a gap between known forms could reflect a gap in preservation or discovery. This response does not identify a fossil for every predicted transition; it challenges the assumption that failure to find one is equivalent to proof that none existed.",
+      "stem": "Which conclusion is most consistent with the passage?",
+      "choices": [
+        "A preservation gap is positive evidence that any particular predicted intermediate form actually existed.",
+        "The evidential force of an absence depends partly on how complete the relevant record can reasonably be expected to be.",
+        "The incompleteness of a record makes all competing explanations equally well supported by whatever fossils are available.",
+        "Once a later form is abundant in a collection, the absence of its predicted predecessors establishes that they never existed."
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Ослабление отрицательного довода не превращается в положительное подтверждение каждой предполагаемой формы.\n\nB — верно: Аргумент связывает значение отсутствия находок с неполнотой сохранения и обнаружения.\n\nC — неверно: Неполнота не отменяет возможность сравнивать объяснения по существующим данным.\n\nD — неверно: Обилие более поздней формы не доказывает сопоставимость условий сохранения разных периодов.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 9, imperfection of the geological record",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-clover-chain",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": 3,
+      "passage": "Darwin uses red clover to illustrate how the abundance of one organism may depend on several others. Bumblebees visit the flowers and help produce seed. Field mice can destroy bumblebee nests, while cats can reduce the numbers of those mice. A connection between cats and clover would therefore be indirect, passing through the other organisms. The example is intended to show why an organism's success cannot always be explained by examining only its immediate competitors or the climate around it.",
+      "stem": "Which finding would most directly support the particular indirect relationship described?",
+      "choices": [
+        "Cats eat clover leaves more often than mice do.",
+        "Clover grows in some places without cats.",
+        "Where cats reduce nest-destroying mice, more bumblebee nests survive and clover seed production increases.",
+        "Rainfall increases at the same time in every observed field."
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Предложенный механизм не связан с поеданием листьев кошками.\n\nB — неверно: Возможность роста без кошек не проверяет изменение по указанной цепи.\n\nC — верно: Находка проверяет последовательность всех звеньев: кошки → мыши → гнёзда шмелей → семена клевера.\n\nD — неверно: Общий климатический сдвиг не выделяет механизм через мышей и шмелей.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 3, clover, humble-bees, field mice and cats",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-breeders-existing-variation",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "difficulty": 3,
+      "passage": "In discussing domestic animals, Darwin separates the appearance of variation from a breeder's use of it. A breeder can preserve and combine differences already present among individuals, favoring those that serve a chosen purpose. The remarkable differences between established breeds may thus result from many acts of selection, even when the individual differences available at any one time were modest. The account assigns an important role to human choice without implying that a breeder can simply call a desired hereditary difference into existence.",
+      "stem": "Which claim would go beyond what the passage supports?",
+      "choices": [
+        "Selection over many generations can accumulate initially modest differences.",
+        "Human preferences can affect which variants are retained in a domestic population.",
+        "The origin of a variant and its subsequent preservation are distinguishable processes.",
+        "A breeder's desire for a trait is sufficient to make that hereditary trait appear."
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Это прямо соответствует объяснению накопления изменений.\n\nB — неверно: Благоприятствование нужным вариантам — описанная роль выбора.\n\nC — неверно: Это исходное различие, на котором построен текст.\n\nD — верно: Это неподдержанный переход от отбора имеющихся различий к созданию признака одним желанием.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 1, selection and variation under domestication",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-classification-descent",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "difficulty": 3,
+      "passage": "Darwin argues that a natural classification should reflect relationships of descent. A feature can be highly useful for an animal's present way of life without being especially informative about its ancestry. Conversely, a seemingly unimportant feature may be valuable for classification if it has been inherited from a common ancestor. Similar habits can produce resemblances in animals that are not closely related. Classifying organisms solely by their present occupations would therefore risk treating an adaptive resemblance as if it established a shared genealogical history.",
+      "stem": "Which observation would most clearly illustrate the distinction?",
+      "choices": [
+        "Two distantly related animals have similar swimming structures, while a less conspicuous inherited feature links one of them to its close relatives.",
+        "Two animals are grouped together because their similarly useful structures are conspicuous, even though no evidence about ancestry is considered.",
+        "An investigator removes all useful structures from a classification, assuming that usefulness always rules out inheritance from a common ancestor.",
+        "An investigator treats a minor resemblance as proof of close ancestry solely because it has no known present function."
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Вариант противопоставляет сходство по функции и признак происхождения — оба элемента рассуждения.\n\nB — неверно: Такой подход иллюстрирует риск, который текст критикует, но не правильное различение функции и происхождения.\n\nC — неверно: Отсутствие гарантии информативности не означает несовместимости полезности с наследованием.\n\nD — неверно: Малозаметность и отсутствие известной функции сами по себе ещё не доказывают общее происхождение.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 13, classification and descent",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-power-and-teacher",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "difficulty": 3,
+      "passage": "Douglass recalls that the woman who began teaching him to read did not immediately become an opponent of his education. He describes her later refusal to teach, and her efforts to prevent others from teaching him, as changes connected with exercising power over another person. His account grants that her early kindness was real. It also insists that this kindness did not protect her from adopting the practices of the slaveholding system. The chronology matters because it presents her conduct as something that developed, rather than as an unchanging disposition visible from the beginning.",
+      "stem": "What does the sequence of events chiefly support?",
+      "choices": [
+        "The early instruction was secretly intended to make later instruction impossible.",
+        "Participation in an oppressive system can reshape a person's conduct despite earlier kindness.",
+        "Douglass believed education could occur only under a regular teacher.",
+        "Her behavior remained identical throughout the period he describes."
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Раннюю доброту текст признаёт подлинной; скрытый план не указан.\n\nB — верно: Аргумент опирается на изменение от помощи к пресечению учёбы под влиянием власти.\n\nC — неверно: Его дальнейшее обучение как раз обходилось без постоянного учителя.\n\nD — неверно: Это отменяет смысл показанной хронологии.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "douglass",
+        "locator": "Chapter 7, change in his mistress and learning to read",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-bread-and-learning",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "difficulty": 3,
+      "passage": "When regular instruction was denied him, Douglass found opportunities to learn from boys he met during errands. He sometimes carried bread, which he could offer to boys who had less to eat. In return, they helped him learn to read. The exchange linked two different forms of need: the boys' immediate hunger and his need for access to written language. Describing what he received as more valuable, Douglass does not deny the usefulness of bread. He emphasizes the lasting importance of the knowledge that the arrangement enabled him to acquire.",
+      "stem": "Which interpretation of the exchange is best supported?",
+      "choices": [
+        "The boys refused food because reading had no practical value to them.",
+        "Douglass considered physical hunger imaginary rather than important.",
+        "Something he could supply for an immediate need helped him gain knowledge he valued for its lasting consequences.",
+        "The arrangement depended on a formal school accepting him as a student."
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Текст описывает обмен, а не отказ от хлеба.\n\nB — неверно: Сравнение ценности не отрицает реальности и важности голода.\n\nC — верно: Хлеб удовлетворяет непосредственный голод, а ответный урок даёт долго сохраняющееся знание.\n\nD — неверно: Обмен происходил во время поручений, вне регулярного обучения.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "douglass",
+        "locator": "Chapter 7, bread exchanged for reading lessons",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-alice-advice",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": 2,
+      "passage": "Alice sharply tells herself to stop crying. The narrator remarks that she generally gives herself good advice but seldom follows it. Alice sometimes scolds herself so severely that she brings tears to her own eyes. The account even recalls her attempt to punish herself for cheating in a game she was playing against herself. These details present a child capable of taking several roles in an imagined dispute, without suggesting that her ability to formulate a sensible rule guarantees that she will act on it.",
+      "stem": "Which detail most directly supports the idea that knowing a rule does not ensure acting on it?",
+      "choices": [
+        "Alice is able to imagine taking more than one role.",
+        "The narrator recalls an earlier game.",
+        "A rule can be expressed in a complete sentence.",
+        "Alice usually gives herself good advice but rarely follows it."
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Способность разыгрывать роли сама по себе не показывает разрыв знания и действия.\n\nB — неверно: Само наличие воспоминания не является нужным свидетельством.\n\nC — неверно: Такое утверждение в тексте вообще не обсуждается.\n\nD — верно: В этой детали прямо сопоставлены верный совет и его невыполнение.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "alice",
+        "locator": "Chapter 1, Alice's advice to herself",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-mary-narrator-irony",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": 3,
+      "passage": "Mary distinguishes pride from vanity while the narrator notes that she prides herself on the solidity of her reflections. Mary explains that pride concerns one's own estimate of oneself, whereas vanity concerns the estimate one wishes others to make. The narrator's description does not formally disprove Mary's distinction. It places the speaker inside the territory she is discussing, however: her satisfaction in the depth of her own thought becomes visible at the very moment she offers a confident general account of self-regard.",
+      "stem": "What is the main effect of the narrator's description of Mary?",
+      "choices": [
+        "It introduces an ironic relation between Mary's analysis and her own evident self-regard.",
+        "It supplies independent evidence that Mary's conceptual distinction is invalid, rather than commenting on her relation to the subject.",
+        "It presents Mary's satisfaction in her reasoning as evidence that she is chiefly seeking an audience's admiration.",
+        "It endorses Mary's self-estimate as an objective measure of the quality of her reflections."
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Мэри объясняет самодовольство, а ремарка показывает его у неё самой; различие терминов при этом не опровергнуто.\n\nB — неверно: Характеристика говорящего не опровергает различие pride и vanity; меняется отношение читателя к её позиции.\n\nC — неверно: Ремарка указывает мнение Мэри о собственных размышлениях, но не устанавливает желание восхищения окружающих.\n\nD — неверно: Читателю показано именно её самодовольство, а не независимая гарантия основательности выводов.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapter 5, narrator's description of Mary's reflections",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-holmes-actor",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": 3,
+      "passage": "When Holmes returns disguised as a clergyman, Watson notices more than a change of clothes. The detective's expression, manner, and apparent disposition have changed with the role. Watson comments that the stage lost a fine actor when Holmes became a specialist in crime, just as science lost an acute reasoner. The remark praises abilities visible in Holmes's chosen work by imagining what those same abilities could have contributed to occupations he did not pursue.",
+      "stem": "Which choice best describes the function of Watson's reference to the stage and science?",
+      "choices": [
+        "It reports that Holmes had already held permanent jobs in both fields.",
+        "It conveys the range of Holmes's talents by imagining alternative careers that could have used them.",
+        "It argues that his disguise fails because his costume is too theatrical.",
+        "It denies that acting and reasoning are relevant to detective work."
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Речь о воображаемой утрате для сфер, а не о биографическом сообщении.\n\nB — верно: Альтернативные занятия иллюстрируют способности, уже заметные в расследовании и перевоплощении.\n\nC — неверно: Уотсон отмечает убедительность всей манеры, а не провал костюма.\n\nD — неверно: Связь этих талантов с его работой и делает сравнение содержательным.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "holmes",
+        "locator": "A Scandal in Bohemia, Holmes's disguise as a clergyman",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-alice-identity",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": 2,
+      "passage": "Alice wonders whether she has changed during the night. Yesterday everything seemed ordinary, but now her experiences no longer fit what she expects. She tries to recall whether she felt the same on waking, then asks who she is if she is no longer the same person. She begins considering other children she knows, as though a change in her circumstances might mean that she has become one of them. Her attempt to explain the strange world therefore becomes a question about the continuity of her own identity.",
+      "stem": "How does the passage develop Alice's concern?",
+      "choices": [
+        "It moves from certainty about a scientific result to a formal proof.",
+        "It lists the names of every child Alice has ever met.",
+        "It moves from unexpected experiences to an effort to determine whether she herself has changed.",
+        "It explains that Alice has already identified which child she has become."
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Ни научной уверенности, ни доказательства в тексте нет.\n\nB — неверно: Она думает о знакомых детях, но полного списка текст не даёт.\n\nC — верно: Сначала необычен мир, затем Алиса переносит вопрос на собственную личность.\n\nD — неверно: Она задаётся вопросом, а не сообщает установленную замену.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "alice",
+        "locator": "Chapter 2, Alice asks who she is",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-lessons-pun",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "difficulty": 2,
+      "passage": "The Mock Turtle describes a school where the hours of instruction became fewer each day: ten on the first day, nine on the next, and so on. When Alice asks about this arrangement, the explanation plays on the sound of the word lessons and the verb lessen. An ordinary term for periods of instruction is treated as if its sound provided a rule for organizing the school day. The exchange uses a resemblance between words to make a familiar institution behave according to an unfamiliar logic.",
+      "stem": "As used in the passage, lessen most nearly means",
+      "choices": [
+        "teach",
+        "remember",
+        "continue",
+        "decrease"
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Уроки связаны с преподаванием, но lessen означает не это.\n\nB — неверно: Воспоминание не объясняет сокращение часов.\n\nC — неверно: Продолжение не передаёт изменение количества вниз.\n\nD — верно: Число учебных часов становится меньше, то есть уменьшается.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "alice",
+        "locator": "Chapter 9, lessons and lessening",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-struggle-metaphor",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": 2,
+      "passage": "Darwin explains that he uses struggle for existence in a broad, metaphorical sense. Two animals competing for food fit the phrase, but so does a plant's dependence on moisture or on another organism that helps it reproduce. The term includes success in leaving offspring, not merely survival through a direct physical contest. By setting out this broad usage, Darwin prepares readers to recognize pressures and dependencies that would disappear from view if struggle were understood only as an encounter between fighting individuals.",
+      "stem": "Why does the passage emphasize that Darwin's use of struggle is metaphorical?",
+      "choices": [
+        "To prevent readers from limiting the concept to direct physical conflict.",
+        "To withdraw the claim that organisms depend on resources.",
+        "To claim that reproduction has no role in the argument.",
+        "To separate all plants from the discussion of existence."
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Уточнение расширяет смысл до зависимостей и воспроизводства.\n\nB — неверно: Зависимость от ресурсов приводится как пример, а не отвергается.\n\nC — неверно: Продолжение рода прямо включено в смысл термина.\n\nD — неверно: Растения служат важным примером широкого употребления.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 3, broad sense of struggle for existence",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-tree-analogy",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": 3,
+      "passage": "Darwin compares the relationships of organisms to a tree whose growing branches represent forms now living. The branches diverge from older limbs, and many earlier branches have ceased to grow. On this picture, living forms need not stand in a single sequence from least to most advanced. Their relations depend on branching histories, some represented by surviving offshoots and others interrupted by extinction. The image combines present diversity with the loss of forms that once connected parts of that diversity more visibly.",
+      "stem": "Which feature of the analogy most directly represents the effect of extinction on present diversity?",
+      "choices": [
+        "Every living branch occupies the same position along a single unbranched trunk.",
+        "Some earlier branches no longer grow, although surviving offshoots remain part of the tree.",
+        "The tree has no historical connection between its limbs.",
+        "A larger leaf necessarily represents a morally superior organism."
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Такое устройство уничтожает главное свойство образа — ветвление.\n\nB — верно: Прервавшиеся ветви передают исчезновение форм при сохранении других линий общего дерева.\n\nC — неверно: Образ как раз представляет исторические связи.\n\nD — неверно: Размер и моральная оценка не входят в аналогию.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 4, great tree analogy",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-literacy-double-effect",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": 3,
+      "passage": "Douglass describes reading as giving shape and language to his opposition to enslavement. Yet the knowledge it brought could also deepen his unhappiness: he understood his condition more fully without immediately gaining the means to escape it. These responses are presented together, rather than as evidence that one of them was insincere. His account distinguishes a change in understanding from a change in material freedom, showing how the first could be transformative even while the second remained out of reach.",
+      "stem": "What is the function of describing reading as both empowering and painful?",
+      "choices": [
+        "To concede that reading produced no meaningful change until a practical means of escape became available.",
+        "To imply that improved understanding normally supplies the material freedom whose absence had caused the distress.",
+        "To distinguish the expansion of understanding from the immediate ability to change one's circumstances.",
+        "To rank emotional comfort as a more reliable measure of educational value than increased understanding."
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Понимание уже названо преобразующим, хотя немедленного выхода из несвободы ещё нет.\n\nB — неверно: Рассуждение разводит эти два изменения, а не устанавливает автоматический переход между ними.\n\nC — верно: Знание даёт осмысление и язык сопротивления, но ещё не обеспечивает возможности побега; отсюда обе реакции.\n\nD — неверно: Текст показывает совместимость боли и ценности знания, а не делает комфорт критерием его пользы.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "douglass",
+        "locator": "Chapter 7, painful consequences of reading",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-unconscious-selection",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "difficulty": 2,
+      "passage": "Darwin distinguishes deliberate breeding toward a specified standard from a process he calls unconscious selection. People may repeatedly preserve the animals they find most useful or attractive without intending to create a new breed. Over generations, their choices can nevertheless change the population. In this usage, unconscious does not mean that the people are asleep or unaware of which animal they keep. It concerns the absence of an explicit long-term project corresponding to the accumulated result.",
+      "stem": "As used in the passage, unconscious most nearly means",
+      "choices": [
+        "performed only while asleep",
+        "incapable of producing any lasting change",
+        "governed by a complete written breeding standard",
+        "not directed toward a consciously planned long-term result"
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Здесь нет буквального сна или потери сознания.\n\nB — неверно: Накопительные изменения прямо описаны.\n\nC — неверно: Это соответствовало бы намеренному отбору, с которым проводится различие.\n\nD — верно: Люди выбирают животных осознанно, но не ставят конечную цель вывести новую породу.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 1, unconscious selection",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-janes-candour",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "difficulty": 2,
+      "passage": "Elizabeth contrasts her sister Jane's readiness to think well of others with her own habit of quickly finding faults. Jane is reluctant to assume bad motives when a more generous interpretation is available. Elizabeth sometimes regards this candour as excessive, yet later recognizes that her own critical judgments have also been shaped by vanity. In this context, the sister's candour concerns the charitable way she interprets other people, rather than an eagerness to voice every unfavorable thought without restraint.",
+      "stem": "As used in the passage, candour most nearly means",
+      "choices": [
+        "generosity in judging others",
+        "financial generosity through gifts",
+        "harsh frankness in expressing criticism",
+        "certainty based on complete knowledge"
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Контекст определяет благожелательное толкование чужих мотивов, а не резкую откровенность.\n\nB — неверно: Речь о суждениях, а не о денежных подарках.\n\nC — неверно: Это противоречит нежеланию Джейн приписывать дурные мотивы.\n\nD — неверно: Благожелательность не означает полного знания фактов.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapters 4 and 36, Jane's favorable interpretations of others",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-holmes-singular",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "difficulty": 2,
+      "passage": "A man describes to Holmes an organization that offers paid employment only to men with a particular hair color. The work consists of copying entries from an encyclopedia, and the conditions for keeping the position seem unrelated to the value of the copying itself. Holmes treats the arrangement as singular. What interests him is not merely that one person accepted the position, but that several details of the offer are sufficiently unusual to suggest that its stated purpose may not be its actual purpose.",
+      "stem": "As used in the passage, singular most nearly means",
+      "choices": [
+        "grammatically one rather than plural",
+        "unusual",
+        "widely accepted as ordinary",
+        "incapable of investigation"
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Контекст не касается грамматического числа.\n\nB — верно: Особенность предложения, а не грамматическое число или одиночество человека, привлекает внимание.\n\nC — неверно: Напротив, условия выглядят необычными.\n\nD — неверно: Необычность как раз делает предложение объектом расследования.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "holmes",
+        "locator": "The Red-Headed League, unusual circumstances of the advertised position",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-selection-two-texts",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Cross-Text Connections",
+      "difficulty": 3,
+      "passage": "Text 1\nA breeder repeatedly keeps individuals possessing a favored difference. After many generations, the population may exhibit that difference more strongly. The breeder's purpose helps determine which variations are preserved.\n\nText 2\nIn nature, differences that improve an organism's success under existing conditions can be preserved through differential survival and reproduction. No breeder needs to foresee the eventual result. The conditions under which organisms live affect which differences prove advantageous.",
+      "stem": "Which statement best describes a relationship between the texts?",
+      "choices": [
+        "Text 2 transfers the breeder's deliberate planning to the organisms themselves while retaining the same requirement for foresight.",
+        "Text 1 explains differences by their initial appearance, whereas Text 2 alone explains their preservation.",
+        "Both describe the preservation of variation over generations, while Text 2 removes the need for a chooser with a planned goal.",
+        "Text 2 treats the inheritance of a variation as sufficient to preserve it regardless of the conditions organisms face."
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Отсутствие селекционера не означает переноса его сознательной цели на организмы.\n\nB — неверно: Первый текст тоже описывает повторное сохранение различий, а не только их возникновение.\n\nC — верно: Общий механизм — неодинаковое сохранение различий; различается наличие человеческой цели.\n\nD — неверно: Второй текст связывает преимущество с условиями жизни; одной наследуемости недостаточно.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapters 1 and 4, artificial and natural selection",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-self-opinion-two-texts",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Craft and Structure",
+      "skill": "Cross-Text Connections",
+      "difficulty": 3,
+      "passage": "Text 1\nMary distinguishes pride, an opinion of oneself, from vanity, a concern with what others think. A person may have the first without necessarily having the second.\n\nText 2\nElizabeth recognizes that being flattered by one acquaintance and slighted by another influenced judgments she had considered independent. Her favorable estimate of her own discernment had concealed how much she wanted those judgments to confirm a pleasing view of herself.",
+      "stem": "How does Text 2 relate to the distinction in Text 1?",
+      "choices": [
+        "It supplies a counterexample to Text 1 by showing that pride and vanity sometimes occur together.",
+        "It illustrates pride without vanity because Elizabeth's conclusions concern her own discernment rather than anyone else's views of her.",
+        "It shows that concern with others' opinions necessarily eliminates a favorable opinion of oneself.",
+        "It presents a case where the two concerns interact without disproving that they can be distinguished."
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Text 1 допускает различение, но не утверждает невозможности совместного присутствия.\n\nB — неверно: Уверенность в проницательности связана с реакцией на лесть и пренебрежение: второй компонент нельзя удалить.\n\nC — неверно: У Элизабет эти два компонента прежде поддерживали друг друга, а не взаимно исключались.\n\nD — верно: У Элизабет мнение о себе и чувствительность к чужой оценке связаны; это не опровергает различимость понятий.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapters 5 and 36, Mary and Elizabeth on self-regard",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-breeding-notes",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": 2,
+      "passage": "While researching selection, a student takes these notes:\n- Breeders can choose individuals possessing desired differences.\n- Deliberate selection aims at an explicit breeding goal.\n- Unconscious selection can arise when people keep useful animals without intending to create a new breed.\n- Both processes can accumulate differences over generations.\n- The distinction concerns intention, not whether inherited variation is involved.",
+      "stem": "The student wants to emphasize a similarity while preserving the distinction between the processes. Which choice best achieves this goal?",
+      "choices": [
+        "Both deliberate and unconscious selection can accumulate inherited differences, although only the former requires an explicit breeding goal.",
+        "Only deliberate selection can change animals over generations.",
+        "Unconscious selection means that people never choose which animals to keep.",
+        "Breeders sometimes have explicit goals."
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Одновременно названы общая черта и критерий различия.\n\nB — неверно: Это противоречит заметке о накоплении изменений в обоих процессах.\n\nC — неверно: Выбор есть; отсутствует долгосрочная цель создания породы.\n\nD — неверно: Фраза верна, но не формулирует запрошенное сходство.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 1, deliberate and unconscious selection; notes adapted by 365step",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-learning-notes",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": 2,
+      "passage": "A student's notes about Douglass's account state:\n- Regular instruction was stopped.\n- He continued looking for opportunities to learn.\n- Boys he met during errands sometimes helped him read.\n- Bread could be exchanged for instruction.\n- Access to reading material also supported his learning.\n- His education therefore involved several improvised methods rather than one continuous formal course.",
+      "stem": "Which choice best supports the generalization that Douglass adapted his learning methods to obstacles?",
+      "choices": [
+        "Douglass received uninterrupted formal instruction from a single teacher.",
+        "After regular lessons ended, Douglass sought informal instruction during errands and used available resources to obtain it.",
+        "Bread is a kind of food that can be carried during errands.",
+        "Learning is possible only when a school provides a complete course."
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Это противоречит прекращению регулярных уроков.\n\nB — верно: Связаны препятствие, перемена способа и доступные средства.\n\nC — неверно: Бытовая деталь не объясняет адаптацию обучения.\n\nD — неверно: История показывает как раз другие пути.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "douglass",
+        "locator": "Chapter 7, informal methods of acquiring literacy; notes adapted by 365step",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-ball-notes",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": 3,
+      "passage": "A student notes the Bennet family's responses to a ball:\n- Mrs. Bennet is pleased by the admiration shown to Jane.\n- Jane is pleased too, though less demonstratively.\n- Elizabeth shares Jane's pleasure.\n- Mary values being praised as accomplished.\n- Catherine and Lydia value having dance partners.\n- The family returns in good spirits, but the narrator assigns different immediate reasons to different members.",
+      "stem": "Which choice best expresses the contrast between the family's shared mood and its varied sources?",
+      "choices": [
+        "Every Bennet family member is cheerful exclusively because Jane has been admired.",
+        "Their different interests prevent any shared positive response to the evening.",
+        "The family returns cheerful, although individual members find satisfaction in different kinds of attention and enjoyment.",
+        "Mary's pleasure demonstrates that no one else receives attention."
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Общая причина ошибочно подменяет разные перечисленные мотивы.\n\nB — неверно: Различия сочетаются с общим хорошим настроением.\n\nC — верно: Сохранён общий результат и различие причин; ни одна из частных мотиваций не объявлена всеобщей.\n\nD — неверно: Такого исключения заметки не допускают.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapter 3, the family's different satisfactions after the ball",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-disguise-notes",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": 2,
+      "passage": "A student investigating Holmes's disguises records:\n- Holmes can change his clothing for a role.\n- Watson also notices changes in his expression.\n- His manner and apparent disposition change.\n- Watson compares his ability to that of an actor.\n- The description attributes the disguise's effect to a coordinated performance rather than clothing alone.",
+      "stem": "Which choice best emphasizes that the disguise involves more than costume?",
+      "choices": [
+        "Holmes wears different clothing when he adopts a disguise.",
+        "Watson never notices Holmes's physical appearance.",
+        "An actor must avoid changing expression.",
+        "Holmes's altered expression and manner accompany his changed clothing, making his disguise a performance of a character."
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Названа только одежда, а задача требует выйти за её пределы.\n\nB — неверно: Это противоречит наблюдениям, перечисленным в заметках.\n\nC — неверно: Утверждение не вытекает из заметок и противоположно их смыслу.\n\nD — верно: Одежда сопоставлена с выражением лица и манерой — ровно нужное расширение.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "holmes",
+        "locator": "A Scandal in Bohemia, transformation beyond costume",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-caucus-notes",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": 2,
+      "passage": "Notes about the Caucus-race in Alice's Adventures in Wonderland:\n- Participants begin running when they choose.\n- There is no ordinary starting signal.\n- They run without a fixed finish line.\n- The Dodo eventually declares the race over.\n- Everyone is said to have won and everyone must receive a prize.\n- The episode gives a familiar competitive label to an activity lacking several normal competitive procedures.",
+      "stem": "Which sentence best emphasizes the unusual relation between the activity's name and its rules?",
+      "choices": [
+        "Called a race, the activity has neither a coordinated start nor a fixed finish and ends with everyone declared a winner.",
+        "The Dodo participates in an activity with other characters.",
+        "Only the fastest runner receives a prize after an official starting signal.",
+        "All races necessarily begin and end in exactly the same way."
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Фраза соединяет название с конкретными нарушениями обычной соревновательной структуры.\n\nB — неверно: Общая деталь не раскрывает необычное отношение названия и правил.\n\nC — неверно: Это противоположно заметкам.\n\nD — неверно: Ненужное всеобщее утверждение не описывает этот эпизод.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "alice",
+        "locator": "Chapter 3, Caucus-race",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-selection-transition",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Expression of Ideas",
+      "skill": "Transitions",
+      "difficulty": 2,
+      "passage": "A small inherited difference may be difficult to notice when a single generation is examined. The repeated preservation of that difference can have substantial effects over many generations. ______ a feature's initially modest size does not by itself establish that its eventual contribution to divergence will also be modest. The timescale of the comparison matters when evaluating the cumulative effects of selection.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        "Nevertheless,",
+        "Consequently,",
+        "For example,",
+        "Meanwhile,"
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Здесь не опровержение предыдущего утверждения, а его следствие.\n\nB — верно: Вывод следует из возможности накопления малых различий.\n\nC — неверно: Следующая фраза делает общий вывод, а не приводит частный пример.\n\nD — неверно: Одновременность процессов не является нужной логической связью.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapters 1 and 4, accumulated effects; new linking sentence",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-letter-transition",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Expression of Ideas",
+      "skill": "Transitions",
+      "difficulty": 2,
+      "passage": "Elizabeth had treated her confidence in her own discernment as a reason to trust her judgments. Darcy's letter forces her to examine how flattery and wounded pride had influenced those judgments. ______ the very confidence that once supported her conclusions becomes something she must investigate. Her revision concerns the process of judging as well as the people she has judged.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        "For instance,",
+        "In contrast,",
+        "As a result,",
+        "Similarly,"
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Речь о результате описанного перелома, а не о новом частном примере прежней уверенности.\n\nB — неверно: Последнее предложение развивает последствие, а не противопоставляет независимый случай.\n\nC — верно: Переоценка уверенности — следствие проверки влияния лести и задетой гордости.\n\nD — неверно: Два аналогичных случая для сравнения здесь не вводятся.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapter 36, revision of Elizabeth's judgment; new linking sentence",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-literacy-transition",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Expression of Ideas",
+      "skill": "Transitions",
+      "difficulty": 3,
+      "passage": "Reading gave Douglass arguments and language with which to understand his opposition to enslavement. It did not immediately provide a means of escape. His greater understanding could therefore make his condition more painful to contemplate. ______ this pain did not make the knowledge meaningless: it reflected a sharper awareness of the very injustice he wished to overcome.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        "For this reason alone,",
+        "For example,",
+        "In other words,",
+        "Even so,"
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Ценность знания не выводится исключительно из боли; текст противопоставляет слишком узкому выводу оговорку.\n\nB — неверно: Следующая фраза — ограничение вывода, а не частный пример боли.\n\nC — неверно: Сохранение смысла знания не является простым перефразированием его болезненности.\n\nD — верно: Уступка соединяет реальную болезненность знания с сохранением его ценности; нужно удержать оба утверждения.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "douglass",
+        "locator": "Chapter 7, literacy and anguish; new concessive relation",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-variation-agreement",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": 2,
+      "passage": "Darwin's discussion separates the existence of inherited differences from the choices a breeder makes about them. The preservation of differences among many successive generations of animals ______ a central part of the explanation; the breeder's immediate preferences matter because their effects can accumulate over time.",
+      "stem": "Which choice completes the text so that it conforms to Standard English?",
+      "choices": [
+        "is",
+        "are",
+        "have been",
+        "were"
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Подлежащее preservation — единственное число. Вложенные differences, generations и animals не меняют согласование.\n\nB — неверно: Множественное число ошибочно согласуется с существительными внутри зависимых оборотов.\n\nC — неверно: Have не согласуется с единственным preservation.\n\nD — неверно: Множественное were не согласуется с подлежащим и нарушает настоящее изложение.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 1, variations under domestication; sentence adapted for grammar",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-sisters-possessive",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "difficulty": 2,
+      "passage": "After the ball, Jane is pleased by admiration, Mary by praise for her accomplishments, and Catherine and Lydia by their dance partners. The narrator presents several ______ responses to one evening, showing that their common good mood need not arise from an identical source.",
+      "stem": "Which choice completes the text so that it conforms to Standard English?",
+      "choices": [
+        "sister's",
+        "sisters'",
+        "sisters",
+        "sisters's"
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Это притяжательное одной сестры; several требует множественного владельца.\n\nB — верно: Responses принадлежат нескольким сёстрам: множественное притяжательное sisters' с апострофом после s.\n\nC — неверно: Без апострофа не оформлено требуемое притяжательное отношение в данной конструкции.\n\nD — неверно: Так не образуется притяжательное правильного множественного на s.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapter 3, several sisters' reactions; sentence adapted for grammar",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-holmes-boundary",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "difficulty": 2,
+      "passage": "Watson has walked up the same staircase countless times, but he cannot give its number of steps. Holmes uses the contrast to explain a ______ seeing something repeatedly does not necessarily mean observing its particular features. Watson's familiarity with the place has not produced the specific knowledge Holmes requests.",
+      "stem": "Which choice completes the text so that it conforms to Standard English?",
+      "choices": [
+        "distinction,",
+        "distinction; because",
+        "distinction:",
+        "distinction which:"
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Запятая одна не соединяет две самостоятельные основы в этой конструкции.\n\nB — неверно: После точки с запятой because превращает вторую часть в зависимый фрагмент без главной части.\n\nC — верно: Первая часть до двоеточия — законченное предложение; далее объясняется содержание различия.\n\nD — неверно: Which начинает относительное придаточное, которое двоеточие не завершает.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "holmes",
+        "locator": "A Scandal in Bohemia, observation; sentence adapted for punctuation",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-alice-modifier",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": 2,
+      "passage": "Alice's unusual experiences make her question whether she is still the person she was the day before. Looking down at her feet as her body grows, ______. The comic image turns an unexpected physical change into a problem of identity and even of how she will manage ordinary clothing.",
+      "stem": "Which choice completes the text so that it conforms to Standard English?",
+      "choices": [
+        "the shoes become a problem for Alice",
+        "a question about shoes occurs to Alice",
+        "there is a question about her shoes",
+        "Alice wonders who will put on her shoes"
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Получается, что looking down относится к shoes, хотя смотрит Алиса.\n\nB — неверно: Подлежащее question не может быть тем, кто смотрит вниз.\n\nC — неверно: Безличное there не даёт деепричастному обороту логического исполнителя.\n\nD — верно: Смотрит Алиса, и сразу после вводного оборота стоит нужное подлежащее Alice.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "alice",
+        "locator": "Chapter 2, Alice's changing size; new sentence construction",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-record-list-colon",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "difficulty": 2,
+      "passage": "A fossil record is shaped by more than the organisms that once lived. Darwin's discussion directs attention to several ______ preservation, the survival of deposits, and the portions of those deposits that investigators can examine. These conditions affect how much of the past can appear in a present collection.",
+      "stem": "Which choice completes the text so that it conforms to Standard English?",
+      "choices": [
+        "filters: the conditions of",
+        "filters the conditions of",
+        "filters; the conditions of",
+        "filters the conditions of:"
+      ],
+      "answer": 0,
+      "explanation": "A — верно: Двоеточие после законченной первой части вводит список; the conditions of preservation — его первый элемент.\n\nB — неверно: Между законченным предложением и поясняющим перечнем пропущен знак препинания.\n\nC — неверно: После точки с запятой получается перечень без сказуемого, а не самостоятельное предложение.\n\nD — неверно: Список ошибочно разорван двоеточием между of и дополнением.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapter 9, incomplete geological record; sentence adapted for punctuation",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-reading-however",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "difficulty": 2,
+      "passage": "Reading helped Douglass articulate reasons to oppose enslavement. Greater understanding could also intensify his distress. Knowledge expanded his view of what freedom ______ it did not immediately supply a way to obtain that freedom. The two effects are presented as compatible parts of his experience.",
+      "stem": "Which choice completes the text so that it conforms to Standard English?",
+      "choices": [
+        "meant, however,",
+        "meant; however,",
+        "meant however",
+        "meant; however;"
+      ],
+      "answer": 1,
+      "explanation": "A — неверно: Две самостоятельные части оказываются соединены одной запятой: comma splice.\n\nB — верно: До и после however две самостоятельные части: перед ним нужна точка с запятой, после вводного наречия — запятая.\n\nC — неверно: Не оформлена граница самостоятельных частей и обособление however.\n\nD — неверно: Вторая точка с запятой оставляет however отдельным фрагментом.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "douglass",
+        "locator": "Chapter 7, distinction between knowledge and escape; sentence adapted for punctuation",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-elizabeth-tense",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": 2,
+      "passage": "When Elizabeth reconsidered her first judgments, she recognized how strongly personal feeling had directed them. Before the letter arrived, she ______ her own confidence as proof of clear discernment. The new information required her to examine that earlier confidence rather than merely to replace one acquaintance's story with another's.",
+      "stem": "Which choice completes the text so that it conforms to Standard English?",
+      "choices": [
+        "will treat",
+        "has treating",
+        "had treated",
+        "having treat"
+      ],
+      "answer": 2,
+      "explanation": "A — неверно: Будущее не соответствует earlier и прошедшей временной рамке.\n\nB — неверно: Форма после has должна быть причастием прошедшего времени, а не treating.\n\nC — верно: Past perfect отмечает отношение к уверенности до прибытия письма и последующей переоценки.\n\nD — неверно: Это не личная глагольная форма, требуемая главному предложению.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "austen",
+        "locator": "Chapter 36, Elizabeth's earlier judgments; new past-perfect construction",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    },
+    {
+      "id": "open-rw-selection-not-only",
+      "section": "rw",
+      "source": "bank",
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": 2,
+      "passage": "A description of selection must explain more than the first appearance of a difference. The account considers not only how a difference ______ how it can be preserved over many generations. Separating these questions helps readers understand why the source of a variation and its later accumulation need not be the same process.",
+      "stem": "Which choice completes the text so that it conforms to Standard English?",
+      "choices": [
+        "arises and also of",
+        "arises, but also considering",
+        "arising but also",
+        "arises but also"
+      ],
+      "answer": 3,
+      "explanation": "A — неверно: Вторая часть of how... перестаёт быть параллельной первой how... и не завершает not only корректно.\n\nB — неверно: Considering не параллельно придаточному how a difference arises.\n\nC — неверно: В первой придаточной части пропадает личное сказуемое для a difference.\n\nD — верно: Параллельные части not only how... but also how... симметрично называют два вопроса.",
+      "purpose": "assessment",
+      "attribution": {
+        "sourceId": "darwin",
+        "locator": "Chapters 1 and 4, preservation across generations; new parallel construction",
+        "changes": "Пересказ/адаптация английского оригинала общественного достояния. Вопрос, варианты и русское объяснение созданы 365step; адаптация — CC BY-SA 4.0."
+      }
+    }
+  ]
+}

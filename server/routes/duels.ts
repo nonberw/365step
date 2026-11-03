@@ -1,3 +1,4 @@
+import { isUsableEnt } from "../../shared/entQuality";
 import { Router } from "express";
 import { ENT_SUBJECT, type EntLang, type EntQuestion } from "../../shared/ent";
 import { requireStudent, type UserRow } from "../auth";
@@ -136,7 +137,7 @@ duelsRouter.post(
     const s = ENT_SUBJECT[subject]!;
     const lang = s.fixedLang ?? (await one<{ lang: EntLang }>("SELECT lang FROM ent_profiles WHERE user_id = ?", u.id))?.lang ?? "ru";
     await fill(s, lang, "single", SIZE * 2);
-    const pool = await all<{ id: string }>("SELECT id FROM ent_questions WHERE subject = ? AND lang = ? AND type = 'single'", subject, lang);
+    const pool = (await all<{ id: string; data: string }>("SELECT id, data FROM ent_questions WHERE subject = ? AND lang = ? AND type = 'single'", subject, lang)).filter((r) => isUsableEnt(JSON.parse(r.data)));
     if (pool.length < SIZE) throw new HttpError(503, "Не хватило заданий, попробуй через минуту");
     const ids = pool
       .map((p) => [Math.random(), p.id] as const)

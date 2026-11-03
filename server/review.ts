@@ -1,3 +1,4 @@
+import { isUsableEnt } from "../shared/entQuality";
 import { DefaultScheduler, Rating } from "ts-fsrs";
 import { all, one, run } from "./db";
 
@@ -46,10 +47,10 @@ export async function reviewResult(userId: string, module: ReviewModule, itemId:
 
 export async function reviewSummary(userId: string) {
   const now = Date.now();
-  const rows = await all<{ module: ReviewModule; item_id: string; stage: number; due_at: number; card: string | null }>(
-    "SELECT module, item_id, stage, due_at, card FROM review_queue WHERE user_id = ? ORDER BY due_at",
+  const rows = await all<{ module: ReviewModule; item_id: string; stage: number; due_at: number; card: string | null; ent_data: string | null }>(
+    "SELECT r.module, r.item_id, r.stage, r.due_at, r.card, q.data ent_data FROM review_queue r LEFT JOIN ent_questions q ON r.module = 'ent' AND q.id = r.item_id WHERE r.user_id = ? ORDER BY r.due_at",
     userId,
-  );
+  ).then((rows) => rows.filter((r) => r.module !== "ent" || (r.ent_data && isUsableEnt(JSON.parse(r.ent_data)))));
   const due = rows.filter((r) => r.due_at <= now);
   const days = Array.from({ length: 7 }, (_, i) => {
     const from = now + i * DAY;

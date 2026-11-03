@@ -1,0 +1,44 @@
+{
+  "commit": "4922e46ebc04326979e19392ccc2384cb8b9076c",
+  "sourceSha256": "35de2ba148e8e8e972e888e08a5b82435d1f7412cc43cd5c708341b0b9159f92",
+  "questions": 659,
+  "difficulty": {
+    "1": 82,
+    "2": 546,
+    "3": 31
+  },
+  "bySourceSection": {
+    "Functions and Function Notation": 8,
+    "Domain and Range": 15,
+    "Composition of Functions": 7,
+    "Transformation of Functions": 8,
+    "Inverse Functions": 29,
+    "Linear Functions": 12,
+    "Fitting Linear Models to Data": 15,
+    "Quadratic Functions": 27,
+    "Power Functions and Polynomial Functions": 16,
+    "Graphs of Polynomial Functions": 25,
+    "Dividing Polynomials": 44,
+    "Zeros of Polynomial Functions": 30,
+    "Rational Functions": 66,
+    "Inverses and Radical Functions": 11,
+    "Modeling Using Variation": 32,
+    "Systems of Linear Equations: Two Variables": 39,
+    "Graphs of Linear Functions": 26,
+    "Real Numbers: Algebra Essentials": 14,
+    "Exponents and Scientific Notation": 4,
+    "Radicals and Rational Exponents": 2,
+    "Polynomials": 27,
+    "Factoring Polynomials": 34,
+    "Rational Expressions": 41,
+    "Linear Equations in One Variable": 41,
+    "Models and Applications": 1,
+    "Quadratic Equations": 44,
+    "Other Types of Equations": 13,
+    "Linear Inequalities and Absolute Value Inequalities": 28
+  },
+  "excluded": {
+    "ValueError": 1888,
+    "PolynomialError": 283
+  }
+}

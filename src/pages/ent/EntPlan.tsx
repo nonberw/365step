@@ -20,6 +20,7 @@ interface Task {
 }
 
 interface PlanResponse {
+  exam: { year: number; name: string; tentative: boolean };
   plan: { summary: string; weeks: { week: number; focus: string; tasks: Task[] }[]; milestones: { month: string; target: number; note: string }[]; mode: string };
   createdAt: number;
   progress: { week: number; from: number; tasks: { done: number; of: number }[] };
@@ -64,7 +65,7 @@ export function EntPlan({ meta, onStart, busy }: { meta: EntMeta; onStart: (kind
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">Адаптивный план · пересчитывается после каждого пробника</p>
-          <h2 className="mt-1 font-display text-2xl font-semibold">Мой план до ЕНТ</h2>
+          <h2 className="mt-1 font-display text-2xl font-semibold">Мой план до ЕНТ {data.exam.year}</h2>
         </div>
         <Button variant="outline" size="sm" onClick={rebuild}>
           <RefreshCw /> Пересчитать

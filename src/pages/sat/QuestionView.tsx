@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Bookmark, Highlighter, Strikethrough } from "lucide-react";
 import type { SatQuestionPublic } from "@shared/types";
 import { DIFFICULTY_RU, DOMAIN_RU } from "@shared/types";
+import { SAT_OPEN_SOURCES, SAT_OPEN_LICENSE } from "@shared/satSources";
 import { RichText } from "@/components/RichText";
 import { Badge } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -43,6 +44,7 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
   }
 
   const passage = q.passage ? markHighlights(q.passage, highlights) : null;
+  const source = q.attribution && SAT_OPEN_SOURCES[q.attribution.sourceId];
 
   return (
     <div className={cn("grid gap-6", q.passage && "lg:grid-cols-2 lg:gap-0 lg:divide-x lg:divide-border")}>
@@ -77,10 +79,20 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
               <Badge>{DOMAIN_RU[q.domain]}</Badge>
               <Badge tone={q.difficulty === 3 ? "bad" : q.difficulty === 2 ? "warn" : "ok"}>{DIFFICULTY_RU[q.difficulty]}</Badge>
               {q.source === "ai" && <Badge tone="dark">Сделано ИИ</Badge>}
+              {q.purpose === "reinforcement" && <Badge>Вариант для закрепления</Badge>}
             </span>
           )}
         </div>
         <RichText text={q.stem} className="text-[16px] font-medium" />
+        {source && q.attribution && (
+          <details className="mt-3 text-xs text-muted-foreground">
+            <summary className="cursor-pointer underline underline-offset-2">Источник и лицензия</summary>
+            <p className="mt-2"><a href={source.url} target="_blank" rel="noreferrer" className="underline">{source.title}</a> · {source.authors} · {source.edition}</p>
+            <p className="mt-1">{q.attribution.locator} · <a href={source.licenseUrl} target="_blank" rel="noreferrer" className="underline">{source.license}</a></p>
+            <p className="mt-1">{q.attribution.changes} Источник не подтверждает и не одобряет эту адаптацию.</p>
+            <p className="mt-1"><a href={q.attribution.licenseUrl ?? SAT_OPEN_LICENSE} target="_blank" rel="noreferrer" className="underline">Лицензия адаптации: {q.attribution.license ?? "CC BY-SA 4.0"}</a> · <a href={q.attribution.download ?? "/content/sat-open-2026.json"} download className="underline">Скачать открытый набор с решениями</a></p>
+          </details>
+        )}
         {q.choices ? (
           <ul className="mt-5 flex flex-col gap-2.5" role="radiogroup" aria-label="Варианты ответа">
             {q.choices.map((c, i) => {
@@ -132,7 +144,7 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
             <label htmlFor={`grid-${q.id}`} className="text-xs font-semibold text-muted-foreground">
               Ответ (число, дробь вида 3/4 или десятичная)
             </label>
-            <Input id={`grid-${q.id}`} className="h-12 max-w-[220px] font-mono text-lg" value={(value as string) ?? ""} disabled={locked} onChange={(e) => onChange(e.target.value.replace(/[^\d./-]/g, "").slice(0, 7) || null)} />
+            <Input id={`grid-${q.id}`} className="h-12 max-w-[220px] font-mono text-lg" value={(value as string) ?? ""} disabled={locked} onChange={(e) => onChange(e.target.value.replace(/[^\d.,/−+-]/g, "").slice(0, 60) || null)} />
             {reveal && <p className={cn("text-sm font-semibold", reveal.correct ? "text-success" : "text-destructive")}>Правильный ответ: {String(reveal.answer)}</p>}
           </div>
         )}

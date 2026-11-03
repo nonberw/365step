@@ -1,7 +1,8 @@
+import { selectAssessment, familyOf, fingerprint } from "../../shared/satQuality";
 import { Router } from "express";
 import type { Difficulty, SatDomain, SatModuleState, SatQuestion, SatQuestionPublic, SatQuestionSummary, SatSection, SatTestState } from "../../shared/types";
 import { DOMAIN_RU, SAT_DOMAINS } from "../../shared/types";
-import { SAT_BANK, SAT_BY_ID, freshMath, isCorrect, scaleSection } from "../../shared/sat";
+import { SAT_BANK, SAT_ACTIVE_BANK, SAT_BY_ID, freshMath, isCorrect, scaleSection } from "../../shared/sat";
 import { VOCAB, VOCAB_BY_ID } from "../../shared/vocab";
 import { reviewResult } from "../review";
 import { requireStudent, toPublic } from "../auth";
@@ -28,7 +29,7 @@ async function questionMap(ids: string[]) {
   return new Map(pairs);
 }
 
-const toPublicQ = ({ answer: _a, explanation: _e, ...q }: SatQuestion): SatQuestionPublic => q;
+const toPublicQ = ({ answer: _a, explanation: _e, acceptedAnswers: _accepted, ...q }: SatQuestion): SatQuestionPublic => q;
 
 async function lastResults(userId: string) {
   const map = new Map<string, boolean>();
@@ -59,12 +60,17 @@ satRouter.get(
     const difficulty = Number(req.query.difficulty) as Difficulty | 0;
     const skills = req.query.skills ? String(req.query.skills).split("|") : null;
     const status = String(req.query.status ?? "all");
+    const purpose = String(req.query.purpose ?? "");
     const page = Math.max(0, Number(req.query.page) || 0);
     const results = await lastResults(u.id);
     const saved = await savedSet(u.id);
     const ai = (await all<{ data: string }>("SELECT data FROM ai_questions ORDER BY created_at DESC LIMIT 200")).map((r) => JSON.parse(r.data) as SatQuestion);
-    const items: SatQuestionSummary[] = [...SAT_BANK, ...ai]
-      .filter((q) => (!section || q.section === section) && (!domain || q.domain === domain) && (!difficulty || q.difficulty === difficulty) && (!skills || skills.includes(q.skill)))
+    const items: SatQuestionSummary[] = [...(status === "all" || status === "new" ? SAT_ACTIVE_BANK : SAT_BANK), ...ai]
+      .filter((q) => req.query.collection !== "open" || q.id.startsWith("open-math-") || q.id.startsWith("open-rw-"))
+      .filter((q) => req.query.collection !== "scale" || q.id.startsWith("scale-"))
+      .filter((q) => req.query.collection !== "scale-source" || q.id.startsWith("scale-source-") || q.id.startsWith("scale-rw-"))
+      .filter((q) => req.query.collection !== "scale-practice" || q.id.startsWith("scale-practice-") || q.id.startsWith("scale-deepmind-"))
+      .filter((q) => (!section || q.section === section) && (!domain || q.domain === domain) && (!difficulty || q.difficulty === difficulty) && (!skills || skills.includes(q.skill)) && (!purpose || q.purpose === purpose))
       .map((q) => {
         const r = results.get(q.id);
         return {
@@ -73,6 +79,7 @@ satRouter.get(
           domain: q.domain,
           skill: q.skill,
           difficulty: q.difficulty,
+          purpose: q.purpose,
           preview: (q.passage ?? q.stem).replace(/\$/g, "").slice(0, 110),
           status: r === undefined ? "new" : r ? "correct" : "wrong",
           saved: saved.has(q.id),
@@ -217,7 +224,7 @@ satRouter.get(
     res.json(
       SAT_LESSONS.map((l) => {
         const stats = l.bankSkills.reduce((acc, s) => ({ right: acc.right + (bySkill.get(s)?.right ?? 0), total: acc.total + (bySkill.get(s)?.total ?? 0) }), { right: 0, total: 0 });
-        const questions = [...SAT_BANK, ...ai].filter((q) => l.bankSkills.includes(q.skill)).length;
+        const questions = [...SAT_ACTIVE_BANK, ...ai].filter((q) => l.bankSkills.includes(q.skill)).length;
         return { ...l, questions, right: stats.right, total: stats.total };
       }),
     );
@@ -297,44 +304,14 @@ const MIX: Record<SatModuleState["level"], [number, number, number]> = { base: [
 /** Digital SAT math blueprint (College Board): share of each domain in a module, and about a quarter typed answers. */
 const MATH_BLUEPRINT: Record<string, number> = { Algebra: 0.35, "Advanced Math": 0.35, "Problem-Solving and Data Analysis": 0.15, "Geometry and Trigonometry": 0.15 };
 
-function pickMath(pool: SatQuestion[], plan: Difficulty[]): SatQuestion[] {
-  const chosen: SatQuestion[] = [];
-  const gen = (q: SatQuestion) => q.id.split("-").slice(0, 2).join("-");
-  const sprTarget = Math.round(plan.length * 0.25);
-  plan.forEach((d, i) => {
-    const usedGen = new Set(chosen.map(gen));
-    const sprNow = chosen.filter((q) => !q.choices).length;
-    // typed answers spread evenly through the module
-    const wantSpr = sprNow < Math.round((sprTarget * (i + 1)) / plan.length);
-    const count = (dom: string) => chosen.filter((q) => q.domain === dom).length;
-    const deficit = (dom: string) => (MATH_BLUEPRINT[dom] ?? 0.1) * plan.length - count(dom);
-    const fits = (q: SatQuestion) => !chosen.includes(q) && !usedGen.has(gen(q));
-    const tiers = [pool.filter((q) => fits(q) && q.difficulty === d && !q.choices === wantSpr), pool.filter((q) => fits(q) && q.difficulty === d), pool.filter((q) => fits(q)), pool.filter((q) => !chosen.includes(q))];
-    const list = tiers.find((t) => t.length) ?? [];
-    if (!list.length) return;
-    const best = Math.max(...list.map((q) => deficit(q.domain)));
-    const top = list.filter((q) => deficit(q.domain) >= best - 0.5);
-    chosen.push(top[Math.floor(Math.random() * top.length)]!);
-  });
-  return chosen.sort((a, b) => a.difficulty - b.difficulty);
-}
-
 function pickQuestions(section: SatSection, level: SatModuleState["level"], exclude: Set<string>, mode: Mode = "short"): string[] {
   const size = MODULE_SIZE[mode][section];
   const [e, m] = MIX[level];
-  const plan: Difficulty[] = Array.from({ length: size }, (_, i) => (i < Math.round(size * e) ? 1 : i < Math.round(size * (e + m)) ? 2 : 3));
-  const pool = SAT_BANK.filter((q) => q.section === section && !exclude.has(q.id));
-  const chosen: SatQuestion[] = [];
-  if (section === "math") return pickMath(pool, plan).map((q) => q.id);
-  for (const d of plan) {
-    const options = pool.filter((q) => q.difficulty === d && !chosen.includes(q));
-    const fallback = pool.filter((q) => !chosen.includes(q));
-    const list = options.length ? options : fallback;
-    if (list.length) chosen.push(list[Math.floor(Math.random() * list.length)]!);
-  }
-  if (section === "rw") chosen.sort((a, b) => RW_ORDER.indexOf(a.domain) - RW_ORDER.indexOf(b.domain));
-  else chosen.sort((a, b) => a.difficulty - b.difficulty);
-  return chosen.map((q) => q.id);
+  const plan: Difficulty[] = Array.from({ length: size }, (_, i) => i < Math.round(size * e) ? 1 : i < Math.round(size * (e + m)) ? 2 : 3);
+  const previous = [...exclude].map((id) => SAT_BY_ID.get(id)).filter((q): q is SatQuestion => !!q && q.section === section);
+  const chosen = selectAssessment(SAT_ACTIVE_BANK.filter((q) => q.section === section), size, previous, plan);
+  if (chosen.length !== size) throw new HttpError(503, "Недостаточно разных контрольных заданий для этого модуля");
+  return chosen.sort((a, b) => section === "rw" ? RW_ORDER.indexOf(a.domain) - RW_ORDER.indexOf(b.domain) : a.difficulty - b.difficulty).map((q) => q.id);
 }
 
 async function loadTest(userId: string, testId: string): Promise<SatTestState> {
@@ -576,9 +553,9 @@ satRouter.post(
     const solved = new Set(done.filter((d) => d.correct).map((d) => d.item_id));
     let pool: SatQuestion[];
     let note = "";
-    if (kind === "hard-math") pool = SAT_BANK.filter((q) => q.section === "math" && q.difficulty === 3);
-    else if (kind === "hard-rw") pool = SAT_BANK.filter((q) => q.section === "rw" && q.difficulty === 3);
-    else if (kind === "spr") pool = SAT_BANK.filter((q) => q.section === "math" && !q.choices && q.difficulty >= 2);
+    if (kind === "hard-math") pool = SAT_ACTIVE_BANK.filter((q) => q.section === "math" && q.difficulty === 3);
+    else if (kind === "hard-rw") pool = SAT_ACTIVE_BANK.filter((q) => q.section === "rw" && q.difficulty === 3);
+    else if (kind === "spr") pool = SAT_ACTIVE_BANK.filter((q) => q.section === "math" && !q.choices && q.difficulty >= 2);
     else if (kind === "weak") {
       // the domain with the lowest smoothed accuracy (unseen domains count as 50 %)
       const acc = new Map<string, { n: number; ok: number }>();
@@ -591,11 +568,19 @@ satRouter.post(
       const domains = [...new Set(SAT_BANK.map((q) => q.domain))];
       const score = (dom: string) => ((acc.get(dom)?.ok ?? 0) + 1) / ((acc.get(dom)?.n ?? 0) + 2);
       const weakest = domains.sort((a, b) => score(a) - score(b))[0]!;
-      pool = SAT_BANK.filter((q) => q.domain === weakest);
+      pool = SAT_ACTIVE_BANK.filter((q) => q.domain === weakest);
       note = `${DOMAIN_RU[weakest as SatDomain] ?? weakest}: точность ${Math.round(score(weakest) * 100)} %`;
-    } else pool = SAT_BANK.filter((q) => q.difficulty >= 2);
+    } else pool = SAT_ACTIVE_BANK.filter((q) => q.difficulty >= 2);
     // Unsolved first, then shuffled.
-    const pick = [...pool].sort((a, b) => Number(solved.has(a.id)) - Number(solved.has(b.id)) || Math.random() - 0.5).slice(0, DRILLS[kind].size);
+    const candidates = [...pool].sort((a, b) => Number(solved.has(a.id)) - Number(solved.has(b.id)) || Math.random() - 0.5);
+    const pick: SatQuestion[] = [], seen = new Set<string>(), families = new Map<string, number>();
+    for (const q of candidates) {
+      const condition = fingerprint(q), family = familyOf(q);
+      if (seen.has(condition) || (families.get(family) ?? 0) >= 2) continue;
+      pick.push(q); seen.add(condition); families.set(family, (families.get(family) ?? 0) + 1);
+      if (pick.length >= DRILLS[kind].size) break;
+    }
+    if (pick.length < DRILLS[kind].size) note = `${note ? note + ". " : ""}Доступно ${pick.length} разных заданий после редакционной ревизии. Набор ограничен фактическим наличием; сложность не откалибрована.`;
     res.json({ kind, title: DRILLS[kind].title, note, items: pick.map((q) => ({ ...toPublicQ(q), pace: PACE[q.section] })) });
   }),
 );

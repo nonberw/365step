@@ -1,7 +1,7 @@
 // Exam sessions students pick at sign-up.
 // SAT: College Board "SAT Weekend test dates" (same for U.S. and international students), checked 1 Nov 2026:
 //   https://satsuite.collegeboard.org/sat/dates-deadlines — 2027–28 dates are marked "anticipated" there.
-// ENT: the NTC has not published the 2027 schedule yet; sessions follow the 2026 pattern (see ENT_SESSIONS_2026).
+// ENT: year-specific seasonal planning windows; not a published appointment calendar.
 // IELTS: computer-delivered IELTS runs several times a week in Almaty and Astana, so students pick a month.
 
 export interface SatDate {
@@ -25,21 +25,11 @@ export const SAT_DATES: SatDate[] = [
   { date: "2027-12-04", deadline: null, tentative: true },
 ];
 
-export interface EntSession {
-  id: string;
-  name: string;
-  /** first day of the session, used for countdowns */
-  date: string;
-  dates: string;
-  note: string;
-}
-
-export const ENT_SESSIONS_2027: EntSession[] = [
-  { id: "2027-jan", name: "Январская", date: "2027-01-10", dates: "10 января — 10 февраля 2027", note: "только платное обучение" },
-  { id: "2027-mar", name: "Мартовская", date: "2027-03-01", dates: "1 марта — 6 апреля 2027", note: "только платное обучение" },
-  { id: "2027-main", name: "Основная", date: "2027-05-10", dates: "10 мая — 10 июля 2027", note: "гранты и платное, засчитывается лучшая из 2 попыток" },
-  { id: "2027-aug", name: "Августовская", date: "2027-08-10", dates: "10–20 августа 2027", note: "только платное обучение" },
-];
+// Kept for compatibility with older imports; new flows select the year explicitly.
+export { entSessionsForYear, suggestEntYear } from "./entSchedule";
+export type { EntSession } from "./entSchedule";
+import { entSessionsForYear } from "./entSchedule";
+export const ENT_SESSIONS_2027 = entSessionsForYear(2027);
 
 const MONTHS = ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"];
 const MONTHS_GEN = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];

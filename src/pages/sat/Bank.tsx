@@ -8,6 +8,7 @@ import { Empty, Badge, Segmented } from "@/components/ui/card";
 import { Select } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ErrorBox, Loading, PageHeader } from "@/components/Page";
+import scale from "@shared/satScaleManifest.json";
 
 export const LIST_KEY = "bsts-sat-list";
 
@@ -17,10 +18,12 @@ export default function Bank() {
   const section = (params.get("section") ?? "") as SatSection | "";
   const domain = (params.get("domain") ?? "") as SatDomain | "";
   const difficulty = params.get("difficulty") ?? "";
+  const purpose = params.get("purpose") ?? "";
+  const collection = params.get("collection") ?? "";
   const status = params.get("status") ?? "all";
   const page = Number(params.get("page") ?? 0);
   const skills = params.get("skills") ?? "";
-  const query = new URLSearchParams({ ...(section && { section }), ...(domain && { domain }), ...(difficulty && { difficulty }), ...(skills && { skills }), status, page: String(page) });
+  const query = new URLSearchParams({ ...(section && { section }), ...(domain && { domain }), ...(difficulty && { difficulty }), ...(purpose && { purpose }), ...(collection && { collection }), ...(skills && { skills }), status, page: String(page) });
   const { data, error, loading } = useApi<{ total: number; page: number; items: SatQuestionSummary[] }>(`/sat/bank?${query}`);
 
   const update = (patch: Record<string, string>) => {
@@ -49,7 +52,7 @@ export default function Bank() {
       <PageHeader
         eyebrow="SAT"
         title="Банк вопросов"
-        description="Фильтруй по разделу, домену, сложности и статусу. Ошибки сами попадают в повтор."
+        description="Разминка, закрепление и контроль. Сложность оценена редакционно; статистической калибровки нет. Ошибки попадают в повтор."
         action={
           <Button variant="outline" onClick={() => data?.items[0] && open(data.items[0].id)} disabled={!data?.items.length}>
             Начать с первого
@@ -67,6 +70,13 @@ export default function Bank() {
               { value: "math", label: "Math" },
             ]}
           />
+          <Select aria-label="Набор задач" className="h-9 w-auto text-xs" value={collection} onChange={(e) => update({ collection: e.target.value })}>
+            <option value="">Весь банк</option>
+            <option value="scale">Большой набор · {scale.total} заданий</option>
+            <option value="scale-source">Источники и Reading · {scale.source.total + scale.reading.total}</option>
+            <option value="scale-practice">Тренировочные варианты · {scale.practice.total}</option>
+            <option value="open">Первый открытый набор · 120 задач</option>
+          </Select>
           <Select aria-label="Домен" className="h-9 w-auto min-w-[220px] text-xs" value={domain} onChange={(e) => update({ domain: e.target.value })}>
             <option value="">Все домены</option>
             {domains.map((d) => (
@@ -74,6 +84,9 @@ export default function Bank() {
                 {DOMAIN_RU[d]}
               </option>
             ))}
+          </Select>
+          <Select aria-label="Назначение" value={purpose} onChange={(e) => update({ purpose: e.target.value })} className="h-9 w-auto text-xs">
+            <option value="">Все назначения</option><option value="warmup">Разминка</option><option value="reinforcement">Закрепление</option><option value="assessment">Контроль</option>
           </Select>
           <Select aria-label="Сложность" className="h-9 w-auto text-xs" value={difficulty} onChange={(e) => update({ difficulty: e.target.value })}>
             <option value="">Любая сложность</option>
@@ -97,6 +110,11 @@ export default function Bank() {
         />
       </div>
 
+      {collection.startsWith("scale") && <div className="mb-5 rounded-xl border border-border bg-muted/40 p-4 text-sm">
+        <p className="font-semibold">Добавлено {scale.total.toLocaleString("ru-RU")} заданий · сложных — {scale.hard.toLocaleString("ru-RU")}</p>
+        <p className="mt-1 text-xs text-muted-foreground">{scale.source.total} адаптаций упражнений OpenStax · {scale.reading.total} новых Reading & Writing · {scale.practice.total.toLocaleString("ru-RU")} тренировочных вариантов из {scale.practice.families} семейства. Варианты отличаются параметрами и предназначены для закрепления; в полный пробник входят задачи для контроля. Числа относятся ко всему большому набору, результат фильтров — ниже.</p>
+      </div>}
+
       {loading ? (
         <Loading />
       ) : error ? (
@@ -115,6 +133,7 @@ export default function Bank() {
                     <span className="block truncate text-sm font-medium">{q.preview}</span>
                     <span className="mt-0.5 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
                       <span>{q.section === "rw" ? "R&W" : "Math"}</span>·<span>{DOMAIN_RU[q.domain]}</span>·<span>{q.skill}</span>
+                      {q.purpose === "reinforcement" && <Badge>Вариант для закрепления</Badge>}
                     </span>
                   </span>
                   {q.saved && <Bookmark className="size-4 shrink-0 fill-primary text-primary" />}
@@ -141,7 +160,7 @@ export default function Bank() {
         </>
       )}
       <p className={cn("mt-6 text-xs text-muted-foreground")}>
-        Все вопросы — оригинальные задания в формате Digital SAT, написанные для BSTS, и варианты из генераторов. Официальные задания College Board не копируются; бесплатные официальные материалы есть в приложении{" "}
+        В банке — авторские задачи 365step, адаптации открытых материалов и варианты из генераторов. У адаптаций указаны источники и лицензии. Официальные задания College Board не копируются; бесплатные официальные материалы есть в приложении{" "}
         <a href="https://bluebook.collegeboard.org" target="_blank" rel="noreferrer" className="underline">
           Bluebook
         </a>

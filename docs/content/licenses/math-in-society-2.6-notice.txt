@@ -1,0 +1,53 @@
+Source: https://www.opentextbookstore.com/mathinsociety/current2.php?chapter=FrontMatter.pdf
+Edition 2.6, 2022. Downloaded 2026-11-02.
+
+=== PDF PAGE 2 ===
+Copyright © 2022 David Lippman 
+ 
+This book was edited by David Lippman, Pierce College Ft Steilacoom 
+Development of this book was supported, in part, by the Transition Math Project and the 
+Open Course Library Project. 
+ 
+Statistics, Describing Data, and Probability contain portions derived from works by: 
+Jeff Eldridge, Edmonds Community College (used under CC-BY-SA license) 
+www.onlinestatbook.com (used under public domain declaration) 
+ 
+Apportionment is largely based on work by: 
+  Mike Kenyon, Green River Community College  (used under CC-BY-SA license) 
+ 
+Historical Counting Systems derived from work by: 
+Lawrence Morales, Seattle Central Community College (used under CC-BY-SA license) 
+ 
+Cryptography contains portions taken from Precalculus: An investigation of functions by: 
+   David Lippman and Melonie Rasmussen (used under CC-BY-SA license) 
+ 
+Front cover photo:  
+Jan Tik, http://www.flickr.com/photos/jantik/, CC-BY 2.0 
+ 
+ 
+ 
+ 
+This text is licensed under the Creative Commons Attribution-Share Alike 4.0 
+International License.  
+ 
+To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative 
+Commons, PO Box 1866, Mountain View, CA 94042, USA. 
+ 
+You are free: 
+to Share — copy and redistribute the material in any medium or format 
+to Adapt — remix, transform, and build upon the material for any purpose 
+ 
+Under the following conditions: 
+Attribution. You must give appropriate credit, provide a link to the license, and indicate if changes were 
+made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses 
+you or your use. 
+Share Alike. If you remix, transform, or build upon the material, you must distribute your contribut ions 
+under the same license as the original 
+No additional restrictions. You may not apply legal terms or technological measures that legally restrict 
+others from doing anything the license permits. 
+ 
+ 
+ 
+A screen reader friendly HTML version of the book can be found on LibreTexts. 
+Note that the graph theory, scheduling, and fractals chapters do not yet have alt-text for images. 
+

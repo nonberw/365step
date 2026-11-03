@@ -33,6 +33,8 @@ export default function EntPractice() {
   const [params] = useSearchParams();
   const [type, setType] = useState<EntType | null>((params.get("type") as EntType | null) ?? null);
   const [topic, setTopic] = useState(params.get("topic") ?? "");
+  const [difficulty,setDifficulty]=useState(params.get("difficulty")??"");
+  const [notice,setNotice]=useState("");
   const [items, setItems] = useState<EntQuestionPublic[] | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -46,8 +48,10 @@ export default function EntPractice() {
     setBusy(true);
     setError("");
     try {
-      const r = await api<{ items: EntQuestionPublic[] }>("/ent/practice", { body: { subject: sid, topic, type: kind, fresh } });
-      setItems(r.items);
+      const r = await api<{ items: EntQuestionPublic[]; unavailable?: boolean; message?: string }>("/ent/practice", { body: { subject: sid, topic, type: kind, difficulty, fresh } });
+      setNotice(r.message??"");
+      if (r.unavailable) { setError(r.message ?? "Материалов пока нет"); setItems(null); }
+      else setItems(r.items);
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -72,6 +76,7 @@ export default function EntPractice() {
           <div className="flex flex-wrap gap-1.5 [&_button]:border-white/20 [&_button]:bg-white/10 [&_button]:text-white">{tools.buttons}</div>
         </div>
       </motion.header>
+      {!!meta.data?.sourceBank.subjects[sid]&&<Link to={`/ent/bank?subject=${sid}&lang=`} className="rounded-2xl border border-primary/20 bg-primary/5 p-4 text-sm text-primary">Ещё {meta.data.sourceBank.subjects[sid]} записей по этому предмету в большом открытом банке на разных языках →</Link>}
       {!items ? (
         <Card className="flex flex-col gap-4">
           {subject.plan.length > 1 && (
@@ -107,13 +112,21 @@ export default function EntPractice() {
               })}
             </Select>
           </label>
+          <label className="flex flex-col gap-1 text-sm font-medium">Сложность
+            <Select value={difficulty} onChange={e=>setDifficulty(e.target.value)} className="h-10">
+              <option value="">Все уровни</option><option value="B">B — применение и анализ</option><option value="C">C — сложные задания</option>
+            </Select>
+          </label>
+          <p className="text-sm text-muted-foreground">В банке: {subject.coverage.total} заданий · {subject.topics.length} тем. Оценка сложности учебная, без калибровки НЦТ.</p>
           <ErrorBox message={error} />
           <Button size="lg" onClick={() => load()} disabled={busy} className="self-start">
-            {busy ? "ИИ готовит задания… до минуты" : `Начать: ${kind === "single" || kind === "context" ? 10 : 5} заданий`}
+            {busy ? "Подбираю задания…" : `Начать: до ${kind === "single" || kind === "context" ? 10 : 5} заданий`}
           </Button>
-          <p className="text-xs text-muted-foreground">Задания оригинальные, составлены ИИ по открытому формату и программе ЕНТ. Новые задания сохраняются в банк школы.</p>
+          <p className="text-xs text-muted-foreground">Готовые задания, ответы и объяснения доступны без генерации ИИ. Источник и лицензия указаны у каждого задания. При повторении сначала подбираются нерешённые условия.</p>
         </Card>
       ) : (
+        <div className="flex flex-col gap-3">
+        {notice&&<p role="status" className="rounded-xl bg-muted p-3 text-sm">{notice}</p>}
         <Run
           items={items}
           onMore={() => {
@@ -122,6 +135,7 @@ export default function EntPractice() {
           }}
           onBack={() => setItems(null)}
         />
+        </div>
       )}
     </div>
   );

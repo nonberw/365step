@@ -319,29 +319,6 @@ export const LISTENING: { id: string; title: string; section: string; script: { 
   },
 ];
 
-/** Official-style raw → band tables are for 40 questions; we scale our shorter sets to that range. Estimate only. */
-export function bandFromRatio(correct: number, total: number): number {
-  const raw40 = total ? Math.round((correct / total) * 40) : 0;
-  const table: [number, number][] = [
-    [39, 9],
-    [37, 8.5],
-    [35, 8],
-    [32, 7.5],
-    [30, 7],
-    [26, 6.5],
-    [23, 6],
-    [18, 5.5],
-    [16, 5],
-    [13, 4.5],
-    [10, 4],
-    [8, 3.5],
-    [6, 3],
-    [4, 2.5],
-  ];
-  for (const [min, band] of table) if (raw40 >= min) return band;
-  return raw40 > 0 ? 2 : 0;
-}
-
 export function normalise(answer: string) {
   return answer
     .trim()

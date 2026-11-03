@@ -6,7 +6,7 @@ import { RichText } from "@/components/RichText";
 export const TYPE_HINT = {
   single: "Выбери один правильный ответ",
   context: "Прочитай текст и выбери один правильный ответ",
-  multi: "Выбери один или несколько правильных ответов",
+  multi: "Выбери от одного до трёх правильных ответов",
   match: "Установи соответствие: для каждого пункта слева выбери вариант справа",
 } as const;
 
@@ -21,6 +21,13 @@ export function EntQuestion({ q, value, onChange, reveal, disabled }: { q: EntQu
     <div className="flex flex-col gap-4">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{TYPE_HINT[q.type]}</p>
       <RichText text={q.stem} className="text-lg" />
+      {q.attribution&&<details className="rounded-xl border border-border px-3 py-2 text-xs text-muted-foreground">
+        <summary className="cursor-pointer">Источник и лицензия{q.variant?" · числовая вариация":""}</summary>
+        <p className="mt-2"><a href={q.attribution.url} target="_blank" rel="noreferrer" className="text-primary underline">{q.attribution.title}</a> · {q.attribution.authors}</p>
+        <p className="mt-1">{q.attribution.locator} · Материал: {q.attribution.sourceLicense}</p>
+        <p className="mt-1">{q.attribution.changes}</p>
+        <a href={q.attribution.licenseUrl} target="_blank" rel="noreferrer" className="mt-1 inline-block text-primary underline">Задание и перевод: {q.attribution.license}</a>
+      </details>}
 
       {q.type === "match" ? (
         <div className="flex flex-col gap-3">
@@ -84,7 +91,7 @@ export function EntQuestion({ q, value, onChange, reveal, disabled }: { q: EntQu
                 onClick={() => {
                   if (q.type === "multi") {
                     const cur = Array.isArray(value) ? value : [];
-                    onChange(cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i].sort((a, b) => a - b));
+                    onChange(cur.includes(i) ? cur.filter((x) => x !== i) : cur.length<3?[...cur, i].sort((a, b) => a - b):cur);
                   } else onChange(i);
                 }}
                 className={cn(

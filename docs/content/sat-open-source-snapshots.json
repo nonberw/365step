@@ -1,0 +1,84 @@
+{
+  "retrieved": "2026-11-02",
+  "method": "Direct public HTML/PDF/plain-text downloads; no provider API or paid AI",
+  "files": [
+    {
+      "file": "precalculus.pdf",
+      "url": "https://www.opentextbookstore.com/precalc/current2.php?chapter=all&format=pdf",
+      "bytes": 21394698,
+      "sha256": "25e77fc5aeae44e7232df57ab3184e5817b929389b53215a90633aa8a02e25b7"
+    },
+    {
+      "file": "mathinsociety.html",
+      "url": "https://www.opentextbookstore.com/mathinsociety/",
+      "bytes": 9911,
+      "sha256": "579cf2daa12c33718d724614369f13a070ae0eacdecc81b463356ec9a841d444"
+    },
+    {
+      "file": "alice.txt",
+      "url": "https://www.gutenberg.org/ebooks/11.txt.utf-8",
+      "bytes": 174311,
+      "sha256": "01b38ea4c710a84bc18d0bd41271a5a1a92b94e97b2812f4dece97d4a694725e"
+    },
+    {
+      "file": "austen.txt",
+      "url": "https://www.gutenberg.org/ebooks/1342.txt.utf-8",
+      "bytes": 772386,
+      "sha256": "3f6bb9d6f78e0293b56acd4714dd68cb7d6d1d293402031ce9d5a216bcaf9d75"
+    },
+    {
+      "file": "darwin.txt",
+      "url": "https://www.gutenberg.org/ebooks/1228.txt.utf-8",
+      "bytes": 970611,
+      "sha256": "362142cb7c6f90850477520cfe2a62fe423ae92ea8eb6d9cd8b30ddb39de60b9"
+    },
+    {
+      "file": "douglass.txt",
+      "url": "https://www.gutenberg.org/ebooks/23.txt.utf-8",
+      "bytes": 249061,
+      "sha256": "234c15348a66919bad1d534cdd48ee8ddf91f50115a706cbefaa8edd049672fd"
+    },
+    {
+      "file": "holmes.txt",
+      "url": "https://www.gutenberg.org/ebooks/1661.txt.utf-8",
+      "bytes": 607606,
+      "sha256": "922e2a12ccb43a4c9544c260b2166c6ad2097aeb5957faeee113f173bb857cd0"
+    },
+    {
+      "file": "precalc-license.pdf",
+      "url": "https://www.opentextbookstore.com/precalc/current2.php?chapter=front&format=pdf",
+      "bytes": 644540,
+      "sha256": "460a7a13f61fc04cf9790346c608a91353d4adb22134e71db98dffed22a02585"
+    },
+    {
+      "file": "FrontMatter.pdf",
+      "url": "https://www.opentextbookstore.com/mathinsociety/current2.php?chapter=FrontMatter.pdf",
+      "bytes": 293126,
+      "sha256": "324c2bc3e6d9d7b73c6d77a9daa2f1fe7a1e525058cb1cf635df2d9adea3a063"
+    },
+    {
+      "file": "Probability.pdf",
+      "url": "https://www.opentextbookstore.com/mathinsociety/current2.php?chapter=Probability.pdf",
+      "bytes": 833501,
+      "sha256": "27098005de1d76ff16a5878d58e6d108302d2a8f91d2263cf7954691c743b754"
+    },
+    {
+      "file": "Statistics.pdf",
+      "url": "https://www.opentextbookstore.com/mathinsociety/current2.php?chapter=Statistics.pdf",
+      "bytes": 385673,
+      "sha256": "001741d450b45cf91a10b3e4f8769a4fc626cb00265700890262d4258d5461fd"
+    },
+    {
+      "file": "DescribingData.pdf",
+      "url": "https://www.opentextbookstore.com/mathinsociety/current2.php?chapter=DescribingData.pdf",
+      "bytes": 889543,
+      "sha256": "bf17fdb49ce0f015e588832b6cda071b6d9df8a530b783409b7204b013038ada"
+    },
+    {
+      "file": "ProblemSolving.pdf",
+      "url": "https://www.opentextbookstore.com/mathinsociety/current2.php?chapter=ProblemSolving.pdf",
+      "bytes": 1032190,
+      "sha256": "8b82b716f090f15f091cd1768472b8f8db480ce764472900450a8a551d1e5dd8"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { isUsableEnt } from "../../shared/entQuality";
 import { Router } from "express";
 import type { EntQuestion } from "../../shared/ent";
 import { requireStudent } from "../auth";
@@ -14,7 +15,7 @@ reviewRouter.get(
     const s = await reviewSummary(u.id);
     const ids = s.due.ent.slice(0, 20);
     const rows = ids.length ? await all<{ data: string }>(`SELECT data FROM ent_questions WHERE id IN (${ids.map(() => "?").join(",")})`, ...ids) : [];
-    const ent = rows.map((r) => {
+    const ent = rows.filter((r) => isUsableEnt(JSON.parse(r.data))).map((r) => {
       const { answer: _a, explanation: _e, ...q } = JSON.parse(r.data) as EntQuestion;
       return q;
     });

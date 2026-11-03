@@ -1,0 +1,30 @@
+{
+  "mathChecked": 3059,
+  "byMethod": {
+    "zeros": 389,
+    "vertex": 66,
+    "domain": 202,
+    "equation": 142,
+    "system": 260,
+    "composition-domain": 100,
+    "parameter-system": 100,
+    "integer-root-ratios": 100,
+    "constrained-revenue": 100,
+    "tangent-parabola": 100,
+    "tangent-circle": 100,
+    "cone-stages": 100,
+    "conditional-pair": 100,
+    "strict-success-threshold": 100,
+    "composed-exponential": 100,
+    "transformed-quadratic-level": 100,
+    "polynomial-remainder": 100,
+    "radical-domain-check": 100,
+    "evaporation-model": 100,
+    "mixture-model": 100,
+    "weighted-mean-removal": 100,
+    "linear-composition": 100,
+    "percent-share": 100,
+    "evaluate": 200
+  },
+  "result": "all independently recomputed keys and all numeric options passed"
+}

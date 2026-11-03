@@ -1,0 +1,426 @@
+[
+  {
+    "removed": "es-me-1045",
+    "retained": "es-me-1044"
+  },
+  {
+    "removed": "es-me-1152",
+    "retained": "es-me-1151"
+  },
+  {
+    "removed": "es-me-2979",
+    "retained": "es-me-2978"
+  },
+  {
+    "removed": "es-me-2996",
+    "retained": "es-me-2910"
+  },
+  {
+    "removed": "es-me-3006",
+    "retained": "es-me-3005"
+  },
+  {
+    "removed": "es-me-3346",
+    "retained": "es-me-3345"
+  },
+  {
+    "removed": "es-me-3562",
+    "retained": "es-me-3560"
+  },
+  {
+    "removed": "es-me-3737",
+    "retained": "es-me-3736"
+  },
+  {
+    "removed": "es-me-3761",
+    "retained": "es-me-3760"
+  },
+  {
+    "removed": "es-me-3791",
+    "retained": "es-me-3790"
+  },
+  {
+    "removed": "es-me-3913",
+    "retained": "es-me-3800"
+  },
+  {
+    "removed": "es-me-3971",
+    "retained": "es-me-3702"
+  },
+  {
+    "removed": "es-me-4482",
+    "retained": "es-me-4481"
+  },
+  {
+    "removed": "es-me-4601",
+    "retained": "es-me-4600"
+  },
+  {
+    "removed": "es-me-4641",
+    "retained": "es-me-4640"
+  },
+  {
+    "removed": "es-me-4711",
+    "retained": "es-me-4702"
+  },
+  {
+    "removed": "es-me-5113",
+    "retained": "es-me-4677"
+  },
+  {
+    "removed": "es-me-5178",
+    "retained": "es-me-5177"
+  },
+  {
+    "removed": "es-me-5396",
+    "retained": "es-me-5395"
+  },
+  {
+    "removed": "es-me-5523",
+    "retained": "es-me-5522"
+  },
+  {
+    "removed": "es-me-5564",
+    "retained": "es-me-5563"
+  },
+  {
+    "removed": "es-me-5620",
+    "retained": "es-me-4962"
+  },
+  {
+    "removed": "es-me-5814",
+    "retained": "es-me-5813"
+  },
+  {
+    "removed": "es-me-6148",
+    "retained": "es-me-6147"
+  },
+  {
+    "removed": "es-me-6171",
+    "retained": "es-me-6140"
+  },
+  {
+    "removed": "es-me-6260",
+    "retained": "es-me-6259"
+  },
+  {
+    "removed": "es-me-6557",
+    "retained": "es-me-1816"
+  },
+  {
+    "removed": "es-me-7598",
+    "retained": "es-me-7597"
+  },
+  {
+    "removed": "es-me-7666",
+    "retained": "es-me-7251"
+  },
+  {
+    "removed": "es-me-7776",
+    "retained": "es-me-5576"
+  },
+  {
+    "removed": "es-me-7822",
+    "retained": "es-me-7821"
+  },
+  {
+    "removed": "es-me-7851",
+    "retained": "es-me-7850"
+  },
+  {
+    "removed": "es-me-7887",
+    "retained": "es-me-7886"
+  },
+  {
+    "removed": "es-me-7900",
+    "retained": "es-me-7899"
+  },
+  {
+    "removed": "es-me-7908",
+    "retained": "es-me-7907"
+  },
+  {
+    "removed": "es-me-7916",
+    "retained": "es-me-4190"
+  },
+  {
+    "removed": "es-me-8260",
+    "retained": "es-me-8259"
+  },
+  {
+    "removed": "es-me-8365",
+    "retained": "es-me-8364"
+  },
+  {
+    "removed": "es-me-8595",
+    "retained": "es-me-8594"
+  },
+  {
+    "removed": "es-me-8807",
+    "retained": "es-me-8806"
+  },
+  {
+    "removed": "es-me-9334",
+    "retained": "es-me-9189"
+  },
+  {
+    "removed": "es-use-train-571",
+    "retained": "es-use-train-469"
+  },
+  {
+    "removed": "es-use-train-664",
+    "retained": "es-use-train-641"
+  },
+  {
+    "removed": "es-use-train-671",
+    "retained": "es-use-train-641"
+  },
+  {
+    "removed": "es-use-train-676",
+    "retained": "es-use-train-641"
+  },
+  {
+    "removed": "es-use-train-685",
+    "retained": "es-use-train-641"
+  },
+  {
+    "removed": "es-use-train-1491",
+    "retained": "es-use-train-1451"
+  },
+  {
+    "removed": "es-use-train-1586",
+    "retained": "es-use-train-1573"
+  },
+  {
+    "removed": "es-use-train-1714",
+    "retained": "es-use-train-1713"
+  },
+  {
+    "removed": "es-use-train-1917",
+    "retained": "es-use-train-1906"
+  },
+  {
+    "removed": "es-use-train-1928",
+    "retained": "es-use-train-1905"
+  },
+  {
+    "removed": "es-use-train-1949",
+    "retained": "es-use-train-1940"
+  },
+  {
+    "removed": "es-use-train-1951",
+    "retained": "es-use-train-1919"
+  },
+  {
+    "removed": "es-use-train-1957",
+    "retained": "es-use-train-1909"
+  },
+  {
+    "removed": "es-use-train-1965",
+    "retained": "es-use-train-1905"
+  },
+  {
+    "removed": "es-use-train-1966",
+    "retained": "es-use-train-1943"
+  },
+  {
+    "removed": "es-use-train-1967",
+    "retained": "es-use-train-1954"
+  },
+  {
+    "removed": "es-use-train-1974",
+    "retained": "es-use-train-1934"
+  },
+  {
+    "removed": "es-use-train-1975",
+    "retained": "es-use-train-1936"
+  },
+  {
+    "removed": "es-use-train-1979",
+    "retained": "es-use-train-1961"
+  },
+  {
+    "removed": "es-use-train-1982",
+    "retained": "es-use-train-1969"
+  },
+  {
+    "removed": "es-use-train-1983",
+    "retained": "es-use-train-1938"
+  },
+  {
+    "removed": "es-use-train-2169",
+    "retained": "es-use-train-2161"
+  },
+  {
+    "removed": "es-use-train-2177",
+    "retained": "es-use-train-2171"
+  },
+  {
+    "removed": "es-use-train-2184",
+    "retained": "es-use-train-2172"
+  },
+  {
+    "removed": "es-use-train-2211",
+    "retained": "es-use-train-2172"
+  },
+  {
+    "removed": "es-use-train-2224",
+    "retained": "es-use-train-2172"
+  },
+  {
+    "removed": "es-use-train-2227",
+    "retained": "es-use-train-2186"
+  },
+  {
+    "removed": "es-use-train-2230",
+    "retained": "es-use-train-2172"
+  },
+  {
+    "removed": "es-use-train-2234",
+    "retained": "es-use-train-2215"
+  },
+  {
+    "removed": "es-use-train-2245",
+    "retained": "es-use-train-2170"
+  },
+  {
+    "removed": "es-use-train-2251",
+    "retained": "es-use-train-2168"
+  },
+  {
+    "removed": "es-use-dev-137",
+    "retained": "es-use-dev-121"
+  },
+  {
+    "removed": "es-use-dev-143",
+    "retained": "es-use-train-411"
+  },
+  {
+    "removed": "es-use-dev-157",
+    "retained": "es-use-train-469"
+  },
+  {
+    "removed": "es-use-dev-173",
+    "retained": "es-use-train-520"
+  },
+  {
+    "removed": "es-use-dev-580",
+    "retained": "es-use-train-1572"
+  },
+  {
+    "removed": "es-use-dev-663",
+    "retained": "es-use-train-1930"
+  },
+  {
+    "removed": "es-use-dev-666",
+    "retained": "es-use-train-1980"
+  },
+  {
+    "removed": "es-use-dev-673",
+    "retained": "es-use-dev-671"
+  },
+  {
+    "removed": "es-use-dev-677",
+    "retained": "es-use-dev-669"
+  },
+  {
+    "removed": "es-use-dev-678",
+    "retained": "es-use-dev-670"
+  },
+  {
+    "removed": "es-use-dev-682",
+    "retained": "es-use-dev-671"
+  },
+  {
+    "removed": "es-use-dev-685",
+    "retained": "es-use-train-1954"
+  },
+  {
+    "removed": "es-use-dev-686",
+    "retained": "es-use-dev-664"
+  },
+  {
+    "removed": "es-use-dev-688",
+    "retained": "es-use-dev-661"
+  },
+  {
+    "removed": "es-use-dev-738",
+    "retained": "es-use-train-2139"
+  },
+  {
+    "removed": "es-use-dev-744",
+    "retained": "es-use-train-2140"
+  },
+  {
+    "removed": "es-use-dev-750",
+    "retained": "es-use-train-2203"
+  },
+  {
+    "removed": "es-use-dev-752",
+    "retained": "es-use-train-2158"
+  },
+  {
+    "removed": "es-use-dev-754",
+    "retained": "es-use-train-2243"
+  },
+  {
+    "removed": "es-use-dev-755",
+    "retained": "es-use-train-2244"
+  },
+  {
+    "removed": "es-use-dev-758",
+    "retained": "es-use-train-2158"
+  },
+  {
+    "removed": "es-use-dev-761",
+    "retained": "es-use-train-2229"
+  },
+  {
+    "removed": "es-use-dev-762",
+    "retained": "es-use-train-2247"
+  },
+  {
+    "removed": "es-use-dev-763",
+    "retained": "es-use-train-2226"
+  },
+  {
+    "removed": "es-use-dev-764",
+    "retained": "es-use-train-2228"
+  },
+  {
+    "removed": "es-use-dev-765",
+    "retained": "es-use-train-2163"
+  },
+  {
+    "removed": "es-use-dev-766",
+    "retained": "es-use-train-2159"
+  },
+  {
+    "removed": "es-use-dev-767",
+    "retained": "es-use-train-2236"
+  },
+  {
+    "removed": "es-use-dev-769",
+    "retained": "es-use-train-2159"
+  },
+  {
+    "removed": "es-use-dev-770",
+    "retained": "es-use-train-2231"
+  },
+  {
+    "removed": "es-use-dev-772",
+    "retained": "es-use-dev-771"
+  },
+  {
+    "removed": "es-use-dev-775",
+    "retained": "es-use-train-2200"
+  },
+  {
+    "removed": "es-use-dev-776",
+    "retained": "es-use-train-2175"
+  },
+  {
+    "removed": "es-use-dev-778",
+    "retained": "es-use-train-2176"
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-03",
+  "sources": [
+    {
+      "sourceId": "kazqad",
+      "primaryURL": "https://github.com/IS2AI/KazQAD",
+      "pin": "ab8684a667109f2a7345f4f89ab3b123e8d78e1f",
+      "snapshotDate": "2024-09-02",
+      "README_SHA256": "4ce4008d8a0cf1a27c1219086ca18b2476d2bcf1158cb21538a41314d2b0727e",
+      "licenseFile": "kazqad-license.txt",
+      "licenseSHA256": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+      "licenseBasis": "Published dataset license and repository notice",
+      "downloadSnapshotChecks": []
+    },
+    {
+      "sourceId": "mera",
+      "primaryURL": "https://huggingface.co/datasets/ai-forever/MERA",
+      "pin": "e9628afed9c1da102066e80e9e844621613fa3cf",
+      "snapshotDate": "2026-10-08",
+      "README_SHA256": "d2fea283f0dbd0a079437d0d38ff6d1f1447ac44cd2fd65dc3ea5adea7a6f37e",
+      "licenseFile": "mera-license.txt",
+      "licenseSHA256": "570dbad6dfe2036b2ebdb3e35b402f4f9984b1e514499633126857141d223ab1",
+      "licenseBasis": "Dataset README YAML license field",
+      "downloadSnapshotChecks": [
+        "mera/download/data/mathlogicqa/train.jsonl",
+        "mera/download/data/rummlu/train.jsonl",
+        "mera/download/data/use/dev.jsonl",
+        "mera/download/data/use/train.jsonl"
+      ]
+    },
+    {
+      "sourceId": "include",
+      "primaryURL": "https://huggingface.co/datasets/CohereLabs/include-base-44",
+      "pin": "d2e1f6015f67a43c02a9a68db98e2298e2d6a660",
+      "snapshotDate": "2025-04-15",
+      "README_SHA256": "47002160b4dfeaea142eb8e11c85d601d4e6f02d2b5e931899e4047b1aa382ab",
+      "licenseFile": "include-license.txt",
+      "licenseSHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "licenseBasis": "Dataset README YAML license field",
+      "downloadSnapshotChecks": [
+        "include/download/Kazakh/test-00000-of-00001.parquet",
+        "include/download/Kazakh/validation-00000-of-00001.parquet",
+        "include/download/Russian/test-00000-of-00001.parquet",
+        "include/download/Russian/validation-00000-of-00001.parquet"
+      ]
+    },
+    {
+      "sourceId": "belebele",
+      "primaryURL": "https://github.com/facebookresearch/belebele",
+      "pin": "918890beb2290a8d3ef2d7a90369925959e1bacf",
+      "snapshotDate": "2024-12-18",
+      "README_SHA256": "f7a9aead9af9056c96837eeb8eafa301ec37a4512e52520f1c3d7903b69ce145",
+      "licenseFile": "belebele-license.txt",
+      "licenseSHA256": "1a6412be305196953f3217ce64b4a11c502107efd0910bde13f5c654e740e86d",
+      "licenseBasis": "Published dataset license and repository notice",
+      "downloadSnapshotChecks": []
+    },
+    {
+      "sourceId": "rubq",
+      "primaryURL": "https://github.com/vladislavneon/RuBQ",
+      "pin": "fade3eae6a4807c35b19cfce20dfa805fc8c0cdf",
+      "snapshotDate": "2021-06-06",
+      "README_SHA256": "73202b52b7b70491e59b46d8745c1b26f640534bc3fe353768fe13e21e4c3420",
+      "licenseFile": "rubq-license.txt",
+      "licenseSHA256": "87a816969906840bf7af8d4d01cdfad4741b18946365e1f286007935509f2edb",
+      "licenseBasis": "Published dataset license and repository notice",
+      "downloadSnapshotChecks": []
+    },
+    {
+      "sourceId": "openstax-algebra",
+      "primaryURL": "https://github.com/openstax/osbooks-college-algebra-bundle",
+      "pin": "4922e46ebc04326979e19392ccc2384cb8b9076c",
+      "snapshotDate": "2026-08",
+      "licenseFile": "../../licenses/openstax-2026-08-CC-BY-4.0.txt",
+      "licenseSnapshotSHA256": "97d24386ff776d7160b87031b259a942bd03c9939796cab6724ad5d17d2cf785",
+      "sourceArchiveSHA256": "35de2ba148e8e8e972e888e08a5b82435d1f7412cc43cd5c708341b0b9159f92",
+      "priorSourceReference": "docs/content/sat-scale-import.json; scripts/sat-scale-reference/sat-scale-source-reference.json"
+    }
+  ],
+  "belebeleArchiveSHA256": "c645e750e111404806751509b5aa3f808a01e6029cd225d37e966dc694aca9e4",
+  "notice": "Publisher-declared dataset licenses, exact snapshots and original attribution retained. The application requires no external API. No paywall or gated dataset access was bypassed."
+}

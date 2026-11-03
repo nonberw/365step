@@ -1,7 +1,8 @@
+import { isUsableEnt } from "../../shared/entQuality";
 import { Router } from "express";
 import type { Goals, SatQuestion } from "../../shared/types";
 import { DOMAIN_RU, SAT_DOMAINS } from "../../shared/types";
-import { SAT_BANK, SAT_BY_ID, isCorrect } from "../../shared/sat";
+import { SAT_BANK, SAT_ACTIVE_BANK, SAT_BY_ID, isCorrect } from "../../shared/sat";
 import { ENT_MANDATORY, ENT_PAIR, ENT_SUBJECT, type EntLang, type EntQuestion, type EntSubject } from "../../shared/ent";
 import { PATTERNS, PROBLEMS } from "../../shared/problems";
 import { BLITZ } from "../../shared/content";
@@ -73,7 +74,7 @@ function ieltsCourse(): UnitDef[] {
   return [...groups].map(([type, sets], ui) => ({
     id: slug(type),
     title: type,
-    description: `${sets.length} текстов`,
+    description: `${sets.length} наборов · ${new Set(sets.map((r) => r.passage.toLowerCase().replace(/\s+/g, " ").trim())).size} уникальных коротких текстов`,
     color: UNIT_COLORS[ui % UNIT_COLORS.length]!,
     nodes: [...sets.map((r) => ({ id: `t-${r.id}`, kind: "lesson" as const, title: r.title, subtitle: `${r.questions.length} вопросов`, maxLevel: 1, setId: r.id })), chest(slug(type))],
   }));
@@ -300,7 +301,7 @@ function readingItems(setId: string): LessonItem[] {
 async function pickSat(userId: string, skills: string[], level: number): Promise<SatQuestion[]> {
   const target = [1.3, 2, 2.6, 3][Math.min(level, 3)]!;
   const solved = new Set((await all<{ item_id: string }>("SELECT DISTINCT item_id FROM attempts WHERE user_id = ? AND module = 'sat' AND correct = 1", userId)).map((r) => r.item_id));
-  return SAT_BANK.filter((q) => skills.includes(q.skill) && q.source !== "ai")
+  return SAT_ACTIVE_BANK.filter((q) => skills.includes(q.skill) && q.source !== "ai")
     .map((q) => ({ q, score: (solved.has(q.id) ? 2 : 0) + Math.abs(q.difficulty - target) + Math.random() * 0.9 }))
     .sort((a, b) => a.score - b.score)
     .slice(0, LESSON_SIZE)
@@ -327,7 +328,7 @@ async function entItems(userId: string, subjectId: string, topic: string | undef
   const lang = s.fixedLang ?? (await entProfile(userId))?.lang ?? "ru";
   const type = entType(s);
   const load = async () =>
-    (await all<{ data: string }>(`SELECT data FROM ent_questions WHERE subject = ? AND lang = ? AND type = ?${topic ? " AND topic = ?" : ""}`, s.id, lang, type, ...(topic ? [topic] : []))).map((r) => JSON.parse(r.data) as EntQuestion);
+    (await all<{ data: string }>(`SELECT data FROM ent_questions WHERE subject = ? AND lang = ? AND type = ?${topic ? " AND topic = ?" : ""}`, s.id, lang, type, ...(topic ? [topic] : []))).map((r) => JSON.parse(r.data) as EntQuestion).filter(isUsableEnt);
   let pool = await load();
   // Top the topic up with Claude when the bank is thin (or with demo items when there is no API key).
   if (pool.length < LESSON_SIZE && topic) {
@@ -335,7 +336,7 @@ async function entItems(userId: string, subjectId: string, topic: string | undef
     await storeEnt(made);
     pool = await load();
   }
-  if (!pool.length) throw new HttpError(503, "Не получилось подготовить задания по этой теме. Попробуй чуть позже");
+  if (!pool.length) throw new HttpError(503, "По этой теме и языку пока нет проверенных материалов");
   const seen = new Set((await all<{ item_id: string }>("SELECT item_id FROM attempts WHERE user_id = ? AND module = 'ent'", userId)).map((r) => r.item_id));
   let picked: EntQuestion[];
   if (type === "context") {
@@ -366,7 +367,7 @@ async function nuetItems(userId: string, section: NuetSection, topic: string | u
     }
     pool = await load();
   }
-  if (!pool.length) throw new HttpError(503, topic ? "Не получилось подготовить задания по этой теме. Попробуй чуть позже" : "Мини-пробник собирается из вопросов пройденных тем: сначала пройди хотя бы одну тему");
+  if (!pool.length) throw new HttpError(503, topic ? "По этой теме и языку пока нет проверенных материалов" : "Мини-пробник собирается из вопросов пройденных тем: сначала пройди хотя бы одну тему");
   const seen = new Set((await all<{ item_id: string }>("SELECT item_id FROM attempts WHERE user_id = ? AND module = 'nuet'", userId)).map((r) => r.item_id));
   return pool
     .map((q) => ({ q, score: (seen.has(q.id) ? 2 : 0) + Math.random() }))
@@ -462,7 +463,7 @@ async function check(itemId: string, response: unknown): Promise<Checked> {
   }
   const q = SAT_BY_ID.get(itemId);
   if (!q) throw new HttpError(404, "Вопрос не найден");
-  const correct = isCorrect(q, q.choices ? Number(response) : response);
+  const correct = isCorrect(q, response);
   const answer = q.choices ? q.choices[q.answer as number]! : String(q.answer);
   return { correct, answer, explanation: q.explanation, skill: q.domain, module: "sat", review: "sat" };
 }
@@ -474,6 +475,7 @@ pathRouter.post(
     const l = await lesson(u.id, str(req.body?.lessonId, 40));
     const itemId = str(req.body?.itemId, 120);
     if (!(JSON.parse(l.items) as string[]).includes(itemId)) throw new HttpError(400, "Этого вопроса нет в уроке");
+    if (req.body?.response === null || req.body?.response === undefined || req.body?.response === "") throw new HttpError(400, "Сначала введи или выбери ответ");
     const r = await check(itemId, req.body?.response);
     const answers = JSON.parse(l.answers) as Record<string, { first: boolean; ok: boolean }>;
     // Only the first try counts for XP and analytics; retries just have to reach the right answer.
