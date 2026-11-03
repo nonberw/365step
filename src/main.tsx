@@ -59,6 +59,7 @@ const Library = lazy(() => import("@/pages/library/Library"));
 const EntHome = lazy(() => import("@/pages/ent/EntHome"));
 const EntMaster = lazy(() => import("@/pages/ent/EntMaster"));
 const EntPractice = lazy(() => import("@/pages/ent/EntPractice"));
+const EntSourceBank = lazy(() => import("@/pages/ent/EntSourceBank"));
 const EntTestRun = lazy(() => import("@/pages/ent/EntTestRun"));
 const Review = lazy(() => import("@/pages/student/Review"));
 const Duels = lazy(() => import("@/pages/student/Duels"));
@@ -151,6 +152,7 @@ function App() {
           <Route path="/duels" element={<Duels />} />
           <Route path="/duels/:id" element={<DuelPlay />} />
           <Route path="/ent/practice/:subject" element={<EntPractice />} />
+          <Route path="/ent/bank" element={<EntSourceBank />} />
           <Route path="/sat" element={<SatHome />} />
           <Route path="/sat/bank" element={<SatBank />} />
           <Route path="/sat/q/:id" element={<SatQuestionPage />} />
