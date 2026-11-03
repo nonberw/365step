@@ -1,8 +1,10 @@
+import { entTargetTime } from "@shared/entSchedule";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, ArrowUpRight, Check, Flag, Pencil, Timer } from "lucide-react";
 import type { EntLang, EntType } from "@shared/ent";
+import type {EntSourceMeta} from '@shared/entSources';
 import { api } from "@/api";
 import { useApi } from "@/hooks/useApi";
 import { fmtDate } from "@/lib/format";
@@ -20,8 +22,10 @@ import { ENT_COLOR, ENT_IMAGE, PROFILE_COLORS } from "./visuals";
 import { EntPlan } from "./EntPlan";
 
 export interface EntMeta {
+  sourceBank:EntSourceMeta;
+  exam: { year: number; date: string; name: string; session: string; tentative: boolean };
   profile: { pair: string; lang: EntLang; target: number | null } | null;
-  subjects: { id: string; name: string; kind: "mandatory" | "profile"; count: number; max: number; topics: string[]; threshold: number; icon: string; plan: { type: EntType; count: number }[] }[];
+  subjects: { id: string; name: string; kind: "mandatory" | "profile"; count: number; max: number; topics: string[]; threshold: number; icon: string; plan: { type: EntType; count: number }[]; coverage: {total:number;concepts:number;variants:number;byType:Partial<Record<EntType,number>>;difficulty:Partial<Record<"A"|"B"|"C",number>>;byTopic:Record<string,number>} }[];
   pairs: { id: string; subjects: [string, string]; fields: string }[];
   thresholds: { label: string; points: number }[];
   resources: { title: string; url: string; text: string }[];
@@ -49,7 +53,6 @@ export function useStartTest() {
   return { start, busy, error };
 }
 
-const MAIN_SESSION = Date.UTC(2027, 4, 10) - 5 * 3600_000;
 const SHORT: Record<string, string> = { "Большинство вузов": "вузы", "Национальные вузы": "нац. вузы", Здравоохранение: "медицина", "Педагогика и право": "педагогика, право" };
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -68,15 +71,22 @@ export default function EntHome() {
     <div className="flex flex-col gap-8">
       <Hero meta={data} best={best} hasPair={!!pair} busy={busy === "full"} onStart={() => start("full")} onPick={() => setEditing(true)} />
       <ErrorBox message={busy ? "" : startError} />
+      <Link to="/ent/bank" className="rounded-3xl border border-primary/25 bg-primary/5 p-5 sm:p-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary">Новый большой банк · открытые источники</p>
+        <h2 className="mt-2 font-display text-2xl font-semibold">Ещё {data.sourceBank.total.toLocaleString('ru')} записей для практики</h2>
+        <p className="mt-2 text-sm text-muted-foreground">{data.sourceBank.conditions.toLocaleString('ru')} вопросов по учёту источников, без повторного подсчёта переводов. KazQAD, MERA, INCLUDE, Belebele, RuBQ и упражнения OpenStax. Русский, казахский и английский; вопросы с вариантами и вводом ответа.</p>
+        <span className="mt-3 inline-flex items-center gap-2 font-semibold text-primary">Открыть большой банк<ArrowRight className="size-4"/></span>
+      </Link>
 
       <AnimatePresence initial={false}>
         {(!pair || editing) && (
           <motion.section key="pairs" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.4, ease }} className="overflow-hidden">
             <PairPicker
               meta={data}
-              onSaved={(profile) => {
+              onSaved={async (profile) => {
                 setData({ ...data, profile });
                 setEditing(false);
+                setData(await api<EntMeta>("/ent/meta"));
               }}
             />
           </motion.section>
@@ -120,6 +130,22 @@ export default function EntHome() {
         </section>
       )}
 
+      <section className="flex flex-col gap-4">
+        <SectionTitle eyebrow="Готовый банк заданий" title="Все 16 предметов" />
+        <p className="text-sm text-muted-foreground">Задания по открытым учебным материалам с ответами и объяснениями. Числа ниже — для выбранного языка; языковые предметы изучаются на языке предмета. Сложность B/C — учебная оценка, без калибровки НЦТ.</p>
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {data.subjects.map(s=><div key={s.id} className="rounded-2xl border border-border bg-card p-4 transition-colors hover:border-primary">
+            <Link to={`/ent/practice/${s.id}`}><h3 className="font-display font-semibold">{s.name}</h3>
+            <p className="mt-2 text-2xl font-bold text-primary">{s.coverage.total} <span className="text-sm font-normal text-muted-foreground">заданий</span></p>
+            <p className="mt-1 text-xs text-muted-foreground">{s.topics.length} тем · B: {s.coverage.difficulty.B??0} · C: {s.coverage.difficulty.C??0}</p>
+            <p className="mt-2 text-xs text-muted-foreground">{s.coverage.concepts?`${s.coverage.concepts} отдельных заданий`:""}{s.coverage.variants?`${s.coverage.concepts?" + ":""}${s.coverage.variants} числовых вариаций`:""}</p>
+            </Link>
+            {!!data.sourceBank.subjects[s.id]&&<Link to={`/ent/bank?subject=${s.id}&lang=`} className="mt-2 block text-xs font-medium text-primary underline">+ {data.sourceBank.subjects[s.id]} в большом банке на разных языках →</Link>}
+          </div>)}
+        </div>
+        <a href="/content/ent-open-2026.json" download className="text-sm text-primary underline">Скачать банк с ответами и указанием источников · CC BY-SA 4.0</a>
+      </section>
+
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_1fr]">
         <FormatCard meta={data} />
         <Resources meta={data} />
@@ -153,7 +179,7 @@ function Hero({ meta, best, hasPair, busy, onStart, onPick }: { meta: EntMeta; b
       <Aurora />
       <div className="relative grid grid-cols-1 items-center gap-8 px-6 pb-6 pt-8 sm:px-10 sm:pt-10 lg:grid-cols-[1.25fr_1fr]">
         <div className="flex flex-col gap-5">
-          <HeroPill tone="glass" icon={<StarIcon />} text="ЕНТ 2027 · основная сессия с 10 мая" />
+          <HeroPill tone="glass" icon={<StarIcon />} text={`ЕНТ ${meta.exam.year} · ${meta.exam.name.toLowerCase()} сессия${meta.exam.tentative ? " · ориентир" : ""}`} />
           <h1 className="font-display text-4xl font-bold leading-[1.05] sm:text-6xl">
             {words.map((w, i) => (
               <motion.span
@@ -168,13 +194,14 @@ function Hero({ meta, best, hasPair, busy, onStart, onPick }: { meta: EntMeta; b
             ))}
           </h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="max-w-xl text-white/70">
-            Пробники в точном формате: 120 заданий, 140 баллов, 240 минут, калькулятор и таблица Менделеева. После каждого — карта анализа и разбор ошибок от ИИ, которого нет в официальном пробнике.
+            Учебные пробники по структуре ЕНТ: 120 заданий, 140 баллов, 240 минут, калькулятор и таблица Менделеева. Ответы и объяснения доступны сразу; задания не являются официальными материалами НЦТ.
           </motion.p>
-          <AnimatedCountdown target={MAIN_SESSION} dark />
+          <AnimatedCountdown target={entTargetTime(meta.exam.date)} dark />
+          <Link to="/profile#goals" className="text-sm text-white/80 underline underline-offset-4">Изменить год и сессию ЕНТ{meta.exam.tentative ? " · сроки ориентировочные" : ""}</Link>
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="flex flex-wrap gap-2">
             {hasPair ? (
               <Button size="lg" onClick={onStart} disabled={busy} className="shadow-lg shadow-primary/30">
-                <Timer /> {busy ? "Собираю вариант… до 2 минут" : "Начать пробный ЕНТ"}
+                <Timer /> {busy ? "Собираю вариант…" : "Начать пробный ЕНТ"}
               </Button>
             ) : (
               <Button size="lg" onClick={onPick}>
