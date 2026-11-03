@@ -103,7 +103,7 @@ export function runTests(lang: CodeLang, code: string, problem: CodingProblem, t
       const results = e.data.results.map((r) => ({
         ...r,
         expected: tests[r.index]!.expected,
-        passed: !r.error && sameAnswer(r.got, tests[r.index]!.expected, problem.unordered),
+        passed: !r.error && sameAnswer(r.got, tests[r.index]!.expected, problem.unordered, problem.unorderedInner),
       }));
       resolve({ results, logs: e.data.logs, error: e.data.error });
     };
