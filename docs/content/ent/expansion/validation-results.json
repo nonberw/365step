@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-03",
+  "addedRecords": 6700,
+  "conditionsBySourceIdentifiers": 4337,
+  "previousRecords": 1901,
+  "combinedRecords": 8601,
+  "sourceValidation": {
+    "date": "2026-11-03",
+    "checks": 112229,
+    "records": 6700,
+    "conditions": 4337,
+    "issues": []
+  },
+  "sourceAPI": "2082 source-bank API assertions passed across 27 source/subject/language/format combinations on disposable data",
+  "coreEntAPI": "3769 ENT API assertions passed: all 16 subjects, both UI languages, 24 full mock combinations; disposable database only",
+  "generalAPI": "114 API assertions passed on disposable database",
+  "regressions": "4583 regression assertions passed",
+  "examYear": "47 ENT year assertions passed on disposable database",
+  "content": "All content checks passed",
+  "typecheck": true,
+  "frontendBuild": "built in 808ms",
+  "serverBuild": "Done in 135ms",
+  "browser": {
+    "kazqadYearInputAndPostAnswerEvidence": true,
+    "biologyHardyWeinbergCorrectAnswer": true,
+    "progressAfterServerRestart": true,
+    "readingPassageDisplayed": true
+  },
+  "exports": {
+    "licenses": 6,
+    "sha256": "462ef542d2ea9ce83c18a5ea88d90732dbeb06c8e4f69625a9d663de20e0ff26"
+  },
+  "state": "Local preview and exported patch; no production deployment or live database writes"
+}

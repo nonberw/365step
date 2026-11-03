@@ -1,0 +1,527 @@
+{
+  "date": "2026-11-03",
+  "scope": "Representative inspection plus explicit defective-record exclusions. Source-span checking confirms text occurrence, not factual correctness. This is not independent expert certification of the complete imported corpus. Law and RuBQ selected individually; OpenStax references reused from prior independent symbolic verification.",
+  "records": [
+    {
+      "id": "es-me-206",
+      "subject": "physics",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-704",
+      "subject": "chemistry",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-1149",
+      "subject": "informatics",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-1577",
+      "subject": "world-history",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-me-1862",
+      "subject": "math",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-2802",
+      "subject": "math",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-3150",
+      "subject": "physics",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-3567",
+      "subject": "geography",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "Unusable translation of retail agglomeration concept"
+    },
+    {
+      "id": "es-me-3897",
+      "subject": "physics",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-4444",
+      "subject": "geography",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-4874",
+      "subject": "geography",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-5277",
+      "subject": "physics",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-5523",
+      "subject": "biology",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-me-6115",
+      "subject": "math",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 14: \\log_{b}343=-\\̲f̲r̲a̲\"{3}{2}"
+    },
+    {
+      "id": "es-me-6508",
+      "subject": "chemistry",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-7086",
+      "subject": "geography",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-7485",
+      "subject": "informatics",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-me-7795",
+      "subject": "geography",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-8205",
+      "subject": "physics",
+      "sourceId": "mera",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-8474",
+      "subject": "math",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "Corrupted translated fraction notation; not published without repair"
+    },
+    {
+      "id": "es-me-8845",
+      "subject": "physics",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "Missing exponent in potential-energy expression; mathematical condition ambiguous"
+    },
+    {
+      "id": "es-me-9399",
+      "subject": "geography",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "Integration is not a form of residential segregation; incorrect source key"
+    },
+    {
+      "id": "es-me-9795",
+      "subject": "world-history",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-me-9897",
+      "subject": "world-history",
+      "sourceId": "mera",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-kq-bio0073bio",
+      "subject": "biology",
+      "sourceId": "kazqad",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-kq-geo0683geo",
+      "subject": "geography",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Question says Northern Hemisphere, source evidence says Southern Hemisphere; wrong source key"
+    },
+    {
+      "id": "es-kq-kzh1866kzh",
+      "subject": "history-kz",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-kq-lit1422lit",
+      "subject": "kazakh-lit",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-kq-bio0165bio",
+      "subject": "biology",
+      "sourceId": "kazqad",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-kq-bio0647bio",
+      "subject": "biology",
+      "sourceId": "kazqad",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-kq-geo0141geo",
+      "subject": "geography",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Raw mare milk is not the fermented drink kumys; source question/key mismatch"
+    },
+    {
+      "id": "es-kq-geo0679geo",
+      "subject": "geography",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-kq-geo1211geo",
+      "subject": "geography",
+      "sourceId": "kazqad",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-kq-kzh0478kzh",
+      "subject": "history-kz",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-kq-kzh1118kzh",
+      "subject": "history-kz",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-kq-kzh1802kzh",
+      "subject": "history-kz",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-kq-kzh2741kzh",
+      "subject": "history-kz",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Filtered by the final importer"
+    },
+    {
+      "id": "es-kq-lit0319lit",
+      "subject": "kazakh-lit",
+      "sourceId": "kazqad",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-kq-lit1257lit",
+      "subject": "kazakh-lit",
+      "sourceId": "kazqad",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-kq-woh0167woh",
+      "subject": "world-history",
+      "sourceId": "kazqad",
+      "retained": false,
+      "note": "Incomplete fragment instead of an answer to the regime-characteristic question"
+    },
+    {
+      "id": "es-in-37a1575063c092e3",
+      "subject": "history-kz",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-0ce6ba7a4f1f1277",
+      "subject": "world-history",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-103a28489072c039",
+      "subject": "kazakh-lit",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-f6bd083f9254e581",
+      "subject": "history-kz",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-b8c43bdce544a027",
+      "subject": "kazakh-lit",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-c664098a0dd15c3f",
+      "subject": "kazakh-lit",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-19dbacac735a1474",
+      "subject": "history-kz",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-fba0a9c56d8c4a2b",
+      "subject": "world-history",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-0d0661c8dbe75418",
+      "subject": "world-history",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-89b3b943c2b07235",
+      "subject": "world-history",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-59ca77a771e8d2a4",
+      "subject": "world-history",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-in-cde2b0ac70b619e3",
+      "subject": "history-kz",
+      "sourceId": "include",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-bb-e2e12214f515ae96-ru",
+      "subject": "reading",
+      "sourceId": "belebele",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-bb-823118460c391a17-ru",
+      "subject": "reading",
+      "sourceId": "belebele",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-bb-dfb089d15ff66b89-ru",
+      "subject": "reading",
+      "sourceId": "belebele",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-bb-6432975c9a816ff5-kk",
+      "subject": "reading",
+      "sourceId": "belebele",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-bb-e2e12214f515ae96-en",
+      "subject": "english",
+      "sourceId": "belebele",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-bb-d600f6e9347458f9-en",
+      "subject": "english",
+      "sourceId": "belebele",
+      "retained": true,
+      "note": "Representative source-content inspection; source key retained, not an independent proof of every answer"
+    },
+    {
+      "id": "es-me-1010",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{1}{3}"
+    },
+    {
+      "id": "es-me-1122",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Got function '\\\"' with no arguments as superscript at position 5: 110^\\̲\"̲ir\""
+    },
+    {
+      "id": "es-me-1737",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\l at position 1: \\̲l̲\"eil x \\r\"eil"
+    },
+    {
+      "id": "es-me-1739",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 7: \\left(\\̲f̲r̲a̲\"{1}{a}\\right)^…"
+    },
+    {
+      "id": "es-me-4089",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 6: f(x)=\\̲f̲r̲a̲\"{x+6}{\\sqrt{x^…"
+    },
+    {
+      "id": "es-me-4282",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{4^{(3^3)}}{(4…"
+    },
+    {
+      "id": "es-me-4602",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{1}{n}"
+    },
+    {
+      "id": "es-me-5312",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{17}{40}"
+    },
+    {
+      "id": "es-me-6166",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\dfra at position 2: -\\̲d̲f̲r̲a̲\"{1}{-3}\\\"dot\\\"…"
+    },
+    {
+      "id": "es-me-6690",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{1}{2}"
+    },
+    {
+      "id": "es-me-6693",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{q}{p}"
+    },
+    {
+      "id": "es-me-6694",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{q}{p}"
+    },
+    {
+      "id": "es-me-8679",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 11: b(b+2\") = \\̲f̲r̲a̲\"{7}{9}"
+    },
+    {
+      "id": "es-me-9542",
+      "retained": false,
+      "note": "invalid-math: KaTeX parse error: Undefined control sequence: \\fra at position 1: \\̲f̲r̲a̲\"{x}{y}"
+    },
+    {
+      "id": "es-me-495",
+      "retained": false,
+      "note": "Source falsely says ADH is secreted by kidneys; condition contains a biological error"
+    },
+    {
+      "id": "es-me-414",
+      "retained": false,
+      "note": "Reaction only; original stem omits the actual question and equilibrium assumptions"
+    },
+    {
+      "id": "es-me-213",
+      "retained": false,
+      "note": "Corrupt translation of monoprotic acid as monoprotein acid"
+    },
+    {
+      "id": "es-me-8589",
+      "retained": false,
+      "note": "Elementary simplification below selected upper-school practice level"
+    },
+    {
+      "id": "es-me-8596",
+      "retained": false,
+      "note": "Elementary simplification below selected upper-school practice level"
+    },
+    {
+      "id": "es-me-1169",
+      "retained": true,
+      "note": "Редакторская правка перевода: продукт гликолиза — восстановленный НАДН (NADH), а не НАДФ. Исходный ключ «Гликолиз» сохранён."
+    },
+    {
+      "id": "es-bb-53cc0f6c914a09fe-ru",
+      "retained": true,
+      "note": "Редакторское уточнение: вопрос сужен до последствий для субтитров, поскольку исходный текст также говорит об обрезке границ изображения. Ключ источника сохранён."
+    },
+    {
+      "id": "es-bb-53cc0f6c914a09fe-kk",
+      "retained": true,
+      "note": "Редакторлық нақтылау: мәтінде кескін шеттерінің кесілуі де айтылғандықтан, сұрақ субтитрларға әсері туралы нақтыланды. Бастапқы жауап кілті сақталды."
+    },
+    {
+      "id": "es-bb-53cc0f6c914a09fe-en",
+      "retained": true,
+      "note": "Editorial clarification: the question now focuses on the effect on subtitles because the passage also mentions image borders being cut off. The published key is unchanged."
+    }
+  ]
+}
