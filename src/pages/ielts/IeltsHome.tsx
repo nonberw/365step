@@ -10,7 +10,7 @@ import { Select } from "@/components/ui/input";
 import { CircleProgress } from "@/components/ui/circle-progress";
 
 const SKILLS = [
-  { to: "/ielts/speaking", icon: Mic, title: "Speaking", text: "Говори в микрофон — балл по 4 критериям и разбор с цитатами" },
+  { to: "/ielts/speaking", icon: Mic, title: "Speaking", text: "Разбор расшифровки; произношение без анализа аудио не оценивается" },
   { to: "/ielts/writing", icon: PenLine, title: "Writing", text: "Task 1 по графику и Task 2 эссе, ошибки подсвечены в тексте" },
   { to: "/ielts/reading", icon: BookText, title: "Reading", text: "Тексты Academic с True/False/Not Given, выбором и пропусками" },
   { to: "/ielts/listening", icon: Headphones, title: "Listening", text: "Диалог и лекция, которые читает браузер, без готовых аудио" },
@@ -21,7 +21,7 @@ const KIND: Record<string, string> = { writing1: "Writing Task 1", writing2: "Wr
 
 export default function IeltsHome() {
   const { user } = useAuth();
-  const history = useApi<{ id: number; kind: string; overall: number; at: number }[]>("/ielts/history");
+  const history = useApi<{ id: number; kind: string; overall: number | null; at: number }[]>("/ielts/history");
   const days = daysUntil(user?.goals.ielts?.date);
   const target = user?.goals.ielts?.target;
   const last = history.data?.[0];
@@ -51,7 +51,7 @@ export default function IeltsHome() {
         <Card className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <CardTitle>Последние проверки</CardTitle>
-            {last && <Badge tone="dark">последний балл {last.overall}</Badge>}
+            {last && <Badge tone="dark">последний результат {last.overall ?? "демо / не оценивалось"}</Badge>}
           </div>
           {!history.data?.length ? (
             <p className="text-sm text-muted-foreground">Пока пусто. Начни с одной карточки Speaking — это 3 минуты.</p>
@@ -61,7 +61,7 @@ export default function IeltsHome() {
                 <li key={h.id} className="flex items-center justify-between gap-3 py-2.5 text-sm">
                   <span className="font-medium">{KIND[h.kind] ?? h.kind}</span>
                   <span className="text-muted-foreground">{fmtDate(h.at)}</span>
-                  <span className="font-display text-lg font-semibold tabular">{h.overall.toFixed(1)}</span>
+                  <span className="font-display text-lg font-semibold tabular">{h.overall === null ? "Не оценивалось" : h.overall.toFixed(1)}</span>
                 </li>
               ))}
             </ul>

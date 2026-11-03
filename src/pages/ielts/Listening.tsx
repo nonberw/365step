@@ -21,7 +21,7 @@ export default function Listening() {
   if (!content.data) return <ErrorBox message={content.error} />;
   return (
     <div className="flex max-w-4xl flex-col gap-5">
-      <PageHeader eyebrow="IELTS" title="Listening" description="Запись читает голосовой движок браузера, поэтому аудиофайлы не нужны. Как на экзамене, прослушать можно один раз; для тренировки разрешён второй." />
+      <PageHeader eyebrow="IELTS" title="Listening" description="Два коротких упражнения с синтетической озвучкой браузера. Это тренировка навыка, без проверенного экзаменационного аудио и без Band; полный пробник Listening пока недоступен." />
       <Segmented
         value={current}
         onChange={(v) => {
@@ -129,8 +129,8 @@ function Recording({ id }: { id: string }) {
       </Card>
       {result && (
         <Card className="flex items-center gap-4">
-          <CircleProgress value={result.band} max={9} size={90} stroke={9}>
-            <p className="font-display text-2xl font-semibold">{result.band}</p>
+          <CircleProgress value={result.percentage} max={100} size={90} stroke={9}>
+            <p className="font-display text-2xl font-semibold">{result.percentage}%</p>
           </CircleProgress>
           <p className="font-display text-lg font-semibold">
             {result.right} из {result.total} верно

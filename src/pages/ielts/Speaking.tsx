@@ -35,7 +35,7 @@ export default function Speaking() {
 
   return (
     <div className="flex max-w-4xl flex-col gap-5">
-      <PageHeader eyebrow="IELTS" title="Speaking" description="Ответь вслух, как на экзамене. Браузер расшифрует речь, а ИИ оценит ответ по четырём критериям." />
+      <PageHeader eyebrow="IELTS" title="Speaking" description="Браузер расшифрует речь. Подключённая модель разбирает связность, лексику и грамматику текста; произношение и аудиоплавность без анализа аудио не оцениваются." />
       <div className="flex flex-wrap items-center gap-3">
         <Segmented
           value={part}

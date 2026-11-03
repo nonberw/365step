@@ -1,3 +1,4 @@
+import AcademicReading from "./AcademicReading";
 import { useEffect, useState } from "react";
 import type { IeltsChoiceQuestion } from "@shared/types";
 import { api } from "@/api";
@@ -15,6 +16,7 @@ import type { IeltsContent } from "./content";
 export default function Reading() {
   const content = useApi<IeltsContent>("/ielts/content");
   const [id, setId] = useState("");
+  const [exam, setExam] = useState(false);
   const [type, setType] = useState("");
   const list = content.data?.reading ?? [];
   if (content.loading) return <Loading />;
@@ -24,7 +26,10 @@ export default function Reading() {
   const current = shown.find((r) => r.id === id)?.id ?? shown[0]?.id ?? "";
   return (
     <div className="flex flex-col gap-5">
-      <PageHeader eyebrow="IELTS" title="Reading" description={`Банк академических текстов: ${list.length} текстов, ${list.reduce((n, r) => n + r.questions, 0)} вопросов. На каждый текст 20 минут.`} />
+      <PageHeader eyebrow="IELTS" title="Reading" description={`${content.data.readingStats.uniquePassages} уникальных коротких текстов, ${list.length} наборов упражнений, ${list.reduce((n, r) => n + r.questions, 0)} вопросов. Упражнения показывают точность без Band. Отдельно доступен полный авторский комплект.`} />
+      <div className="flex gap-2"><Button variant={exam ? "outline" : "default"} onClick={() => setExam(false)}>Короткие упражнения</Button><Button variant={exam ? "default" : "outline"} onClick={() => setExam(true)}>Полный Reading · 40 вопросов · 60 минут</Button></div>
+      {exam ? <AcademicReading /> : <>
+      <p className="text-xs text-muted-foreground">Старые наборы Matching headings/information — упрощённые микроупражнения. Общий список заголовков и ограничения выбора доступны в полном комплекте.</p>
       <div className="flex flex-wrap items-center gap-3">
         <Select aria-label="Тип заданий" value={type} onChange={(e) => setType(e.target.value)} className="max-w-xs">
           <option value="">Все типы ({list.length})</option>
@@ -35,7 +40,7 @@ export default function Reading() {
           ))}
         </Select>
       </div>
-      <div className="grid max-h-72 gap-2 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-3" role="listbox" aria-label="Тексты">
+      <div className="grid max-h-72 gap-2 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-3" role="listbox" aria-label="Наборы упражнений">
         {shown.map((r) => (
           <button
             key={r.id}
@@ -53,6 +58,7 @@ export default function Reading() {
         ))}
       </div>
       {current && <Passage key={current} id={current} />}
+      </>}
     </div>
   );
 }
@@ -61,7 +67,7 @@ function Passage({ id }: { id: string }) {
   const { data, error, loading } = useApi<{ title: string; level: string; passage: string; questions: IeltsChoiceQuestion[] }>(`/ielts/reading/${id}`);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<CheckResult | null>(null);
-  const [left, setLeft] = useState(20 * 60);
+  const [left, setLeft] = useState(8 * 60);
   const [err, setErr] = useState("");
 
   useEffect(() => {
@@ -85,7 +91,7 @@ function Passage({ id }: { id: string }) {
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       <Card className="lg:sticky lg:top-4 lg:max-h-[calc(100dvh-120px)] lg:overflow-y-auto">
         <div className="mb-3 flex items-center justify-between gap-2">
-          <Badge>{data.level}</Badge>
+          <Badge>Короткое упражнение · {data.level}</Badge>
           <Badge tone={left < 180 ? "bad" : "dark"} className="tabular">
             {mmss(left)}
           </Badge>
@@ -103,14 +109,14 @@ function Passage({ id }: { id: string }) {
       <div className="flex flex-col gap-4">
         {result && (
           <Card className="flex items-center gap-4">
-            <CircleProgress value={result.band} max={9} size={90} stroke={9}>
-              <p className="font-display text-2xl font-semibold">{result.band}</p>
+            <CircleProgress value={result.percentage} max={100} size={90} stroke={9}>
+              <p className="font-display text-2xl font-semibold">{result.percentage}%</p>
             </CircleProgress>
             <div>
               <p className="font-display text-lg font-semibold">
                 {result.right} из {result.total} верно
               </p>
-              <p className="text-xs text-muted-foreground">Балл пересчитан на шкалу из 40 вопросов — это ориентир.</p>
+              <p className="text-xs text-muted-foreground">Короткое упражнение: результат не переводится в экзаменационный Band.</p>
             </div>
           </Card>
         )}

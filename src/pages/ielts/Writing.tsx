@@ -23,7 +23,7 @@ export default function Writing() {
 
   return (
     <div className="flex max-w-5xl flex-col gap-5">
-      <PageHeader eyebrow="IELTS" title="Writing" description="Напиши ответ и получи балл по четырём критериям, а ошибки — прямо в своём тексте." />
+      <PageHeader eyebrow="IELTS" title="Writing" description="Напиши ответ: подключённая модель даёт ориентировочный разбор текста. В деморежиме показывается объём без оценки языкового уровня." />
       <div className="flex flex-wrap items-center gap-3">
         <Segmented
           value={task}
