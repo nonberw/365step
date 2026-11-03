@@ -1,0 +1,29 @@
+import rows from './source-data.json';
+import type {EntSourceQuestion,EntSourcePublic,EntSourceAttribution,EntSourceMeta} from '../../../shared/entSources';
+import {numericEqual} from '../../../shared/numeric';
+export const ENT_SOURCE_BANK=rows as EntSourceQuestion[];
+export const ENT_SOURCE_BY_ID=new Map(ENT_SOURCE_BANK.map(q=>[q.id,q]));
+export const ENT_SOURCE_ATTRIBUTIONS:EntSourceAttribution[]=[
+ {id:'rubq',title:'RuBQ 2.0 · факты русской литературы',authors:'Vladislav Korablinov, Pavel Braslavski and RuBQ contributors; Wikidata contributors',url:'https://github.com/vladislavneon/RuBQ/tree/fade3eae6a4807c35b19cfce20dfa805fc8c0cdf',license:'CC BY-SA 4.0',licenseUrl:'https://github.com/vladislavneon/RuBQ/blob/fade3eae6a4807c35b19cfce20dfa805fc8c0cdf/LICENSE.txt',notice:'Небольшой проверенный отбор по авторам, произведениям, биографиям и направлениям русской литературы. Сохранены ответы-сущности и русские названия. Вопросы о фильмах, памятниках и неоднозначных датах написания исключены.'},
+ {id:'kazqad',title:'KazQAD · ISSAI / Назарбаев Университет',authors:'Rustem Yeshpanov, Pavel Efimov, Leonid Boytsov, Ardak Shalkarbayuli, Pavel Braslavski; Wikipedia contributors',url:'https://github.com/IS2AI/KazQAD/tree/ab8684a667109f2a7345f4f89ab3b123e8d78e1f',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/',notice:'Вопросы и аннотированные ответы из validation/test, один вопрос из нескольких подтверждающих отрывков. Убраны неоднозначные записи и неполные списки ответов. Свидетельство и ссылка на статью открываются после проверки. Казахский оригинал.'},
+ {id:'mera',title:'MERA · ruMMLU / USE',authors:'Alena Fenogenova et al., AI Alliance / ai-forever; MMLU original contributors',url:'https://huggingface.co/datasets/ai-forever/MERA/tree/e9628afed9c1da102066e80e9e844621613fa3cf',license:'MIT (dataset publisher); retain source notices',licenseUrl:'https://github.com/ai-forever/MERA/blob/main/LICENSE',notice:'Отбор школьных предметов и русской грамматики. Ключи источника сохранены; чужое национальное право, недостающие рисунки и длинные литературные фрагменты исключены. Решения не выдумываются: если источник дал только ключ, это явно указано.'},
+ {id:'include',title:'INCLUDE-base-44 · казахские экзаменационные вопросы',authors:'Angelika Romanou, Negar Foroutan, Anna Sotnikova et al.; INCLUDE contributors / Cohere Labs',url:'https://huggingface.co/datasets/CohereLabs/include-base-44/tree/d2e1f6015f67a43c02a9a68db98e2298e2d6a660',license:'Apache-2.0 (dataset metadata)',licenseUrl:'https://www.apache.org/licenses/LICENSE-2.0',notice:'Использована только казахская часть по истории и литературе с опубликованными ключами. Русская часть по водительским, медицинским и профессиональным экзаменам не подходит к ЕНТ и не включена.'},
+ {id:'belebele',title:'Belebele · чтение на русском, казахском и английском',authors:'Lucas Bandarkar et al., Meta AI; FLORES / Wikimedia contributors',url:'https://github.com/facebookresearch/belebele/tree/918890beb2290a8d3ef2d7a90369925959e1bacf',license:'CC BY-SA 4.0 (Belebele benchmark, not assembled training data)',licenseUrl:'https://github.com/facebookresearch/belebele/blob/918890beb2290a8d3ef2d7a90369925959e1bacf/LICENSE_CC-BY-SA4.0',notice:'Полные исходные отрывки, вопросы, варианты и ключи. Переводы не считаются независимыми условиями. Это дополнительная тренировка понимания текста; в исходнике 1–2 вопроса к отрывку, поэтому они не подменяют пятизаданные контексты пробника.'},
+ {id:'openstax-algebra',title:'OpenStax · исходные упражнения по алгебре, версия 2026-08',authors:'Jay Abramson and contributing authors; OpenStax, Rice University; adaptations and translations by 365step',url:'https://github.com/openstax/osbooks-college-algebra-bundle/tree/4922e46ebc04326979e19392ccc2384cb8b9076c',license:'CC BY 4.0 (pinned edition; adaptations CC BY-SA 4.0)',licenseUrl:'https://github.com/openstax/osbooks-college-algebra-bundle/blob/4922e46ebc04326979e19392ccc2384cb8b9076c/LICENSE',notice:'Переиспользованы упражнения из открытого набора SAT 365step с переводом условий на русский и казахский. Это конкретные упражнения с исходными ID, не новые числовые вариации. Простая разминка исключена; ответы проверены независимым символьным решением.'},
+];
+const tally=(qs:EntSourceQuestion[],key:(q:EntSourceQuestion)=>string)=>{const out:Record<string,number>={};for(const q of qs)out[key(q)]=(out[key(q)]??0)+1;return out;};
+export const ENT_SOURCE_META:EntSourceMeta={total:ENT_SOURCE_BANK.length,conditions:new Set(ENT_SOURCE_BANK.map(q=>q.conditionId)).size,subjects:tally(ENT_SOURCE_BANK,q=>q.subject),languages:tally(ENT_SOURCE_BANK,q=>q.lang),sourceCounts:tally(ENT_SOURCE_BANK,q=>q.sourceId),formats:tally(ENT_SOURCE_BANK,q=>q.kind),sources:ENT_SOURCE_ATTRIBUTIONS};
+export function sourcePublic({answer,accepted,explanation,evidence,evidenceUrl,...q}:EntSourceQuestion):EntSourcePublic{return q;}
+const text=(v:string)=>v.normalize('NFKC').toLocaleLowerCase().replace(/ё/g,'е').replace(/[«»“”"']/g,'').replace(/[.,;:!?()]/g,' ').replace(/\s+/g,' ').trim();
+export function sourceCorrect(q:EntSourceQuestion,given:unknown):boolean{
+ if(q.kind==='choice')return typeof given==='number'&&Number.isInteger(given)&&given===q.answer;
+ if(typeof given!=='string'||!given.trim()||given.length>300)return false;
+ if(q.responseRule==='numeric')return q.accepted!.some(a=>numericEqual(given,a));
+ if(q.responseRule==='number-set'){
+  const parse=(v:string)=>/^\d+(?:\s*[,; ]\s*\d+)*$/.test(v.trim())?v.trim().split(/[;,\s]+/).map(Number).sort((a,b)=>a-b):null;
+  const input=parse(given);if(!input||new Set(input).size!==input.length)return false;
+  return q.accepted!.some(a=>JSON.stringify(parse(a))===JSON.stringify(input));
+ }
+ // Only formatting is normalised: no fuzzy matching that accepts a different date/entity.
+ return q.accepted!.some(a=>text(a)===text(given));
+}
