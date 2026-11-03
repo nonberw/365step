@@ -1,0 +1,49 @@
+Source: https://www.opentextbookstore.com/precalc/current2.php?chapter=all&format=pdf
+Edition 2.3, 2022. Downloaded 2026-11-02.
+
+=== PDF PAGE 2 ===
+Copyright © 2022 David Lippman and Melonie Rasmussen 
+ 
+This text is licensed under the Creative Commons Attribution-Share Alike 4.0 
+International License.  
+ 
+To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to 
+Creative Commons, PO Box 1866, Mountain View, CA 94042, USA. 
+ 
+You are free: 
+to Share — copy and redistribute the material in any medium or format 
+to Adapt — remix, transform, and build upon the material for any purpose 
+ 
+Under the following conditions: 
+Attribution. You must give appropriate credit, provide a link to the license, and indicate if changes 
+were made. You may do so in any reasonable manner, but not in any way that suggests the 
+licensor endorses you or your use. 
+Share Alike. If you remix, transform, or build upon the material, you must distribute your 
+contributions under the same license as the original 
+No additional restrictions. You may not apply legal terms or technological measures that legally 
+restrict others from doing anything the license permits. 
+ 
+ 
+In addition to these rights, we give explicit permission to remix small portions of this 
+book (less than 10% cumulative) into works that are CC-BY, CC-BY-SA-NC, or GFDL 
+licensed. 
+ 
+Selected exercises were remixed from Precalculus by D.H. Collingwood and K.D. 
+Prince, originally licensed under the GNU Free Document License, with permission from 
+the authors.  These are marked in the book as [UW]. 
+ 
+Portions of chapter 3 were remixed from College Algebra by Carl Stitz and Jeff Zeager, 
+originally licensed under a Creative Commons Attribution ShareAlike Non-Commercial 
+license, used with permission from the authors. 
+ 
+Portions of chapter 9 were remixed from work by Lara Michaels, and contains content 
+remixed from Precalculus by OpenStax, originally licensed under a Creative Commons 
+Attribution license.  The original version is available online for free at OpenStax.org. 
+ 
+Cover photos by Ralph Morasch and David Lippman, of artwork by John Rogers. 
+Lituus, 2010.  Dichromatic glass and aluminum.  
+Washington State Arts Commission in partnership with Pierce College 
+ 
+ 
+A screen reader friendly HTML version of the book can be found on LibreTexts.
+
