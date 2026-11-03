@@ -1,0 +1,8567 @@
+[
+  {
+    "kind": "zeros",
+    "expression": "2*x - 1*5",
+    "variable": "x",
+    "solutions": [
+      "5/2"
+    ],
+    "id": "scale-source-m49301-1165137431335",
+    "expected": "5/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "vertex",
+    "expression": "-5*x**2 + 2*x - 1*1",
+    "variable": "x",
+    "point": "1/5",
+    "id": "scale-source-m49301-1165137727203",
+    "expected": "-4/5",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "domain",
+    "expression": "(6*x - 1*1)/(5*x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2/5"
+    ],
+    "id": "scale-source-m49301-1165135697840",
+    "expected": "-2/5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "4 - 2*x",
+    "variable": "x",
+    "solutions": [
+      "2"
+    ],
+    "id": "scale-source-m49301-1165135581074",
+    "expected": "2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "8 - 3*x",
+    "variable": "x",
+    "solutions": [
+      "8/3"
+    ],
+    "id": "scale-source-m49301-1165137812524",
+    "expected": "8/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "vertex",
+    "expression": "8*x**2 - 7*x + 3",
+    "variable": "x",
+    "point": "7/16",
+    "id": "scale-source-m49301-1165135445749",
+    "expected": "47/32",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*2)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m49301-1165134573828",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 - 1*1",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "1"
+    ],
+    "id": "scale-source-m49304-1165137767649",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 1)/(2 - x)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49304-1165137722406",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x + 1)/(2*x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1/2"
+    ],
+    "id": "scale-source-m49304-1165137437630",
+    "expected": "1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "2/(x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49304-1165137448155",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "9/(x - 1*6)",
+    "variable": "x",
+    "excluded": [
+      "6"
+    ],
+    "id": "scale-source-m49304-1165135503751",
+    "expected": "6",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x + 1)/(4*x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-1/2"
+    ],
+    "id": "scale-source-m49304-1165133276237",
+    "expected": "-1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "sqrt(x + 4)/(x - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "4"
+    ],
+    "id": "scale-source-m49304-1165137810520",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*3)/(x**2 + 9*x - 1*22)",
+    "variable": "x",
+    "excluded": [
+      "-11",
+      "2"
+    ],
+    "id": "scale-source-m49304-1165135548992",
+    "expected": "-9",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "1/(x**2 - x - 1*6)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "3"
+    ],
+    "id": "scale-source-m49304-1165135593402",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**3 - 1*250)/(x**2 - 2*x - 1*15)",
+    "variable": "x",
+    "excluded": [
+      "-3",
+      "5"
+    ],
+    "id": "scale-source-m49304-1165135191342",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "x/x",
+    "variable": "x",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m49304-1165137601712",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - 9*x)/(x**2 - 1*81)",
+    "variable": "x",
+    "excluded": [
+      "-9",
+      "9"
+    ],
+    "id": "scale-source-m49304-1165137628472",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x + 2)**2",
+    "variable": "x",
+    "solutions": [
+      "-2"
+    ],
+    "id": "scale-source-m49308-1165135344867",
+    "expected": "-2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x - 1*5)**3",
+    "variable": "x",
+    "solutions": [
+      "5"
+    ],
+    "id": "scale-source-m49308-1165137768741",
+    "expected": "5",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "3/(x - 1*5)",
+    "variable": "x",
+    "excluded": [
+      "5"
+    ],
+    "id": "scale-source-m49308-1165137936652",
+    "expected": "5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "4/((x + 2)**2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49308-1165135440593",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(5*x - 1*1)**3",
+    "variable": "x",
+    "solutions": [
+      "1/5"
+    ],
+    "id": "scale-source-m49308-1165137723997",
+    "expected": "1/5",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "1/(x - 1*2)**3",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49308-1165137442981",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "1/x",
+    "variable": "x",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m49312-ti_01_05_03",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "1/x**2",
+    "variable": "x",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m49312-1165137805973",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "vertex",
+    "expression": "4*(x + 1)**2 - 1*5",
+    "variable": "x",
+    "point": "-1",
+    "id": "scale-source-m49312-1165137896310",
+    "expected": "-5",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(t + 1)**2 - 1*3",
+    "variable": "t",
+    "point": "-1",
+    "id": "scale-source-m49312-1165137448391",
+    "expected": "-3",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(x - 1*2)**2",
+    "variable": "x",
+    "point": "2",
+    "id": "scale-source-m49312-1165134187165",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "1*x**3/2",
+    "variable": "x",
+    "solutions": [
+      "0"
+    ],
+    "id": "scale-source-m49312-1165135351654",
+    "expected": "0",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "x/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49320-1165137600416",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x + 3)/(5*x + 4)",
+    "variable": "x",
+    "excluded": [
+      "-4/5"
+    ],
+    "id": "scale-source-m49320-1165137541591",
+    "expected": "-4/5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x + 7)**2",
+    "variable": "x",
+    "solutions": [
+      "-7"
+    ],
+    "id": "scale-source-m49320-1165134148519",
+    "expected": "-7",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(x - 1*6)**2",
+    "variable": "x",
+    "point": "6",
+    "id": "scale-source-m49320-1165137862703",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 - 1*5",
+    "variable": "x",
+    "point": "0",
+    "id": "scale-source-m49320-1165137938698",
+    "expected": "-5",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "1 - 5*x",
+    "variable": "x",
+    "solutions": [
+      "1/5"
+    ],
+    "id": "scale-source-m49320-1165135424683",
+    "expected": "1/5",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "domain",
+    "expression": "0/f",
+    "variable": "f",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m49320-1165133093360",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "1/f",
+    "variable": "f",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m49320-1165137884386",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "3/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49320-1165137401888",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "1/(x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1"
+    ],
+    "id": "scale-source-m49320-1165137419353",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-2*x**2 + 3*x",
+    "variable": "x",
+    "solutions": [
+      "0",
+      "3/2"
+    ],
+    "id": "scale-source-m49320-1165135186568",
+    "expected": "3/2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "5 - 3*x",
+    "variable": "x",
+    "solutions": [
+      "5/3"
+    ],
+    "id": "scale-source-m49320-1165137605472",
+    "expected": "5/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "domain",
+    "expression": "2/(3*x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2/3"
+    ],
+    "id": "scale-source-m49320-1165137667482",
+    "expected": "-2/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*3)/(x**2 - 4*x - 1*12)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "6"
+    ],
+    "id": "scale-source-m49320-1165137648069",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "4*x - 1*3",
+    "variable": "x",
+    "solutions": [
+      "3/4"
+    ],
+    "id": "scale-source-m49320-1165137541046",
+    "expected": "3/4",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "vertex",
+    "expression": "10*x**2 + x",
+    "variable": "x",
+    "point": "-1/20",
+    "id": "scale-source-m49320-1165137664379",
+    "expected": "-1/40",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "domain",
+    "expression": "-2/x**2",
+    "variable": "x",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m49320-1165137807042",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(x - 1*3)**2",
+    "variable": "x",
+    "point": "3",
+    "id": "scale-source-m49320-1165137901178",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x + 4)**3",
+    "variable": "x",
+    "solutions": [
+      "-4"
+    ],
+    "id": "scale-source-m49320-1165137419235",
+    "expected": "-4",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-x**3",
+    "variable": "x",
+    "solutions": [
+      "0"
+    ],
+    "id": "scale-source-m49320-1165137638654",
+    "expected": "0",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "10*x + 9",
+    "variable": "x",
+    "solutions": [
+      "-9/10"
+    ],
+    "id": "scale-source-m49320-582",
+    "expected": "-9/10",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 + 1",
+    "variable": "x",
+    "point": "0",
+    "id": "scale-source-m49320-117",
+    "expected": "1",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-3*x**2 + x",
+    "variable": "x",
+    "solutions": [
+      "0",
+      "1/3"
+    ],
+    "id": "scale-source-m49320-642",
+    "expected": "1/3",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "3*x - 1*5",
+    "variable": "x",
+    "solutions": [
+      "5/3"
+    ],
+    "id": "scale-source-m49320-1165137675392",
+    "expected": "5/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "domain",
+    "expression": "4/(x + 7)",
+    "variable": "x",
+    "excluded": [
+      "-7"
+    ],
+    "id": "scale-source-m49320-1165135195662",
+    "expected": "-7",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "15/f",
+    "variable": "f",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m49320-1165137447422",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "4*x + 3",
+    "variable": "x",
+    "solutions": [
+      "-3/4"
+    ],
+    "id": "scale-source-m49324-1165137476480",
+    "expected": "-3/4",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "5*x + 6",
+    "variable": "x",
+    "solutions": [
+      "-6/5"
+    ],
+    "id": "scale-source-m49324-1165137447357",
+    "expected": "-6/5",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "5 - 2*x",
+    "variable": "x",
+    "solutions": [
+      "5/2"
+    ],
+    "id": "scale-source-m49324-1165137766929",
+    "expected": "5/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "1 - 4*x",
+    "variable": "x",
+    "solutions": [
+      "1/4"
+    ],
+    "id": "scale-source-m49324-1165135310669",
+    "expected": "1/4",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "1*x/2 - 1*3",
+    "variable": "x",
+    "solutions": [
+      "6"
+    ],
+    "id": "scale-source-m49324-1165137653326",
+    "expected": "6",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "1*x/4 - 1*5",
+    "variable": "x",
+    "solutions": [
+      "20"
+    ],
+    "id": "scale-source-m49324-1165137477116",
+    "expected": "20",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(-1/3)*x - 1*2",
+    "variable": "x",
+    "solutions": [
+      "-6"
+    ],
+    "id": "scale-source-m49324-1165137849191",
+    "expected": "-6",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(-3/8)*x + 3",
+    "variable": "x",
+    "solutions": [
+      "8"
+    ],
+    "id": "scale-source-m49324-1165135198574",
+    "expected": "8",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "equation",
+    "left": "r",
+    "right": "13/50",
+    "variable": "r",
+    "candidates": [
+      "13/50"
+    ],
+    "solutions": [
+      "13/50"
+    ],
+    "id": "scale-source-m49327-1165137661755",
+    "expected": "13/50",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "r",
+    "right": "-39/100",
+    "variable": "r",
+    "candidates": [
+      "-39/100"
+    ],
+    "solutions": [
+      "-39/100"
+    ],
+    "id": "scale-source-m49327-1165137805103",
+    "expected": "-39/100",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "7*x - 1*2",
+    "variable": "x",
+    "solutions": [
+      "2/7"
+    ],
+    "id": "scale-source-m49327-1165137806610",
+    "expected": "2/7",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-x/3 + y + 2",
+      "3*x + y + 9"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-21/10",
+      "y": "-27/10"
+    },
+    "id": "scale-source-m49327-1165137831516",
+    "expected": "-27/10",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x - 1*1",
+    "variable": "x",
+    "solutions": [
+      "1/2"
+    ],
+    "id": "scale-source-m49327-1165137725355",
+    "expected": "1/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "5*x - 1*1",
+    "variable": "x",
+    "solutions": [
+      "1/5"
+    ],
+    "id": "scale-source-m49327-1165137714762",
+    "expected": "1/5",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*t - 1*5",
+    "variable": "t",
+    "solutions": [
+      "5/2"
+    ],
+    "id": "scale-source-m49327-1165135205940",
+    "expected": "5/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x - y - 6",
+      "2*x - y - 13"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "7",
+      "y": "1"
+    },
+    "id": "scale-source-m49327-1165137863268",
+    "expected": "1",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "zeros",
+    "expression": "7*x + 9",
+    "variable": "x",
+    "solutions": [
+      "-9/7"
+    ],
+    "id": "scale-source-m49327-1165137592955",
+    "expected": "-9/7",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-3*x/4 + y + 9",
+      "-4*x - 3*y - 8"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "76/25",
+      "y": "-168/25"
+    },
+    "id": "scale-source-m49327-1165137533555",
+    "expected": "76/25",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-2*x + y - 3",
+      "3*x + 3*y/2 - 5"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "1/12",
+      "y": "19/6"
+    },
+    "id": "scale-source-m49327-1165135194768",
+    "expected": "1/12",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x - y - 2",
+      "2*x - 3*y + 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "7",
+      "y": "5"
+    },
+    "id": "scale-source-m49327-1165137433424",
+    "expected": "7",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "zeros",
+    "expression": "3*x**2 + 5*x - 1*2",
+    "variable": "x",
+    "solutions": [
+      "-2",
+      "1/3"
+    ],
+    "id": "scale-source-m49337-1165134129944",
+    "expected": "-5/3",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-16*t**2 + 96*t + 112",
+    "variable": "t",
+    "solutions": [
+      "-1",
+      "7"
+    ],
+    "id": "scale-source-m49337-ti_03_02_05",
+    "expected": "6",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 - 12*x + 32",
+    "variable": "x",
+    "point": "6",
+    "id": "scale-source-m49337-1165133276266",
+    "expected": "-4",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 + 2*x - 1*3",
+    "variable": "x",
+    "point": "-1",
+    "id": "scale-source-m49337-1165135336013",
+    "expected": "-4",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 - x",
+    "variable": "x",
+    "point": "1/2",
+    "id": "scale-source-m49337-1165134199469",
+    "expected": "-1/4",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**2 + 8*x - 1*10",
+    "variable": "x",
+    "solutions": [
+      "-5",
+      "1"
+    ],
+    "id": "scale-source-m49337-1165134476611",
+    "expected": "-4",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "3*x**2 - 6*x - 1*9",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "3"
+    ],
+    "id": "scale-source-m49337-1165133328085",
+    "expected": "2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "2*x**2 - 6*x",
+    "variable": "x",
+    "point": "3/2",
+    "id": "scale-source-m49337-1165134422869",
+    "expected": "-9/2",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "2*x**2 + 10*x + 12",
+    "variable": "x",
+    "point": "-5/2",
+    "id": "scale-source-m49337-1165135258896",
+    "expected": "-1/2",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "2*x**2 - 10*x + 4",
+    "variable": "x",
+    "point": "5/2",
+    "id": "scale-source-m49337-1165133344089",
+    "expected": "-17/2",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**2 - 4*x + 2",
+    "variable": "x",
+    "solutions": [
+      "1"
+    ],
+    "id": "scale-source-m49337-1165134199532",
+    "expected": "1",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 - 2*x",
+    "variable": "x",
+    "solutions": [
+      "0",
+      "2"
+    ],
+    "id": "scale-source-m49337-1165133095103",
+    "expected": "2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 - 5*x - 1*6",
+    "variable": "x",
+    "point": "5/2",
+    "id": "scale-source-m49337-1165135692195",
+    "expected": "-49/4",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "-49*t**2/10 + 229*t + 234",
+    "variable": "t",
+    "point": "1145/49",
+    "id": "scale-source-m49337-1165135571732",
+    "expected": "285137/98",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "-49*t**2/10 + 24*t + 8",
+    "variable": "t",
+    "point": "120/49",
+    "id": "scale-source-m49337-1165135394035",
+    "expected": "1832/49",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x + 1)*(x - 1*2)*(x - 1*5)/5",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "2",
+      "5"
+    ],
+    "id": "scale-source-m49346-ti_03_03_05",
+    "expected": "6",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "x**2/(x**2 - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "-1",
+      "1"
+    ],
+    "id": "scale-source-m49346-1165135339598",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "vertex",
+    "expression": "7 - 2*x**2",
+    "variable": "x",
+    "point": "0",
+    "id": "scale-source-m49346-1165134380913",
+    "expected": "7",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "3*x**2 + x - 1*2",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "2/3"
+    ],
+    "id": "scale-source-m49346-1165135696746",
+    "expected": "-1/3",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*(t + 2)*(t - 1*1)*(t - 1*3)",
+    "variable": "t",
+    "solutions": [
+      "-2",
+      "1",
+      "3"
+    ],
+    "id": "scale-source-m49346-1165135650639",
+    "expected": "2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "vertex",
+    "expression": "-2*(2*n + 1)*(3*n - 1*1)",
+    "variable": "n",
+    "point": "-1/12",
+    "id": "scale-source-m49346-1165137634317",
+    "expected": "25/12",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x + 3)*(4*x**2 - 1*1)",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "-1/2",
+      "1/2"
+    ],
+    "id": "scale-source-m49346-1165134223322",
+    "expected": "-3",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(3 - x)*(x - 1*1)*(x - 1*2)",
+    "variable": "x",
+    "solutions": [
+      "1",
+      "2",
+      "3"
+    ],
+    "id": "scale-source-m49346-1165135456684",
+    "expected": "6",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 - 16*x",
+    "variable": "x",
+    "solutions": [
+      "-4",
+      "0",
+      "4"
+    ],
+    "id": "scale-source-m49346-1165134417902",
+    "expected": "0",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-x**3 + x**2 + 2*x",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "0",
+      "2"
+    ],
+    "id": "scale-source-m49346-1165135484565",
+    "expected": "1",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 - 2*x**2 - 15*x",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "0",
+      "5"
+    ],
+    "id": "scale-source-m49346-1165133092744",
+    "expected": "2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 - x/100",
+    "variable": "x",
+    "solutions": [
+      "-1/10",
+      "0",
+      "1/10"
+    ],
+    "id": "scale-source-m49346-1165134378662",
+    "expected": "0",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-2*(x + 3)**2*(x - 1*5)",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "5"
+    ],
+    "id": "scale-source-m49347-1165135575951",
+    "expected": "2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*(t + 1)*(t - 1*4)*(t - 1*6)",
+    "variable": "t",
+    "solutions": [
+      "-1",
+      "4",
+      "6"
+    ],
+    "id": "scale-source-m49347-1165134199522",
+    "expected": "9",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "3*(t + 2)*(t + 5)*(t - 1*3)",
+    "variable": "t",
+    "solutions": [
+      "-5",
+      "-2",
+      "3"
+    ],
+    "id": "scale-source-m49347-1165133381481",
+    "expected": "-4",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 + x**2 - 20*x",
+    "variable": "x",
+    "solutions": [
+      "-5",
+      "0",
+      "4"
+    ],
+    "id": "scale-source-m49347-1165137897820",
+    "expected": "-1",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 + 6*x**2 - 7*x",
+    "variable": "x",
+    "solutions": [
+      "-7",
+      "0",
+      "1"
+    ],
+    "id": "scale-source-m49347-1165133277675",
+    "expected": "-6",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 + x**2 - 4*x - 1*4",
+    "variable": "x",
+    "solutions": [
+      "-2",
+      "-1",
+      "2"
+    ],
+    "id": "scale-source-m49347-1165134060477",
+    "expected": "-1",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 + 2*x**2 - 9*x - 1*18",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "-2",
+      "3"
+    ],
+    "id": "scale-source-m49347-1165135341337",
+    "expected": "-2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**3 - x**2 - 8*x + 4",
+    "variable": "x",
+    "solutions": [
+      "-2",
+      "1/2",
+      "2"
+    ],
+    "id": "scale-source-m49347-1165132949926",
+    "expected": "1/2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 - 3*x**2 - x + 3",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "1",
+      "3"
+    ],
+    "id": "scale-source-m49347-1165135263550",
+    "expected": "3",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x + 3)**2*(x - 1*2)",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "2"
+    ],
+    "id": "scale-source-m49347-1165137940541",
+    "expected": "-1",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x + 4)*(x - 1*1)**2",
+    "variable": "x",
+    "solutions": [
+      "-4",
+      "1"
+    ],
+    "id": "scale-source-m49347-1165134328240",
+    "expected": "-3",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 5*x - 1*1)/(x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1"
+    ],
+    "id": "scale-source-m49348-1165135349098",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**2 - 9*x - 1*5)/(x - 1*5)",
+    "variable": "x",
+    "excluded": [
+      "5"
+    ],
+    "id": "scale-source-m49348-1165137932684",
+    "expected": "5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**2 + 23*x + 14)/(x + 7)",
+    "variable": "x",
+    "excluded": [
+      "-7"
+    ],
+    "id": "scale-source-m49348-1165135643143",
+    "expected": "-7",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x**2 - 10*x + 6)/(4*x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-1/2"
+    ],
+    "id": "scale-source-m49348-1165135453058",
+    "expected": "-1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(6*x**2 - 25*x - 1*25)/(6*x + 5)",
+    "variable": "x",
+    "excluded": [
+      "-5/6"
+    ],
+    "id": "scale-source-m49348-1165137833881",
+    "expected": "-5/6",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(-x**2 - 1*1)/(x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49348-1165135363204",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**2 - 3*x + 2)/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49348-1165134472270",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 - 1*126)/(x - 1*5)",
+    "variable": "x",
+    "excluded": [
+      "5"
+    ],
+    "id": "scale-source-m49348-1165134352532",
+    "expected": "5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**2 - 5*x + 4)/(3*x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1/3"
+    ],
+    "id": "scale-source-m49348-1165135678617",
+    "expected": "-1/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 - 3*x**2 + 5*x - 1*6)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49348-1165133093355",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**3 + 3*x**2 - 4*x + 15)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m49348-1165135435667",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**3 - 2*x**2 + x - 1*4)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m49348-1165135321931",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**3 - 6*x**2 - 7*x + 6)/(x - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "4"
+    ],
+    "id": "scale-source-m49348-1165134474179",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(6*x**3 - 10*x**2 - 7*x - 1*15)/(x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49348-1165135199519",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x**3 - 12*x**2 - 5*x - 1*1)/(2*x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1/2"
+    ],
+    "id": "scale-source-m49348-1165133233060",
+    "expected": "-1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(9*x**3 - 9*x**2 + 18*x + 5)/(3*x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1/3"
+    ],
+    "id": "scale-source-m49348-1165133311045",
+    "expected": "1/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(-6*x**3 + x**2 - 1*4)/(2*x - 1*3)",
+    "variable": "x",
+    "excluded": [
+      "3/2"
+    ],
+    "id": "scale-source-m49348-1165137642766",
+    "expected": "3/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**3 + 7*x**2 - 13*x - 1*3)/(2*x - 1*3)",
+    "variable": "x",
+    "excluded": [
+      "3/2"
+    ],
+    "id": "scale-source-m49348-1165135530633",
+    "expected": "3/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**3 - 5*x**2 + 2*x + 3)/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49348-1165134173742",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x**3 - 5*x**2 + 13)/(x + 4)",
+    "variable": "x",
+    "excluded": [
+      "-4"
+    ],
+    "id": "scale-source-m49348-1165135443762",
+    "expected": "-4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 - 3*x + 2)/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49348-1165135403522",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 - 21*x**2 + 147*x - 1*343)/(x - 1*7)",
+    "variable": "x",
+    "excluded": [
+      "7"
+    ],
+    "id": "scale-source-m49348-1165134061948",
+    "expected": "7",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 - 15*x**2 + 75*x - 1*125)/(x - 1*5)",
+    "variable": "x",
+    "excluded": [
+      "5"
+    ],
+    "id": "scale-source-m49348-1165134156069",
+    "expected": "5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(9*x**3 - x + 2)/(3*x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1/3"
+    ],
+    "id": "scale-source-m49348-1165135344106",
+    "expected": "1/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(6*x**3 - x**2 + 5*x + 2)/(3*x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1/3"
+    ],
+    "id": "scale-source-m49348-1165135485710",
+    "expected": "-1/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 + x**3 - 3*x**2 - 2*x + 1)/(x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49348-1165135485136",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 - 3*x**2 + 1)/(x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1"
+    ],
+    "id": "scale-source-m49348-1165134357289",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 + 2*x**3 - 3*x**2 + 2*x + 6)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m49348-1165135390850",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 - 10*x**3 + 37*x**2 - 60*x + 36)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49348-1165137850245",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 - 8*x**3 + 24*x**2 - 32*x + 16)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49348-1165137705401",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 + 5*x**3 - 3*x**2 - 13*x + 10)/(x + 5)",
+    "variable": "x",
+    "excluded": [
+      "-5"
+    ],
+    "id": "scale-source-m49348-1165134389913",
+    "expected": "-5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 - 12*x**3 + 54*x**2 - 108*x + 81)/(x - 1*3)",
+    "variable": "x",
+    "excluded": [
+      "3"
+    ],
+    "id": "scale-source-m49348-1165134484904",
+    "expected": "3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x**4 - 2*x**3 - 4*x + 2)/(2*x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1/2"
+    ],
+    "id": "scale-source-m49348-1165137696095",
+    "expected": "1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x**4 + 2*x**3 - 4*x**2 + 2*x + 2)/(2*x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1/2"
+    ],
+    "id": "scale-source-m49348-1165135575253",
+    "expected": "-1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x**3 - 1*33)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49348-1165137888978",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**3 + 25)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m49348-1165135209652",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**3 + 2*x - 1*5)/(x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1"
+    ],
+    "id": "scale-source-m49348-1165135443854",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(-4*x**3 - x**2 - 1*12)/(x + 4)",
+    "variable": "x",
+    "excluded": [
+      "-4"
+    ],
+    "id": "scale-source-m49348-1165135154363",
+    "expected": "-4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 - 1*22)/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49348-1165135155437",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "4*x**3 - 3*x - 1*1",
+    "variable": "x",
+    "solutions": [
+      "-1/2",
+      "1"
+    ],
+    "id": "scale-source-m49349-1165137761977",
+    "expected": "1/2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**3 + 5*x**2 - 11*x + 4",
+    "variable": "x",
+    "solutions": [
+      "-4",
+      "1/2",
+      "1"
+    ],
+    "id": "scale-source-m49349-ti_03_06_04",
+    "expected": "-5/2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 - 9*x**2 + 14)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49349-1165135531385",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 + 5*x**3 - 4*x - 1*17)/(x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49349-1165135532325",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(-3*x**2 + 6*x + 24)/(x - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "4"
+    ],
+    "id": "scale-source-m49349-1165135571875",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(5*x**5 - 4*x**4 + 3*x**3 - 2*x**2 + x - 1*1)/(x + 6)",
+    "variable": "x",
+    "excluded": [
+      "-6"
+    ],
+    "id": "scale-source-m49349-1165134106023",
+    "expected": "-6",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 - 1*1)/(x - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "4"
+    ],
+    "id": "scale-source-m49349-1165135487281",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**3 + 4*x**2 - 8*x + 2)/(x - 1*3)",
+    "variable": "x",
+    "excluded": [
+      "3"
+    ],
+    "id": "scale-source-m49349-1165137933131",
+    "expected": "3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x**3 + 5*x**2 - 2*x + 7)/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49349-1165134430485",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**3 - 9*x**2 + 13*x - 1*6",
+    "variable": "x",
+    "solutions": [
+      "1",
+      "3/2",
+      "2"
+    ],
+    "id": "scale-source-m49349-1165135403427",
+    "expected": "9/2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**3 + x**2 - 5*x + 2",
+    "variable": "x",
+    "solutions": [
+      "-2",
+      "1/2",
+      "1"
+    ],
+    "id": "scale-source-m49349-1165135349107",
+    "expected": "-1/2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "3*x**3 + x**2 - 20*x + 12",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "2/3",
+      "2"
+    ],
+    "id": "scale-source-m49349-1165135198461",
+    "expected": "-1/3",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "equation",
+    "left": "x**3 - 3*x**2 - 10*x + 24",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "2",
+      "4"
+    ],
+    "solutions": [
+      "-3",
+      "2",
+      "4"
+    ],
+    "id": "scale-source-m49349-1165134472284",
+    "expected": "3",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**3 + 7*x**2 - 10*x - 1*24",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-4",
+      "-3/2",
+      "2"
+    ],
+    "solutions": [
+      "-4",
+      "-3/2",
+      "2"
+    ],
+    "id": "scale-source-m49349-1165134212161",
+    "expected": "-7/2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "x**3 + 2*x**2 - 9*x - 1*18",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "-2",
+      "3"
+    ],
+    "solutions": [
+      "-3",
+      "-2",
+      "3"
+    ],
+    "id": "scale-source-m49349-1165135678616",
+    "expected": "-2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "x**3 + 5*x**2 - 16*x - 1*80",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5",
+      "-4",
+      "4"
+    ],
+    "solutions": [
+      "-5",
+      "-4",
+      "4"
+    ],
+    "id": "scale-source-m49349-1165135554358",
+    "expected": "-5",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "x**3 - 3*x**2 - 25*x + 75",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5",
+      "3",
+      "5"
+    ],
+    "solutions": [
+      "-5",
+      "3",
+      "5"
+    ],
+    "id": "scale-source-m49349-1165135154364",
+    "expected": "3",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**3 - 3*x**2 - 32*x - 1*15",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "-1/2",
+      "5"
+    ],
+    "solutions": [
+      "-3",
+      "-1/2",
+      "5"
+    ],
+    "id": "scale-source-m49349-1165135389007",
+    "expected": "3/2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**3 + x**2 - 7*x - 1*6",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3/2",
+      "-1",
+      "2"
+    ],
+    "solutions": [
+      "-3/2",
+      "-1",
+      "2"
+    ],
+    "id": "scale-source-m49349-1165137676884",
+    "expected": "-1/2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "4*x**3 - 3*x + 1",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-1",
+      "1/2"
+    ],
+    "solutions": [
+      "-1",
+      "1/2"
+    ],
+    "id": "scale-source-m49349-1165133311066",
+    "expected": "-1/2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 - 2*x**2 - 5*x + 6",
+    "variable": "x",
+    "solutions": [
+      "-2",
+      "1",
+      "3"
+    ],
+    "id": "scale-source-m49349-1165135333211",
+    "expected": "2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**3 + 37*x**2 + 200*x + 300",
+    "variable": "x",
+    "solutions": [
+      "-10",
+      "-6",
+      "-5/2"
+    ],
+    "id": "scale-source-m49349-1165134149873",
+    "expected": "-37/2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 - 2*x**2 - 16*x + 32",
+    "variable": "x",
+    "solutions": [
+      "-4",
+      "2",
+      "4"
+    ],
+    "id": "scale-source-m49349-1165134389900",
+    "expected": "2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "6*x**3 - 7*x**2 + 1",
+    "variable": "x",
+    "solutions": [
+      "-1/3",
+      "1/2",
+      "1"
+    ],
+    "id": "scale-source-m49349-1165135353055",
+    "expected": "7/6",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "4*x**3 - 4*x**2 - 13*x - 1*5",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "-1/2",
+      "5/2"
+    ],
+    "id": "scale-source-m49349-1165134431750",
+    "expected": "1",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "8*x**3 - 6*x**2 - 23*x + 6",
+    "variable": "x",
+    "solutions": [
+      "-3/2",
+      "1/4",
+      "2"
+    ],
+    "id": "scale-source-m49349-1165135394055",
+    "expected": "3/4",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 3)/(x**2 - 1*9)",
+    "variable": "x",
+    "excluded": [
+      "-3",
+      "3"
+    ],
+    "id": "scale-source-m49351-1165135587815",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "4*x/((5*(x - 1*1)*(x - 1*5)))",
+    "variable": "x",
+    "excluded": [
+      "1",
+      "5"
+    ],
+    "id": "scale-source-m49351-ti_03_07_04",
+    "expected": "6",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**2 + 5)/(-x**2 - x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "1"
+    ],
+    "id": "scale-source-m49351-1165137937688",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*2)/(x**2 - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "2"
+    ],
+    "id": "scale-source-m49351-1165135168126",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - 1*25)/(x**3 - 6*x**2 + 5*x)",
+    "variable": "x",
+    "excluded": [
+      "0",
+      "1",
+      "5"
+    ],
+    "id": "scale-source-m49351-ti_03_07_05",
+    "expected": "6",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(t + 5)/(10*t + 100)",
+    "variable": "t",
+    "excluded": [
+      "-10"
+    ],
+    "id": "scale-source-m49351-1165137836670",
+    "expected": "-10",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 3)*(x - 1*2)/(((x + 2)*(x - 1*1)*(x - 1*5)))",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "1",
+      "5"
+    ],
+    "id": "scale-source-m49351-1165137843849",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x + 1)*(2*x - 1*1)/(((x + 3)*(x - 1*2)))",
+    "variable": "x",
+    "excluded": [
+      "-3",
+      "2"
+    ],
+    "id": "scale-source-m49351-ti_03_07_06",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 2)*(x - 1*3)/(((x + 1)**2*(x - 1*2)))",
+    "variable": "x",
+    "excluded": [
+      "-1",
+      "2"
+    ],
+    "id": "scale-source-m49351-1165137657378",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 2)**2*(x - 1*2)/((2*(x - 1*1)**2*(x - 1*3)))",
+    "variable": "x",
+    "excluded": [
+      "1",
+      "3"
+    ],
+    "id": "scale-source-m49351-ti_03_07_08",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*1)/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49351-1165134031220",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 1)/(x**2 - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "-1",
+      "1"
+    ],
+    "id": "scale-source-m49351-1165131992436",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 4)/(x**2 - 2*x - 1*8)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "4"
+    ],
+    "id": "scale-source-m49351-1165135526975",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "4/(x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1"
+    ],
+    "id": "scale-source-m49351-1165137692182",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "2/(5*x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2/5"
+    ],
+    "id": "scale-source-m49351-1165135457027",
+    "expected": "-2/5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "x/(x**2 - 1*9)",
+    "variable": "x",
+    "excluded": [
+      "-3",
+      "3"
+    ],
+    "id": "scale-source-m49351-1165137462418",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "x/(x**2 + 5*x - 1*36)",
+    "variable": "x",
+    "excluded": [
+      "-9",
+      "4"
+    ],
+    "id": "scale-source-m49351-1165137872015",
+    "expected": "-5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x - 1*4)/(x**3 - 16*x)",
+    "variable": "x",
+    "excluded": [
+      "-4",
+      "0",
+      "4"
+    ],
+    "id": "scale-source-m49351-1165137735221",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - 1*1)/(x**3 + 9*x**2 + 14*x)",
+    "variable": "x",
+    "excluded": [
+      "-7",
+      "-2",
+      "0"
+    ],
+    "id": "scale-source-m49351-1165135208791",
+    "expected": "-9",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 5)/(x**2 - 1*25)",
+    "variable": "x",
+    "excluded": [
+      "-5",
+      "5"
+    ],
+    "id": "scale-source-m49351-1165134042695",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*4)/(x - 1*6)",
+    "variable": "x",
+    "excluded": [
+      "6"
+    ],
+    "id": "scale-source-m49351-1165134130121",
+    "expected": "6",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4 - 2*x)/(3*x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1/3"
+    ],
+    "id": "scale-source-m49351-1165137462048",
+    "expected": "1/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "x/(x**2 - x)",
+    "variable": "x",
+    "excluded": [
+      "0",
+      "1"
+    ],
+    "id": "scale-source-m49351-1165137570250",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 8*x + 7)/(x**2 + 11*x + 30)",
+    "variable": "x",
+    "excluded": [
+      "-6",
+      "-5"
+    ],
+    "id": "scale-source-m49351-1165137727820",
+    "expected": "-11",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + x + 6)/(x**2 - 10*x + 24)",
+    "variable": "x",
+    "excluded": [
+      "4",
+      "6"
+    ],
+    "id": "scale-source-m49351-1165137734642",
+    "expected": "10",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(94 - 2*x**2)/(3*x**2 - 1*12)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "2"
+    ],
+    "id": "scale-source-m49351-1165135456722",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "x/(2*x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1/2"
+    ],
+    "id": "scale-source-m49351-1165135245555",
+    "expected": "-1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "2*x/(x - 1*6)",
+    "variable": "x",
+    "excluded": [
+      "6"
+    ],
+    "id": "scale-source-m49351-1165135555493",
+    "expected": "6",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "-2*x/(x - 1*6)",
+    "variable": "x",
+    "excluded": [
+      "6"
+    ],
+    "id": "scale-source-m49351-1165133341024",
+    "expected": "6",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - 4*x + 3)/(x**2 - 4*x - 1*5)",
+    "variable": "x",
+    "excluded": [
+      "-1",
+      "5"
+    ],
+    "id": "scale-source-m49351-1165137419939",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**2 - 1*32)/(6*x**2 + 13*x - 1*5)",
+    "variable": "x",
+    "excluded": [
+      "-5/2",
+      "1/3"
+    ],
+    "id": "scale-source-m49351-1165135151324",
+    "expected": "-13/6",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(24*x**2 + 6*x)/(2*x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1/2"
+    ],
+    "id": "scale-source-m49351-1165135416452",
+    "expected": "-1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x**2 - 1*10)/(2*x - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49351-1165137848958",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(81*x**2 - 1*18)/(3*x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2/3"
+    ],
+    "id": "scale-source-m49351-1165137726466",
+    "expected": "2/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 5*x + 4)/(x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1"
+    ],
+    "id": "scale-source-m49351-1165135454026",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x - 1*3)/(x + 4)",
+    "variable": "x",
+    "excluded": [
+      "-4"
+    ],
+    "id": "scale-source-m49351-1165135641675",
+    "expected": "-4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*5)/(3*x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1/3"
+    ],
+    "id": "scale-source-m49351-1165137762205",
+    "expected": "1/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "4/((x - 1*2)**2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49351-1165135508326",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "5/((x + 1)**2)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49351-1165134091274",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**2 - 14*x - 1*5)/(3*x**2 + 8*x - 1*16)",
+    "variable": "x",
+    "excluded": [
+      "-4",
+      "4/3"
+    ],
+    "id": "scale-source-m49351-1165137612015",
+    "expected": "-8/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**2 + 7*x - 1*15)/(3*x**2 - 14*x + 15)",
+    "variable": "x",
+    "excluded": [
+      "5/3",
+      "3"
+    ],
+    "id": "scale-source-m49351-1165137887416",
+    "expected": "14/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 2*x - 1*3)/(x**2 - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "-1",
+      "1"
+    ],
+    "id": "scale-source-m49351-1165134479025",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - x - 1*6)/(x**2 - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "2"
+    ],
+    "id": "scale-source-m49351-1165137410372",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**2 + x - 1*1)/(x - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "4"
+    ],
+    "id": "scale-source-m49351-1165137660564",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**2 - 3*x - 1*20)/(x - 1*5)",
+    "variable": "x",
+    "excluded": [
+      "5"
+    ],
+    "id": "scale-source-m49351-1165137777667",
+    "expected": "5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 3)*(x - 1*1)*(x - 1*5)/(((x + 2)**2*(x - 1*4)))",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "4"
+    ],
+    "id": "scale-source-m49351-1165137811247",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 2)**2*(x - 1*5)/(((x + 1)*(x + 4)*(x - 1*3)))",
+    "variable": "x",
+    "excluded": [
+      "-4",
+      "-1",
+      "3"
+    ],
+    "id": "scale-source-m49351-1165135481255",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "1/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49351-1165135184168",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "x/(x - 1*3)",
+    "variable": "x",
+    "excluded": [
+      "3"
+    ],
+    "id": "scale-source-m49351-1165135187899",
+    "expected": "3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "2*x/(x + 4)",
+    "variable": "x",
+    "excluded": [
+      "-4"
+    ],
+    "id": "scale-source-m49351-1165135321892",
+    "expected": "-4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "2*x/((x - 1*3)**2)",
+    "variable": "x",
+    "excluded": [
+      "3"
+    ],
+    "id": "scale-source-m49351-1165137570020",
+    "expected": "3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "x**2/(x**2 + 2*x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49351-1165133085656",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "4/(2*x - 1*3)",
+    "variable": "x",
+    "excluded": [
+      "3/2"
+    ],
+    "id": "scale-source-m49351-1165135192214",
+    "expected": "3/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "2/(((x + 2)*(x - 1*1)))",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "1"
+    ],
+    "id": "scale-source-m49351-1165134129629",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 2)/(((x - 1*1)*(x - 1*4)))",
+    "variable": "x",
+    "excluded": [
+      "1",
+      "4"
+    ],
+    "id": "scale-source-m49351-1165132920250",
+    "expected": "5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 3)**2/(((x + 1)*(x - 1*1)**2))",
+    "variable": "x",
+    "excluded": [
+      "-1",
+      "1"
+    ],
+    "id": "scale-source-m49351-1165137432988",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - 1*4)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49351-1165134174944",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 + 1)/(x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49351-1165135160520",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + x - 1*6)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49351-1165135193108",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**2 + 5*x - 1*3)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m49351-1165135190258",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 + x**2)/(x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49351-1165137812268",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 3)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49352-ti_03_08_05",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "2/(x + 8)",
+    "variable": "x",
+    "excluded": [
+      "-8"
+    ],
+    "id": "scale-source-m49352-1165137544702",
+    "expected": "-8",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "3/(x - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "4"
+    ],
+    "id": "scale-source-m49352-1165137436932",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 3)/(x + 7)",
+    "variable": "x",
+    "excluded": [
+      "-7"
+    ],
+    "id": "scale-source-m49352-1165137442675",
+    "expected": "-7",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*2)/(x + 7)",
+    "variable": "x",
+    "excluded": [
+      "-7"
+    ],
+    "id": "scale-source-m49352-1165135701622",
+    "expected": "-7",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x + 4)/(5 - 4*x)",
+    "variable": "x",
+    "excluded": [
+      "5/4"
+    ],
+    "id": "scale-source-m49352-1165135333251",
+    "expected": "5/4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(5*x + 1)/(2 - 5*x)",
+    "variable": "x",
+    "excluded": [
+      "2/5"
+    ],
+    "id": "scale-source-m49352-1165137642936",
+    "expected": "2/5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "2/x",
+    "variable": "x",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m49352-1165135206104",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-5*i + 3*i - 2 + 4",
+    "variable": "i",
+    "solutions": [
+      "1"
+    ],
+    "id": "scale-source-m49353-1165137611425",
+    "expected": "1",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-5*i - (3*i + 10) + 6",
+    "variable": "i",
+    "solutions": [
+      "-1/2"
+    ],
+    "id": "scale-source-m49353-1165137874652",
+    "expected": "-1/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(2 - 3*i)*(6*i + 3)",
+    "variable": "i",
+    "solutions": [
+      "-1/2",
+      "2/3"
+    ],
+    "id": "scale-source-m49353-1165137526394",
+    "expected": "1/6",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2 - i)/(i + 2)",
+    "variable": "i",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49353-1165137469578",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 - 4*x - 1*5",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "5"
+    ],
+    "id": "scale-source-m49353-1165137477136",
+    "expected": "4",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-2*x**2 - 4*x",
+    "variable": "x",
+    "solutions": [
+      "-2",
+      "0"
+    ],
+    "id": "scale-source-m49353-1165137863438",
+    "expected": "-2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "4*x**3 - 6*x**2 + 2",
+    "variable": "x",
+    "solutions": [
+      "-1/2",
+      "1"
+    ],
+    "id": "scale-source-m49353-1165137643403",
+    "expected": "1/2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 - 2*x**2 + 4*x + 4)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49353-1165137696726",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**4 - 4*x**2 + 4*x + 8)/(x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49353-1165135446689",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 - 2*x**2 + 5*x - 1*1)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m49353-1165134378622",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 + 4*x + 10)/(x - 1*3)",
+    "variable": "x",
+    "excluded": [
+      "3"
+    ],
+    "id": "scale-source-m49353-1165135560695",
+    "expected": "3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**3 + 6*x**2 - 11*x - 1*12)/(x + 4)",
+    "variable": "x",
+    "excluded": [
+      "-4"
+    ],
+    "id": "scale-source-m49353-1165137935190",
+    "expected": "-4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**4 + 3*x**3 + 2*x + 2)/(x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m49353-1165135414382",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**3 - 3*x**2 - 18*x - 1*8",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "-1/2",
+      "4"
+    ],
+    "solutions": [
+      "-2",
+      "-1/2",
+      "4"
+    ],
+    "id": "scale-source-m49353-1165134248795",
+    "expected": "3/2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "3*x**3 + 11*x**2 + 8*x - 1*4",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "1/3"
+    ],
+    "solutions": [
+      "-2",
+      "1/3"
+    ],
+    "id": "scale-source-m49353-1165137901245",
+    "expected": "-5/3",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 2)/(x - 1*5)",
+    "variable": "x",
+    "excluded": [
+      "5"
+    ],
+    "id": "scale-source-m49353-1165135176623",
+    "expected": "5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 1)/(x**2 - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "2"
+    ],
+    "id": "scale-source-m49353-1165135205950",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x**2 - 1*27)/(x**2 + x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "1"
+    ],
+    "id": "scale-source-m49353-1165137863121",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 2)/(x**2 - 1*9)",
+    "variable": "x",
+    "excluded": [
+      "-3",
+      "3"
+    ],
+    "id": "scale-source-m49353-1165134226797",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - 1*1)/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49353-1165137842426",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*3)/(2*x + 1)",
+    "variable": "x",
+    "excluded": [
+      "-1/2"
+    ],
+    "id": "scale-source-m49353-1165135591017",
+    "expected": "-1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(3 - 4*i)*(2*i + 4)",
+    "variable": "i",
+    "solutions": [
+      "-2",
+      "3/4"
+    ],
+    "id": "scale-source-m49353-1165135460929",
+    "expected": "-5/4",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "domain",
+    "expression": "(1 - 4*i)/(4*i + 3)",
+    "variable": "i",
+    "excluded": [
+      "-3/4"
+    ],
+    "id": "scale-source-m49353-1165134106036",
+    "expected": "-3/4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 + 2*x - 1*8",
+    "variable": "x",
+    "solutions": [
+      "-4",
+      "2"
+    ],
+    "id": "scale-source-m49353-1165137732249",
+    "expected": "-2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**3 + 3*x - 1*4)/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m49353-1165135191495",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 + 3*x**2 - 1*4)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m49353-1165135342127",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**3 + 5*x**2 - 7*x - 1*12)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m49353-1165137833008",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**3 + 5*x**2 - 6*x - 1*9",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "-1",
+      "3/2"
+    ],
+    "id": "scale-source-m49353-1165135694401",
+    "expected": "-5/2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 4)/(x**2 - 2*x - 1*3)",
+    "variable": "x",
+    "excluded": [
+      "-1",
+      "3"
+    ],
+    "id": "scale-source-m49353-1165137722359",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 2*x - 1*3)/(x**2 - 1*4)",
+    "variable": "x",
+    "excluded": [
+      "-2",
+      "2"
+    ],
+    "id": "scale-source-m49353-1165135650721",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 3*x - 1*3)/(x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1"
+    ],
+    "id": "scale-source-m49353-1165137567086",
+    "expected": "1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x + 3)/(3*x - 1*1)",
+    "variable": "x",
+    "excluded": [
+      "1/3"
+    ],
+    "id": "scale-source-m49353-1165137502317",
+    "expected": "1/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-x + y - 1",
+      "2*x + y - 10"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "3",
+      "y": "4"
+    },
+    "id": "scale-source-m49420-422",
+    "expected": "3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x - 3*y + 8",
+      "-3*x - y - 4"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-2",
+      "y": "2"
+    },
+    "id": "scale-source-m49420-791",
+    "expected": "2",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "2*x + y + 8",
+      "x - y + 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-3",
+      "y": "-2"
+    },
+    "id": "scale-source-m49420-1165137893297",
+    "expected": "-3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "2*x - 5*y + 25",
+      "-4*x + 5*y - 35"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-5",
+      "y": "3"
+    },
+    "id": "scale-source-m49420-1165135190552",
+    "expected": "-5",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-x + y + 5",
+      "2*x - 5*y - 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "8",
+      "y": "3"
+    },
+    "id": "scale-source-m49420-1165137770184",
+    "expected": "8",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x - y - 3",
+      "-3*x + 2*y + 4"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-2",
+      "y": "-5"
+    },
+    "id": "scale-source-m49420-1165135160482",
+    "expected": "-5",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x + 2*y + 1",
+      "-x + y - 3"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-7/3",
+      "y": "2/3"
+    },
+    "id": "scale-source-m49420-1165137760592",
+    "expected": "-7/3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "3*x + 5*y + 11",
+      "x - 2*y - 11"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "3",
+      "y": "-4"
+    },
+    "id": "scale-source-m49420-1165134409145",
+    "expected": "3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "2*x - 7*y - 2",
+      "3*x + y + 20"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-6",
+      "y": "-2"
+    },
+    "id": "scale-source-m49420-ti_09_01_05",
+    "expected": "-2",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "2*x + 3*y + 16",
+      "5*x - 10*y - 30"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-2",
+      "y": "-4"
+    },
+    "id": "scale-source-m49420-1165137698088",
+    "expected": "-2",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "2*x + 3*y - 8",
+      "3*x + 5*y - 10"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "10",
+      "y": "-4"
+    },
+    "id": "scale-source-m49420-ti_09_01_06",
+    "expected": "-4",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x + 3*y - 5",
+      "2*x + 3*y - 4"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-1",
+      "y": "2"
+    },
+    "id": "scale-source-m49420-1165134556461",
+    "expected": "2",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "3*x - 2*y - 18",
+      "5*x + 10*y + 10"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "4",
+      "y": "-3"
+    },
+    "id": "scale-source-m49420-1165137666024",
+    "expected": "-3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "4*x + 2*y + 10",
+      "3*x + 9*y"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-3",
+      "y": "1"
+    },
+    "id": "scale-source-m49420-1165134254239",
+    "expected": "-3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "2*x + 4*y + 19/5",
+      "9*x - 5*y - 13/10"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-3/10",
+      "y": "-4/5"
+    },
+    "id": "scale-source-m49420-1165133265018",
+    "expected": "-4/5",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-2*x + 3*y - 6/5",
+      "-3*x - 6*y - 9/5"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-3/5",
+      "y": "0"
+    },
+    "id": "scale-source-m49420-1165134171257",
+    "expected": "-3/5",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x/2 + y/3 - 16",
+      "x/6 + y/4 - 9"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "72/5",
+      "y": "132/5"
+    },
+    "id": "scale-source-m49420-1165134162139",
+    "expected": "72/5",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-x/4 + 3*y/2 - 11",
+      "-x/8 + y/3 - 3"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-8",
+      "y": "6"
+    },
+    "id": "scale-source-m49420-1165134319658",
+    "expected": "6",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-2*x + 5*y + 42",
+      "7*x + 2*y - 30"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "6",
+      "y": "-6"
+    },
+    "id": "scale-source-m49420-1165134568910",
+    "expected": "-6",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "6*x - 5*y + 34",
+      "2*x + 6*y - 4"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-4",
+      "y": "2"
+    },
+    "id": "scale-source-m49420-1165135407254",
+    "expected": "2",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "5*x - y + 13/5",
+      "-4*x - 6*y - 7/5"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-1/2",
+      "y": "1/10"
+    },
+    "id": "scale-source-m49420-1165134554922",
+    "expected": "-1/2",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "7*x - 2*y - 3",
+      "4*x + 5*y - 13/4"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "1/2",
+      "y": "1/4"
+    },
+    "id": "scale-source-m49420-1165134357764",
+    "expected": "1/4",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "5*x/6 + y/4",
+      "x/8 - y/2 + 43/120"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-1/5",
+      "y": "2/3"
+    },
+    "id": "scale-source-m49420-1165132924229",
+    "expected": "2/3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x/3 + y/9 - 2/9",
+      "-x/2 + 4*y/5 + 1/3"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "2/3",
+      "y": "0"
+    },
+    "id": "scale-source-m49420-1165132931032",
+    "expected": "0",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "5*x + 9*y - 16",
+      "x + 2*y - 4"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-4",
+      "y": "4"
+    },
+    "id": "scale-source-m49420-1165134278611",
+    "expected": "4",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "6*x - 8*y + 3/5",
+      "3*x + 2*y - 9/10"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "1/6",
+      "y": "1/5"
+    },
+    "id": "scale-source-m49420-1165133172708",
+    "expected": "1/5",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "5*x - 2*y - 9/4",
+      "7*x - 4*y - 3"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "1/2",
+      "y": "1/8"
+    },
+    "id": "scale-source-m49420-1165134430261",
+    "expected": "1/2",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "7*x - 4*y - 7/6",
+      "2*x + 4*y - 1/3"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "1/6",
+      "y": "0"
+    },
+    "id": "scale-source-m49420-1165134329672",
+    "expected": "1/6",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x/2 + y/3 - 1/3",
+      "3*x/2 + y/4 + 1/8"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-1/3",
+      "y": "3/2"
+    },
+    "id": "scale-source-m49420-1165131893549",
+    "expected": "-1/3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "11*x/5 + 13*y/10 + 1/10",
+      "21*x/5 + 21*y/5 - 21/10"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-5/6",
+      "y": "4/3"
+    },
+    "id": "scale-source-m49420-1165135299787",
+    "expected": "4/3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x/10 + y/5 - 2",
+      "7*x/20 - 3*y/10"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "6",
+      "y": "7"
+    },
+    "id": "scale-source-m49420-1165135702539",
+    "expected": "6",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "3*x - y - 3/5",
+      "x - 2*y - 13/10"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-1/50",
+      "y": "-33/50"
+    },
+    "id": "scale-source-m49420-1165135518212",
+    "expected": "-33/50",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x + 2*y - 7",
+      "2*x + 6*y - 12"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "9",
+      "y": "-1"
+    },
+    "id": "scale-source-m49420-1165132957245",
+    "expected": "9",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "3*x - 5*y - 7",
+      "x - 2*y - 3"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-1",
+      "y": "-2"
+    },
+    "id": "scale-source-m49420-1165133074995",
+    "expected": "-1",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x/10 + y/5 - 3/10",
+      "-3*x/10 + y/2 - 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-5/11",
+      "y": "19/11"
+    },
+    "id": "scale-source-m49420-1165135388300",
+    "expected": "-5/11",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-x/100 + 3*y/25 - 31/50",
+      "3*x/20 + y/5 - 13/25"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-77/25",
+      "y": "491/100"
+    },
+    "id": "scale-source-m49420-1165137836999",
+    "expected": "491/100",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x/2 + 3*y/10 - 4",
+      "x/4 - 9*y/10 - 23/50"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "178/25",
+      "y": "22/15"
+    },
+    "id": "scale-source-m49420-1165134035993",
+    "expected": "178/25",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "3*x/20 + 27*y/100 - 39/100",
+      "-17*x/50 + 14*y/25 - 9/5"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-446/293",
+      "y": "671/293"
+    },
+    "id": "scale-source-m49420-1165134361357",
+    "expected": "-446/293",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-71*x/100 + 23*y/25 - 13/100",
+      "83*x/100 + y/20 - 21/10"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "19255/7991",
+      "y": "15989/7991"
+    },
+    "id": "scale-source-m49420-1165134485557",
+    "expected": "15989/7991",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(-2/3)*x + 5",
+    "variable": "x",
+    "solutions": [
+      "15/2"
+    ],
+    "id": "scale-source-m50389-1165137784347",
+    "expected": "15/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(-3/4)*x + 6",
+    "variable": "x",
+    "solutions": [
+      "8"
+    ],
+    "id": "scale-source-m50389-ti_02_02_01",
+    "expected": "8",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x + 4",
+    "variable": "x",
+    "solutions": [
+      "-2"
+    ],
+    "id": "scale-source-m50389-ti_02_02_03",
+    "expected": "-2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "1*x/4 - 1*4",
+    "variable": "x",
+    "solutions": [
+      "16"
+    ],
+    "id": "scale-source-m50389-ti_02_02_04",
+    "expected": "16",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "4*x - 7*y - 10",
+      "7*x + 4*y - 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "47/65",
+      "y": "-66/65"
+    },
+    "id": "scale-source-m50389-1165137644527",
+    "expected": "47/65",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x + 3*y - 12",
+      "-8*x - y - 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-15/23",
+      "y": "97/23"
+    },
+    "id": "scale-source-m50389-1165135613262",
+    "expected": "-15/23",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "6*x - 9*y - 10",
+      "3*x + 2*y - 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "29/39",
+      "y": "-8/13"
+    },
+    "id": "scale-source-m50389-1165135369390",
+    "expected": "-8/13",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-2*x/3 + y - 1",
+      "3*x + 2*y - 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-3/13",
+      "y": "11/13"
+    },
+    "id": "scale-source-m50389-1165135684918",
+    "expected": "-3/13",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-x - 1*1",
+    "variable": "x",
+    "solutions": [
+      "-1"
+    ],
+    "id": "scale-source-m50389-1165137610990",
+    "expected": "-1",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-3*x - 1*1",
+    "variable": "x",
+    "solutions": [
+      "-1/3"
+    ],
+    "id": "scale-source-m50389-1165135168173",
+    "expected": "-1/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(-1/2)*x - 1*1",
+    "variable": "x",
+    "solutions": [
+      "-2"
+    ],
+    "id": "scale-source-m50389-1165135615912",
+    "expected": "-2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "3*x + 2",
+    "variable": "x",
+    "solutions": [
+      "-2/3"
+    ],
+    "id": "scale-source-m50389-1165137731318",
+    "expected": "-2/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-2*x - 1*1",
+    "variable": "x",
+    "solutions": [
+      "-1/2"
+    ],
+    "id": "scale-source-m50389-1165135209563",
+    "expected": "-1/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2 - 3*x",
+    "variable": "x",
+    "solutions": [
+      "2/3"
+    ],
+    "id": "scale-source-m50389-1165137803452",
+    "expected": "2/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "1*x/3 + 2",
+    "variable": "x",
+    "solutions": [
+      "-6"
+    ],
+    "id": "scale-source-m50389-1165135632062",
+    "expected": "-6",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x/3 - 1*3",
+    "variable": "x",
+    "solutions": [
+      "9/2"
+    ],
+    "id": "scale-source-m50389-1165134377136",
+    "expected": "9/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*t + 3",
+    "variable": "t",
+    "solutions": [
+      "-3/2"
+    ],
+    "id": "scale-source-m50389-1165135194785",
+    "expected": "-3/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "3*t - 2",
+    "variable": "t",
+    "solutions": [
+      "2/3"
+    ],
+    "id": "scale-source-m50389-1165137430711",
+    "expected": "2/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "equation",
+    "left": "x",
+    "right": "3",
+    "variable": "x",
+    "candidates": [
+      "3"
+    ],
+    "solutions": [
+      "3"
+    ],
+    "id": "scale-source-m50389-1165134054038",
+    "expected": "3",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "x",
+    "right": "-2",
+    "variable": "x",
+    "candidates": [
+      "-2"
+    ],
+    "solutions": [
+      "-2"
+    ],
+    "id": "scale-source-m50389-1165135368442",
+    "expected": "-2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "3*x",
+    "right": "15",
+    "variable": "x",
+    "candidates": [
+      "5"
+    ],
+    "solutions": [
+      "5"
+    ],
+    "id": "scale-source-m50389-1165137896272",
+    "expected": "5",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "3*y",
+    "right": "12",
+    "variable": "y",
+    "candidates": [
+      "4"
+    ],
+    "solutions": [
+      "4"
+    ],
+    "id": "scale-source-m50389-1165137459815",
+    "expected": "4",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "2*x - 3*y - 12",
+      "x + 5*y - 30"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "150/13",
+      "y": "48/13"
+    },
+    "id": "scale-source-m50389-1165135439831",
+    "expected": "150/13",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "2*x - y + 3",
+      "4*x + y - 15"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "2",
+      "y": "7"
+    },
+    "id": "scale-source-m50389-1165137416113",
+    "expected": "2",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x - 2*y - 1",
+      "x - y - 3"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "5",
+      "y": "2"
+    },
+    "id": "scale-source-m50389-1165137939656",
+    "expected": "2",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "5*x + 3*y + 65",
+      "x - y + 5"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-10",
+      "y": "-5"
+    },
+    "id": "scale-source-m50389-1165134040579",
+    "expected": "-10",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-4**2*y + 2*y - 1*11",
+    "variable": "y",
+    "solutions": [
+      "-11/14"
+    ],
+    "id": "scale-source-m51239-2113191",
+    "expected": "-11/14",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-12*a/6 + a*64/2**3",
+    "variable": "a",
+    "solutions": [
+      "0"
+    ],
+    "id": "scale-source-m51239-3185006",
+    "expected": "0",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "5*l*l*(9 - 1*6)/3",
+    "variable": "l",
+    "solutions": [
+      "0"
+    ],
+    "id": "scale-source-m51239-2444084",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "7*z + z*6**2 - 1*3",
+    "variable": "z",
+    "solutions": [
+      "3/43"
+    ],
+    "id": "scale-source-m51239-2194512",
+    "expected": "3/43",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "18*x/9 - 1*12 + 4*3",
+    "variable": "x",
+    "solutions": [
+      "0"
+    ],
+    "id": "scale-source-m51239-2619567",
+    "expected": "0",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "9*(y + 8) - 1*27",
+    "variable": "y",
+    "solutions": [
+      "-5"
+    ],
+    "id": "scale-source-m51239-1458150",
+    "expected": "-5",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(9*t/6 - 1*4)*2",
+    "variable": "t",
+    "solutions": [
+      "8/3"
+    ],
+    "id": "scale-source-m51239-1443223",
+    "expected": "8/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-3*6*b + 12*b + 6",
+    "variable": "b",
+    "solutions": [
+      "1"
+    ],
+    "id": "scale-source-m51239-1443990",
+    "expected": "1",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "18*y - 2*(7*y + 1)",
+    "variable": "y",
+    "solutions": [
+      "1/2"
+    ],
+    "id": "scale-source-m51239-2771916",
+    "expected": "1/2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(4/9)**2*27*x",
+    "variable": "x",
+    "solutions": [
+      "0"
+    ],
+    "id": "scale-source-m51239-3283284",
+    "expected": "0",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "8*(3 - m) + 1*(-8)",
+    "variable": "m",
+    "solutions": [
+      "2"
+    ],
+    "id": "scale-source-m51239-2980532",
+    "expected": "2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-3*4*x + 5**2",
+    "variable": "x",
+    "solutions": [
+      "25/12"
+    ],
+    "id": "scale-source-m51239-2825015",
+    "expected": "25/12",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "equation",
+    "left": "-48*x + (123/10)**2/2",
+    "right": "3/5",
+    "variable": "x",
+    "candidates": [
+      "5003/3200"
+    ],
+    "solutions": [
+      "5003/3200"
+    ],
+    "id": "scale-source-m51239-1703228",
+    "expected": "5003/3200",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "x*(1/4 - 1*3/4)**2 - 1*36/5",
+    "right": "99/10",
+    "variable": "x",
+    "candidates": [
+      "342/5"
+    ],
+    "solutions": [
+      "342/5"
+    ],
+    "id": "scale-source-m51239-1315170",
+    "expected": "342/5",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "domain",
+    "expression": "a**2*a**3/a",
+    "variable": "a",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m51241-1167339238154",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(a/(2**3))**2",
+    "variable": "a",
+    "point": "0",
+    "id": "scale-source-m51241-1167339211130",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "domain",
+    "expression": "25*m/((5**0*m))",
+    "variable": "m",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m51241-1167339211180",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "17**3*x**3/(15**2)",
+    "variable": "x",
+    "solutions": [
+      "0"
+    ],
+    "id": "scale-source-m51241-1167339212024",
+    "expected": "0",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "sqrt(400*x**4)",
+    "variable": "x",
+    "solutions": [
+      "0"
+    ],
+    "id": "scale-source-m51242-1167339436118",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "domain",
+    "expression": "4*sqrt(2*n)/(sqrt(16*n**4))",
+    "variable": "n",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m51242-1167339436472",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(2*x - 1*18)*(3*x + 3)",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "9"
+    ],
+    "id": "scale-source-m51246-1167339185701",
+    "expected": "8",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(x + 7)*(3*x - 1*5)",
+    "variable": "x",
+    "point": "-8/3",
+    "id": "scale-source-m51246-ti_01_04_05",
+    "expected": "-169/3",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(3*x - 1*8)**2",
+    "variable": "x",
+    "solutions": [
+      "8/3"
+    ],
+    "id": "scale-source-m51246-1167339273765",
+    "expected": "8/3",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(4*x - 1*1)**2",
+    "variable": "x",
+    "point": "1/4",
+    "id": "scale-source-m51246-ti_01_04_06",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(9*x + 4)*(9*x - 1*4)",
+    "variable": "x",
+    "solutions": [
+      "-4/9",
+      "4/9"
+    ],
+    "id": "scale-source-m51246-1167339315486",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(2*x + 7)*(2*x - 1*7)",
+    "variable": "x",
+    "solutions": [
+      "-7/2",
+      "7/2"
+    ],
+    "id": "scale-source-m51246-ti_01_04_07",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 + 4*x + 4",
+    "variable": "x",
+    "solutions": [
+      "-2"
+    ],
+    "id": "scale-source-m51246-1167339223145",
+    "expected": "-2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(4*x + 2)*(6*x - 1*4)",
+    "variable": "x",
+    "point": "1/12",
+    "id": "scale-source-m51246-1167339196745",
+    "expected": "-49/6",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(2*d + 9)*(3*d - 1*5)",
+    "variable": "d",
+    "point": "-17/12",
+    "id": "scale-source-m51246-1167339223497",
+    "expected": "-1369/24",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(9*v - 1*11)*(11*v - 1*9)",
+    "variable": "v",
+    "solutions": [
+      "9/11",
+      "11/9"
+    ],
+    "id": "scale-source-m51246-1167339306553",
+    "expected": "202/99",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(4*x + 5)**2",
+    "variable": "x",
+    "solutions": [
+      "-5/4"
+    ],
+    "id": "scale-source-m51246-1167339199468",
+    "expected": "-5/4",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(3*y - 1*7)**2",
+    "variable": "y",
+    "point": "7/3",
+    "id": "scale-source-m51246-1167339199508",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(12 - 4*x)**2",
+    "variable": "x",
+    "solutions": [
+      "3"
+    ],
+    "id": "scale-source-m51246-1167339220230",
+    "expected": "3",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(4*p + 9)**2",
+    "variable": "p",
+    "solutions": [
+      "-9/4"
+    ],
+    "id": "scale-source-m51246-1167339220271",
+    "expected": "-9/4",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(2*m - 1*3)**2",
+    "variable": "m",
+    "point": "3/2",
+    "id": "scale-source-m51246-1167339220345",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(3*y - 1*6)**2",
+    "variable": "y",
+    "point": "2",
+    "id": "scale-source-m51246-1167339226325",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(9*b + 1)**2",
+    "variable": "b",
+    "solutions": [
+      "-1/9"
+    ],
+    "id": "scale-source-m51246-1167339226399",
+    "expected": "-1/9",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(4*c + 1)*(4*c - 1*1)",
+    "variable": "c",
+    "solutions": [
+      "-1/4",
+      "1/4"
+    ],
+    "id": "scale-source-m51246-1167339196448",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(9*a + 4)*(9*a - 1*4)",
+    "variable": "a",
+    "point": "0",
+    "id": "scale-source-m51246-1167339196525",
+    "expected": "-16",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(15*n + 6)*(15*n - 1*6)",
+    "variable": "n",
+    "solutions": [
+      "-2/5",
+      "2/5"
+    ],
+    "id": "scale-source-m51246-1167339196575",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(25*b + 2)*(25*b - 1*2)",
+    "variable": "b",
+    "point": "0",
+    "id": "scale-source-m51246-1167339260474",
+    "expected": "-4",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(4 - 4*m)*(4*m + 4)",
+    "variable": "m",
+    "point": "0",
+    "id": "scale-source-m51246-1167339260524",
+    "expected": "16",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(14*p + 7)*(14*p - 1*7)",
+    "variable": "p",
+    "point": "0",
+    "id": "scale-source-m51246-1167339239069",
+    "expected": "-49",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(11*q + 10)*(11*q - 1*10)",
+    "variable": "q",
+    "solutions": [
+      "-10/11",
+      "10/11"
+    ],
+    "id": "scale-source-m51246-1167339239119",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x - 1*1)*(x**2 - 2*x + 1)",
+    "variable": "x",
+    "solutions": [
+      "1"
+    ],
+    "id": "scale-source-m51246-1167339138836",
+    "expected": "1",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(6*k - 1*5)*(6*k**2 + 5*k - 1*1)",
+    "variable": "k",
+    "solutions": [
+      "-1",
+      "1/6",
+      "5/6"
+    ],
+    "id": "scale-source-m51246-1167339273830",
+    "expected": "0",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(4*x + 1)*(8*x - 1*3)",
+    "variable": "x",
+    "point": "1/16",
+    "id": "scale-source-m51246-1167339225730",
+    "expected": "-25/8",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 + 2*x - 1*15",
+    "variable": "x",
+    "solutions": [
+      "-5",
+      "3"
+    ],
+    "id": "scale-source-m51247-1167339139078",
+    "expected": "-2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 - 7*x + 6",
+    "variable": "x",
+    "solutions": [
+      "1",
+      "6"
+    ],
+    "id": "scale-source-m51247-ti_01_05_02",
+    "expected": "7",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "5*x**2 + 7*x - 1*6",
+    "variable": "x",
+    "solutions": [
+      "-2",
+      "3/5"
+    ],
+    "id": "scale-source-m51247-1167339139430",
+    "expected": "-7/5",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "25*x**2 + 20*x + 4",
+    "variable": "x",
+    "point": "-2/5",
+    "id": "scale-source-m51247-1167339140179",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "49*x**2 - 14*x + 1",
+    "variable": "x",
+    "solutions": [
+      "1/7"
+    ],
+    "id": "scale-source-m51247-ti_01_05_04",
+    "expected": "1/7",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "9*x**2 - 1*25",
+    "variable": "x",
+    "point": "0",
+    "id": "scale-source-m51247-1167339296405",
+    "expected": "-25",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "81*y**2 - 1*100",
+    "variable": "y",
+    "solutions": [
+      "-10/9",
+      "10/9"
+    ],
+    "id": "scale-source-m51247-ti_01_05_05",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "6*x**2 + 5*x - 1*4",
+    "variable": "x",
+    "solutions": [
+      "-4/3",
+      "1/2"
+    ],
+    "id": "scale-source-m51247-1167339196486",
+    "expected": "-5/6",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "2*a**2 + 9*a - 1*18",
+    "variable": "a",
+    "point": "-9/4",
+    "id": "scale-source-m51247-1167339196521",
+    "expected": "-225/8",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "6*c**2 + 41*c + 63",
+    "variable": "c",
+    "solutions": [
+      "-9/2",
+      "-7/3"
+    ],
+    "id": "scale-source-m51247-1167339260424",
+    "expected": "-41/6",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "6*n**2 - 19*n - 1*11",
+    "variable": "n",
+    "solutions": [
+      "-1/2",
+      "11/3"
+    ],
+    "id": "scale-source-m51247-1167339260458",
+    "expected": "19/6",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "20*w**2 - 47*w + 24",
+    "variable": "w",
+    "point": "47/40",
+    "id": "scale-source-m51247-1167339260541",
+    "expected": "-289/80",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "2*p**2 - 5*p - 1*7",
+    "variable": "p",
+    "point": "5/4",
+    "id": "scale-source-m51247-1167339303598",
+    "expected": "-81/8",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "7*x**2 + 48*x - 1*7",
+    "variable": "x",
+    "solutions": [
+      "-7",
+      "1/7"
+    ],
+    "id": "scale-source-m51247-1167339303682",
+    "expected": "-48/7",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "10*h**2 - 9*h - 1*9",
+    "variable": "h",
+    "point": "9/20",
+    "id": "scale-source-m51247-1167339303716",
+    "expected": "-441/40",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*b**2 - 25*b - 1*247",
+    "variable": "b",
+    "solutions": [
+      "-13/2",
+      "19"
+    ],
+    "id": "scale-source-m51247-1167339239094",
+    "expected": "25/2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "9*d**2 - 73*d + 8",
+    "variable": "d",
+    "solutions": [
+      "1/9",
+      "8"
+    ],
+    "id": "scale-source-m51247-1167339239128",
+    "expected": "73/9",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "90*v**2 - 181*v + 90",
+    "variable": "v",
+    "point": "181/180",
+    "id": "scale-source-m51247-1167339321370",
+    "expected": "-361/360",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "12*t**2 + t - 1*13",
+    "variable": "t",
+    "solutions": [
+      "-13/12",
+      "1"
+    ],
+    "id": "scale-source-m51247-1167339321405",
+    "expected": "-1/12",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "2*n**2 - n - 1*15",
+    "variable": "n",
+    "point": "1/4",
+    "id": "scale-source-m51247-1167339321484",
+    "expected": "-121/8",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "16*x**2 - 1*100",
+    "variable": "x",
+    "solutions": [
+      "-5/2",
+      "5/2"
+    ],
+    "id": "scale-source-m51247-1167339344423",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "25*y**2 - 1*196",
+    "variable": "y",
+    "solutions": [
+      "-14/5",
+      "14/5"
+    ],
+    "id": "scale-source-m51247-1167339344500",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "121*p**2 - 1*169",
+    "variable": "p",
+    "point": "0",
+    "id": "scale-source-m51247-1167339344528",
+    "expected": "-169",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "4*m**2 - 1*9",
+    "variable": "m",
+    "point": "0",
+    "id": "scale-source-m51247-1167339138818",
+    "expected": "-9",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "361*d**2 - 1*81",
+    "variable": "d",
+    "solutions": [
+      "-9/19",
+      "9/19"
+    ],
+    "id": "scale-source-m51247-1167339138845",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "324*x**2 - 1*121",
+    "variable": "x",
+    "solutions": [
+      "-11/18",
+      "11/18"
+    ],
+    "id": "scale-source-m51247-1167339138922",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "16*a**2 - 8*a + 1",
+    "variable": "a",
+    "solutions": [
+      "1/4"
+    ],
+    "id": "scale-source-m51247-1167339273871",
+    "expected": "1/4",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "49*n**2 + 168*n + 144",
+    "variable": "n",
+    "solutions": [
+      "-12/7"
+    ],
+    "id": "scale-source-m51247-1167339273905",
+    "expected": "-12/7",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "121*x**2 - 88*x + 16",
+    "variable": "x",
+    "point": "4/11",
+    "id": "scale-source-m51247-1167339227694",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "225*y**2 + 120*y + 16",
+    "variable": "y",
+    "solutions": [
+      "-4/15"
+    ],
+    "id": "scale-source-m51247-1167339227728",
+    "expected": "-4/15",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "m**2 - 20*m + 100",
+    "variable": "m",
+    "solutions": [
+      "10"
+    ],
+    "id": "scale-source-m51247-1167339227802",
+    "expected": "10",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "25*p**2 - 120*p + 144",
+    "variable": "p",
+    "solutions": [
+      "12/5"
+    ],
+    "id": "scale-source-m51247-1167339213934",
+    "expected": "12/5",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "36*q**2 + 60*q + 25",
+    "variable": "q",
+    "solutions": [
+      "-5/6"
+    ],
+    "id": "scale-source-m51247-1167339214008",
+    "expected": "-5/6",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "domain",
+    "expression": "1/(32*x**3 + 48*x**2 - 162*x - 1*243)",
+    "variable": "x",
+    "excluded": [
+      "-9/4",
+      "-3/2",
+      "9/4"
+    ],
+    "id": "scale-source-m51247-1167339433017",
+    "expected": "-3/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - 1*9)/(x**2 + 4*x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3",
+      "-1"
+    ],
+    "id": "scale-source-m51248-1167339303419",
+    "expected": "-4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x - 1*6)/(x**2 - 1*36)",
+    "variable": "x",
+    "excluded": [
+      "-6",
+      "6"
+    ],
+    "id": "scale-source-m51248-ti_01_06_01",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x - 1*1)*(x**2 + 4*x - 1*5)/((x + 5)*(3*x + 18))",
+    "variable": "x",
+    "excluded": [
+      "-6",
+      "-5"
+    ],
+    "id": "scale-source-m51248-1167339330081",
+    "expected": "-11",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - 1*16)/(x**2 - 5*x + 4)",
+    "variable": "x",
+    "excluded": [
+      "1",
+      "4"
+    ],
+    "id": "scale-source-m51248-1167339231004",
+    "expected": "5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(y**2 + 10*y + 25)/(y**2 + 11*y + 30)",
+    "variable": "y",
+    "excluded": [
+      "-6",
+      "-5"
+    ],
+    "id": "scale-source-m51248-1167339199459",
+    "expected": "-11",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(6*a**2 - 24*a + 24)/(6*a**2 - 1*24)",
+    "variable": "a",
+    "excluded": [
+      "-2",
+      "2"
+    ],
+    "id": "scale-source-m51248-1167339199556",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(9*b**2 + 18*b + 9)/(3*b + 3)",
+    "variable": "b",
+    "excluded": [
+      "-1"
+    ],
+    "id": "scale-source-m51248-1167339220266",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(m - 1*12)/(m**2 - 1*144)",
+    "variable": "m",
+    "excluded": [
+      "-12",
+      "12"
+    ],
+    "id": "scale-source-m51248-1167339220338",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(2*x**2 + 7*x - 1*4)/(4*x**2 + 2*x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "-1",
+      "1/2"
+    ],
+    "id": "scale-source-m51248-1167339428487",
+    "expected": "-1/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(6*x**2 + 5*x - 1*4)/(3*x**2 + 19*x + 20)",
+    "variable": "x",
+    "excluded": [
+      "-5",
+      "-4/3"
+    ],
+    "id": "scale-source-m51248-1167339428591",
+    "expected": "-19/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(a**2 + 9*a + 18)/(a**2 + 3*a - 1*18)",
+    "variable": "a",
+    "excluded": [
+      "-6",
+      "3"
+    ],
+    "id": "scale-source-m51248-1167339226352",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*c**2 + 25*c - 1*18)/(3*c**2 - 23*c + 14)",
+    "variable": "c",
+    "excluded": [
+      "2/3",
+      "7"
+    ],
+    "id": "scale-source-m51248-1167339196454",
+    "expected": "23/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(12*n**2 - 29*n - 1*8)/(28*n**2 - 5*n - 1*3)",
+    "variable": "n",
+    "excluded": [
+      "-1/4",
+      "3/7"
+    ],
+    "id": "scale-source-m51248-1167339196522",
+    "expected": "5/28",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(c + 2)/3 - (c - 1*4)/4",
+    "variable": "c",
+    "solutions": [
+      "-20"
+    ],
+    "id": "scale-source-m51248-1167339317816",
+    "expected": "-20",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*x/7 + 2*x/3)/((x/2))",
+    "variable": "x",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m51248-1167339240919",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "equation",
+    "left": "5*x + 9",
+    "right": "-11",
+    "variable": "x",
+    "candidates": [
+      "-4"
+    ],
+    "solutions": [
+      "-4"
+    ],
+    "id": "scale-source-m51248-1167339331211",
+    "expected": "-4",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "2*y + 4**2",
+    "right": "64",
+    "variable": "y",
+    "candidates": [
+      "24"
+    ],
+    "solutions": [
+      "24"
+    ],
+    "id": "scale-source-m51248-1167339331237",
+    "expected": "24",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "9*(y + 2)*2/3 + 1",
+    "variable": "y",
+    "solutions": [
+      "-13/6"
+    ],
+    "id": "scale-source-m51248-1167339331290",
+    "expected": "-13/6",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*y - (2*y**2 - 2*y - 1*5) + 1",
+    "variable": "y",
+    "solutions": [
+      "-1",
+      "3"
+    ],
+    "id": "scale-source-m51248-1167339206797",
+    "expected": "2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "2*x**2 + 3*x**2 - 4*x + 3*x - 1*6 + 9",
+    "variable": "x",
+    "point": "1/10",
+    "id": "scale-source-m51248-1167339206863",
+    "expected": "59/20",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "6*a**2 + 3*a - (6*a**2 - 3*a + 5) + 10",
+    "variable": "a",
+    "solutions": [
+      "-5/6"
+    ],
+    "id": "scale-source-m51248-1167339297770",
+    "expected": "-5/6",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(k + 3)*(k - 1*6)",
+    "variable": "k",
+    "point": "3/2",
+    "id": "scale-source-m51248-1167339297850",
+    "expected": "-81/4",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(2*h + 1)*(3*h - 1*2)",
+    "variable": "h",
+    "point": "1/12",
+    "id": "scale-source-m51248-1167339297927",
+    "expected": "-49/24",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(m - 1*2)*(m**2 + 2*m - 1*3)",
+    "variable": "m",
+    "solutions": [
+      "-3",
+      "1",
+      "2"
+    ],
+    "id": "scale-source-m51248-1167339298071",
+    "expected": "0",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**2 - 9*x - 1*18",
+    "variable": "x",
+    "solutions": [
+      "-3/2",
+      "6"
+    ],
+    "id": "scale-source-m51248-1167339308814",
+    "expected": "9/2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "8*a**2 + 30*a - 1*27",
+    "variable": "a",
+    "solutions": [
+      "-9/2",
+      "3/4"
+    ],
+    "id": "scale-source-m51248-1167339308848",
+    "expected": "-15/4",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "d**2 - 5*d - 1*66",
+    "variable": "d",
+    "solutions": [
+      "-6",
+      "11"
+    ],
+    "id": "scale-source-m51248-1167339308931",
+    "expected": "5",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 + 10*x + 25",
+    "variable": "x",
+    "solutions": [
+      "-5"
+    ],
+    "id": "scale-source-m51248-1167339308963",
+    "expected": "-5",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "y**2 - 6*y + 9",
+    "variable": "y",
+    "solutions": [
+      "3"
+    ],
+    "id": "scale-source-m51248-1167339309032",
+    "expected": "3",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "361*x**2 - 1*121",
+    "variable": "x",
+    "solutions": [
+      "-11/19",
+      "11/19"
+    ],
+    "id": "scale-source-m51248-1167339309151",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 - x - 1*12)/(x**2 - 8*x + 16)",
+    "variable": "x",
+    "excluded": [
+      "4"
+    ],
+    "id": "scale-source-m51248-1167339433919",
+    "expected": "4",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4*y**2 - 1*25)/(4*y**2 - 20*y + 25)",
+    "variable": "y",
+    "excluded": [
+      "5/2"
+    ],
+    "id": "scale-source-m51248-1167339434014",
+    "expected": "5/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "equation",
+    "left": "x",
+    "right": "2",
+    "variable": "x",
+    "candidates": [
+      "2"
+    ],
+    "solutions": [
+      "2"
+    ],
+    "id": "scale-source-m51248-1167339434917",
+    "expected": "2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "y",
+    "right": "1",
+    "variable": "y",
+    "candidates": [
+      "1"
+    ],
+    "solutions": [
+      "1"
+    ],
+    "id": "scale-source-m51248-1167339434973",
+    "expected": "1",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "4*(x + 3) - (6*x + 2)",
+    "variable": "x",
+    "solutions": [
+      "5"
+    ],
+    "id": "scale-source-m51248-1167339342245",
+    "expected": "5",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "domain",
+    "expression": "8*x**3/((2*x)**2)",
+    "variable": "x",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m51248-1167339342381",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "16*y**0*2/y**2",
+    "variable": "y",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m51248-1167339342457",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "vertex",
+    "expression": "6*p**2 + 9*p**2 + 2*p - 1*1 + 1",
+    "variable": "p",
+    "point": "-1/15",
+    "id": "scale-source-m51248-1167339342906",
+    "expected": "-1/15",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(n - 1*2)*(n**2 - 4*n + 4)",
+    "variable": "n",
+    "solutions": [
+      "2"
+    ],
+    "id": "scale-source-m51248-1167339342980",
+    "expected": "2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "16*x**2 - 1*81",
+    "variable": "x",
+    "solutions": [
+      "-9/4",
+      "9/4"
+    ],
+    "id": "scale-source-m51248-1167339343137",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "y**2 + 12*y + 36",
+    "variable": "y",
+    "solutions": [
+      "-6"
+    ],
+    "id": "scale-source-m51248-1167339343214",
+    "expected": "-6",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "5*a + 7*a + 10*a - 1*4 - 1*2 + 7",
+    "variable": "a",
+    "solutions": [
+      "-1/22"
+    ],
+    "id": "scale-source-m51253-36",
+    "expected": "-1/22",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "5*b + 9*b + 10*(2*b + 3*b) + 5",
+    "variable": "b",
+    "solutions": [
+      "-5/64"
+    ],
+    "id": "scale-source-m51253-630",
+    "expected": "-5/64",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "equation",
+    "left": "2*(w + 5) + 1",
+    "right": "4*w + 2 + 10",
+    "variable": "w",
+    "candidates": [
+      "-1/2"
+    ],
+    "solutions": [
+      "-1/2"
+    ],
+    "id": "scale-source-m51253-417",
+    "expected": "-1/2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "15*(y - 1*9)",
+    "right": "-60",
+    "variable": "y",
+    "candidates": [
+      "5"
+    ],
+    "solutions": [
+      "5"
+    ],
+    "id": "scale-source-m51253-260",
+    "expected": "5",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "54 - 2*(11 - 7*x)",
+    "right": "4",
+    "variable": "x",
+    "candidates": [
+      "-2"
+    ],
+    "solutions": [
+      "-2"
+    ],
+    "id": "scale-source-m51253-327",
+    "expected": "-2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "3*(4*n - 1*1) - 1*2",
+    "right": "8*n + 3",
+    "variable": "n",
+    "candidates": [
+      "2"
+    ],
+    "solutions": [
+      "2"
+    ],
+    "id": "scale-source-m51253-425",
+    "expected": "2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "2*(5 - 3*y) + 12",
+    "right": "-9*(y - 1*1) - 1*2",
+    "variable": "y",
+    "candidates": [
+      "-5"
+    ],
+    "solutions": [
+      "-5"
+    ],
+    "id": "scale-source-m51253-971",
+    "expected": "-5",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "1*(20*x + 12)/4",
+    "right": "x + 7",
+    "variable": "x",
+    "candidates": [
+      "1"
+    ],
+    "solutions": [
+      "1"
+    ],
+    "id": "scale-source-m51253-713",
+    "expected": "1",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "22*(3*m - 1*4)",
+    "right": "8*(2*m + 9)",
+    "variable": "m",
+    "candidates": [
+      "16/5"
+    ],
+    "solutions": [
+      "16/5"
+    ],
+    "id": "scale-source-m51253-405",
+    "expected": "16/5",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "(3*x + 4)/2 + 1",
+    "right": "(5*x + 10)/8",
+    "variable": "x",
+    "candidates": [
+      "-2"
+    ],
+    "solutions": [
+      "-2"
+    ],
+    "id": "scale-source-m51253-957",
+    "expected": "-2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "n/20 + (n + 8)/10",
+    "right": "43/20",
+    "variable": "n",
+    "candidates": [
+      "9"
+    ],
+    "solutions": [
+      "9"
+    ],
+    "id": "scale-source-m51253-602",
+    "expected": "9",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x + 7",
+    "right": "19",
+    "variable": "x",
+    "candidates": [
+      "6"
+    ],
+    "solutions": [
+      "6"
+    ],
+    "id": "scale-source-m51253-3264315",
+    "expected": "6",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x + 1",
+    "right": "-9",
+    "variable": "x",
+    "candidates": [
+      "-5"
+    ],
+    "solutions": [
+      "-5"
+    ],
+    "id": "scale-source-m51253-ti_02_02_01",
+    "expected": "-5",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "4*(x - 1*3) + 12",
+    "right": "15 - 5*(x + 6)",
+    "variable": "x",
+    "candidates": [
+      "-5/3"
+    ],
+    "solutions": [
+      "-5/3"
+    ],
+    "id": "scale-source-m51253-1542084",
+    "expected": "-5/3",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "x - 2*(3*x - 1*1)",
+    "right": "14 - x",
+    "variable": "x",
+    "candidates": [
+      "-3"
+    ],
+    "solutions": [
+      "-3"
+    ],
+    "id": "scale-source-m51253-ti_02_02_02",
+    "expected": "-3",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "-5/(3*x) + 7/((2*x))",
+    "right": "22/3",
+    "variable": "x",
+    "candidates": [
+      "1/4"
+    ],
+    "solutions": [
+      "1/4"
+    ],
+    "id": "scale-source-m51253-2707414",
+    "expected": "1/4",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "-3/2 + 2/x",
+    "right": "7/((2*x))",
+    "variable": "x",
+    "candidates": [
+      "-1"
+    ],
+    "solutions": [
+      "-1"
+    ],
+    "id": "scale-source-m51253-1831988",
+    "expected": "-1",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "2/((3*x))",
+    "right": "1/4 - 1/(6*x)",
+    "variable": "x",
+    "candidates": [
+      "10/3"
+    ],
+    "solutions": [
+      "10/3"
+    ],
+    "id": "scale-source-m51253-ti_02_02_03",
+    "expected": "10/3",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "1/x",
+    "right": "1/10 - 3/(4*x)",
+    "variable": "x",
+    "candidates": [
+      "35/2"
+    ],
+    "solutions": [
+      "35/2"
+    ],
+    "id": "scale-source-m51253-1533182",
+    "expected": "35/2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "3/((4*x)) - 5*1/(2*x)",
+    "right": "-7/4",
+    "variable": "x",
+    "candidates": [
+      "1"
+    ],
+    "solutions": [
+      "1"
+    ],
+    "id": "scale-source-m51253-ti_02_02_04",
+    "expected": "1",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "-3/(2*x + 1)",
+    "right": "4/(3*x + 1)",
+    "variable": "x",
+    "candidates": [
+      "-7/17"
+    ],
+    "solutions": [
+      "-7/17"
+    ],
+    "id": "scale-source-m51253-ti_02_02_05",
+    "expected": "-7/17",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "-1/(x - 1*1) + 2/(x + 1)",
+    "right": "2*x/(x**2 - 1*1)",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "-1",
+      "1"
+    ],
+    "solutions": [
+      "-3"
+    ],
+    "id": "scale-source-m51253-1823223",
+    "expected": "-3",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "2/(x - 1*2) + 1/(x + 1)",
+    "right": "1/(x**2 - x - 1*2)",
+    "variable": "x",
+    "candidates": [
+      "-1",
+      "1/3",
+      "2"
+    ],
+    "solutions": [
+      "1/3"
+    ],
+    "id": "scale-source-m51253-ti_02_02_06",
+    "expected": "1/3",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "7*x + 2",
+    "right": "3*x - 1*9",
+    "variable": "x",
+    "candidates": [
+      "-11/4"
+    ],
+    "solutions": [
+      "-11/4"
+    ],
+    "id": "scale-source-m51253-1540386",
+    "expected": "-11/4",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "4*x - 1*3",
+    "right": "5",
+    "variable": "x",
+    "candidates": [
+      "2"
+    ],
+    "solutions": [
+      "2"
+    ],
+    "id": "scale-source-m51253-2019698",
+    "expected": "2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "3*(x + 2) - 1*12",
+    "right": "5*(x + 1)",
+    "variable": "x",
+    "candidates": [
+      "-11/2"
+    ],
+    "solutions": [
+      "-11/2"
+    ],
+    "id": "scale-source-m51253-2400227",
+    "expected": "-11/2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "12 - 5*(x + 3)",
+    "right": "2*x - 1*5",
+    "variable": "x",
+    "candidates": [
+      "2/7"
+    ],
+    "solutions": [
+      "2/7"
+    ],
+    "id": "scale-source-m51253-3120624",
+    "expected": "2/7",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "-x/3 + 1/2",
+    "right": "4/3",
+    "variable": "x",
+    "candidates": [
+      "-5/2"
+    ],
+    "solutions": [
+      "-5/2"
+    ],
+    "id": "scale-source-m51253-1570246",
+    "expected": "-5/2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "x/3 - 3/4",
+    "right": "(2*x + 3)/12",
+    "variable": "x",
+    "candidates": [
+      "6"
+    ],
+    "solutions": [
+      "6"
+    ],
+    "id": "scale-source-m51253-1833287",
+    "expected": "6",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x/3 + 1/2",
+    "right": "31/6",
+    "variable": "x",
+    "candidates": [
+      "7"
+    ],
+    "solutions": [
+      "7"
+    ],
+    "id": "scale-source-m51253-2371482",
+    "expected": "7",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "x + 3*(2*x - 1*1)",
+    "right": "5*x + 3",
+    "variable": "x",
+    "candidates": [
+      "3"
+    ],
+    "solutions": [
+      "3"
+    ],
+    "id": "scale-source-m51253-2483678",
+    "expected": "3",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x/3 - 3/4",
+    "right": "x/6 + 21/4",
+    "variable": "x",
+    "candidates": [
+      "12"
+    ],
+    "solutions": [
+      "12"
+    ],
+    "id": "scale-source-m51253-2315466",
+    "expected": "12",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "(x + 2)/4 - (x - 1*1)/3",
+    "right": "2",
+    "variable": "x",
+    "candidates": [
+      "-14"
+    ],
+    "solutions": [
+      "-14"
+    ],
+    "id": "scale-source-m51253-2301811",
+    "expected": "-14",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "-1/3 + 3/x",
+    "right": "1/6",
+    "variable": "x",
+    "candidates": [
+      "6"
+    ],
+    "solutions": [
+      "6"
+    ],
+    "id": "scale-source-m51253-1186641",
+    "expected": "6",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "2 - 3/(x + 4)",
+    "right": "(x + 2)/(x + 4)",
+    "variable": "x",
+    "candidates": [
+      "-3"
+    ],
+    "solutions": [
+      "-3"
+    ],
+    "id": "scale-source-m51253-1354301",
+    "expected": "-3",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "3/(x - 1*2)",
+    "right": "1/(x - 1*1) + 7/(((x - 1*1)*(x - 1*2)))",
+    "variable": "x",
+    "candidates": [
+      "4"
+    ],
+    "solutions": [
+      "4"
+    ],
+    "id": "scale-source-m51253-1929983",
+    "expected": "4",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "1/(x - 1*3) + 5/(x + 1)",
+    "right": "-6/(x**2 - 2*x - 1*3)",
+    "variable": "x",
+    "candidates": [
+      "-1",
+      "4/3",
+      "3"
+    ],
+    "solutions": [
+      "4/3"
+    ],
+    "id": "scale-source-m51253-2266250",
+    "expected": "4/3",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "1/x",
+    "right": "1/5 + 3/((2*x))",
+    "variable": "x",
+    "candidates": [
+      "-5/2"
+    ],
+    "solutions": [
+      "-5/2"
+    ],
+    "id": "scale-source-m51253-2505172",
+    "expected": "-5/2",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-2*x + y - 7",
+      "x/2 + y + 4"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-22/5",
+      "y": "-9/5"
+    },
+    "id": "scale-source-m51253-1719410",
+    "expected": "-22/5",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "-3*x/4 + y - 1/4",
+      "-3*x + y - 2"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "-7/9",
+      "y": "-1/3"
+    },
+    "id": "scale-source-m51253-2736413",
+    "expected": "-7/9",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x - 4",
+      "y + 3"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "4",
+      "y": "-3"
+    },
+    "id": "scale-source-m51253-1942944",
+    "expected": "-3",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "equation",
+    "left": "5*(n + 3)",
+    "right": "2*n",
+    "variable": "n",
+    "candidates": [
+      "-5"
+    ],
+    "solutions": [
+      "-5"
+    ],
+    "id": "scale-source-m51254-1325510",
+    "expected": "-5",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 + 10*x + 24",
+    "variable": "x",
+    "solutions": [
+      "-6",
+      "-4"
+    ],
+    "id": "scale-source-m51256-520",
+    "expected": "-10",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "y**2 - 20*y + 36",
+    "variable": "y",
+    "solutions": [
+      "2",
+      "18"
+    ],
+    "id": "scale-source-m51256-759",
+    "expected": "20",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**2 + 16*x + 30",
+    "variable": "x",
+    "solutions": [
+      "-5",
+      "-3"
+    ],
+    "id": "scale-source-m51256-912",
+    "expected": "-8",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "9*x**2 + 42*x + 49",
+    "variable": "x",
+    "point": "-7/3",
+    "id": "scale-source-m51256-3",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "25*n**2 - 90*n + 81",
+    "variable": "n",
+    "solutions": [
+      "9/5"
+    ],
+    "id": "scale-source-m51256-332",
+    "expected": "9/5",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "121*q**2 - 1*100",
+    "variable": "q",
+    "solutions": [
+      "-10/11",
+      "10/11"
+    ],
+    "id": "scale-source-m51256-704",
+    "expected": "0",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(3*x - 1*5)**2 - 7*(3*x - 1*5) + 12",
+    "variable": "x",
+    "point": "17/6",
+    "id": "scale-source-m51256-188",
+    "expected": "-1/4",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 + x - 1*6",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "2"
+    ],
+    "solutions": [
+      "-3",
+      "2"
+    ],
+    "id": "scale-source-m51256-1315053",
+    "expected": "-1",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 - 5*x - 1*6",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-1",
+      "6"
+    ],
+    "solutions": [
+      "-1",
+      "6"
+    ],
+    "id": "scale-source-m51256-ti_02_05_01",
+    "expected": "5",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 + 8*x + 15",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5",
+      "-3"
+    ],
+    "solutions": [
+      "-5",
+      "-3"
+    ],
+    "id": "scale-source-m51256-3052323",
+    "expected": "-8",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 - 4*x - 1*21",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "7"
+    ],
+    "solutions": [
+      "-3",
+      "7"
+    ],
+    "id": "scale-source-m51256-ti_02_05_02",
+    "expected": "4",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 - 1*9",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "3"
+    ],
+    "solutions": [
+      "-3",
+      "3"
+    ],
+    "id": "scale-source-m51256-1442204",
+    "expected": "0",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 - 1*25",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5",
+      "5"
+    ],
+    "solutions": [
+      "-5",
+      "5"
+    ],
+    "id": "scale-source-m51256-ti_02_05_03",
+    "expected": "0",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "4*x**2 + 15*x + 9",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "-3/4"
+    ],
+    "solutions": [
+      "-3",
+      "-3/4"
+    ],
+    "id": "scale-source-m51256-2917470",
+    "expected": "-15/4",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "12*x**2 + 11*x + 2",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2/3",
+      "-1/4"
+    ],
+    "solutions": [
+      "-2/3",
+      "-1/4"
+    ],
+    "id": "scale-source-m51256-ti_02_05_04",
+    "expected": "-11/12",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "-3*x**3 - 5*x**2 - 2*x",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-1",
+      "-2/3",
+      "0"
+    ],
+    "solutions": [
+      "-1",
+      "-2/3",
+      "0"
+    ],
+    "id": "scale-source-m51256-3115239",
+    "expected": "-5/3",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "x**3 + 11*x**2 + 10*x",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-10",
+      "-1",
+      "0"
+    ],
+    "solutions": [
+      "-10",
+      "-1",
+      "0"
+    ],
+    "id": "scale-source-m51256-ti_02_05_05",
+    "expected": "-11",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "9*x**2 + 3*x - 1*2",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2/3",
+      "1/3"
+    ],
+    "solutions": [
+      "-2/3",
+      "1/3"
+    ],
+    "id": "scale-source-m51256-ti_02_05_08",
+    "expected": "-1/3",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 + 4*x - 1*21",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-7",
+      "3"
+    ],
+    "solutions": [
+      "-7",
+      "3"
+    ],
+    "id": "scale-source-m51256-3070464",
+    "expected": "-4",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 - 9*x + 18",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "3",
+      "6"
+    ],
+    "solutions": [
+      "3",
+      "6"
+    ],
+    "id": "scale-source-m51256-1227822",
+    "expected": "9",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**2 + 9*x - 1*5",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5",
+      "1/2"
+    ],
+    "solutions": [
+      "-5",
+      "1/2"
+    ],
+    "id": "scale-source-m51256-2029003",
+    "expected": "-9/2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "6*x**2 + 17*x + 5",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5/2",
+      "-1/3"
+    ],
+    "solutions": [
+      "-5/2",
+      "-1/3"
+    ],
+    "id": "scale-source-m51256-1333066",
+    "expected": "-17/6",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "4*x**2 - 12*x + 8",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "1",
+      "2"
+    ],
+    "solutions": [
+      "1",
+      "2"
+    ],
+    "id": "scale-source-m51256-2957156",
+    "expected": "3",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "3*x**2 - 1*75",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5",
+      "5"
+    ],
+    "solutions": [
+      "-5",
+      "5"
+    ],
+    "id": "scale-source-m51256-2708935",
+    "expected": "0",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "8*x**2 + 6*x - 1*9",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3/2",
+      "3/4"
+    ],
+    "solutions": [
+      "-3/2",
+      "3/4"
+    ],
+    "id": "scale-source-m51256-2933002",
+    "expected": "-3/4",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "4*x**2",
+    "right": "9",
+    "variable": "x",
+    "candidates": [
+      "-3/2",
+      "3/2"
+    ],
+    "solutions": [
+      "-3/2",
+      "3/2"
+    ],
+    "id": "scale-source-m51256-1417836",
+    "expected": "0",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**2 + 14*x",
+    "right": "36",
+    "variable": "x",
+    "candidates": [
+      "-9",
+      "2"
+    ],
+    "solutions": [
+      "-9",
+      "2"
+    ],
+    "id": "scale-source-m51256-1762775",
+    "expected": "-7",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "5*x**2",
+    "right": "5*x + 30",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "3"
+    ],
+    "solutions": [
+      "-2",
+      "3"
+    ],
+    "id": "scale-source-m51256-3207565",
+    "expected": "1",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "4*x**2",
+    "right": "5*x",
+    "variable": "x",
+    "candidates": [
+      "0",
+      "5/4"
+    ],
+    "solutions": [
+      "0",
+      "5/4"
+    ],
+    "id": "scale-source-m51256-1929832",
+    "expected": "5/4",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "7*x**2 + 3*x",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3/7",
+      "0"
+    ],
+    "solutions": [
+      "-3/7",
+      "0"
+    ],
+    "id": "scale-source-m51256-1520388",
+    "expected": "-3/7",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x/3 - 9/x",
+    "right": "2",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "9"
+    ],
+    "solutions": [
+      "-3",
+      "9"
+    ],
+    "id": "scale-source-m51256-2438766",
+    "expected": "6",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2",
+    "right": "36",
+    "variable": "x",
+    "candidates": [
+      "-6",
+      "6"
+    ],
+    "solutions": [
+      "-6",
+      "6"
+    ],
+    "id": "scale-source-m51256-2370842",
+    "expected": "0",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2",
+    "right": "49",
+    "variable": "x",
+    "candidates": [
+      "-7",
+      "7"
+    ],
+    "solutions": [
+      "-7",
+      "7"
+    ],
+    "id": "scale-source-m51256-2049646",
+    "expected": "0",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(x - 1*1)**2",
+    "right": "25",
+    "variable": "x",
+    "candidates": [
+      "-4",
+      "6"
+    ],
+    "solutions": [
+      "-4",
+      "6"
+    ],
+    "id": "scale-source-m51256-1354953",
+    "expected": "2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(2*x + 1)**2",
+    "right": "9",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "1"
+    ],
+    "solutions": [
+      "-2",
+      "1"
+    ],
+    "id": "scale-source-m51256-2977340",
+    "expected": "-1",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(x - 1*5)**2",
+    "right": "4",
+    "variable": "x",
+    "candidates": [
+      "3",
+      "7"
+    ],
+    "solutions": [
+      "3",
+      "7"
+    ],
+    "id": "scale-source-m51256-2643328",
+    "expected": "10",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 - 9*x - 1*22",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "11"
+    ],
+    "solutions": [
+      "-2",
+      "11"
+    ],
+    "id": "scale-source-m51256-2432300",
+    "expected": "9",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 + 2*x/3 - 1/3",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-1",
+      "1/3"
+    ],
+    "solutions": [
+      "-1",
+      "1/3"
+    ],
+    "id": "scale-source-m51256-2020955",
+    "expected": "-2/3",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "z + 2",
+    "right": "6*z**2",
+    "variable": "z",
+    "candidates": [
+      "-1/2",
+      "2/3"
+    ],
+    "solutions": [
+      "-1/2",
+      "2/3"
+    ],
+    "id": "scale-source-m51256-1840550",
+    "expected": "1/6",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "6*p**2 + 7*p - 1*20",
+    "right": "0",
+    "variable": "p",
+    "candidates": [
+      "-5/2",
+      "4/3"
+    ],
+    "solutions": [
+      "-5/2",
+      "4/3"
+    ],
+    "id": "scale-source-m51256-1552019",
+    "expected": "-7/6",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "3*x**2 + 5*x - 1*8",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-8/3",
+      "1"
+    ],
+    "solutions": [
+      "-8/3",
+      "1"
+    ],
+    "id": "scale-source-m51256-2734018",
+    "expected": "-5/3",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "9*x**2 - 30*x + 25",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "5/3"
+    ],
+    "solutions": [
+      "5/3"
+    ],
+    "id": "scale-source-m51256-3142966",
+    "expected": "5/3",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "6*x**2 - x - 1*2",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-1/2",
+      "2/3"
+    ],
+    "solutions": [
+      "-1/2",
+      "2/3"
+    ],
+    "id": "scale-source-m51256-1873764",
+    "expected": "1/6",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**2 + 5*x + 3",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3/2",
+      "-1"
+    ],
+    "solutions": [
+      "-3/2",
+      "-1"
+    ],
+    "id": "scale-source-m51256-1883375",
+    "expected": "-5/2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**3 + x**2 - 9*x - 1*9",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "-1",
+      "3"
+    ],
+    "solutions": [
+      "-3",
+      "-1",
+      "3"
+    ],
+    "id": "scale-source-m51258-2435055",
+    "expected": "-1",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "(x + 2)**2 + 11*(x + 2) - 1*12",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-14",
+      "-1"
+    ],
+    "solutions": [
+      "-14",
+      "-1"
+    ],
+    "id": "scale-source-m51258-2444359",
+    "expected": "-15",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(x - 1*5)**2 - 4*(x - 1*5) - 1*21",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "2",
+      "12"
+    ],
+    "solutions": [
+      "2",
+      "12"
+    ],
+    "id": "scale-source-m51258-ti_02_06_09",
+    "expected": "14",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(3*x + 2)/(x - 1*2) + 1/x",
+    "right": "-2/(x**2 - 2*x)",
+    "variable": "x",
+    "candidates": [
+      "-1",
+      "0"
+    ],
+    "solutions": [
+      "-1"
+    ],
+    "id": "scale-source-m51258-ti_02_06_10",
+    "expected": "-1",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**3 + 2*x**2 - x - 1*2",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "-1",
+      "1"
+    ],
+    "solutions": [
+      "-2",
+      "-1",
+      "1"
+    ],
+    "id": "scale-source-m51258-2382874",
+    "expected": "-2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "3*x**3 - 6*x**2 - 27*x + 54",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3",
+      "2",
+      "3"
+    ],
+    "solutions": [
+      "-3",
+      "2",
+      "3"
+    ],
+    "id": "scale-source-m51258-3111192",
+    "expected": "2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "4*y**3 - 9*y",
+    "right": "0",
+    "variable": "y",
+    "candidates": [
+      "-3/2",
+      "0",
+      "3/2"
+    ],
+    "solutions": [
+      "-3/2",
+      "0",
+      "3/2"
+    ],
+    "id": "scale-source-m51258-1393262",
+    "expected": "0",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "x**3 + 3*x**2 - 25*x - 1*75",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5",
+      "-3",
+      "5"
+    ],
+    "solutions": [
+      "-5",
+      "-3",
+      "5"
+    ],
+    "id": "scale-source-m51258-2529330",
+    "expected": "-3",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "m**3 + m**2 - m - 1*1",
+    "right": "0",
+    "variable": "m",
+    "candidates": [
+      "-1",
+      "1"
+    ],
+    "solutions": [
+      "-1",
+      "1"
+    ],
+    "id": "scale-source-m51258-1582399",
+    "expected": "0",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "4*(t - 1*1)**2 - 9*(t - 1*1)",
+    "right": "-2",
+    "variable": "t",
+    "candidates": [
+      "5/4",
+      "3"
+    ],
+    "solutions": [
+      "5/4",
+      "3"
+    ],
+    "id": "scale-source-m51258-1715518",
+    "expected": "17/4",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(x + 1)**2 - 8*(x + 1) - 1*9",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "8"
+    ],
+    "solutions": [
+      "-2",
+      "8"
+    ],
+    "id": "scale-source-m51258-1418519",
+    "expected": "6",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(x - 1*3)**2 - 1*4",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "1",
+      "5"
+    ],
+    "solutions": [
+      "1",
+      "5"
+    ],
+    "id": "scale-source-m51258-2797000",
+    "expected": "6",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "-1*12 - 1/x + x**(-2)",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-1/3",
+      "1/4"
+    ],
+    "solutions": [
+      "-1/3",
+      "1/4"
+    ],
+    "id": "scale-source-m51258-2390150",
+    "expected": "-1/12",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "5*x + 2",
+    "right": "7*x - 1*8",
+    "variable": "x",
+    "candidates": [
+      "5"
+    ],
+    "solutions": [
+      "5"
+    ],
+    "id": "scale-source-m51259-2442081",
+    "expected": "5",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "3*(x + 2) - 1*10",
+    "right": "x + 4",
+    "variable": "x",
+    "candidates": [
+      "4"
+    ],
+    "solutions": [
+      "4"
+    ],
+    "id": "scale-source-m51259-2442109",
+    "expected": "4",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "7*x - 1*3",
+    "right": "5",
+    "variable": "x",
+    "candidates": [
+      "8/7"
+    ],
+    "solutions": [
+      "8/7"
+    ],
+    "id": "scale-source-m51259-1181517",
+    "expected": "8/7",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "12 - 5*(x + 1)",
+    "right": "2*x - 1*5",
+    "variable": "x",
+    "candidates": [
+      "12/7"
+    ],
+    "solutions": [
+      "12/7"
+    ],
+    "id": "scale-source-m51259-1181538",
+    "expected": "12/7",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "1/2 + 2/x",
+    "right": "3/4",
+    "variable": "x",
+    "candidates": [
+      "8"
+    ],
+    "solutions": [
+      "8"
+    ],
+    "id": "scale-source-m51259-1690134",
+    "expected": "8",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "4 - 3*i",
+    "variable": "i",
+    "solutions": [
+      "4/3"
+    ],
+    "id": "scale-source-m51259-2875793",
+    "expected": "4/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-i - 2",
+    "variable": "i",
+    "solutions": [
+      "-2"
+    ],
+    "id": "scale-source-m51259-2875810",
+    "expected": "-2",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-i - (4 - 7*i) + 9",
+    "variable": "i",
+    "solutions": [
+      "-5/6"
+    ],
+    "id": "scale-source-m51259-2875860",
+    "expected": "-5/6",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "3*i - (-8*i - 5) + 2",
+    "variable": "i",
+    "solutions": [
+      "-7/11"
+    ],
+    "id": "scale-source-m51259-3124830",
+    "expected": "-7/11",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(3 - 5*i)**2",
+    "variable": "i",
+    "solutions": [
+      "3/5"
+    ],
+    "id": "scale-source-m51259-3160906",
+    "expected": "3/5",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "domain",
+    "expression": "2/(5 - 3*i)",
+    "variable": "i",
+    "excluded": [
+      "5/3"
+    ],
+    "id": "scale-source-m51259-2049543",
+    "expected": "5/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(7*i + 3)/i",
+    "variable": "i",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m51259-2049572",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**2 - 7*x - 1*4",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-1/2",
+      "4"
+    ],
+    "solutions": [
+      "-1/2",
+      "4"
+    ],
+    "id": "scale-source-m51259-1891242",
+    "expected": "7/2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "3*x**2 + 18*x + 15",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5",
+      "-1"
+    ],
+    "solutions": [
+      "-5",
+      "-1"
+    ],
+    "id": "scale-source-m51259-1891275",
+    "expected": "-6",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "25*x**2 - 1*9",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3/5",
+      "3/5"
+    ],
+    "solutions": [
+      "-3/5",
+      "3/5"
+    ],
+    "id": "scale-source-m51259-1891333",
+    "expected": "0",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "7*x**2 - 9*x",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "0",
+      "9/7"
+    ],
+    "solutions": [
+      "0",
+      "9/7"
+    ],
+    "id": "scale-source-m51259-3265989",
+    "expected": "9/7",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(x - 1*4)**2",
+    "right": "36",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "10"
+    ],
+    "solutions": [
+      "-2",
+      "10"
+    ],
+    "id": "scale-source-m51259-1890873",
+    "expected": "8",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "15*x**2 - x - 1*2",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-1/3",
+      "2/5"
+    ],
+    "solutions": [
+      "-1/3",
+      "2/5"
+    ],
+    "id": "scale-source-m51259-1744501",
+    "expected": "1/15",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(x - 1*2)**2",
+    "right": "16",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "6"
+    ],
+    "solutions": [
+      "-2",
+      "6"
+    ],
+    "id": "scale-source-m51259-3147318",
+    "expected": "4",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "4*x**3 + 8*x**2 - 9*x - 1*18",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "-3/2",
+      "3/2"
+    ],
+    "solutions": [
+      "-2",
+      "-3/2",
+      "3/2"
+    ],
+    "id": "scale-source-m51259-1681638",
+    "expected": "-2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "5*x + 8",
+    "right": "3*x - 1*10",
+    "variable": "x",
+    "candidates": [
+      "-9"
+    ],
+    "solutions": [
+      "-9"
+    ],
+    "id": "scale-source-m51259-2918583",
+    "expected": "-9",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "equation",
+    "left": "x/2 + 1",
+    "right": "4/x",
+    "variable": "x",
+    "candidates": [
+      "-4",
+      "2"
+    ],
+    "solutions": [
+      "-4",
+      "2"
+    ],
+    "id": "scale-source-m51259-767422",
+    "expected": "-2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "5/(x + 4)",
+    "right": "4 + 3/(x - 1*2)",
+    "variable": "x",
+    "candidates": [
+      "-5/2",
+      "1"
+    ],
+    "solutions": [
+      "-5/2",
+      "1"
+    ],
+    "id": "scale-source-m51259-767465",
+    "expected": "-3/2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-2*i - i + 3 + 4",
+    "variable": "i",
+    "solutions": [
+      "7/3"
+    ],
+    "id": "scale-source-m51259-3007600",
+    "expected": "7/3",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "domain",
+    "expression": "(4 - i)/(3*i + 2)",
+    "variable": "i",
+    "excluded": [
+      "-2/3"
+    ],
+    "id": "scale-source-m51259-1665179",
+    "expected": "-2/3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "equation",
+    "left": "(3*x - 1*1)**2 - 1*1",
+    "right": "24",
+    "variable": "x",
+    "candidates": [
+      "-4/3",
+      "2"
+    ],
+    "solutions": [
+      "-4/3",
+      "2"
+    ],
+    "id": "scale-source-m51259-2868363",
+    "expected": "2/3",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**3 - x**2 - 8*x + 4",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "1/2",
+      "2"
+    ],
+    "solutions": [
+      "-2",
+      "1/2",
+      "2"
+    ],
+    "id": "scale-source-m51259-1798281",
+    "expected": "1/2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "(x + 5)**2 - 3*(x + 5) - 1*4",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-6",
+      "-1"
+    ],
+    "solutions": [
+      "-6",
+      "-1"
+    ],
+    "id": "scale-source-m51259-1798360",
+    "expected": "-7",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "3*(x - 1*5)**2 + 7",
+    "variable": "x",
+    "point": "5",
+    "id": "scale-source-m51261-1165135708043",
+    "expected": "7",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 - 1*3",
+    "variable": "x",
+    "point": "0",
+    "id": "scale-source-m51262-idm219658784",
+    "expected": "-3",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-4*x - 1*3",
+    "variable": "x",
+    "solutions": [
+      "-3/4"
+    ],
+    "id": "scale-source-m51262-517",
+    "expected": "-3/4",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 - 1*1",
+    "variable": "x",
+    "point": "0",
+    "id": "scale-source-m51262-1165137767649",
+    "expected": "-1",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(x + 2)**2",
+    "variable": "x",
+    "point": "-2",
+    "id": "scale-source-m51265-1165135344867",
+    "expected": "0",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "5*(x + 3)**2 - 1*2",
+    "variable": "x",
+    "point": "-3",
+    "id": "scale-source-m51266-1165135547247",
+    "expected": "-2",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x - 1*2)**2",
+    "variable": "x",
+    "solutions": [
+      "2"
+    ],
+    "id": "scale-source-m51266-1165134187165",
+    "expected": "2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x - 1*6)**2",
+    "variable": "x",
+    "solutions": [
+      "6"
+    ],
+    "id": "scale-source-m51268-1165137862703",
+    "expected": "6",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "-2*x**2 + 3*x",
+    "variable": "x",
+    "point": "3/4",
+    "id": "scale-source-m51268-1165135186568",
+    "expected": "9/8",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x - 1*3)**2",
+    "variable": "x",
+    "solutions": [
+      "3"
+    ],
+    "id": "scale-source-m51268-1165137901178",
+    "expected": "3",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "equation",
+    "left": "y",
+    "right": "3",
+    "variable": "y",
+    "candidates": [
+      "3"
+    ],
+    "solutions": [
+      "3"
+    ],
+    "id": "scale-source-m51270-152",
+    "expected": "3",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "4*x - 7*y - 10",
+      "7*x + 4*y - 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "47/65",
+      "y": "-66/65"
+    },
+    "id": "scale-source-m51270-2252353",
+    "expected": "-66/65",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x + 3*y - 12",
+      "-8*x - y - 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "-15/23",
+      "y": "97/23"
+    },
+    "id": "scale-source-m51270-2252424",
+    "expected": "97/23",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "6*x - 9*y - 10",
+      "3*x + 2*y - 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "29/39",
+      "y": "-8/13"
+    },
+    "id": "scale-source-m51270-2261930",
+    "expected": "29/39",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "equation",
+    "left": "r",
+    "right": "-13/50",
+    "variable": "r",
+    "candidates": [
+      "-13/50"
+    ],
+    "solutions": [
+      "-13/50"
+    ],
+    "id": "scale-source-m51272-2281428",
+    "expected": "-13/50",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x - y - 6",
+      "2*x - y - 13"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "solution": {
+      "x": "7",
+      "y": "1"
+    },
+    "id": "scale-source-m51272-2489570",
+    "expected": "7",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "system",
+    "equations": [
+      "x - y - 2",
+      "2*x - 3*y + 1"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "target": "y",
+    "solution": {
+      "x": "7",
+      "y": "5"
+    },
+    "id": "scale-source-m51272-2800116",
+    "expected": "5",
+    "kindName": "linear-system"
+  },
+  {
+    "kind": "vertex",
+    "expression": "-5*x**2 + 9*x - 1*1",
+    "variable": "x",
+    "point": "9/10",
+    "id": "scale-source-m51274-1165134257627",
+    "expected": "61/20",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "-16*t**2 + 96*t + 112",
+    "variable": "t",
+    "point": "3",
+    "id": "scale-source-m51274-ti_03_02_05",
+    "expected": "256",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 + 2*x - 1*3",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "1"
+    ],
+    "id": "scale-source-m51274-1165135336013",
+    "expected": "-2",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 - x",
+    "variable": "x",
+    "solutions": [
+      "0",
+      "1"
+    ],
+    "id": "scale-source-m51274-1165134199469",
+    "expected": "1",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 + 5*x - 1*2",
+    "variable": "x",
+    "point": "-5/2",
+    "id": "scale-source-m51274-1165135536371",
+    "expected": "-33/4",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**2 - 6*x",
+    "variable": "x",
+    "solutions": [
+      "0",
+      "3"
+    ],
+    "id": "scale-source-m51274-1165134422869",
+    "expected": "3",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**2 + 10*x + 12",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "-2"
+    ],
+    "id": "scale-source-m51274-1165135258896",
+    "expected": "-5",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "vertex",
+    "expression": "4*x**2 + x - 1*1",
+    "variable": "x",
+    "point": "-1/8",
+    "id": "scale-source-m51274-1165134278554",
+    "expected": "-17/16",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(-1/3)*x**2 - 2*x + 3",
+    "variable": "x",
+    "point": "-3",
+    "id": "scale-source-m51274-1165134362815",
+    "expected": "6",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "x**2 + 6*x + 4",
+    "variable": "x",
+    "point": "-3",
+    "id": "scale-source-m51274-1165135528310",
+    "expected": "-5",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "vertex",
+    "expression": "3*x**2 - 6*x - 1*9",
+    "variable": "x",
+    "point": "1",
+    "id": "scale-source-m51274-1165134138647",
+    "expected": "-12",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**2 - 5*x - 1*6",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "6"
+    ],
+    "id": "scale-source-m51274-1165135692195",
+    "expected": "5",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "domain",
+    "expression": "7/x**3",
+    "variable": "x",
+    "excluded": [
+      "0"
+    ],
+    "id": "scale-source-m51275-494",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x + 1)*(x - 1*2)*(x - 1*4)",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "2",
+      "4"
+    ],
+    "id": "scale-source-m51275-1165137435581",
+    "expected": "5",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "2*x**3 - 6*x**2 - 20*x",
+    "variable": "x",
+    "solutions": [
+      "-2",
+      "0",
+      "5"
+    ],
+    "id": "scale-source-m51275-ti_03_03_06",
+    "expected": "3",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "-2*(2*n + 1)*(3*n - 1*1)",
+    "variable": "n",
+    "solutions": [
+      "-1/2",
+      "1/3"
+    ],
+    "id": "scale-source-m51275-1165137634317",
+    "expected": "-1/6",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "24*x**2 - 46*x + 10",
+    "variable": "x",
+    "solutions": [
+      "1/4",
+      "5/3"
+    ],
+    "id": "scale-source-m51276-470",
+    "expected": "23/12",
+    "kindName": "zeros-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "y**3 + 5*y**2 - 4*y - 1*20",
+    "variable": "y",
+    "solutions": [
+      "-5",
+      "-2",
+      "2"
+    ],
+    "id": "scale-source-m51276-733",
+    "expected": "-5",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "vertex",
+    "expression": "12*m**2 + 20*m + 3",
+    "variable": "m",
+    "point": "-5/6",
+    "id": "scale-source-m51276-820",
+    "expected": "-16/3",
+    "kindName": "vertex"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 - x**2 - 30*x",
+    "variable": "x",
+    "solutions": [
+      "-5",
+      "0",
+      "6"
+    ],
+    "id": "scale-source-m51276-975",
+    "expected": "1",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "equation",
+    "left": "(x + 6)*(4*x - 1*1)",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-6",
+      "1/4"
+    ],
+    "solutions": [
+      "-6",
+      "1/4"
+    ],
+    "id": "scale-source-m51276-516",
+    "expected": "-23/4",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(x - 1*5)*(2*x + 3)",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-3/2",
+      "5"
+    ],
+    "solutions": [
+      "-3/2",
+      "5"
+    ],
+    "id": "scale-source-m51276-144",
+    "expected": "7/2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "x**2 - 2*x",
+    "right": "63",
+    "variable": "x",
+    "candidates": [
+      "-7",
+      "9"
+    ],
+    "solutions": [
+      "-7",
+      "9"
+    ],
+    "id": "scale-source-m51276-911",
+    "expected": "2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "4*x**2 - 1*25",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-5/2",
+      "5/2"
+    ],
+    "solutions": [
+      "-5/2",
+      "5/2"
+    ],
+    "id": "scale-source-m51276-857",
+    "expected": "0",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "6*x**2",
+    "right": "12*x",
+    "variable": "x",
+    "candidates": [
+      "0",
+      "2"
+    ],
+    "solutions": [
+      "0",
+      "2"
+    ],
+    "id": "scale-source-m51276-507",
+    "expected": "2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "2*x**2 - 1*2",
+    "right": "-3*x",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "1/2"
+    ],
+    "solutions": [
+      "-2",
+      "1/2"
+    ],
+    "id": "scale-source-m51276-931",
+    "expected": "-3/2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "equation",
+    "left": "(x + 1)*(2*x + 3)",
+    "right": "15",
+    "variable": "x",
+    "candidates": [
+      "-4",
+      "3/2"
+    ],
+    "solutions": [
+      "-4",
+      "3/2"
+    ],
+    "id": "scale-source-m51276-929",
+    "expected": "-5/2",
+    "kindName": "equation-2"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 - 5*x**2 - x + 5",
+    "variable": "x",
+    "solutions": [
+      "-1",
+      "1",
+      "5"
+    ],
+    "id": "scale-source-m51276-1165137768835",
+    "expected": "5",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "(x - 1*2)**2*(2*x + 3)",
+    "variable": "x",
+    "solutions": [
+      "-3/2",
+      "2"
+    ],
+    "id": "scale-source-m51276-1165135154515",
+    "expected": "1/2",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "zeros",
+    "expression": "x**3 + 4*x**2 + x - 1*6",
+    "variable": "x",
+    "solutions": [
+      "-3",
+      "-2",
+      "1"
+    ],
+    "id": "scale-source-m51276-1165137415980",
+    "expected": "-4",
+    "kindName": "zeros-3"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 9*x + 20)/(x + 5)",
+    "variable": "x",
+    "excluded": [
+      "-5"
+    ],
+    "id": "scale-source-m51277-1167831908410",
+    "expected": "-5",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**2 + 10*x + 21)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m51277-931",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 - x**2 + 5*x - 1*6)/(x + 2)",
+    "variable": "x",
+    "excluded": [
+      "-2"
+    ],
+    "id": "scale-source-m51277-416",
+    "expected": "-2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**4 - 7*x**2 + 7*x + 6)/(x + 3)",
+    "variable": "x",
+    "excluded": [
+      "-3"
+    ],
+    "id": "scale-source-m51277-151",
+    "expected": "-3",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x**3 - 1*8)/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m51277-134",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "equation",
+    "left": "9*m**3 + 100*m",
+    "right": "60*m**2",
+    "variable": "m",
+    "candidates": [
+      "0",
+      "10/3"
+    ],
+    "solutions": [
+      "0",
+      "10/3"
+    ],
+    "id": "scale-source-m51278-1167836456230",
+    "expected": "10/3",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "8*x**3",
+    "right": "24*x**2 - 18*x",
+    "variable": "x",
+    "candidates": [
+      "0",
+      "3/2"
+    ],
+    "solutions": [
+      "0",
+      "3/2"
+    ],
+    "id": "scale-source-m51278-847",
+    "expected": "3/2",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "16*x**2",
+    "right": "32*x**3 + 2*x",
+    "variable": "x",
+    "candidates": [
+      "0",
+      "1/4"
+    ],
+    "solutions": [
+      "0",
+      "1/4"
+    ],
+    "id": "scale-source-m51278-388",
+    "expected": "1/4",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "x**3 - x**2 - 4*x + 4",
+    "right": "0",
+    "variable": "x",
+    "candidates": [
+      "-2",
+      "1",
+      "2"
+    ],
+    "solutions": [
+      "-2",
+      "1",
+      "2"
+    ],
+    "id": "scale-source-m51278-550",
+    "expected": "1",
+    "kindName": "equation-3"
+  },
+  {
+    "kind": "equation",
+    "left": "x",
+    "right": "-3",
+    "variable": "x",
+    "candidates": [
+      "-3"
+    ],
+    "solutions": [
+      "-3"
+    ],
+    "id": "scale-source-m51279-297",
+    "expected": "-3",
+    "kindName": "equation-1"
+  },
+  {
+    "kind": "domain",
+    "expression": "(x + 3)/(2*x**2 + 9*x - 1*5)",
+    "variable": "x",
+    "excluded": [
+      "-5",
+      "1/2"
+    ],
+    "id": "scale-source-m51279-23",
+    "expected": "-9/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(3*x + 5)/(2*x - 1*3)",
+    "variable": "x",
+    "excluded": [
+      "3/2"
+    ],
+    "id": "scale-source-m51279-569",
+    "expected": "3/2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "(m - 1*5)/(m**2 + m - 1*6)",
+    "variable": "m",
+    "excluded": [
+      "-3",
+      "2"
+    ],
+    "id": "scale-source-m51279-443",
+    "expected": "-1",
+    "kindName": "domain"
+  },
+  {
+    "kind": "domain",
+    "expression": "2*a/(a**2 - 1*9)",
+    "variable": "a",
+    "excluded": [
+      "-3",
+      "3"
+    ],
+    "id": "scale-source-m51279-982",
+    "expected": "0",
+    "kindName": "domain"
+  },
+  {
+    "kind": "zeros",
+    "expression": "4*x + 7",
+    "variable": "x",
+    "solutions": [
+      "-7/4"
+    ],
+    "id": "scale-source-m51280-692",
+    "expected": "-7/4",
+    "kindName": "zeros-1"
+  },
+  {
+    "kind": "domain",
+    "expression": "5/(x - 1*2)",
+    "variable": "x",
+    "excluded": [
+      "2"
+    ],
+    "id": "scale-source-m51280-69",
+    "expected": "2",
+    "kindName": "domain"
+  },
+  {
+    "kind": "vertex",
+    "expression": "(x - 1*2)**2 - 1*3",
+    "variable": "x",
+    "point": "2",
+    "id": "scale-source-m51280-1165137786597",
+    "expected": "-3",
+    "kindName": "vertex"
+  }
+]
