@@ -1,3 +1,5 @@
+import { isUsableEnt } from "../../shared/entQuality";
+import {choiceKey,numericEqual} from "../../shared/numeric";
 import { Router } from "express";
 import { Cat } from "@bdelab/jscat";
 import { ENT_SUBJECT, ENT_PAIR, ENT_SUBJECTS, type EntQuestion, type EntSubject } from "../../shared/ent";
@@ -29,6 +31,7 @@ interface MasterItem {
   unit: string;
   solution: string;
   level: "A" | "B" | "C" | "D";
+  exact?:boolean;
 }
 
 /** A bank question can be typed when its stem does not refer to the options and the right option is short. */
@@ -45,8 +48,9 @@ async function pool(subject: EntSubject, lang: string): Promise<MasterItem[]> {
     }),
     ...bank
       .map((r) => JSON.parse(r.data) as EntQuestion)
+      .filter(isUsableEnt)
       .filter(typable)
-      .map((q) => ({ id: `t:${q.id}`, subject: subject.id, topic: q.topic, stem: q.stem, accept: [q.options[q.answer as number]!], unit: "", solution: q.explanation, level: q.difficulty })),
+      .map((q) => ({ id: `t:${q.id}`, subject: subject.id, topic: q.topic, stem: q.stem, accept: [q.variant?choiceKey(q.options[q.answer as number]!):q.options[q.answer as number]!], exact:!!q.variant, unit: "", solution: q.explanation, level: q.difficulty })),
   ];
 }
 
@@ -128,17 +132,8 @@ entMasterRouter.post(
     const h = await history(u, subject);
     let items = (await pool(subject, lang)).filter((x) => !h.seen.has(x.id));
     const state = stateOf(subject, h);
-    // Keep a stock of hard problems on the student's weakest topics (unknown topics count as weak).
-    if (items.filter((x) => x.id.startsWith("m-")).length < 4) {
-      const weak = [...state.topics].sort((a, b) => (a.mastery ?? 30) - (b.mastery ?? 30))[Math.floor(Math.random() * 3)]?.topic ?? subject.topics[0]!;
-      const made = await entMasterGenerate(subject, weak, 6, lang).catch((e) => {
-        console.error("master generate", e);
-        return [];
-      });
-      for (const d of made) await run("INSERT INTO ent_master_items (id, subject, topic, lang, data, created_at) VALUES (?, ?, ?, ?, ?, ?)", `m-${id()}`, subject.id, weak, lang, JSON.stringify(d), Date.now());
-      items = (await pool(subject, lang)).filter((x) => !h.seen.has(x.id));
-    }
-    if (!items.length) throw new HttpError(503, "Задания для этого предмета ещё готовятся. Попробуйте через минуту");
+    // Use shipped or previously stored items. No automatic paid generation.
+    if (!items.length) throw new HttpError(503, "Новых заданий с вводом ответа по этому предмету сейчас нет. Откройте обычную тренировку: там доступен банк с вариантами ответа.");
     const cal = await calibration(items.map((x) => x.id));
     // Content balancing, as in real adaptive exams: candidates come from the topics this student has answered least,
     // then jsCAT picks the most informative of them (maximum Fisher information at the current θ).
@@ -172,7 +167,7 @@ entMasterRouter.post(
     );
     if (await one("SELECT 1 FROM ent_master_resp WHERE user_id = ? AND item_id = ?", u.id, it.id)) throw new HttpError(409, "Это задание уже решено");
     const given = str(req.body?.answer, 200);
-    const correct = sameAnswer(given, it.accept);
+    const correct = it.exact?it.accept.some(a=>numericEqual(given,a)):sameAnswer(given, it.accept);
     await run(
       "INSERT INTO ent_master_resp (user_id, item_id, subject, topic, correct, given, ms, at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       u.id,

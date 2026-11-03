@@ -1,13 +1,15 @@
+import { IELTS_ACADEMIC } from "../content/ieltsAcademic";
+import { checkReading, transcriptCriteria, type KeyedReadingQuestion } from "../../shared/ieltsAssessment";
 import { Router } from "express";
 import { requireStudent } from "../auth";
-import { addXp, all, run } from "../db";
+import { addXp, all, run, one, id } from "../db";
 import { HttpError, must, str, wrap } from "../http";
 import { AiRefusal, ieltsSpeaking, ieltsWriting } from "../ai";
-import { LISTENING, READING, SPEAKING_PART1, SPEAKING_PART2, WRITING_TASK1, WRITING_TASK2, bandFromRatio, normalise } from "../content/ielts";
+import { LISTENING, READING, SPEAKING_PART1, SPEAKING_PART2, WRITING_TASK1, WRITING_TASK2 } from "../content/ielts";
 
 export const ieltsRouter = Router();
 
-const strip = <T extends { answer: string; why: string }>({ answer: _a, why: _w, ...q }: T) => q;
+const strip = <T extends { answer: string; why: string }>({ answer: _a, why: _w, evidence: _proof, ...q }: T & { evidence?: string }) => q;
 
 ieltsRouter.get(
   "/content",
@@ -17,6 +19,8 @@ ieltsRouter.get(
       speaking: { part1: SPEAKING_PART1, part2: SPEAKING_PART2 },
       writing: { task1: WRITING_TASK1, task2: WRITING_TASK2 },
       reading: READING.map((r) => ({ id: r.id, title: r.title, level: r.level, questions: r.questions.length })),
+      readingStats: { sets: READING.length, uniquePassages: new Set(READING.map((r) => r.passage.toLowerCase().replace(/\s+/g, " ").trim())).size },
+      academicReading: { id: IELTS_ACADEMIC.id, title: IELTS_ACADEMIC.title, minutes: 60, passages: 3, words: IELTS_ACADEMIC.passages.reduce((n, p) => n + p.passage.split(/\s+/).length, 0), questions: 40 },
       listening: LISTENING.map((l) => ({ id: l.id, title: l.title, section: l.section, questions: l.questions.length })),
     });
   }),
@@ -59,7 +63,7 @@ ieltsRouter.post(
         promptId,
         text,
         JSON.stringify(result),
-        result.overall,
+        result.overall ?? 0,
         Date.now(),
       );
       await addXp(u.id, 25, "ielts-writing");
@@ -87,7 +91,7 @@ ieltsRouter.post(
         str(req.body?.promptId, 40) || `part${part}`,
         transcript,
         JSON.stringify(result),
-        result.overall,
+        result.overall ?? 0,
         Date.now(),
       );
       await addXp(u.id, 20, "ielts-speaking");
@@ -108,25 +112,66 @@ ieltsRouter.get(
           "SELECT id, kind, prompt_id, overall, at, result, text FROM ielts_submissions WHERE user_id = ? ORDER BY at DESC LIMIT 30",
           u.id,
         )
-      ).map((r) => ({ ...r, result: JSON.parse(r.result) })),
+      ).map((r) => {
+        const result = JSON.parse(r.result);
+        if (result.mode === "demo") return { ...r, overall: null, result: { ...result, overall: null, predicted: null, criteria: result.criteria?.map((c: { name: string }) => ({ name: c.name, band: null, comment: "Демонстрация: критерий не оценивался." })) } };
+        if (r.kind === "speaking") { const partial = transcriptCriteria(result.criteria ?? []); return { ...r, overall: partial.overall, result: { ...result, ...partial, predicted: null } }; }
+        return { ...r, result };
+      }),
     );
   }),
 );
 
 // ---------- reading & listening ----------
 
-async function check(module: "ielts-reading" | "ielts-listening", userId: string, setId: string, questions: { id: string; answer: string; why: string; kind: string }[], given: Record<string, string>) {
-  const items = questions.map((q) => {
-    const answer = normalise(String(given[q.id] ?? ""));
-    const accepted = q.answer.split("|").map(normalise);
-    const correct = !!answer && accepted.includes(answer);
-    return { id: q.id, given: given[q.id] ?? "", answer: q.answer.split("|")[0], why: q.why, correct };
-  });
-  for (const it of items) await run("INSERT INTO attempts (user_id, module, item_id, skill, correct, ms, at) VALUES (?, ?, ?, ?, ?, 0, ?)", userId, module, `${setId}-${it.id}`, setId, it.correct ? 1 : 0, Date.now());
-  const right = items.filter((i) => i.correct).length;
-  await addXp(userId, right * 3, module);
-  return { items, right, total: items.length, band: bandFromRatio(right, items.length) };
+async function recordReading(module: "ielts-reading" | "ielts-listening", userId: string, setId: string, result: ReturnType<typeof checkReading>) {
+  for (const it of result.items) await run("INSERT INTO attempts (user_id, module, item_id, skill, correct, ms, at) VALUES (?, ?, ?, ?, ?, 0, ?)", userId, module, `${setId}-${it.id}`, setId, it.correct ? 1 : 0, Date.now());
+  await addXp(userId, result.right * 3, module);
 }
+async function check(module: "ielts-reading" | "ielts-listening", userId: string, setId: string, questions: KeyedReadingQuestion[], given: Record<string, string>) {
+  const result = checkReading(questions, given);
+  await recordReading(module, userId, setId, result);
+  return result;
+}
+
+// Full original Academic Reading: persisted server deadline and answers, independently of browser reloads.
+type ReadingRun = { id: string; user_id: string; ends_at: number; answers: string; result: string | null };
+const examPublic = () => ({ ...IELTS_ACADEMIC, passages: IELTS_ACADEMIC.passages.map((p) => ({ ...p, questions: p.questions.map(strip) })) });
+const runView = (r: ReadingRun) => ({ id: r.id, endsAt: r.ends_at, answers: JSON.parse(r.answers), result: r.result ? JSON.parse(r.result) : null, exam: examPublic() });
+ieltsRouter.get("/reading-exam/active", wrap(async (req, res) => {
+  const u = requireStudent(req);
+  const r = await one<ReadingRun>("SELECT * FROM ielts_reading_runs WHERE user_id = ? AND result IS NULL ORDER BY started_at DESC LIMIT 1", u.id);
+  res.json(r ? runView(r) : null);
+}));
+ieltsRouter.post("/reading-exam/start", wrap(async (req, res) => {
+  const u = requireStudent(req);
+  let r = await one<ReadingRun>("SELECT * FROM ielts_reading_runs WHERE user_id = ? AND result IS NULL ORDER BY started_at DESC LIMIT 1", u.id);
+  if (!r) {
+    const runId = id(), now = Date.now();
+    await run("INSERT INTO ielts_reading_runs (id, user_id, exam_id, started_at, ends_at) VALUES (?, ?, ?, ?, ?)", runId, u.id, IELTS_ACADEMIC.id, now, now + 3600000);
+    r = (await one<ReadingRun>("SELECT * FROM ielts_reading_runs WHERE id = ?", runId))!;
+  }
+  res.json(runView(r));
+}));
+ieltsRouter.post("/reading-exam/:id/answer", wrap(async (req, res) => {
+  const u = requireStudent(req);
+  const qid = str(req.body?.questionId, 3);
+  if (!IELTS_ACADEMIC.passages.some((p) => p.questions.some((q) => q.id === qid))) throw new HttpError(400, "Неизвестный вопрос");
+  const updated = await run("UPDATE ielts_reading_runs SET answers = json_set(answers, ?, ?) WHERE id = ? AND user_id = ? AND result IS NULL AND ends_at > ?", `$."${qid}"`, str(req.body?.value, 120), String(req.params.id), u.id, Date.now());
+  if (!updated.changes) throw new HttpError(409, "Время истекло или комплект уже завершён");
+  res.json({ ok: true });
+}));
+ieltsRouter.post("/reading-exam/:id/finish", wrap(async (req, res) => {
+  const u = requireStudent(req);
+  const r = must(await one<ReadingRun>("SELECT * FROM ielts_reading_runs WHERE id = ? AND user_id = ?", String(req.params.id), u.id), 404, "Попытка не найдена");
+  if (r.result) return res.json(JSON.parse(r.result));
+  const given = Date.now() <= r.ends_at && req.body?.answers && typeof req.body.answers === "object" ? req.body.answers : JSON.parse(r.answers);
+  const result = checkReading(IELTS_ACADEMIC.passages.flatMap((p) => p.questions), given);
+  const saved = await run("UPDATE ielts_reading_runs SET result = ?, answers = ? WHERE id = ? AND result IS NULL", JSON.stringify(result), JSON.stringify(Object.fromEntries(result.items.map((i) => [i.id, i.given]))), r.id);
+  if (saved.changes) await recordReading("ielts-reading", u.id, IELTS_ACADEMIC.id, result);
+  const stored = (await one<ReadingRun>("SELECT * FROM ielts_reading_runs WHERE id = ?", r.id))!;
+  res.json(JSON.parse(stored.result!));
+}));
 
 ieltsRouter.get(
   "/reading/:id",
