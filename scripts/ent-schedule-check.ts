@@ -41,7 +41,7 @@ try {
   assert.ok(ready, logs);
   eq((await request("/health")).ai, "demo", "no paid AI");
   const ent = { target: 120, year: 2028, session: "2028-main", date: "2028-05-10", tentative: true };
-  const account = await request("/auth/register", "POST", { email: "ent-year@example.test", password: "ExamYear2028", firstName: "Year", lastName: "QA", grade: 10, consent: true, goals: { ent } }, 201);
+  const account = await request("/auth/register", "POST", { email: "ent-year@example.test", password: "ExamYear2028", firstName: "Year", lastName: "QA", grade: 10, consent: true, directionId: "it", goals: { ent } }, 201);
   token = account.token;
   eq((await request("/auth/me")).goals.ent, ent, "registration saves 2028");
   const meta = await request("/ent/meta");

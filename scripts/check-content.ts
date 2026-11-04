@@ -1,6 +1,8 @@
 import { SAT_ACTIVE_BANK } from "../shared/sat";
 import "./check-sat-open";
 import "./check-sat-scale";
+import "./check-sat-rw";
+import "./check-sat-rw-scale";
 import "./check-ent-open";
 import "./check-ent-sources";
 import { choiceKey, parseRational } from "../shared/numeric";
