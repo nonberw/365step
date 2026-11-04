@@ -9,6 +9,8 @@ import { Select } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ErrorBox, Loading, PageHeader } from "@/components/Page";
 import scale from "@shared/satScaleManifest.json";
+import reading from "@shared/satRwManifest.json";
+import rwScale from "@shared/satRwScaleManifest.json";
 
 export const LIST_KEY = "bsts-sat-list";
 
@@ -52,7 +54,7 @@ export default function Bank() {
       <PageHeader
         eyebrow="SAT"
         title="Банк вопросов"
-        description="Разминка, закрепление и контроль. Сложность оценена редакционно; статистической калибровки нет. Ошибки попадают в повтор."
+        description="Разминка, закрепление и контроль. Сложность ориентировочная, без статистической калибровки. Ошибки попадают в повтор."
         action={
           <Button variant="outline" onClick={() => data?.items[0] && open(data.items[0].id)} disabled={!data?.items.length}>
             Начать с первого
@@ -70,8 +72,12 @@ export default function Bank() {
               { value: "math", label: "Math" },
             ]}
           />
-          <Select aria-label="Набор задач" className="h-9 w-auto text-xs" value={collection} onChange={(e) => update({ collection: e.target.value })}>
+          <Select aria-label="Набор задач" className="h-9 w-auto text-xs" value={collection} onChange={(e) => update({ collection: e.target.value, ...(e.target.value.startsWith("rw-") ? { section: "rw", domain: "", skills: "" } : {}) })}>
             <option value="">Весь банк</option>
+            <option value="rw-scale">Большой Reading & Writing · {rwScale.total}</option>
+            <option value="rw-scale-native">Открытые вопросы на чтение · {rwScale.nativeReading}</option>
+            <option value="rw-scale-practice">Закрепление английского · {rwScale.reinforcement}</option>
+            <option value="rw-open">Авторский Reading & Writing · {reading.total}</option>
             <option value="scale">Большой набор · {scale.total} заданий</option>
             <option value="scale-source">Источники и Reading · {scale.source.total + scale.reading.total}</option>
             <option value="scale-practice">Тренировочные варианты · {scale.practice.total}</option>
@@ -110,6 +116,19 @@ export default function Bank() {
         />
       </div>
 
+      {(section === "rw" || collection.startsWith("rw-")) && <div className="mb-5 rounded-xl border border-border bg-muted/40 p-4 text-sm">
+        <p className="font-semibold">Reading & Writing: {rwScale.rwTotal.toLocaleString("ru-RU")} вопросов · Math: {rwScale.mathTotal.toLocaleString("ru-RU")}</p>
+        <p className="mt-1 text-xs text-muted-foreground">Добавлено {rwScale.total.toLocaleString("ru-RU")}: {rwScale.nativeReading} вопросов из открытого набора с опубликованными ключами и {rwScale.reinforcement.toLocaleString("ru-RU")} упражнений для закрепления. Чтение, лексика, переходы, грамматика и пунктуация. Сложность нового набора предварительная.</p>
+        {collection !== "rw-scale" && <button type="button" className="mt-2 font-medium text-primary underline underline-offset-4" onClick={()=>update({collection:"rw-scale",section:"rw",domain:"",skills:""})}>Открыть большой набор по английскому</button>}
+        {collection.startsWith("rw-scale") && <p className="mt-2 text-xs text-muted-foreground">{rwScale.vocabularyPractice} лексических · {rwScale.transitionPractice} на переходы · {rwScale.grammarPractice} на грамматику и пунктуацию. Упражнения для закрепления отмечены отдельно и не входят в пробник. У исходных вопросов может быть только опубликованный ключ; подробный разбор не приписывается источнику.</p>}
+      </div>}
+
+      {collection === "rw-open" && <div className="mb-5 rounded-xl border border-border bg-muted/40 p-4 text-sm">
+        <p className="font-semibold">Reading & Writing: {reading.rwTotal.toLocaleString("ru-RU")} вопросов · добавлено {reading.total}</p>
+        <p className="mt-1 text-xs text-muted-foreground">В новой подборке — анализ текстов, лексика, сравнение позиций, переходы, работа с заметками и грамматика. {reading.hard} заданий отмечены как сложные. Это новые задания в формате SAT по {reading.sources} открытым первоисточникам; у каждого — источник и разбор всех вариантов.</p>
+        {collection !== "rw-open" && <button type="button" className="mt-2 font-medium text-primary underline underline-offset-4" onClick={()=>update({collection:"rw-open",section:"rw",domain:"",skills:""})}>Открыть новую подборку</button>}
+      </div>}
+
       {collection.startsWith("scale") && <div className="mb-5 rounded-xl border border-border bg-muted/40 p-4 text-sm">
         <p className="font-semibold">Добавлено {scale.total.toLocaleString("ru-RU")} заданий · сложных — {scale.hard.toLocaleString("ru-RU")}</p>
         <p className="mt-1 text-xs text-muted-foreground">{scale.source.total} адаптаций упражнений OpenStax · {scale.reading.total} новых Reading & Writing · {scale.practice.total.toLocaleString("ru-RU")} тренировочных вариантов из {scale.practice.families} семейства. Варианты отличаются параметрами и предназначены для закрепления; в полный пробник входят задачи для контроля. Числа относятся ко всему большому набору, результат фильтров — ниже.</p>
@@ -133,7 +152,7 @@ export default function Bank() {
                     <span className="block truncate text-sm font-medium">{q.preview}</span>
                     <span className="mt-0.5 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
                       <span>{q.section === "rw" ? "R&W" : "Math"}</span>·<span>{DOMAIN_RU[q.domain]}</span>·<span>{q.skill}</span>
-                      {q.purpose === "reinforcement" && <Badge>Вариант для закрепления</Badge>}
+                      {q.purpose === "reinforcement" && <Badge>{q.id.startsWith("rw-scale-") ? "Упражнение для закрепления" : "Вариант для закрепления"}</Badge>}
                     </span>
                   </span>
                   {q.saved && <Bookmark className="size-4 shrink-0 fill-primary text-primary" />}

@@ -79,7 +79,7 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
               <Badge>{DOMAIN_RU[q.domain]}</Badge>
               <Badge tone={q.difficulty === 3 ? "bad" : q.difficulty === 2 ? "warn" : "ok"}>{DIFFICULTY_RU[q.difficulty]}</Badge>
               {q.source === "ai" && <Badge tone="dark">Сделано ИИ</Badge>}
-              {q.purpose === "reinforcement" && <Badge>Вариант для закрепления</Badge>}
+              {q.purpose === "reinforcement" && <Badge>{q.id.startsWith("rw-scale-") ? "Упражнение для закрепления" : "Вариант для закрепления"}</Badge>}
             </span>
           )}
         </div>
@@ -89,6 +89,7 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
             <summary className="cursor-pointer underline underline-offset-2">Источник и лицензия</summary>
             <p className="mt-2"><a href={source.url} target="_blank" rel="noreferrer" className="underline">{source.title}</a> · {source.authors} · {source.edition}</p>
             <p className="mt-1">{q.attribution.locator} · <a href={source.licenseUrl} target="_blank" rel="noreferrer" className="underline">{source.license}</a></p>
+            {q.attribution.sourceUrl && <p className="mt-1"><a href={q.attribution.sourceUrl} target="_blank" rel="noreferrer" className="underline">Первоисточник текста и его авторы</a></p>}
             <p className="mt-1">{q.attribution.changes} Источник не подтверждает и не одобряет эту адаптацию.</p>
             <p className="mt-1"><a href={q.attribution.licenseUrl ?? SAT_OPEN_LICENSE} target="_blank" rel="noreferrer" className="underline">Лицензия адаптации: {q.attribution.license ?? "CC BY-SA 4.0"}</a> · <a href={q.attribution.download ?? "/content/sat-open-2026.json"} download className="underline">Скачать открытый набор с решениями</a></p>
           </details>
