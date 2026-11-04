@@ -1,0 +1,134 @@
+[
+  {
+    "id": "mill",
+    "url": "https://www.gutenberg.org/cache/epub/34901/pg34901.txt",
+    "sha256": "9ecc51191d7ba36f99b0f17b2f60ed54c3929577856f47f0616d8f198422b657",
+    "bytes": 331030,
+    "title": "Title: On Liberty",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of On Liberty\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: On Liberty\n\nAuthor: John Stuart Mill\n\n\n        \nRelease date: January 10, 2011 [eBook #34901]\n                Most recently updated: October 6, 2026\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/34901\n\nCredits: Produced by Curtis Weyant, Martin Pettit and the Online\n        Distributed Proofreading Team at http://www.pgdp.net\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "smith",
+    "url": "https://www.gutenberg.org/cache/epub/3300/pg3300.txt",
+    "sha256": "e91d52dca43fd0fd69baf7776b00a5d8e74b69675b6b608ca8a0378aaf3ae58d",
+    "bytes": 2468951,
+    "title": "Title: An Inquiry into the Nature and Causes of the Wealth of Nations",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of An Inquiry into the Nature and Causes of the Wealth of Nations\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: An Inquiry into the Nature and Causes of the Wealth of Nations\n\nAuthor: Adam Smith\n\n\n        \nRelease date: June 1, 2002 [eBook #3300]\n                Most recently updated: July 3, 2025\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/3300\n\nCredits: Credits: Colin Muir and David Widger\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "darwin",
+    "url": "https://www.gutenberg.org/cache/epub/1228/pg1228.txt",
+    "sha256": "362142cb7c6f90850477520cfe2a62fe423ae92ea8eb6d9cd8b30ddb39de60b9",
+    "bytes": 970611,
+    "title": "Title: On the Origin of Species By Means of Natural Selection",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of On the Origin of Species By Means of Natural Selection\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: On the Origin of Species By Means of Natural Selection\n\nAuthor: Charles Darwin\n\n\n        \nRelease date: March 1, 1998 [eBook #1228]\n                Most recently updated: October 6, 2026\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/1228\n\nCredits: Sue Asscher and David Widger\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "thoreau",
+    "url": "https://www.gutenberg.org/cache/epub/205/pg205.txt",
+    "sha256": "2d9a76a2e3e8195c69430516ebd33c4d0757a53ad432ff6186b7b794e6fe99f9",
+    "bytes": 667957,
+    "title": "Title: Walden, and On The Duty Of Civil Disobedience",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of Walden, and On The Duty Of Civil Disobedience\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: Walden, and On The Duty Of Civil Disobedience\n\nAuthor: Henry David Thoreau\n\n\n        \nRelease date: January 1, 1995 [eBook #205]\n                Most recently updated: February 20, 2026\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/205\n\nCredits: Judith Boss, and David Widger\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "emerson",
+    "url": "https://www.gutenberg.org/cache/epub/29433/pg29433.txt",
+    "sha256": "c0c21f1cfa0fc5225a96373e9e6fdb0ccd44d736f23a10b24a04c92b8eae60a7",
+    "bytes": 108777,
+    "title": "Title: Nature",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of Nature\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: Nature\n\nAuthor: Ralph Waldo Emerson\n\n\n        \nRelease date: July 17, 2009 [eBook #29433]\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/29433\n\nCredits: Produced by Ruth Hart\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "shelley",
+    "url": "https://www.gutenberg.org/cache/epub/84/pg84.txt",
+    "sha256": "2b97b7f8aad508649481d8dd4f6b54f9b965ddb3ba634e9151c815f537b49e42",
+    "bytes": 448885,
+    "title": "Title: Frankenstein; or, The modern Prometheus",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of Frankenstein; or, The modern Prometheus\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: Frankenstein; or, The modern Prometheus\n\nAuthor: Mary Wollstonecraft Shelley\n\n\n        \nRelease date: October 1, 1993 [eBook #84]\n                Most recently updated: February 10, 2026\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/84\n\nCredits: Judith Boss, Christy Phillips, Lynn Hanninen and David Meltzer. HTML version by Al Haines.\n        Further corrections by Menno de Leeuw.\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "austen",
+    "url": "https://www.gutenberg.org/cache/epub/1342/pg1342.txt",
+    "sha256": "3f6bb9d6f78e0293b56acd4714dd68cb7d6d1d293402031ce9d5a216bcaf9d75",
+    "bytes": 772386,
+    "title": "Title: Pride and Prejudice",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of Pride and Prejudice\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: Pride and Prejudice\n\nAuthor: Jane Austen\n\n\n        \nRelease date: June 1, 1998 [eBook #1342]\n                Most recently updated: September 1, 2026\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/1342\n\nCredits: Chuck Greif and the Online Distributed Proofreading Team at http://www.pgdp.net (This file was produced from images available at The Internet Archive)\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "douglass",
+    "url": "https://www.gutenberg.org/cache/epub/23/pg23.txt",
+    "sha256": "234c15348a66919bad1d534cdd48ee8ddf91f50115a706cbefaa8edd049672fd",
+    "bytes": 249061,
+    "title": "Title: Narrative of the Life of Frederick Douglass, an American Slave",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of Narrative of the Life of Frederick Douglass, an American Slave\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: Narrative of the Life of Frederick Douglass, an American Slave\n\nAuthor: Frederick Douglass\n\n\n        \nRelease date: January 12, 2006 [eBook #23]\n                Most recently updated: July 18, 2026\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/23\n\nCredits: An Anonymous Volunteer and David Widger\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "faraday",
+    "url": "https://www.gutenberg.org/cache/epub/14474/pg14474.txt",
+    "sha256": "ee17c709443e87dd8d36e2f8d7065e54344bc5182e0dc856c08f058fbd9b013f",
+    "bytes": 246936,
+    "title": "Title: The Chemical History of a Candle",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of The Chemical History of a Candle\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: The Chemical History of a Candle\n\nAuthor: Michael Faraday\n\nEditor: William Crookes\n\n\n        \nRelease date: December 26, 2004 [eBook #14474]\n                Most recently updated: October 20, 2026\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/14474\n\nCredits: Clare Boothby, Richard Prairie and\n        the PG Online Distributed Proofreading Team\n        Revised by Richard Tonsing.\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "dubois",
+    "url": "https://www.gutenberg.org/cache/epub/408/pg408.txt",
+    "sha256": "87f8e832484792b761a510b953d67e3835fa46a9f4231a508bfeb914a98559ca",
+    "bytes": 428742,
+    "title": "Title: The Souls of Black Folk",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of The Souls of Black Folk\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: The Souls of Black Folk\n\nAuthor: W. E. B. Du Bois\n\n\n        \nRelease date: January 1, 1996 [eBook #408]\n                Most recently updated: September 26, 2026\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/408\n\n\n",
+    "reuseScope": "Ideas only, independently worded critical summaries. No verbatim excerpt or modern translation; US public-domain status is not asserted globally."
+  },
+  {
+    "id": "wollstonecraft",
+    "url": "https://www.gutenberg.org/cache/epub/3420/pg3420.txt",
+    "sha256": "7d79652f43541759d8ff0ce467372fa4a534d3f9dc32013e01ca99ea04b286a8",
+    "bytes": 538225,
+    "title": "Title: A Vindication of the Rights of Woman",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of A Vindication of the Rights of Woman\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: A Vindication of the Rights of Woman\n\nAuthor: Mary Wollstonecraft\n\n\n        \nRelease date: September 1, 2002 [eBook #3420]\n                Most recently updated: January 8, 2021\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/3420\n\nCredits: This etext was produced by Amy E Zelmer, Col Choat, Sue Asscher\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  },
+  {
+    "id": "eliot",
+    "url": "https://www.gutenberg.org/cache/epub/145/pg145.txt",
+    "sha256": "dc2e0107e6ae07e8e33da934b2ec4e8e600826a2e0cd48df265119cd02e5fb50",
+    "bytes": 1865684,
+    "title": "Title: Middlemarch",
+    "rightsNotice": "Public domain source work; original English text only; headers, translations and modern annotations not reused.",
+    "checkedAt": "2026-11-04",
+    "editionNotice": "The Project Gutenberg eBook of Middlemarch\n    \nThis eBook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no restrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this eBook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook.\n\nTitle: Middlemarch\n\nAuthor: George Eliot\n\n\n        \nRelease date: July 1, 1994 [eBook #145]\n                Most recently updated: April 12, 2026\n\nLanguage: English\n\nOther information and formats: www.gutenberg.org/ebooks/145\n\n\n",
+    "reuseScope": "Original English work by author(s) deceased before 1931; independently worded paraphrases and commentary; no illustrations, translation, editorial introduction or ebook trademark."
+  }
+]
