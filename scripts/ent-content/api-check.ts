@@ -19,7 +19,7 @@ async function request(path:string,body?:unknown,expected=200){const r=await fet
 async function ready(){for(let i=0;i<100;i++){try{if((await fetch(base+'/health')).ok)return;}catch{}await new Promise(r=>setTimeout(r,100));}throw Error(logs);}
 try{
  await ready();ok((await request('/health')).ai==='demo','no paid provider');
- const account=await request('/auth/register',{email:'ent-qa@example.test',password:'EntQuality2026',firstName:'ENT',lastName:'QA',grade:10,consent:true,goals:{ent:{year:2028,date:'2028-05-10'}}},201);token=account.token;
+ const account=await request('/auth/register',{email:'ent-qa@example.test',password:'EntQuality2026',firstName:'ENT',lastName:'QA',grade:10,consent:true,directionId:"it",goals:{ent:{target:120,year:2028,date:'2028-05-10'}}},201);token=account.token;
  const uid=account.user.id;
  const count=await db.execute("SELECT count(*) n FROM ent_questions WHERE id LIKE 'eo-%'");ok(Number(count.rows[0]!.n)===ENT_OPEN.length,'all shipped rows inserted');
  for(const lang of ['ru','kk']){

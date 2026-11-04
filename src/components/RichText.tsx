@@ -83,7 +83,9 @@ function splitBlocks(text: string): Block[] {
 }
 
 export function Inline({ text }: { text: string }) {
-  const parts = text.split(/(`[^`]+`|\$[^$]+\$|\*\*[^*]+\*\*|__[\s\S]+?__)/g);
+  // Recognize answer blanks before __underline__ delimiters. Otherwise six
+  // underscores are recursively consumed as empty underline markup.
+  const parts = text.split(/(`[^`]+`|\$[^$]+\$|\*\*[^*]+\*\*|_{3,}|__(?!_)[\s\S]+?(?<!_)__(?!_))/g);
   return (
     <>
       {parts.map((p, i) => {
@@ -91,7 +93,8 @@ export function Inline({ text }: { text: string }) {
           const html = katex.renderToString(p.slice(1, -1), { throwOnError: false });
           return <span key={i} dangerouslySetInnerHTML={{ __html: html }} />;
         }
-        if (p.startsWith("__") && p.endsWith("__")) return <u key={i}><Inline text={p.slice(2, -2)} /></u>;
+        if (/^_{3,}$/.test(p)) return <Fragment key={i}>{p}</Fragment>;
+        if (p.startsWith("__") && p.endsWith("__") && p.length > 4) return <u key={i}><Inline text={p.slice(2, -2)} /></u>;
         if (p.startsWith("**") && p.endsWith("**")) return <strong key={i}>{p.slice(2, -2)}</strong>;
         if (p.startsWith("`") && p.endsWith("`") && p.length > 2)
           return (

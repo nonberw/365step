@@ -51,6 +51,8 @@ export function annotateBank(items: SatQuestion[]): SatQuestion[] {
 export function selectAssessment(pool: SatQuestion[], count: number, previous: SatQuestion[] = [], plan: Difficulty[] = [], random = Math.random): SatQuestion[] {
   const chosen: SatQuestion[] = [];
   const seen = new Set(previous.map(fingerprint));
+  // Different questions against one passage must not repeat it in a test.
+  const passages = new Set(previous.filter(q=>q.section==="rw"&&q.passage).map(q=>normaliseText(q.passage!)));
   const families = new Map<string, number>();
   for (const q of previous) families.set(familyOf(q), (families.get(familyOf(q)) ?? 0) + 1);
   const weights: Record<string, number> = pool[0]?.section === "math"
@@ -59,7 +61,7 @@ export function selectAssessment(pool: SatQuestion[], count: number, previous: S
   const positions = [0, 0, 0, 0];
   for (const q of previous) if (q.choices) positions[Number(q.answer)]!++;
   for (let i = 0; i < count; i++) {
-    const candidates = pool.filter((q) => q.purpose === "assessment" && (!q.canonicalId || q.canonicalId === q.id) && !seen.has(fingerprint(q)) && (families.get(familyOf(q)) ?? 0) < 2);
+    const candidates = pool.filter((q) => q.purpose === "assessment" && (!q.canonicalId || q.canonicalId === q.id) && !seen.has(fingerprint(q)) && (families.get(familyOf(q)) ?? 0) < 2 && !(q.section==="rw" && q.passage && passages.has(normaliseText(q.passage))));
     if (!candidates.length) break;
     const target = plan[i] ?? 2;
     const wantSpr = pool[0]?.section === "math" && chosen.filter((q) => !q.choices).length < Math.round((i + 1) * .25);
@@ -71,6 +73,7 @@ export function selectAssessment(pool: SatQuestion[], count: number, previous: S
     };
     const q = candidates.map((q) => ({ q, s: score(q) })).sort((a, b) => a.s - b.s)[0]!.q;
     chosen.push(q); seen.add(fingerprint(q));
+    if(q.section==="rw"&&q.passage)passages.add(normaliseText(q.passage));
     families.set(familyOf(q), (families.get(familyOf(q)) ?? 0) + 1);
     if (q.choices) positions[Number(q.answer)]!++;
   }

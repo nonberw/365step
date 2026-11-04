@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, useRef, type ReactNode } from "react";
 import type { PublicUser } from "@shared/types";
 import { api, ApiError, loadToken, saveToken } from "@/api";
 
@@ -16,15 +16,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<PublicUser | null>(null);
   const [loading, setLoading] = useState(!!loadToken());
 
+  const refreshSequence = useRef(0);
   const refresh = useCallback(async () => {
     if (!loadToken()) {
       setUser(null);
       setLoading(false);
       return;
     }
+    const token=loadToken(), sequence=++refreshSequence.current;
     try {
-      setUser(await api<PublicUser>("/auth/me"));
+      const next=await api<PublicUser>("/auth/me");
+      if(loadToken()===token && sequence===refreshSequence.current)setUser(next);
     } catch (e) {
+      if(loadToken()!==token || sequence!==refreshSequence.current)return;
       if (e instanceof ApiError && e.status === 401) saveToken(null);
       setUser(null);
     } finally {
@@ -37,14 +41,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [refresh]);
 
   const signIn = (token: string, u: PublicUser, remember = true) => {
+    refreshSequence.current++;
     saveToken(token, remember);
+    setLoading(false);
     setUser(u);
   };
 
   const signOut = async () => {
-    await api("/auth/logout", { body: {} }).catch(() => {});
+    const pending=api("/auth/logout", { body: {} }).catch(() => {});
+    refreshSequence.current++;
     saveToken(null);
     setUser(null);
+    setLoading(false);
+    await pending;
   };
 
   return <AuthContext.Provider value={{ user, loading, signIn, signOut, refresh }}>{children}</AuthContext.Provider>;

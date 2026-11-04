@@ -39,6 +39,9 @@ import {
   X,
   Zap,
 } from "lucide-react";
+import { getNavigation } from "@shared/directionPolicy";
+import { DIRECTIONS,EMPTY_LEARNING_PROFILE } from "@shared/directions";
+import { useLearning } from "@/lib/learning";
 import { useAuth } from "@/lib/auth";
 import { plantGrowth } from "@shared/plants";
 import { PlantCard } from "@/components/Plant";
@@ -117,6 +120,7 @@ const STUDENT_NAV: Group[] = [
       { to: "/family", label: "Для родителей", icon: UsersRound },
       { to: "/pricing", label: "Тариф Pro", icon: Crown },
       { to: "/profile", label: "Профиль", icon: User },
+      { to: "/directions", label: "Направление", icon: GraduationCap },
     ],
   },
 ];
@@ -172,7 +176,7 @@ const DOCK: { id: string; label: string; to: string; color: [number, number, num
   { id: "sat", label: "SAT", to: "/sat", color: [28, 176, 246], icon: LineChart },
   { id: "ielts", label: "IELTS", to: "/ielts", color: [255, 150, 0], icon: Mic },
   { id: "ent", label: "ЕНТ", to: "/ent", color: [206, 130, 255], icon: Medal },
-  { id: "code", label: "Кодинг", to: "/coding", color: [60, 60, 70], icon: Code2 },
+  { id: "direction", label: "Направление", to: "/directions", color: [60, 60, 70], icon: GraduationCap },
   { id: "world", label: "Поступление", to: "/admissions", color: [255, 75, 75], icon: Compass },
 ];
 
@@ -207,6 +211,7 @@ function AppDock() {
 
 export default function AppShell() {
   const { user, signOut, refresh } = useAuth();
+  const {data:learning}=useLearning();
   const notify = useNotify();
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useTheme();
@@ -230,7 +235,8 @@ export default function AppShell() {
     if (seen && stage > seen) notify({ variant: "success", title: "растение выросло 🌱✨", body: `новая стадия: «${plantGrowth(user.xp).name}». ты растёшь вместе с ним — это база.` });
   }, [stage, user?.id, user?.plant]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!user) return null;
-  const nav = STUDENT_NAV;
+  const icons=new Map(STUDENT_NAV.flatMap(g=>g.items).map(item=>[item.to,item]));
+  const nav:Group[]=getNavigation(user.learningProfile??EMPTY_LEARNING_PROFILE,user.goals,learning?.catalog??DIRECTIONS).map(g=>({...g,items:g.items.map(item=>({...item,icon:icons.get(item.to)?.icon??GraduationCap,end:icons.get(item.to)?.end??true}))}));
 
   const sidebar = (
     <nav className="flex h-full flex-col gap-1 overflow-y-auto px-3 py-4" aria-label="Разделы">

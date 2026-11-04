@@ -25,7 +25,7 @@ try {
  let ready=false;for(let i=0;i<80;i++){try{const r=await fetch(base+"/health");if(r.ok){ready=true;break;}}catch{}await new Promise(resolve=>setTimeout(resolve,100));}
  assert.ok(ready,logs);
  ok((await request("/health")).ai==="demo","API credentials disabled");
- const account=await request("/auth/register",{email:"content-qa@example.test",password:"Quality2026test",firstName:"Content",lastName:"QA",consent:true,goals:{sat:{target:1450,date:"2027-03-13"}}},201);token=account.token;
+ const account=await request("/auth/register",{email:"content-qa@example.test",password:"Quality2026test",firstName:"Content",lastName:"QA",consent:true,directionId:"it",goals:{sat:{target:1450,date:"2027-03-13"},ielts:{target:7,date:"2027-08-15"},ent:{target:120,year:2028}}},201);token=account.token;
  const bank=await request("/sat/bank");ok(bank.total===SAT_ACTIVE_BANK.length,"canonical bank count");
  const newCollection=await request("/sat/bank?collection=open");ok(newCollection.total===120&&newCollection.items.every((q:any)=>q.id.startsWith("open-")),"new collection is directly discoverable");
  ok((await request("/sat/bank?collection=open&difficulty=3")).total===50,"new collection Hard filter");

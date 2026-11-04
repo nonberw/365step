@@ -1,6 +1,8 @@
 import { SAT_ORIGINAL } from "./satOriginal";
 import { SAT_OPEN } from "./satOpen";
 import { SAT_SCALE } from "./satScale";
+import { SAT_RW_EXPANSION } from "./satRw";
+import { SAT_RW_SCALE } from "./satRwScale";
 import { annotateBank } from "./satQuality";
 import { choiceKey, exactFraction, numericEqual } from "./numeric";
 import type { Difficulty, SatDomain, SatQuestion } from "./types";
@@ -906,6 +908,8 @@ export const SAT_BANK: SatQuestion[] = annotateBank([
   ...SAT_ORIGINAL,
   ...SAT_OPEN,
   ...SAT_SCALE,
+  ...SAT_RW_EXPANSION,
+  ...SAT_RW_SCALE,
 ]);
 
 export const SAT_ACTIVE_BANK = SAT_BANK.filter((q) => q.canonicalId === q.id);

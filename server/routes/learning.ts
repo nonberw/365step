@@ -1,0 +1,21 @@
+import { editorialRouter } from '../learning/editor';
+import { diagnosticRouter } from '../learning/diagnostic';
+import { practiceRouter } from '../learning/practice';
+import { Router } from 'express';
+import { requireStudent } from '../auth';
+import { wrap } from '../http';
+import { all } from '../db';
+import { changeLearningProfile, getCatalogue, getLearningProfile } from '../learning/profile';
+import { getNavigation } from '../../shared/directionPolicy';
+export const learningRouter=Router();
+learningRouter.use('/editor',editorialRouter);
+learningRouter.use(practiceRouter);
+learningRouter.use(diagnosticRouter);
+learningRouter.get('/catalog',wrap(async (_req,res)=>res.json(await getCatalogue())));
+learningRouter.get('/bootstrap',wrap(async(req,res)=>{
+ const u=requireStudent(req), profile=await getLearningProfile(u.id),catalog=await getCatalogue(),goals=JSON.parse(u.goals);
+ const direction=catalog.find(d=>d.id===profile.directionId)??null;
+ const completed=await all<{lesson_id:string;module_id:string;xp:number}>('SELECT lesson_id,module_id,xp FROM learning_attempts WHERE user_id=? AND direction_id=? AND done_at IS NOT NULL',u.id,profile.directionId);
+ res.json({profile,catalog,direction,goals,navigation:getNavigation(profile,goals,catalog),completed,modules:direction?.modules??[]});
+}));
+learningRouter.put('/profile',wrap(async(req,res)=>{res.json(await changeLearningProfile(requireStudent(req).id,req.body??{}));}));

@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { learningRouter } from "./routes/learning";
 import express, { type NextFunction, type Request, type Response } from "express";
 import { attachUser } from "./auth";
 import { aiContext } from "./quota";
@@ -40,6 +41,7 @@ app.use(aiContext);
 
 app.get("/api/health", (_req, res) => res.json({ ok: true, ai: aiMode, storage }));
 app.use("/api/auth", authRouter);
+app.use("/api/learning", learningRouter);
 app.use("/api/me", meRouter);
 app.use("/api/billing", billingRouter);
 app.use("/api/path", pathRouter);

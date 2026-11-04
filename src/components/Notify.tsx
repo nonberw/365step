@@ -1,4 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { useAuth } from "@/lib/auth";
+import { routeAccess } from "@shared/directionPolicy";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { NotificationCard, type Variant } from "@/components/ui/notifications-5";
@@ -26,6 +28,8 @@ let seq = 0;
 
 export function NotifyProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<Item[]>([]);
+  const {user}=useAuth();
+  useEffect(()=>setItems([]),[user?.id,user?.learningProfile.version]);
 
   const dismiss = useCallback((id: number) => setItems((prev) => prev.filter((i) => i.id !== id)), []);
   const notify = useCallback(
@@ -48,7 +52,7 @@ export function NotifyProvider({ children }: { children: ReactNode }) {
       {children}
       <div className="pointer-events-none fixed right-3 top-3 z-[60] flex w-[min(92vw,360px)] flex-col gap-2" aria-live="polite">
         <AnimatePresence>
-          {items.map((t) => (
+          {items.filter(t=>!t.href||user?.role!=='student'||routeAccess(t.href,user.learningProfile,user.goals)==='allow').map((t) => (
             <motion.div key={t.id} layout initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }} transition={{ duration: 0.25 }} className="pointer-events-auto">
               <NotificationCard
                 variant={t.variant}

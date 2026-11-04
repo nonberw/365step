@@ -1,9 +1,10 @@
+import { validateSelection } from "../learning/profile";
 import { Router } from "express";
 import type { Goals } from "../../shared/types";
 import { entSessionById, entTargetFor, isEntYear } from "../../shared/entSchedule";
 import { PLANT_SPECIES, type PlantSpecies } from "../../shared/plants";
 import { checkPassword, createSession, hashPassword, requireUser, revokeSession, toPublic, type UserRow } from "../auth";
-import { id, one, run } from "../db";
+import { db, id, one, run } from "../db";
 import { HttpError, str, wrap } from "../http";
 
 export const authRouter = Router();
@@ -34,6 +35,7 @@ function sanitizeGoals(raw: unknown, grade: number | null = null): Goals {
   if ([10, 20, 30, 45, 60, 90].includes(Number(g.dailyMinutes))) out.dailyMinutes = Number(g.dailyMinutes);
   if (g.hardest) out.hardest = str(g.hardest, 60);
   if (g.university) out.university = str(g.university, 80);
+  if (g.nuet === true) out.nuet = true;
   if (g.country) out.country = str(g.country, 40);
   if (g.major) out.major = str(g.major, 60);
   if (g.ent && Number(g.ent.target) >= 50 && Number(g.ent.target) <= 140) {
@@ -56,6 +58,7 @@ authRouter.post(
   "/register",
   wrap(async (req, res) => {
     const b = req.body ?? {};
+    const selection = b.directionId===undefined||b.directionId===null ? null : await validateSelection(b.directionId, b.specializationId);
     const common = await validateCommon(b);
     const grade = b.grade === null || b.grade === undefined || b.grade === "" ? null : Number(b.grade);
     if (grade !== null && (!Number.isInteger(grade) || grade < 1 || grade > 12)) throw new HttpError(400, "Класс от 1 до 12");
@@ -64,9 +67,11 @@ authRouter.post(
     const { hash, salt } = hashPassword(common.password);
     const userId = id();
     // Everyone starts with a free week of Pro.
-    await run(
+    const tx = await db.transaction("write");
+    try {
+    await tx.execute({ sql:
       `INSERT INTO users (id, role, email, pass_hash, salt, first_name, last_name, grade, campus, goals, interests, created_at, plan, plan_until, trial_used, plant)
-       VALUES (?, 'student', ?, ?, ?, ?, ?, ?, 'online', ?, ?, ?, 'pro', ?, 1, ?)`,
+       VALUES (?, 'student', ?, ?, ?, ?, ?, ?, 'online', ?, ?, ?, 'pro', ?, 1, ?)`, args: [
       userId,
       common.email,
       hash,
@@ -79,7 +84,13 @@ authRouter.post(
       Date.now(),
       Date.now() + TRIAL_DAYS * 86_400_000,
       PLANT_SPECIES.includes(b.plant) ? (b.plant as PlantSpecies) : null,
-    );
+    ]});
+      if(selection){
+      await tx.execute({sql:"INSERT INTO learning_profiles(user_id,direction_id,specialization_id,version,updated_at) VALUES(?,?,?,1,?)",args:[userId,selection.direction.id,selection.specializationId,Date.now()]});
+      await tx.execute({sql:"INSERT INTO learning_profile_events(user_id,previous_direction,direction_id,version,at) VALUES(?,NULL,?,1,?)",args:[userId,selection.direction.id,Date.now()]});
+      }
+      await tx.commit();
+    } catch(error) { await tx.rollback().catch(()=>{}); throw error; } finally { tx.close(); }
     const user = (await one<UserRow>("SELECT * FROM users WHERE id = ?", userId))!;
     res.status(201).json({ token: await createSession(userId), user: await toPublic(user) });
   }),

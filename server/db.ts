@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { createClient, type InValue } from "@libsql/client";
+import { LEARNING_SCHEMA, DIAGNOSTIC_SCHEMA, PROJECT_REVIEW_SCHEMA } from "./learning/schema";
 import { ENT_OPEN } from "./content/ent";
 
 // libSQL: the same SQLite dialect locally (a file in data/) and in production
@@ -574,6 +575,7 @@ export const ready = (async () => {
   if (!REMOTE) await db.execute("PRAGMA journal_mode = WAL");
   await db.execute("PRAGMA foreign_keys = ON");
   await db.executeMultiple(SCHEMA);
+  await db.executeMultiple(LEARNING_SCHEMA + DIAGNOSTIC_SCHEMA + PROJECT_REVIEW_SCHEMA);
   // Columns added after the first release: ALTER fails harmlessly when they already exist.
   for (const sql of ["ALTER TABLE ent_profiles ADD COLUMN plan TEXT", "ALTER TABLE ent_profiles ADD COLUMN plan_stale INTEGER NOT NULL DEFAULT 1", "ALTER TABLE review_queue ADD COLUMN card TEXT", "ALTER TABLE users ADD COLUMN plan TEXT NOT NULL DEFAULT 'free'", "ALTER TABLE users ADD COLUMN plan_until INTEGER", "ALTER TABLE users ADD COLUMN trial_used INTEGER NOT NULL DEFAULT 0", "ALTER TABLE users ADD COLUMN plant TEXT", "ALTER TABLE applications ADD COLUMN tier TEXT"]) await db.execute(sql).catch(() => {});
   // Versioned immutable content IDs: never replace a student's history or AI rows.

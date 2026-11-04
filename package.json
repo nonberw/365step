@@ -21,10 +21,18 @@
     "export:ent-sources": "node --import tsx scripts/check-ent-sources.ts --export",
     "check:sat-open": "node --import tsx scripts/check-sat-open.ts",
     "check:sat-scale": "node --import tsx scripts/check-sat-scale.ts",
+    "check:sat-rw": "node --import tsx scripts/check-sat-rw.ts",
+    "check:sat-rw-api": "node --import tsx scripts/sat-rw-api-check.ts",
+    "export:sat-rw": "node --import tsx scripts/export-sat-rw.ts",
+    "check:sat-rw-scale": "node --import tsx scripts/check-sat-rw-scale.ts",
+    "check:sat-rw-scale-api": "node --import tsx scripts/sat-rw-scale-api-check.ts",
+    "export:sat-rw-scale": "node --import tsx scripts/export-sat-rw-scale.ts",
     "export:sat-scale": "node --import tsx scripts/export-sat-scale.ts",
     "export:sat-open": "node --import tsx scripts/export-sat-open.ts",
     "build:server": "esbuild server/app.ts --bundle --platform=node --format=esm --target=node24 --packages=external --outfile=server-dist/app.mjs",
-    "vercel-build": "vite build && npm run build:server"
+    "vercel-build": "vite build && npm run build:server",
+    "check:directions": "node --import tsx scripts/directions/content-check.ts",
+    "check:directions-api": "node --import tsx scripts/directions/profile-api-check.ts && node --import tsx scripts/directions/practice-api-check.ts && node --import tsx scripts/directions/editor-api-check.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",

@@ -1,4 +1,4 @@
-import { selectAssessment, familyOf, fingerprint } from "../../shared/satQuality";
+import { selectAssessment, familyOf, fingerprint, normaliseText } from "../../shared/satQuality";
 import { Router } from "express";
 import type { Difficulty, SatDomain, SatModuleState, SatQuestion, SatQuestionPublic, SatQuestionSummary, SatSection, SatTestState } from "../../shared/types";
 import { DOMAIN_RU, SAT_DOMAINS } from "../../shared/types";
@@ -66,6 +66,10 @@ satRouter.get(
     const saved = await savedSet(u.id);
     const ai = (await all<{ data: string }>("SELECT data FROM ai_questions ORDER BY created_at DESC LIMIT 200")).map((r) => JSON.parse(r.data) as SatQuestion);
     const items: SatQuestionSummary[] = [...(status === "all" || status === "new" ? SAT_ACTIVE_BANK : SAT_BANK), ...ai]
+      .filter((q) => req.query.collection !== "rw-open" || q.id.startsWith("rw-open-"))
+      .filter((q) => req.query.collection !== "rw-scale" || q.id.startsWith("rw-scale-"))
+      .filter((q) => req.query.collection !== "rw-scale-native" || q.id.startsWith("rw-scale-bb-"))
+      .filter((q) => req.query.collection !== "rw-scale-practice" || (q.id.startsWith("rw-scale-") && q.purpose === "reinforcement"))
       .filter((q) => req.query.collection !== "open" || q.id.startsWith("open-math-") || q.id.startsWith("open-rw-"))
       .filter((q) => req.query.collection !== "scale" || q.id.startsWith("scale-"))
       .filter((q) => req.query.collection !== "scale-source" || q.id.startsWith("scale-source-") || q.id.startsWith("scale-rw-"))
@@ -80,7 +84,7 @@ satRouter.get(
           skill: q.skill,
           difficulty: q.difficulty,
           purpose: q.purpose,
-          preview: (q.passage ?? q.stem).replace(/\$/g, "").slice(0, 110),
+          preview: (q.passage ?? q.stem).replace(/\$|\*\*/g, "").slice(0, 110),
           status: r === undefined ? "new" : r ? "correct" : "wrong",
           saved: saved.has(q.id),
         } as SatQuestionSummary;
@@ -573,11 +577,13 @@ satRouter.post(
     } else pool = SAT_ACTIVE_BANK.filter((q) => q.difficulty >= 2);
     // Unsolved first, then shuffled.
     const candidates = [...pool].sort((a, b) => Number(solved.has(a.id)) - Number(solved.has(b.id)) || Math.random() - 0.5);
-    const pick: SatQuestion[] = [], seen = new Set<string>(), families = new Map<string, number>();
+    const pick: SatQuestion[] = [], seen = new Set<string>(), passages = new Set<string>(), families = new Map<string, number>();
     for (const q of candidates) {
       const condition = fingerprint(q), family = familyOf(q);
-      if (seen.has(condition) || (families.get(family) ?? 0) >= 2) continue;
+      const passage = q.section === "rw" && q.passage ? normaliseText(q.passage) : null;
+      if (seen.has(condition) || (families.get(family) ?? 0) >= 2 || (passage && passages.has(passage))) continue;
       pick.push(q); seen.add(condition); families.set(family, (families.get(family) ?? 0) + 1);
+      if(passage)passages.add(passage);
       if (pick.length >= DRILLS[kind].size) break;
     }
     if (pick.length < DRILLS[kind].size) note = `${note ? note + ". " : ""}Доступно ${pick.length} разных заданий после редакционной ревизии. Набор ограничен фактическим наличием; сложность не откалибрована.`;

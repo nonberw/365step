@@ -1,3 +1,6 @@
+import { useLearning } from "@/lib/learning";
+import { routeAccess } from "@shared/directionPolicy";
+import { EMPTY_LEARNING_PROFILE } from "@shared/directions";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { CalendarClock, Flame, Zap } from "lucide-react";
@@ -99,10 +102,11 @@ const short = (iso: string) => longDate(iso).replace(/ \d{4}$/, "");
 export function EcosystemBar() {
   const { user } = useAuth();
   const { pathname } = useLocation();
+  const {data:learning}=useLearning();
   if (!user || user.role !== "student") return null;
   const g = plantGrowth(user.xp);
   const exams = examCountdowns(user.goals);
-  const related = relatedFor(pathname);
+  const related = relatedFor(pathname).filter(r=>routeAccess(r.to,user.learningProfile??EMPTY_LEARNING_PROFILE,user.goals,learning?.catalog)==='allow');
   return (
     <div className="mb-5 flex flex-col gap-2 rounded-3xl border border-border bg-[linear-gradient(135deg,#f3f7ff,#ffffff)] px-3 py-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between dark:bg-none">
       <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5 text-sm font-semibold">
