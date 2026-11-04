@@ -1,0 +1,23 @@
+{
+  "total": 3191,
+  "nativeReading": 711,
+  "reinforcement": 2480,
+  "adaptedReadingPractice": 0,
+  "vocabularyPractice": 600,
+  "transitionPractice": 400,
+  "grammarPractice": 1480,
+  "uniquePassages": 2868,
+  "sourceParagraphs": 2868,
+  "grammarFamilies": 17,
+  "vocabularyFamilies": 94,
+  "transitionFamilies": 5,
+  "domains": {
+    "Information and Ideas": 709,
+    "Craft and Structure": 602,
+    "Expression of Ideas": 400,
+    "Standard English Conventions": 1480
+  },
+  "rwTotal": 4200,
+  "mathTotal": 4157,
+  "bankTotal": 8357
+}

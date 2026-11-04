@@ -1,0 +1,27 @@
+{
+  "total": 360,
+  "hard": 149,
+  "uniquePassages": 280,
+  "sources": 12,
+  "domains": {
+    "Information and Ideas": 82,
+    "Craft and Structure": 118,
+    "Standard English Conventions": 80,
+    "Expression of Ideas": 80
+  },
+  "skills": {
+    "Central Ideas and Details": 40,
+    "Words in Context": 40,
+    "Form, Structure, and Sense": 60,
+    "Cross-Text Connections": 40,
+    "Rhetorical Synthesis": 40,
+    "Transitions": 40,
+    "Boundaries": 20,
+    "Inferences": 38,
+    "Text Structure and Purpose": 38,
+    "Command of Evidence (Textual)": 4
+  },
+  "rwTotal": 4200,
+  "rwHard": 196,
+  "previousRwTotal": 649
+}

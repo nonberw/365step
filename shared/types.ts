@@ -23,6 +23,7 @@ export interface Goals {
   sat?: { target: number; date: string; current?: number };
   ielts?: { target: number; date: string; current?: number };
   coding?: boolean;
+  nuet?: boolean;
   /** Answers from the onboarding questions. */
   dailyMinutes?: number;
   hardest?: string;
@@ -37,6 +38,7 @@ export interface Goals {
 }
 
 export interface PublicUser {
+  learningProfile: import("./directions").LearningProfile;
   id: string;
   role: Role;
   email: string;
@@ -174,7 +176,7 @@ export interface SatQuestion {
   answer: number | string;
   explanation: string;
   source: "bank" | "generated" | "ai";
-  attribution?: { sourceId: string; locator: string; changes: string; license?: string; licenseUrl?: string; download?: string };
+  attribution?: { sourceId: string; locator: string; changes: string; license?: string; licenseUrl?: string; download?: string; sourceUrl?: string };
   numericRule?: import("./numeric").NumericRule;
   acceptedAnswers?: string[];
   subjectHead?: string;
