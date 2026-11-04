@@ -1,0 +1,325 @@
+{
+  "observedAt": "2026-11-04",
+  "reference": "https://www.1609sat.com/app/bank",
+  "filters": {
+    "status": "All",
+    "difficulty": "All"
+  },
+  "note": "Reference counts only; not a local inventory or permission to republish questions. No question text or account information is retained.",
+  "sources": {
+    "practiceTests": {
+      "totals": {
+        "total": 7171,
+        "rw": 4468,
+        "math": 2703
+      },
+      "groupsAndTopics": [
+        {
+          "title": "Craft and Structure",
+          "count": 1155
+        },
+        {
+          "title": "Cross Text Connections",
+          "count": 94
+        },
+        {
+          "title": "Text Structure and Purpose",
+          "count": 386
+        },
+        {
+          "title": "Words in Context",
+          "count": 675
+        },
+        {
+          "title": "Expression of Ideas",
+          "count": 1051
+        },
+        {
+          "title": "Transitions",
+          "count": 484
+        },
+        {
+          "title": "Rhetorical Synthesis",
+          "count": 567
+        },
+        {
+          "title": "Information and Ideas",
+          "count": 1268
+        },
+        {
+          "title": "Central Ideas and Details",
+          "count": 335
+        },
+        {
+          "title": "Command of Evidence",
+          "count": 591
+        },
+        {
+          "title": "Inferences",
+          "count": 342
+        },
+        {
+          "title": "Standard English Conventions",
+          "count": 994
+        },
+        {
+          "title": "Boundaries",
+          "count": 535
+        },
+        {
+          "title": "Form, Structure, and Sense",
+          "count": 459
+        },
+        {
+          "title": "Advanced Math",
+          "count": 913
+        },
+        {
+          "title": "Equivalent Expressions",
+          "count": 139
+        },
+        {
+          "title": "Nonlinear Equations and Systems",
+          "count": 287
+        },
+        {
+          "title": "Nonlinear Functions",
+          "count": 487
+        },
+        {
+          "title": "Algebra",
+          "count": 943
+        },
+        {
+          "title": "Linear Functions",
+          "count": 304
+        },
+        {
+          "title": "Linear Equations in One Variable",
+          "count": 174
+        },
+        {
+          "title": "Linear Equations in Two Variables",
+          "count": 193
+        },
+        {
+          "title": "Linear Inequalities in One or Two Variables",
+          "count": 125
+        },
+        {
+          "title": "Systems of Two Linear Equations in Two Variables",
+          "count": 147
+        },
+        {
+          "title": "Geometry and Trigonometry",
+          "count": 438
+        },
+        {
+          "title": "Area and Volume",
+          "count": 121
+        },
+        {
+          "title": "Circles",
+          "count": 90
+        },
+        {
+          "title": "Lines, Angles, and Triangles",
+          "count": 125
+        },
+        {
+          "title": "Right Triangles and Trigonometry",
+          "count": 102
+        },
+        {
+          "title": "Problem-Solving and Data Analysis",
+          "count": 409
+        },
+        {
+          "title": "Ratios, Rates, Proportional Relationships, and Units",
+          "count": 84
+        },
+        {
+          "title": "Percentages",
+          "count": 107
+        },
+        {
+          "title": "One-Variable Data",
+          "count": 77
+        },
+        {
+          "title": "Two-Variable Data",
+          "count": 75
+        },
+        {
+          "title": "Probability and Conditional Probability",
+          "count": 38
+        },
+        {
+          "title": "Inference from Sample Statistics and Margin of Error",
+          "count": 22
+        },
+        {
+          "title": "Evaluating Statistical Claims",
+          "count": 6
+        }
+      ]
+    },
+    "officialCollegeBoard": {
+      "totals": {
+        "total": 2871,
+        "rw": 1578,
+        "math": 1293
+      },
+      "groupsAndTopics": [
+        {
+          "title": "Craft and Structure",
+          "count": 437
+        },
+        {
+          "title": "Cross Text Connections",
+          "count": 58
+        },
+        {
+          "title": "Text Structure and Purpose",
+          "count": 138
+        },
+        {
+          "title": "Words in Context",
+          "count": 241
+        },
+        {
+          "title": "Expression of Ideas",
+          "count": 255
+        },
+        {
+          "title": "Transitions",
+          "count": 120
+        },
+        {
+          "title": "Rhetorical Synthesis",
+          "count": 135
+        },
+        {
+          "title": "Information and Ideas",
+          "count": 507
+        },
+        {
+          "title": "Central Ideas and Details",
+          "count": 125
+        },
+        {
+          "title": "Command of Evidence",
+          "count": 258
+        },
+        {
+          "title": "Inferences",
+          "count": 124
+        },
+        {
+          "title": "Standard English Conventions",
+          "count": 379
+        },
+        {
+          "title": "Boundaries",
+          "count": 190
+        },
+        {
+          "title": "Form, Structure, and Sense",
+          "count": 189
+        },
+        {
+          "title": "Advanced Math",
+          "count": 372
+        },
+        {
+          "title": "Equivalent Expressions",
+          "count": 62
+        },
+        {
+          "title": "Nonlinear Equations and Systems",
+          "count": 110
+        },
+        {
+          "title": "Nonlinear Functions",
+          "count": 200
+        },
+        {
+          "title": "Algebra",
+          "count": 448
+        },
+        {
+          "title": "Linear Functions",
+          "count": 126
+        },
+        {
+          "title": "Linear Equations in One Variable",
+          "count": 80
+        },
+        {
+          "title": "Linear Equations in Two Variables",
+          "count": 103
+        },
+        {
+          "title": "Linear Inequalities in One or Two Variables",
+          "count": 52
+        },
+        {
+          "title": "Systems of Two Linear Equations in Two Variables",
+          "count": 87
+        },
+        {
+          "title": "Geometry and Trigonometry",
+          "count": 227
+        },
+        {
+          "title": "Area and Volume",
+          "count": 76
+        },
+        {
+          "title": "Circles",
+          "count": 41
+        },
+        {
+          "title": "Lines, Angles, and Triangles",
+          "count": 63
+        },
+        {
+          "title": "Right Triangles and Trigonometry",
+          "count": 47
+        },
+        {
+          "title": "Problem-Solving and Data Analysis",
+          "count": 246
+        },
+        {
+          "title": "Ratios, Rates, Proportional Relationships, and Units",
+          "count": 64
+        },
+        {
+          "title": "Percentages",
+          "count": 59
+        },
+        {
+          "title": "One-Variable Data",
+          "count": 48
+        },
+        {
+          "title": "Two-Variable Data",
+          "count": 38
+        },
+        {
+          "title": "Probability and Conditional Probability",
+          "count": 24
+        },
+        {
+          "title": "Inference from Sample Statistics and Margin of Error",
+          "count": 11
+        },
+        {
+          "title": "Evaluating Statistical Claims",
+          "count": 2
+        }
+      ]
+    }
+  }
+}

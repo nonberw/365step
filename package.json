@@ -32,7 +32,8 @@
     "build:server": "esbuild server/app.ts --bundle --platform=node --format=esm --target=node24 --packages=external --outfile=server-dist/app.mjs",
     "vercel-build": "vite build && npm run build:server",
     "check:directions": "node --import tsx scripts/directions/content-check.ts",
-    "check:directions-api": "node --import tsx scripts/directions/profile-api-check.ts && node --import tsx scripts/directions/practice-api-check.ts && node --import tsx scripts/directions/editor-api-check.ts"
+    "check:directions-api": "node --import tsx scripts/directions/profile-api-check.ts && node --import tsx scripts/directions/practice-api-check.ts && node --import tsx scripts/directions/editor-api-check.ts",
+    "check:sat-bank": "node --import tsx scripts/sat-bank-check.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",

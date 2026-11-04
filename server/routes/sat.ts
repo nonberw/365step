@@ -1,3 +1,4 @@
+import { bankCatalog, bankSeed, selectBank } from "../satBank";
 import { selectAssessment, familyOf, fingerprint, normaliseText } from "../../shared/satQuality";
 import { Router } from "express";
 import type { Difficulty, SatDomain, SatModuleState, SatQuestion, SatQuestionPublic, SatQuestionSummary, SatSection, SatTestState } from "../../shared/types";
@@ -51,49 +52,34 @@ async function record(userId: string, q: SatQuestion, correct: boolean, ms: numb
 
 // ---------- bank ----------
 
-satRouter.get(
-  "/bank",
-  wrap(async (req, res) => {
-    const u = requireStudent(req);
-    const section = req.query.section as SatSection | undefined;
-    const domain = req.query.domain as SatDomain | undefined;
-    const difficulty = Number(req.query.difficulty) as Difficulty | 0;
-    const skills = req.query.skills ? String(req.query.skills).split("|") : null;
-    const status = String(req.query.status ?? "all");
-    const purpose = String(req.query.purpose ?? "");
-    const page = Math.max(0, Number(req.query.page) || 0);
-    const results = await lastResults(u.id);
-    const saved = await savedSet(u.id);
-    const ai = (await all<{ data: string }>("SELECT data FROM ai_questions ORDER BY created_at DESC LIMIT 200")).map((r) => JSON.parse(r.data) as SatQuestion);
-    const items: SatQuestionSummary[] = [...(status === "all" || status === "new" ? SAT_ACTIVE_BANK : SAT_BANK), ...ai]
-      .filter((q) => req.query.collection !== "rw-open" || q.id.startsWith("rw-open-"))
-      .filter((q) => req.query.collection !== "rw-scale" || q.id.startsWith("rw-scale-"))
-      .filter((q) => req.query.collection !== "rw-scale-native" || q.id.startsWith("rw-scale-bb-"))
-      .filter((q) => req.query.collection !== "rw-scale-practice" || (q.id.startsWith("rw-scale-") && q.purpose === "reinforcement"))
-      .filter((q) => req.query.collection !== "open" || q.id.startsWith("open-math-") || q.id.startsWith("open-rw-"))
-      .filter((q) => req.query.collection !== "scale" || q.id.startsWith("scale-"))
-      .filter((q) => req.query.collection !== "scale-source" || q.id.startsWith("scale-source-") || q.id.startsWith("scale-rw-"))
-      .filter((q) => req.query.collection !== "scale-practice" || q.id.startsWith("scale-practice-") || q.id.startsWith("scale-deepmind-"))
-      .filter((q) => (!section || q.section === section) && (!domain || q.domain === domain) && (!difficulty || q.difficulty === difficulty) && (!skills || skills.includes(q.skill)) && (!purpose || q.purpose === purpose))
-      .map((q) => {
-        const r = results.get(q.id);
-        return {
-          id: q.id,
-          section: q.section,
-          domain: q.domain,
-          skill: q.skill,
-          difficulty: q.difficulty,
-          purpose: q.purpose,
-          preview: (q.passage ?? q.stem).replace(/\$|\*\*/g, "").slice(0, 110),
-          status: r === undefined ? "new" : r ? "correct" : "wrong",
-          saved: saved.has(q.id),
-        } as SatQuestionSummary;
-      })
-      .filter((q) => status === "all" || (status === "saved" ? q.saved : q.status === status));
-    const size = 40;
-    res.json({ total: items.length, page, items: items.slice(page * size, page * size + size) });
-  }),
-);
+async function bankState(userId: string) {
+  const [results, saved, aiRows] = await Promise.all([
+    lastResults(userId), savedSet(userId), all<{ data: string }>("SELECT data FROM ai_questions ORDER BY created_at DESC LIMIT 200"),
+  ]);
+  const activeIds = new Set(SAT_ACTIVE_BANK.map(q => q.id));
+  const history = SAT_BANK.filter(q => !activeIds.has(q.id) && (results.has(q.id) || saved.has(q.id)));
+  const pool = [...new Map([...SAT_ACTIVE_BANK, ...history, ...aiRows.map(r => JSON.parse(r.data) as SatQuestion)].map(q => [q.id, q])).values()];
+  return { pool, results, saved };
+}
+
+satRouter.get("/bank/catalog", wrap(async (req, res) => {
+  const state = await bankState(requireStudent(req).id);
+  res.json(bankCatalog(state.pool, state.results, state.saved, req.query));
+}));
+
+satRouter.get("/bank/sequence", wrap(async (req, res) => {
+  const state = await bankState(requireStudent(req).id);
+  const items = selectBank(state.pool, state.results, state.saved, req.query);
+  res.json({ ids: items.map(q => q.id), total: items.length, seed: bankSeed(req.query) });
+}));
+
+satRouter.get("/bank", wrap(async (req, res) => {
+  const state = await bankState(requireStudent(req).id);
+  const items = selectBank(state.pool, state.results, state.saved, req.query);
+  const requestedPage = Number(req.query.page);
+  const page = Number.isFinite(requestedPage) ? Math.max(0, Math.floor(requestedPage)) : 0;
+  res.json({ total: items.length, page, seed: bankSeed(req.query), items: items.slice(page * 40, page * 40 + 40) });
+}));
 
 satRouter.get(
   "/question/:id",
