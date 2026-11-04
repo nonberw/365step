@@ -15,7 +15,7 @@ async function ready(){for(let i=0;i<120;i++){try{if((await fetch(base+'/health'
 async function req(path:string,body?:unknown,status=200){const r=await fetch(base+path,{method:body===undefined?'GET':'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:`Bearer ${token}`}:{})},body:body===undefined?undefined:JSON.stringify(body)});const data=await r.json()as any;assert.equal(r.status,status,JSON.stringify(data));checks++;return data;}
 try{
  await ready();ok((await req('/health')).ai==='demo','provider disabled');
- const account=await req('/auth/register',{email:'ent-source-qa@example.test',password:'SourcesQuality2026',firstName:'Source',lastName:'QA',consent:true,grade:10,goals:{ent:{year:2028}}},201);token=account.token;
+ const account=await req('/auth/register',{email:'ent-source-qa@example.test',password:'SourcesQuality2026',firstName:'Source',lastName:'QA',consent:true,directionId:"it",grade:10,goals:{ent:{target:120,year:2028}}},201);token=account.token;
  const meta=await req('/ent/sources/meta');ok(meta.total===ENT_SOURCE_BANK.length&&meta.conditions===ENT_SOURCE_META.conditions,'honest counts');
  ok((await req('/ent/meta')).sourceBank.total===meta.total,'home discovery');
  const combinations=[...new Set(ENT_SOURCE_BANK.map(q=>[q.sourceId,q.subject,q.lang,q.kind].join(':')))];
