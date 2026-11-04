@@ -11,7 +11,7 @@ import { RichText } from "@/components/RichText";
 import { ErrorBox, GreetingBanner, Loading, PageHeader } from "@/components/Page";
 import { Button } from "@/components/ui/button";
 import { Badge, Card, CardTitle, Progress, Segmented } from "@/components/ui/card";
-import { LIST_KEY } from "./Bank";
+import { BANK_CONTEXT_KEY, LIST_KEY } from "@/lib/satBank";
 import { useSatTools } from "./SatTools";
 
 type Row = SatLesson & { questions: number; right: number; total: number };
@@ -113,6 +113,7 @@ export function SkillPage() {
     if (!ids.length) return setMsg("Вопросов по навыку пока нет — сгенерируй их с ИИ.");
     try {
       sessionStorage.setItem(LIST_KEY, JSON.stringify(ids));
+      sessionStorage.removeItem(BANK_CONTEXT_KEY);
     } catch {
       // prev/next is a convenience
     }

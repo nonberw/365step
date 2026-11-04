@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { mmss } from "@/lib/format";
 import QuestionView, { type Response } from "./QuestionView";
-import { LIST_KEY } from "./Bank";
+import { newBankSeed, readBankContext, readBankIds, saveBankSequence } from "@/lib/satBank";
 import { HintBox, useSatTools } from "./SatTools";
 
 interface Checked {
@@ -27,35 +27,51 @@ export default function QuestionPage() {
   const [value, setValue] = useState<Response>(null);
   const [checked, setChecked] = useState<Checked | null>(null);
   const [ai, setAi] = useState<{ text: string; mode: string } | null>(null);
-  const [busy, setBusy] = useState<"" | "check" | "ai" | "remix">("");
+  const [busy, setBusy] = useState<"" | "check" | "ai" | "remix" | "shuffle">("");
   const [error, setError] = useState("");
   const [started, setStarted] = useState(Date.now());
   const [now, setNow] = useState(Date.now());
   const tools = useSatTools();
 
-  const list = useMemo<string[]>(() => {
-    try {
-      return JSON.parse(sessionStorage.getItem(LIST_KEY) ?? "[]");
-    } catch {
-      return [];
-    }
-  }, []);
+  const [list, setList] = useState(readBankIds);
   const pos = list.indexOf(id);
+  const context = useMemo(() => pos >= 0 ? readBankContext() : null, [id, list, pos]);
 
   useEffect(() => {
+    let current = true;
     setQ(null);
     setValue(null);
     setChecked(null);
     setAi(null);
     setError("");
     setStarted(Date.now());
+    setNow(Date.now());
+    setBusy("");
     api<{ question: SatQuestionPublic; saved: boolean }>(`/sat/question/${id}`)
       .then((r) => {
+        if (!current) return;
         setQ(r.question);
         setSaved(r.saved);
       })
-      .catch((e) => setError(e.message));
+      .catch((e) => { if (current) setError(e.message); });
+    return () => { current = false; };
   }, [id]);
+
+  async function shuffleQuestions() {
+    if (!context || busy) return;
+    setBusy("shuffle");
+    try {
+      const query = new URLSearchParams(context.query), seed = newBankSeed();
+      query.set("seed", seed); query.set("shuffle", "1");
+      const next = await api<{ ids: string[] }>(`/sat/bank/sequence?${query}`);
+      if (!next.ids.length) { setError("В этой подборке больше нет заданий. Вернись к темам и измени фильтры."); return; }
+      const back = new URLSearchParams(context.returnTo.split("?")[1]);
+      back.set("seed", seed); back.set("shuffle", "1"); back.delete("page");
+      saveBankSequence(next.ids, { query: query.toString(), returnTo: `/sat/bank?${back}` });
+      setList(next.ids); setValue(null); setChecked(null); setAi(null); setStarted(Date.now());
+      navigate(`/sat/q/${next.ids[0]}`);
+    } catch (e) { setError((e as Error).message); } finally { setBusy(""); }
+  }
 
   useEffect(() => {
     if (checked) return;
@@ -115,7 +131,7 @@ export default function QuestionPage() {
     <div className="flex flex-col gap-5">
       {q.section === "math" && tools.panels}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
-        <Link to="/sat/bank" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+        <Link to={context?.returnTo ?? "/sat/bank"} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="size-4" /> Банк вопросов
         </Link>
         <div className="flex items-center gap-2">
@@ -128,13 +144,14 @@ export default function QuestionPage() {
               {pos + 1} / {list.length}
             </span>
           )}
+          {context && list.length > 1 && <Button variant="outline" size="sm" onClick={shuffleQuestions} disabled={busy !== ""}><Shuffle />{busy === "shuffle" ? "Перемешиваю…" : "Перемешать"}</Button>}
           <Button variant="outline" size="sm" onClick={toggleSave} aria-pressed={saved}>
             <Bookmark className={cn(saved && "fill-primary text-primary")} /> {saved ? "Сохранено" : "Сохранить"}
           </Button>
         </div>
       </div>
 
-      <QuestionView q={q} value={value} onChange={setValue} reveal={checked ? { answer: checked.answer, correct: checked.correct } : null} />
+      <QuestionView key={`${q.id}:${context?.query ?? ""}`} q={q} value={value} onChange={setValue} reveal={checked ? { answer: checked.answer, correct: checked.correct } : null} />
 
       {!checked && <HintBox questionId={q.id} />}
       <ErrorBox message={error} />
@@ -155,7 +172,7 @@ export default function QuestionPage() {
       )}
 
       <div className="sticky bottom-0 -mx-4 flex flex-wrap items-center justify-between gap-2 border-t border-border bg-card/95 px-4 py-3 backdrop-blur sm:mx-0 sm:rounded-2xl sm:border">
-        <Button variant="ghost" size="sm" disabled={pos <= 0} onClick={() => navigate(`/sat/q/${list[pos - 1]}`)}>
+        <Button variant="ghost" size="sm" disabled={pos <= 0 || busy !== ""} onClick={() => navigate(`/sat/q/${list[pos - 1]}`)}>
           <ArrowLeft /> Назад
         </Button>
         <div className="flex flex-wrap gap-2">
@@ -175,7 +192,7 @@ export default function QuestionPage() {
             </Button>
           )}
         </div>
-        <Button variant={checked ? "default" : "ghost"} size="sm" disabled={pos < 0 || pos >= list.length - 1} onClick={() => navigate(`/sat/q/${list[pos + 1]}`)}>
+        <Button variant={checked ? "default" : "ghost"} size="sm" disabled={pos < 0 || pos >= list.length - 1 || busy !== ""} onClick={() => navigate(`/sat/q/${list[pos + 1]}`)}>
           Дальше <ArrowRight />
         </Button>
       </div>
