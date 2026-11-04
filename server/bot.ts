@@ -1,3 +1,4 @@
+import { getCatalogue, getLearningProfile } from "./learning/profile";
 import { botReply, type BotTurn } from "./ai";
 import { all, one, run } from "./db";
 import { channels, reportText, snapshot, weeklyReport, type Snapshot } from "./family";
@@ -172,7 +173,12 @@ export async function handleUpdate(update: { update_id?: number; message?: TgMes
   if (!text && !img) return say(chat, "Я понимаю текст и фото. Напиши вопрос по учёбе.");
 
   await tg("sendChatAction", { chat_id: chat, action: "typing" });
-  const context = who.kind === "parent" ? { children: await Promise.all(who.students.map(async (s) => forAi(await snapshot(s)))) } : { student: forAi(await snapshot(who.userId)) };
+  const learning = who.kind === "student" ? await (async()=>{const profile=await getLearningProfile(who.userId);const direction=(await getCatalogue()).find(d=>d.id===profile.directionId);const row=await one<{goals:string}>("SELECT goals FROM users WHERE id=?",who.userId);return {profile,direction,selectedExams:JSON.parse(row?.goals??"{}"),rule:"Основа платформы — ЕНТ, SAT и IELTS. Направление является дополнительным разделом и не ограничивает доступ к экзаменационной подготовке."};})() : null;
+  const context = who.kind === "parent" ? { children: await Promise.all(who.students.map(async (s) => forAi(await snapshot(s)))) } : await(async()=>{
+    const student=forAi(await snapshot(who.userId)),goals=learning?.selectedExams??{};
+    const progress=await all('SELECT module_id,lesson_id,done_at FROM learning_attempts WHERE user_id=? AND direction_id=? AND done_at IS NOT NULL',who.userId,learning?.profile.directionId??null);
+    return {student:{...student,sat:student.sat,ent:student.ent,ielts:student.ielts},learning:{...learning,progress}};
+  })();
 
   let answer: string;
   try {

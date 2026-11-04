@@ -1,3 +1,4 @@
+import { getLearningProfile } from "./learning/profile";
 import crypto from "node:crypto";
 import type { NextFunction, Request, Response } from "express";
 import type { Campus, Goals, PlanId, PublicUser, Role, TeacherTitle } from "../shared/types";
@@ -55,6 +56,7 @@ export async function toPublic(u: UserRow): Promise<PublicUser> {
       ? (await all<{ class_code: string }>("SELECT class_code FROM class_members WHERE user_id = ?", u.id)).map((r) => r.class_code)
       : (await all<{ code: string }>("SELECT code FROM classes WHERE teacher_id = ?", u.id)).map((r) => r.code);
   return {
+    learningProfile: await getLearningProfile(u.id),
     id: u.id,
     role: u.role,
     email: u.email,
