@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import { DIRECTIONS,findDirections } from '../../shared/directions';
+import { getNavigation,routeAccess } from '../../shared/directionPolicy';
+import { allLearningModules,publicLesson } from '../../server/learning/content';
+import { assessPractice,numericValue } from '../../server/learning/assessment';
+const modules=allLearningModules();assert.equal(DIRECTIONS.length,27);assert.equal(modules.length,135);
+const ids=new Set<string>();let lessons=0,numeric=0,rubric=0;
+for(const m of modules){assert.equal(m.lessons.length,5);assert.ok(m.project.rubric.length>=4);assert.ok(m.summary.length>60);for(const l of m.lessons){lessons++;assert.equal(l.items.length,6);for(const q of l.items){assert.ok(!ids.has(q.id));ids.add(q.id);if(q.kind==='numeric'){numeric++;assert.notEqual(numericValue(q.answer),null);assert.equal(assessPractice(q,q.answer).correct,true);assert.equal(assessPractice(q,'NaN').correct,false);}else{rubric++;assert.ok(q.criteria?.length);assert.equal(assessPractice(q,'Text').correct,null);}}for(const q of publicLesson(l).items)assert.ok(!('answer' in q)&&!('explanation' in q));}}
+assert.equal(lessons,675);assert.equal(numeric,135);assert.equal(rubric,3915);
+const pin=modules.find(m=>m.id==='it-04')!.lessons[1]!.items[0]!;assert.equal(assessPractice(pin,'1000001').correct,false);
+assert.equal(numericValue('1/0'),null);assert.equal(numericValue('0,125'),0.125);assert.equal(numericValue('1/8'),0.125);
+for(const d of DIRECTIONS){const p={directionId:d.id,specializationId:null,version:1};const nav=getNavigation(p,{});assert.deepEqual(nav.filter(g=>g.title).slice(0,3).map(g=>g.title),['ЕНТ','SAT','IELTS']);assert.equal(nav.at(-1)!.items.at(-1)!.to,'/directions');const group=nav.find(g=>g.title===d.title)!;assert.ok(group);assert.deepEqual(group.items.filter(i=>i.to.startsWith('/learn/module/')).map(i=>i.to),d.modules.map(m=>`/learn/module/${m.id}`));assert.ok(!nav.some(g=>g.title==='Кодинг'||g.title==='Инженерия'));for(const other of DIRECTIONS.filter(o=>o.id!==d.id))assert.ok(!JSON.stringify(nav).includes(`/learn/module/${other.id}-`));if(d.id!=='it')assert.ok(!nav.some(g=>g.items.some(i=>i.to.startsWith('/coding'))));if(d.id!=='engineering')assert.ok(!nav.some(g=>g.items.some(i=>i.to.startsWith('/engineering'))));for(const path of ['/ent','/sat','/ielts','/learn','/coding','/engineering'])assert.equal(routeAccess(path,p,{}),'allow');for(const other of DIRECTIONS)for(const m of other.modules)assert.equal(routeAccess(`/learn/module/${m.id}`,p,{}),other.id===d.id?'allow':'outside-profile');assert.ok(d.sources.length>=2);for(const s of d.sources)assert.equal(new URL(s.url).protocol,'https:');}
+assert.ok(findDirections('стоматолог').some(d=>d.id==='medicine'));
+console.log(JSON.stringify({directions:DIRECTIONS.length,modules:modules.length,caseBasedLessons:lessons,caseBasedActivities:ids.size,automaticCalculations:numeric,openRubricActivities:rubric,projects:modules.length,editorialStatus:'authored; independent subject review pending'},null,2));
+
+const emptyNav=getNavigation({directionId:null,specializationId:null,version:0},{});assert.deepEqual(emptyNav.filter(g=>g.title).map(g=>g.title),['ЕНТ','SAT','IELTS']);assert.equal(emptyNav.at(-1)!.items.at(-1)!.to,'/directions');
