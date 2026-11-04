@@ -1,3 +1,7 @@
+import { routeAccess } from "@shared/directionPolicy";
+import { EMPTY_LEARNING_PROFILE } from "@shared/directions";
+import { Link, useLocation } from "react-router-dom";
+import { LearningProvider } from "@/lib/learning";
 import { StrictMode, Suspense, lazy, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -14,6 +18,12 @@ try {
   // theme is a per-viewer convenience
 }
 
+const LearningEditor=lazy(()=>import("@/pages/learning/Editor"));
+const DirectionsPage=lazy(()=>import("@/pages/learning/Directions"));
+const DirectionModule = lazy(()=>import("@/pages/learning/Module"));
+const DirectionLesson = lazy(()=>import("@/pages/learning/Lesson"));
+const DirectionProject = lazy(()=>import("@/pages/learning/Project"));
+const ChooseDirection = lazy(() => import("@/pages/learning/ChooseDirection"));
 const Landing = lazy(() => import("@/pages/Landing"));
 const LearnPath = lazy(() => import("@/pages/learn/Path"));
 const LearnLesson = lazy(() => import("@/pages/learn/Lesson"));
@@ -71,9 +81,16 @@ const Reader = lazy(() => import("@/pages/library/Reader"));
 
 function Guard({ role, children }: { role?: Role; children: ReactNode }) {
   const { user, loading } = useAuth();
+  const location = useLocation();
   if (loading) return <Loading />;
   if (!user) return <Navigate to="/login" replace />;
   if (role && user.role !== role) return <Navigate to="/app" replace />;
+  if(user.role==='student'){
+    const inFlight=/^\/(sat\/test\/run|ent\/test)\//.test(location.pathname);
+    const access=inFlight?'allow':routeAccess(location.pathname+location.search,user.learningProfile??EMPTY_LEARNING_PROFILE,user.goals);
+    if(access==='choose-profile')return <Navigate to="/directions" replace/>;
+    if(access==='outside-profile')return <div className="mx-auto flex min-h-dvh max-w-xl flex-col justify-center gap-5 px-6"><h1 className="font-display text-3xl font-bold">Это модуль другого профиля</h1><p className="text-muted-foreground">Выбери нужное направление в разделе «Направление» внизу меню. Подготовка к экзаменам доступна независимо от этого выбора.</p><Link className="font-bold text-primary" to="/directions">Вернуться к своему направлению →</Link></div>;
+  }
   return <>{children}</>;
 }
 
@@ -87,6 +104,9 @@ function App() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/parent/:token" element={<ParentView />} />
         <Route path="/share/:token" element={<SharedApp />} />
+
+        <Route path="/learning-editor" element={<Guard role="teacher"><LearningEditor/></Guard>}/>
+        <Route path="/choose-direction" element={<Guard role="student"><ChooseDirection /></Guard>} />
 
         {/* Full-screen exam and lesson views, outside the app shell */}
         <Route
@@ -143,6 +163,10 @@ function App() {
           }
         >
           <Route path="/learn" element={<LearnPath />} />
+          <Route path="/directions" element={<DirectionsPage />} />
+          <Route path="/learn/module/:moduleId" element={<DirectionModule />} />
+          <Route path="/learn/lesson/:lessonId" element={<DirectionLesson />} />
+          <Route path="/learn/project/:projectId" element={<DirectionProject />} />
           <Route path="/app" element={<StudentHome />} />
           <Route path="/admissions" element={<Admissions />} />
           <Route path="/ent" element={<EntHome />} />
@@ -194,9 +218,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <NotifyProvider>
+        <LearningProvider><NotifyProvider>
           <App />
-        </NotifyProvider>
+        </NotifyProvider></LearningProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
