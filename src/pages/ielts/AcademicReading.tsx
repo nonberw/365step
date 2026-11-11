@@ -46,21 +46,21 @@ export default function AcademicReading() {
     for (const [questionId, value] of Object.entries(answers)) if (previous[questionId] !== value) {
       pending.current = pending.current.then(async () => {
         await api(`/ielts/reading-exam/${run.id}/answer`, { body: { questionId, value } });
-      }).catch((e) => { setError(`Ответ не сохранён: ${e.message}. При завершении в пределах времени будет отправлена текущая форма.`); });
+      }).catch((e) => { setError(`Your answer was not saved: ${e.message}. Your current answers will be submitted when you finish within the time limit.`); });
     }
   }
   if (loading) return <Loading />;
-  if (!run) return <Card className="space-y-4"><h2 className="font-display text-xl font-semibold">Полный авторский Academic Reading</h2><p>3 текста · 2 473 слова · 40 вопросов · 60 минут. Оригинальные вымышленные учебные кейсы. Таймер и ответы сохраняются при перезагрузке. Результат: верные ответы и процент; шкала Band не откалибрована.</p><ErrorBox message={error} /><Button onClick={start} disabled={busy}>Начать 60 минут</Button></Card>;
+  if (!run) return <Card className="space-y-4"><h2 className="font-display text-xl font-semibold">Full Academic Reading practice</h2><p>3 passages · 2,473 words · 40 questions · 60 minutes. Original fictional practice material. Your timer and answers are saved on reload. Results show accuracy, not a calibrated IELTS band.</p><ErrorBox message={error} /><Button onClick={start} disabled={busy}>Start 60-minute practice</Button></Card>;
   const p = run.exam.passages[passage]!;
   return <div className="space-y-4">
-    <Card className="flex flex-wrap items-center justify-between gap-3"><span>{run.exam.title}</span><b className="tabular">{run.result ? "Завершено" : mmss(left)}</b><span>{Object.values(run.answers).filter(Boolean).length}/40 ответов</span></Card>
+    <Card className="flex flex-wrap items-center justify-between gap-3"><span>{run.exam.title}</span><b className="tabular">{run.result ? "Completed" : mmss(left)}</b><span>{Object.values(run.answers).filter(Boolean).length}/40 answered</span></Card>
     <p className="text-sm text-muted-foreground">{run.exam.provenance}</p>
     {run.result && <Card><b>{run.result.right}/40 · {run.result.percentage}%</b><p>{run.result.feedback}</p></Card>}
-    <div className="flex flex-wrap gap-2">{run.exam.passages.map((p, i) => <Button key={p.id} variant={i === passage ? "default" : "outline"} onClick={() => setPassage(i)}>Текст {i + 1}</Button>)}</div>
+    <div className="flex flex-wrap gap-2">{run.exam.passages.map((p, i) => <Button key={p.id} variant={i === passage ? "default" : "outline"} onClick={() => setPassage(i)}>Passage {i + 1}</Button>)}</div>
     <ErrorBox message={error} />
     <div className="grid items-start gap-5 lg:grid-cols-2"><Card className="lg:sticky lg:top-4 lg:max-h-[75vh] lg:overflow-y-auto"><h2 className="mb-3 font-display text-xl font-semibold">{p.title}</h2><div className="space-y-4 font-serif leading-7">{p.passage.split("\n\n").map((text, i) => <p key={i}>{text}</p>)}</div></Card>
       <Questions questions={p.questions} answers={run.answers} onChange={change} result={run.result} />
     </div>
-    {!run.result ? <Button onClick={finish} disabled={busy}>Завершить и проверить все 40 ответов</Button> : <Button onClick={() => { setRun(null); setError(""); }}>Новая попытка</Button>}
+    {!run.result ? <Button onClick={finish} disabled={busy}>Finish and check all 40 answers</Button> : <Button onClick={() => { setRun(null); setError(""); }}>New attempt</Button>}
   </div>;
 }

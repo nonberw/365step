@@ -10,12 +10,12 @@ export function BandHeader({ overall, predicted, criteria, mode, extra }: { over
         <CircleProgress value={overall ?? 0} max={9} size={124} stroke={11}>
           <div>
             <p className="font-display text-4xl font-semibold tabular">{mode === "demo" || overall === null ? "—" : overall.toFixed(1)}</p>
-            <p className="text-[11px] text-muted-foreground">{mode === "demo" ? "не оценивалось" : criteria.some((c) => c.name === "Pronunciation") ? "по расшифровке" : "оценка ИИ"}</p>
+            <p className="text-[11px] text-muted-foreground">{mode === "demo" ? "not assessed" : criteria.some((c) => c.name === "Pronunciation") ? "Transcript-based" : "AI estimate"}</p>
           </div>
         </CircleProgress>
         <div>
-          <Badge tone={mode === "ai" ? "dark" : "warn"}>{mode === "ai" ? "Оценка ИИ" : "Демо · без оценки"}</Badge>
-          <p className="mt-2 max-w-sm text-sm text-muted-foreground">{mode === "demo" ? "Демонстрация: языковой уровень не измерен, результат исключён из аналитики уровня." : criteria.some((c) => c.name === "Pronunciation") ? "Частичная оценка трёх критериев по тексту. Произношение и аудиоплавность не оценены; это не общий IELTS Speaking Band." : "Ориентировочная оценка текста, без прогноза официального результата."}</p>
+          <Badge tone={mode === "ai" ? "dark" : "warn"}>{mode === "ai" ? "AI estimate" : "Demo · no score"}</Badge>
+          <p className="mt-2 max-w-sm text-sm text-muted-foreground">{mode === "demo" ? "Demo only: language proficiency is not assessed and this result is excluded from proficiency analytics." : criteria.some((c) => c.name === "Pronunciation") ? "A transcript-based estimate of three criteria. Pronunciation and spoken fluency are not assessed; this is not an overall IELTS Speaking band." : "An approximate writing assessment, not a prediction of your official result."}</p>
           {extra && <p className="text-xs text-muted-foreground">{extra}</p>}
         </div>
       </div>

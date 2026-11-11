@@ -23,7 +23,7 @@ export default function Writing() {
 
   return (
     <div className="flex max-w-5xl flex-col gap-5">
-      <PageHeader eyebrow="IELTS" title="Writing" description="Напиши ответ: подключённая модель даёт ориентировочный разбор текста. В деморежиме показывается объём без оценки языкового уровня." />
+      <PageHeader eyebrow="IELTS" title="Writing" description={"Write a response to receive an approximate AI review. Demo mode reports word count without assessing language proficiency."} />
       <div className="flex flex-wrap items-center gap-3">
         <Segmented
           value={task}
@@ -32,11 +32,11 @@ export default function Writing() {
             setPromptId("");
           }}
           options={[
-            { value: "1", label: "Task 1 · график" },
-            { value: "2", label: "Task 2 · эссе" },
+            { value: "1", label: "Task 1 · chart" },
+            { value: "2", label: "Task 2 · essay" },
           ]}
         />
-        <Select aria-label="Задание" className="h-9 w-auto max-w-full text-xs" value={current.id} onChange={(e) => setPromptId(e.target.value)}>
+        <Select aria-label={"Task"} className="h-9 w-auto max-w-full text-xs" value={current.id} onChange={(e) => setPromptId(e.target.value)}>
           {list.map((p) => (
             <option key={p.id} value={p.id}>
               {"type" in p ? `${p.type}: ${p.prompt.slice(0, 60)}…` : p.title}
@@ -91,10 +91,10 @@ function Editor({ task, prompt }: { task: "1" | "2"; prompt: IeltsContent["writi
         <Card className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <span className={cn("font-semibold tabular", words < minWords ? "text-muted-foreground" : "text-success")}>
-              {words} / {minWords}+ слов
+              {words} / {minWords}+ words
             </span>
             <Badge tone={left < 300 ? "bad" : "dark"} className="tabular">
-              {started ? mmss(left) : `${limit / 60} минут`}
+              {started ? mmss(left) : `${limit / 60} minutes`}
             </Badge>
           </div>
           <Textarea
@@ -102,7 +102,7 @@ function Editor({ task, prompt }: { task: "1" | "2"; prompt: IeltsContent["writi
             rows={16}
             spellCheck={false}
             className="font-serif text-[16px] leading-7"
-            placeholder="Начни писать — таймер запустится сам. Проверка орфографии браузера выключена, как на экзамене."
+            placeholder={"Start writing to begin the timer. Browser spellcheck is disabled, as in the exam."}
             value={text}
             onChange={(e) => {
               if (!started) setStarted(Date.now());
@@ -111,27 +111,27 @@ function Editor({ task, prompt }: { task: "1" | "2"; prompt: IeltsContent["writi
           />
           <ErrorBox message={error} />
           <Button size="lg" className="self-start" onClick={submit} disabled={busy || words < 40}>
-            {busy ? "Проверяю… (до минуты)" : "Проверить работу"}
+            {busy ? "Reviewing… (up to a minute)" : "Review my writing"}
           </Button>
         </Card>
       ) : (
         <>
-          <BandHeader overall={result.overall} predicted={result.predicted} criteria={result.criteria} mode={result.mode} extra={`${result.wordCount} слов`} />
+          <BandHeader overall={result.overall} predicted={result.predicted} criteria={result.criteria} mode={result.mode} extra={`${result.wordCount} words`} />
           <Card>
             <div className="mb-3 flex flex-wrap items-center gap-3">
-              <CardTitle>Твой текст</CardTitle>
+              <CardTitle>Your response</CardTitle>
               <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <i className="inline-block h-1 w-5 rounded bg-destructive" /> ошибка
+                <i className="inline-block h-1 w-5 rounded bg-destructive" /> error
               </span>
               <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <i className="inline-block h-1 w-5 rounded bg-success" /> удачная фраза
+                <i className="inline-block h-1 w-5 rounded bg-success" /> effective phrase
               </span>
             </div>
             <Annotated text={text} notes={result.annotations} />
           </Card>
-          <PlanList title="Что делать дальше" items={result.plan} />
+          <PlanList title={"Next steps"} items={result.plan} />
           <Button variant="outline" className="self-start" onClick={() => setResult(null)}>
-            Исправить и проверить снова
+            Revise and review again
           </Button>
         </>
       )}
