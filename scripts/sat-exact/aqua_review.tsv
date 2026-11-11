@@ -1,0 +1,148 @@
+27|one-variable-data|(50*45000-10*95000)/40|Subtract the highest-income group's total from the overall total, then divide by 40. Remove the conversational request for a different solution method.
+131|one-variable-data|40000+6000-3*2000|The three-month sum of A minus B is 6000. The first two differences total 46000, so the third is -40000.
+152|one-variable-data|181+169|The added pair must total more than 350 cm for the mean to rise. Only the pair 181 and 169 does not. Verified by testing all five pairs.
+196|one-variable-data|(65-60)/(75-65)|Weighted mean: 75d+60e=65(d+e), hence d/e=1/2. Preserve ratio choices.
+242|one-variable-data|(5*40+10*25)/15|Combine the two age totals before dividing by the combined count.
+289|one-variable-data|100*(8-(7+8+8+7+9+9+6+7+8+7)/10)/8|The actual mean is 7.6; the shortfall is 0.4/8=5%, not 0.4%.
+299|one-variable-data|41*8.5-40*8|The total including the teacher is 348.5; subtract the students' total of 320.
+394|one-variable-data|7*18-3*14-3*23|Subtract the two disjoint three-number totals from the overall seven-number total.
+398|one-variable-data|(10*38.9-6*42)/4|The last four scores total 137, so their mean is 34.25.
+400|one-variable-data|4*8-3*10|For ordered a<=b<=c<=d, b+c=20 and d>=10. Thus a=12-d<=2, attained at 2,10,10,10.
+413|one-variable-data|24*9/8+2*9/8|Let the overall mean be m. Then 9m=24+(m+2), so total spending is 9*26/8=29.25.
+422|one-variable-data|72-2*16-11|b=a+11 and c=61-2a. The order c>=b gives integer a<=16, with minimum c=29.
+442|one-variable-data|5*(92-20)/(92-80)|80n-5*20=92(n-5), giving n=30.
+474|one-variable-data|5|The interval is [8.5-1.5*0.2,8.5+1.5*0.2]=[8.2,8.8]. Exactly 8.22,8.36,8.30,8.25,8.53 are in it.
+512|one-variable-data|13|The sum is 50. If the median were at least 14, the smallest ordered sum would be 1+2+14+15+20=52. Median 13 is attained by 1,2,13,14,20.
+518|one-variable-data|45800|The median is the seventh of 13 ordered salaries. The first six are 38000,40000,40000,40000,42500,42500; the seventh is 45800.
+0|percentages|43*1.15/(1+1.15)|Equal travel times imply distances in ratio 1.15:1; the faster walker covers 23 km.
+32|percentages|(2000*.19-500*.07)/1500*100|Total return is 380; subtract 35 to leave 345 on 1500, or 23%.
+47|percentages|100*(1-1/(1.1*1.2))|The final level is 1.32 times the original. The required reduction is about 24.24%, closest to 24%.
+87|percentages|100*(1.2*1.25*.85-1)|The selling price is 1.275 times wholesale cost, so profit is 27.5% of cost.
+89|percentages|13*(215-98)|Maximize profit by pairing the highest possible selling price with the lowest possible purchase price for all 13 books.
+133|percentages|815-3*(854-815)|Annual simple interest is 39, so principal is 815-117=698.
+144|percentages|4*1.15+.4*(2*32+2*32*1.75)|Four service fees plus fuel for two 32-liter and two 56-liter tanks total 75.
+167|percentages|200/(1-.8*1.2)|The raised expenses are 96% of salary; the remaining 4% equals 200.
+188|percentages|100*((150*1.8+100*1.2+150*.6)/400-1)|Revenue is 480W against a cost of 400W, giving 20% profit.
+191|percentages|100*1.6*.6|Mary earns 1.6 times Tim, who earns .6 times Juan, so Mary earns .96 times Juan.
+204|percentages|(7*1.2)/(8*1.1)|The new ratio is 8.4:8.8=21:22, not the ratio of the two percentage increases.
+214|percentages|100*(25*.4)/(100*.4)|Part-time staff rises from 40 to 50, a 25% increase in the count.
+229|percentages|100*(1.25*1.4-1)|Compound percentage changes multiply; 1.25*1.4=1.75.
+287|percentages|616/1.1/1.12|Remove 10% sales tax, then remove the 12% markup on cost: cost is 500.
+294|percentages|240*.5/.4|120 female officers represent 40% of all female officers, so the total is 300.
+307|percentages|(50/(1-.5))*(1-.3)|The new cost is half of the unchanged selling price, so that price is 100; original cost was 70% of it.
+312|percentages|((832+448)/2)*1.2|Equal gains and losses imply cost 640. A 20% profit requires a selling price of 768. Remove one duplicate incorrect option.
+346|percentages|100*(1-(1/3-1/6)/(1-1/6))|Normalize the full bottle's mass to 1. The empty bottle is 1/6 and final water is 1/6, so 80% of the original 5/6 water is removed.
+355|percentages|100/(1.05-.8)|The increase of 100 equals 25% of cost, hence cost 400.
+382|percentages|3000*1.1*1.2/40|Include transport in total cost before adding the 20% profit; the price is 99 per shirt.
+384|percentages|22/1.3|A 30% increase in work rate divides the required time by 1.3, yielding 220/13 days.
+392|percentages|46800/12|Both monthly savings and clothes/transport spending are 20% of income, so both equal 3900.
+410|percentages|100*525*.6/1260|The winner receives 315 votes. As a fraction of all members, 315/1260=25%.
+74|ratios-rates-units|60/3*15-120|The platform length difference of 60 meters accounts for 3 seconds, so speed is 20 m/s. Train length is 20*15-120=180. Remove one duplicate incorrect choice.
+90|ratios-rates-units|60*sqrt(9/4)|Equal pre-meeting time and the two post-meeting times imply vB/vA=sqrt(9/4), hence 90 km/h.
+156|ratios-rates-units|40|Let original speed v and time t. The equations vt=(v+3)(t-2/3)=(v-2)(t+2/3) give v=12,t=10/3 and distance 40 km.
+168|ratios-rates-units|3*(1.5+1)/(1.5-1)|For the same distance, v+3=1.5(v-3), giving v=15. Repair the corrupted fraction 11/2 to 1 1/2.
+181|ratios-rates-units|80/1.5|They cover a combined 80 miles in 1.5 hours. Han's speed is 160/3-x; replace the rounded source expression with the exact fraction.
+215|ratios-rates-units|(60-15-10+5)/2+10|15 participating boys imply 10 participating girls. Nonparticipants total 35 with girls exceeding boys by 5; girls total 30.
+217|ratios-rates-units|(8.5*5.4-8.4*4.5)/(.1)|Equal train length gives (v-4.5)*8.4=(v-5.4)*8.5, so v=81 km/h.
+230|ratios-rates-units|100/(50-40)*(50+40)|The faster train gains 10 km per hour and is 100 km ahead in distance traveled, so meeting occurs after 10 hours and combined distance is 900 km.
+246|ratios-rates-units|(300/3)/50|The distance multiplier is six and speed multiplier three, so time doubles.
+271|ratios-rates-units|18*4/3-12|The original amounts are 18 L P and 12 L Q. For ratio 3:4, Q must reach 24 L, requiring 12 L more.
+316|ratios-rates-units|(400+300)/((72-36)/3.6)|To pass completely, relative displacement must equal 700 m. Relative speed is 10 m/s, giving 70 s.
+330|ratios-rates-units|11+57*(51-11)/(57+63)|The 40-floor gap closes at 120 floors/min; the upward elevator rises 19 floors to floor 30.
+339|ratios-rates-units|(3-.075*30)/(.1375-.075)/(30-(3-.075*30)/(.1375-.075))|Tin loses 13.75% and silver 7.5% of apparent weight in water. Solve .1375t+.075(30-t)=3 to get 12 kg tin and 18 kg silver, ratio 2:3.
+347|ratios-rates-units|330*20|The second sound is delayed by 20 seconds beyond the 30-minute emission interval; its travel distance is 330*20=6600 m.
+351|ratios-rates-units|100*8/(10-8)|The 100-meter gap closes at relative speed 2 km/h. The thief covers four times the gap, or 400 m.
+359|ratios-rates-units|5*(1+2+4)|The inlet rates are r,2r,4r, so together 7r fill in 5 h; A alone needs 35 h.
+360|ratios-rates-units|1000*(1-4.5/5)|During A's 4.5-minute race, B covers 900 m. A can allow a 100-meter head start.
+362|ratios-rates-units|441-441*4/7/7*5-441*4/7*6/7|There are 252 rented units: 36 one-bedroom and 216 two-bedroom. Total one-bedroom count is 180, so total two-bedroom count is 261 and 45 are unrented.
+371|ratios-rates-units|60*(20/1.5)/(32/3)-60|Assume added water has zero cost. The original milk costs 800; at 32/3 per liter, final volume must be 75 L, so add 15 L.
+372|ratios-rates-units|2*(150-200/2)/10|Let the initial speed be v. The times satisfy 150/v-200/(2v)=10, giving v=5 and final speed 10 m/s.
+399|ratios-rates-units|20*(26-14)/(26+14)|Equal times give 26/(20+c)=14/(20-c), hence current speed c=6 km/h.
+414|ratios-rates-units|8|6/(v+4)+6/(v-4)=2, with v>4. It reduces to v^2-6v-16=0, whose admissible root is 8.
+460|ratios-rates-units|360/(4+5*.5+6*.25)*6|Each ratio group has value 8 rupees. There are 45 groups and therefore 270 quarter-rupee coins.
+777|ratios-rates-units|(1-30/37.5)*45|A supplies 4/5 of a tank in 30 minutes; B must supply 1/5, requiring 9 minutes.
+792|ratios-rates-units|(2*15+3*20)/5|Use the weighted unit cost, not the unweighted average: 90/5=18 per kg.
+974|ratios-rates-units|(6.3-5.5)/(7.2-6.3)|If x kg at 7.20 is mixed with y kg at 5.50, 7.2x+5.5y=6.3(x+y). Thus x/y=.8/.9=8/9.
+495|ratios-rates-units|5*(28-7)/7|In five minutes the cyclist gains 21*5/60 miles; the hiker needs 15 minutes to close that gap once the cyclist stops.
+501|ratios-rates-units|11/(1/(2*30)+1/(2*25))|Equal distances, not equal times: D/60+D/50=11, giving D=300 km.
+592|ratios-rates-units|2*8|Halving speed on the same distance doubles time. If t2=2t1 and t2-t1=8, the second half takes 16 hours.
+642|ratios-rates-units|(264-20*4.3)/30|First 20 overs produce 86 runs; 178 in 30 overs requires 5.933..., approximately 5.93 runs per over.
+736|ratios-rates-units|47520/(60*2*pi*.21)|Speed is 792 m/min and circumference .42pi m, giving about 600 revolutions per minute.
+746|ratios-rates-units|60*(1-45/54)|Each elapsed hour includes only 45/54 hour of driving, leaving 10 minutes stopped.
+827|ratios-rates-units|11|Let both advances be P. Equal daily rates require (P+y)/30=(P-y)/25. Therefore P=11y.
+899|ratios-rates-units|240/(1/6-1/8)|Convert 4 L/min to 240 L/h. The inlet reduces the emptying rate by V/6-V/8, so V=5760 L.
+568|ratios-rates-units|(1-5*(1/10+1/20))*20|Both pipes supply three quarters of a tank in five minutes; B needs five more minutes for the remaining quarter.
+1|linear-functions|5|The line is y=x/5. Its point with y=1 has x=5; its point with x=5 has y=1, so the required pair is (5,1).
+2381|linear-functions|-3|For nonzero intercepts, their product is -b^2/m, which is positive only if m<0. Among the candidate points, only (-1,2) makes a negative slope with (-2,5).
+5293|linear-functions|(3-1)/(5-1)|An equal-area cut through a rectangle passes through its center (5,3). With (1,1), its slope is (3-1)/(5-1)=1/2.
+10493|linear-functions|-1|The slope through (-2,3) and (5,-4) is -1. Substitution gives intercept 1, so the equation is y=-x+1.
+13251|linear-functions|4/5|The slope equation is k=(k+4)/6, so 5k=4 and k=4/5.
+24204|linear-functions|1/3|The rectangle center is (3,1). A central dividing line through the origin has slope 1/3.
+28056|linear-functions|2|The slope through (-13,-18) and (17,22) is 4/3. Its equation gives 2+18=(4/3)(x+13), hence x=2.
+30271|linear-functions|56|For Q, the second-quadrant segment lies between (-25,0) and (0,15). A perpendicular has slope -5/3, and its integer intercept is strictly between -125/3 and 15: -41 through 14, giving 56 lines.
+30876|linear-functions|4|The line has slope 1/2 and intercept -2. Set y=0 in y=x/2-2 to get x=4.
+32009|linear-functions|30/2-30/6|The x-intercepts are 40-30/2 and 40-30/6. Their absolute difference is 10.
+32296|linear-functions|1/2|A perpendicular to slope -2 has slope 1/2. The required intercept is -7, giving y=x/2-7.
+35578|linear-functions|6|The original intercepts are 4 and 3. The new intercepts are 2 and 6, so x/2+y/6=1, or 3x+y=6.
+40131|linear-functions|1200+(1500-1200)/3*7|The constant annual increase is 100 students. Seven years after 2003 the model gives 1900 students.
+46094|linear-functions|40|Substitute (-12,-39) into y=(3/4)x+b to obtain b=-30. Setting y=0 gives x=40 and intersection (40,0).
+21252|linear-functions|1600|The cost increase of 4500 over 15000 km gives m=.3; b=4600-.3*10000=1600. Preserve the pair m=.3,b=1600. Remove the unused fifth choice None.
+234|linear-equations-one-variable|(6*24.5-109.5)/15|The six prices are 24.5,24.5-x,...,24.5-5x. Their sum is 147-15x=109.5, giving x=2.5.
+1561|linear-equations-one-variable|7|Expand 2(3x-5)+8=3(3x-6)-5: 6x-2=9x-23, hence x=7.
+2439|linear-equations-one-variable|30/1.2|If unit cost is c, selling price is 1.2c. The equality 30c=1.2cx gives x=25.
+3017|linear-equations-one-variable|3750|The net altitude change is -3000, so the correct equation is x-3000=x/5, whose solution is 3750. Preserve the equation choices.
+3835|linear-equations-one-variable|180*20/(180-120)|The workload equality is 120X=180(X-20), which gives X=60 workers.
+13600|linear-equations-one-variable|8*80+64*100|The 64 larger lots form 8/9 of all lots, so there are 72 total and 8 smaller lots. Total frontage is 8*80+64*100=7040 feet.
+13732|linear-equations-one-variable|.1/(.6-.1)|Solute mass balance gives .6x=.1(1+x), hence .5x=.1 and x=.2 liter.
+16444|linear-equations-one-variable|7*60/(30-2)|Equate 30X to 420+2X. The 28 seconds saved per floor must offset the 420-second wait, giving 15 floors.
+19772|linear-equations-one-variable|60.5|Geoff has 60 votes and needs 3571 additional votes, for 3631 votes. More than 60.5% of 6000 means more than 3630, so 3631 is the least winning integer count. Other candidate thresholds do not match this count.
+43267|linear-equations-one-variable|17|The first equation gives x=6. In -x+k=2x-1, substituting x=6 yields k=17.
+52773|linear-equations-one-variable|1.5/3*60-10-1.5/20*60|Walking takes 30 minutes, so train commuting takes 20 minutes. The ride itself takes 4.5 minutes; added access/wait time is 15.5 minutes.
+15293|linear-inequalities|7|The least possible y-x is 3-2=1 and greatest is 5-(-2)=7. The full attainable range is [1,7].
+19633|linear-inequalities|3|Since x,y>=0 and x+y<=1, 2x+3y<=3(x+y)<=3. Equality is attained at x=0,y=1.
+19764|linear-inequalities|2|After y employment years, age is x+y and service is y. Eligibility requires x+2y>=66, with boundary x+2y=66.
+20727|linear-inequalities|-1|The bounds on x are x>2-3y and x<=3-2y. For a shared x to exist, 2-3y<3-2y, giving y>-1.
+21913|linear-inequalities|4|The least integer x is 7. Since x+y<=10, y<=3 then, giving x-y>=4. Larger x only increases the bound.
+29538|linear-inequalities|5|Solving gives -4/3<x<4. The integers -1,0,1,2,3 are the five allowed values.
+36843|linear-inequalities|28|Here x+y=2x+7 with 5<x<11, so 17<x+y<29. The greatest attainable integer is 28, at x=10.5.
+4289|linear-systems|1|The lines are y=-x+1 and y=5x-5. Equating them gives x=1,y=0 and sum 1.
+446|circles|1|The chord length is sqrt(4^2+3^2)=5. The area gives radius 5/2, so the chord is a diameter. Its midpoint is (1,1.5).
+1175|circles|28|The circle is (x-2)^2+(y-2)^2=36. Expanding gives x^2+y^2-4x-4y=28.
+2025|circles|6|The interior point is distance 5 from the center and exterior point distance 7. Thus 5<r<7; the only integer is 6.
+8305|circles|(2*360/8-73)/360|The mean of the eight equally spaced angles is 45 degrees. First and last average to 45, so the smallest is 17 degrees and its area fraction is 17/360.
+22928|circles|4|Half-chord lengths are 16 and 12. Their distances from the center are sqrt(400-256)=12 and sqrt(400-144)=16. Chords on the same or opposite sides give separations 4 or 28 cm; preserve the paired answer.
+49|area-volume|(343.98/.13/6)**(3/2)|The rate is .13 rupees/cm^2. Total area is 2646 cm^2, so side length is sqrt(2646/6)=21 cm and volume 9261 cm^3.
+449|area-volume|15|Let width w. Since 2(l+w)=5w, l=1.5w. The area gives 1.5w^2=150, so w=10 and l=15.
+520|area-volume|(64-32)/2|The difference between the two enlarged areas is 4(l+w)+32=64. Thus l+w=8 and the photo perimeter is 16 inches.
+537|area-volume|(64-2*7)/64|The uncovered fraction is (64-14)/64=25/32. Keep the distinction between covered and uncovered area.
+540|area-volume|343*6-6*7**2|Each unit cube has surface area 6, while the large cube has area 6*49. The difference is 2058-294=1764.
+627|area-volume|sqrt(91*39*21)|If side lengths are a,b,c, multiplying ab=91,ac=39,bc=21 gives (abc)^2=74529. The positive volume is 273.
+644|area-volume|100*((7**3*6)/(6*7**2)-1)|The sum of small-cube surface areas is seven times the original area, so the percentage increase is 600%, not 700%.
+825|area-volume|((75+5)*(40+5)-75*40)*2|The path increases each full dimension by twice 2.5 m. Its area is 600 m^2 and construction cost is 1200. Adapt the question to ask only cost because the original choices are costs.
+860|area-volume|20+2*390/20|The unpainted side is 20 ft, so each perpendicular side is 19.5 ft. Three-side fencing is 20+2*19.5=59 ft.
+890|area-volume|3|Two perpendicular centered roads of common width w leave lawn area (60-w)(40-w). Setting this equal to 2109 gives w=3 or 97; only 3 fits within the park. State that the roads are perpendicular and have equal width.
+962|area-volume|(25-8)*(20-8)|The 4-meter strip on both sides reduces each dimension by 8. The rug area is 17*12=204 m^2.
+1019|area-volume|1800/(2*3)|Area scales by the product of the two dimension multipliers, six. The original area is 300 square meters.
+1104|area-volume|((68*15/60)**2-(52*15/60)**2)/2|The diagonal is 13 m and the sum of adjacent sides is 17 m. Since (l+w)^2-(l^2+w^2)=2lw, area is (289-169)/2=60.
+1221|area-volume|((206/2+23)/2)*((206/2-23)/2)|The dimensions sum to 103 and differ by 23, so they are 63 and 40 meters; their product is 2520.
+1373|area-volume|2*(600/6)**2|The jogger covers 6000 m in 30 min; ten laps give perimeter 600 m. With l=2w, 6w=600; area is 200*100=20000 m^2.
+1374|area-volume|(28/2)*2.5|Use A=rs where s is semiperimeter and r is inradius; provide this formula in the prompt. A=2.5*14=35 cm^2. Remove the duplicate correct option and supply a distinct wrong option.
+1386|area-volume|12*6*4|A constant painting rate gives ac:bc:ab=8:4:12. With a=12, b=6 and c=4; volume is 288 m^3.
+1530|area-volume|40|Let side s>0. Then s^2=8s+20, so (s-10)(s+2)=0. The positive side is 10 and perimeter 40.
+1599|area-volume|(3/5)**2|Both corresponding dimensions scale by 3/5. Multiplying gives an area ratio of 9/25.
+1793|area-volume|sqrt((48/4)**2+(20/4)**2)*sqrt(2)|The two areas are 144 and 25; their sum is 169. The new square has side 13, hence diagonal 13sqrt(2). Adapt the source question to ask only the diagonal.
+1941|area-volume|38|The side satisfies s^2=8s+14.25. Its positive root is 9.5, so the perimeter is 38.
+2044|area-volume|10*(30+1200/30+sqrt(30**2+(1200/30)**2))|The rectangle is 30 by 40 meters, so its diagonal is 50. Fence length is 30+40+50=120 m, costing 1200.
+2089|area-volume|((10-6)*4/2)/((14-2)*12/2)|The large triangle area is 72 and the small one 8, giving fraction 1/9.
+2279|area-volume|sqrt(13**2+10**2)|The dimensions satisfy w(w-3)=130, giving w=13,l=10. The diagonal is sqrt(269), between 16 and 17.
+2370|area-volume|2*(75+50)*.5|With sides 3k and 2k, 6k^2=3750 gives k=25. Perimeter is 250 m; at .5 rupees per meter cost is 125.
+2670|area-volume|100*(.85*1.4-1)|The area multiplier is .85*1.4=1.19, so area increases by 19%.
+2845|area-volume|sqrt(460/1.15)|With length 1.15w, the area is 1.15w^2=460. The positive width is 20 m.
+2913|area-volume|18*7/2|The perpendicular diagonals have lengths 18 and 7. Rhombus area is half their product, 63.
+2960|area-volume|100*(1.05*.96-1)|The computed area multiplier is 1.05*.96=1.008, an overestimate of .8%.
+3127|area-volume|100*100/(2*(10*10+10*45+10*45))|Each new solid is 10 by 10 by 45 cm. Only one 100-cm^2 cut face is unpainted; total area is 2000 cm^2, so 5% is unpainted.
+3213|area-volume|4*sqrt(5*32*10)|The square area is 1600 cm^2, side 40 cm and perimeter 160 cm. Remove one duplicate incorrect choice.
+3465|area-volume|8|If short side is s, the other side is 21-s. The equation s(21-s)=104 has roots 8 and 13; the shorter side is 8.
+3557|area-volume|(4-(-4))*(7-2)/2|Use the vertical segment of length 8 as base and horizontal distance 5 as height; area is 20.
+3639|area-volume|1/80|Let l=4k,w=3k. The area gives 12k^2=4800, so k=20,l=80,w=60. The ratio w/area=60/4800=1/80.
+3802|area-volume|(6804/(6*42))**(1/3)|Width w gives height 6w and length 42w. Thus volume is 252w^3=6804, so w=3 m.

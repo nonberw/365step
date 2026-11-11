@@ -1,0 +1,698 @@
+{
+  "desertification": {
+    "file": "WNL What is world's-adv.txt",
+    "sha256": "53af42c764e4b4ceb3df80186dba30320e9b48d3eb271e8ec959999cf3d68a2f"
+  },
+  "liberalization": {
+    "file": "Bolivia-adv.txt",
+    "sha256": "deba9a3bbda37c4e878b583851350d1deedd4578ce59efc78c251176b4a61390"
+  },
+  "bioluminescent": {
+    "file": "WNL Ten ideas-adv.txt",
+    "sha256": "eb76bca0ee8bc210e28e4c4894680a6bc431af33c873071ae0cbd98a37e4c0b3"
+  },
+  "conversational": {
+    "file": "WNL Love hormonw-adv.txt",
+    "sha256": "b115f4aa189a59b62f8206a2a7af578773198479861fac9dfcae234a02b68791"
+  },
+  "implausibility": {
+    "file": "WNL Mars-adv.txt",
+    "sha256": "55170a3de7a29e8b2d78eb95ca67a1b8a368012ab6f9de72f6cb9a36d663c509"
+  },
+  "reconnaissance": {
+    "file": "Arctic mapping-adv.txt",
+    "sha256": "62bb98121aa0c31111703def8eb06dfb2b2d4020d6138b4c95d8178009243394"
+  },
+  "understatement": {
+    "file": "WNL Icelandic names-adv.txt",
+    "sha256": "3cc90dcc5dc496c862ade6b20e3ea097230ed6dc1cd4f991dbdcf4be16f019e3"
+  },
+  "opportunities": {
+    "file": "WNL India's rich-adv.txt",
+    "sha256": "95405dba18593e0a834c5638a506600d45325d6e5ae62957c80a1301e9b9c5f9"
+  },
+  "acceptability": {
+    "file": "Violence-adv.txt",
+    "sha256": "b31213e0bd75abb5e46e1aa85ab4d368b415c705ab73ee97370caee5686908d9"
+  },
+  "ambitiousness": {
+    "file": "WNL Mars-adv.txt",
+    "sha256": "d5dc8a8f4d48bf48953a65b56c0a52bcbf4c03b28815da2670bf7052443a1621"
+  },
+  "commercialism": {
+    "file": "Everest-adv.txt",
+    "sha256": "98654c05f3620ea96903c9d3eb6876500168ceb2ec09e598e132588607396c33"
+  },
+  "companionship": {
+    "file": "WNL are you a bad boyfriend-adv.txt",
+    "sha256": "891150f4c500de5476b3084d52f26ea9c6c40f9550e5ada9233f98589e4feeb6"
+  },
+  "disseminating": {
+    "file": "Kate and William-adv.txt",
+    "sha256": "18fe54a2cd3c24fa98d2daee5666a3f6425662a63b284ea011da664a639b91e3"
+  },
+  "invincibility": {
+    "file": "Gangs-adv.txt",
+    "sha256": "cda44ad10eda61c5ac2a328d4602441b30d17f6eddaefadfc780429b44287c3b"
+  },
+  "marginalizing": {
+    "file": "Greeks and drugs-adv.txt",
+    "sha256": "6afb21c81ca721aacc719b0527fe720e52d31415ae974ce27f951d118765472c"
+  },
+  "misunderstand": {
+    "file": "WNL Why are people so wrong-adv.txt",
+    "sha256": "d3a583d30b9b2d7beffd9e7a82ebae62a0b78ce2be00175bfb95323c497f1394"
+  },
+  "privatization": {
+    "file": "Thatcher-adv.txt",
+    "sha256": "419a9721d49e3031418201c4cdd03ad7e35bbd0b2c061422a5b35f7bece1b4d7"
+  },
+  "telecommuting": {
+    "file": "WNL Still no flying cars-adv.txt",
+    "sha256": "0e2f92516a4c22c45070d685d5f835687e300412c3d1bb50d7712f66819c5b10"
+  },
+  "alternatives": {
+    "file": "Blackberry-adv.txt",
+    "sha256": "43168a1c4fa728a328b0c8a2721fc481ada26e0df663bc7acbe0d57d8347ea95"
+  },
+  "surveillance": {
+    "file": "NSA 2-adv.txt",
+    "sha256": "c241ab2774ea9350730a290664d41df00fa8690473607026fd302cf21e6756c6"
+  },
+  "achievements": {
+    "file": "Thatcher-adv.txt",
+    "sha256": "a383fd30883fac36c892dba49da033d4b7752fec3f1c1719cb572f2c2286ea13"
+  },
+  "biodiversity": {
+    "file": "WNL Pacific Islanders-adv.txt",
+    "sha256": "9ccec94a703eac22cb6475d7808edf0fdd7b4c285e19292e8e3057ec3fecef77"
+  },
+  "catastrophic": {
+    "file": "WNL Will drones-adv.txt",
+    "sha256": "d1be68fffc0e09c89294ac6a7ab16d8e1e44c1dd76a8b485cdb160fb151c5be6"
+  },
+  "canonization": {
+    "file": "Pope-adv.txt",
+    "sha256": "927058d4f6bee6dac7e4d18df74b1d7083125950a8d668fb32582eb64e69fc1a"
+  },
+  "considerable": {
+    "file": "WNL In flight-adv.txt",
+    "sha256": "c9d3294b2911529b188bea7d0bd2d03c5393926dbfb1884e2e21c2a9429cff95"
+  },
+  "longstanding": {
+    "file": "WNL Icebucket challenge-adv.txt",
+    "sha256": "f3fb49e0aae605e0521d977e57b9831f7977b5f5fafc145152c7fb0169ca5f2c"
+  },
+  "shortcomings": {
+    "file": "WNL World Cup-adv.txt",
+    "sha256": "b5a36575b6a7c21938b1870187749cc5b76596b42f2ea2b28d344104e4b011d3"
+  },
+  "anthropology": {
+    "file": "WNL Castaway-adv.txt",
+    "sha256": "32f6d9754c6d8483b3642954f0c8cfc9dbe9d2f12a2dfc7640179fd4263acb3b"
+  },
+  "availability": {
+    "file": "climate change -adv.txt",
+    "sha256": "a2793f699fca9642e07b883403c87d6aafa871e87490d255b05e0c0b205d3757"
+  },
+  "bewilderment": {
+    "file": "Pope-adv.txt",
+    "sha256": "a16537436505e007b26ce77951438ef4291a7460b7d4b872c4daece425fe1010"
+  },
+  "breathtaking": {
+    "file": "WNL Barack Obama-adv.txt",
+    "sha256": "1d0a0187369fe0d75d3f1c2651e17afc7ce0204545446cf95aabd9be74dac1aa"
+  },
+  "demographics": {
+    "file": "WNL Shops-adv.txt",
+    "sha256": "5f12b0c63af5d39a6209dc3c1bc868a8e2dc15af4c1b029b535f94a122de0d0e"
+  },
+  "desalination": {
+    "file": "WNL Morocco-adv.txt",
+    "sha256": "49ef93d8d47b6dd5a759b098f12199b943b841a0e847df0feacf639101aca443"
+  },
+  "echolocation": {
+    "file": "WNL Ships noise-adv.txt",
+    "sha256": "14975329f8907a1848bcc18e0aeda50ae396508f7763b0ad71ea03f1a7420469"
+  },
+  "enthusiastic": {
+    "file": "WNL Five jobs-adv.txt",
+    "sha256": "ae5686a6f7d0f087ad458ac21b0406e32e97c7a7970bb9bd80e66177124592cd"
+  },
+  "insufficient": {
+    "file": "Pope-adv.txt",
+    "sha256": "2b4006aa66d02c701b93e82e8a293e860da052db830145d8cc03f2a547e62062"
+  },
+  "interminable": {
+    "file": "WNL Use of e-cig-adv.txt",
+    "sha256": "fc437d29aa09613f7c68c9b4fbc5cb792ae383fcfd395cc40cf104caf2a32280"
+  },
+  "measurements": {
+    "file": "WNL Neuroscientists-adv.txt",
+    "sha256": "91a61f65f77d39da194eb44bcf51d7a37d161ba1befe121c1cf5bf95d9c62aeb"
+  },
+  "metaphorical": {
+    "file": "Japan-adv.txt",
+    "sha256": "5d378cd47f27eabfc258f4b7791660790ba7909318b0cbbe34814b94d39affe7"
+  },
+  "mistreatment": {
+    "file": "Kenya-adv.txt",
+    "sha256": "2afe1fc8a652ddfb65844c21e8d11e532feb606d8c5f44263ef5977fdd107c8c"
+  },
+  "multilingual": {
+    "file": "WNL I confused my numbers-adv.txt",
+    "sha256": "8044e7f26d6c8bd1d750eeed96eceff281c906340a39ab4dda6cdb8cb95f6120"
+  },
+  "naturalistic": {
+    "file": "WNL SeaWorld-adv.txt",
+    "sha256": "d270d54bb6464baea6a65d289ae5c58823bb9d2f79b39c5e8d21a4bd378088c4"
+  },
+  "nomenclature": {
+    "file": "WNL Four new elements-adv.txt",
+    "sha256": "6ab841c9db9808afdb5b6b023907049dc0350482a0f3e38fcb0d0b98f5ea7a85"
+  },
+  "overreacting": {
+    "file": "WNL Experience-adv.txt",
+    "sha256": "7718ab693c04a65a52f330dcb94fd535f8e13841b41cc8c40404313b238bd0ac"
+  },
+  "philanthropy": {
+    "file": "Arctic mapping-adv.txt",
+    "sha256": "fbbbaaba90d7f73dfb53a83ca161c6ae21b0e8060ada401e56672eea1cb883c9"
+  },
+  "unapologetic": {
+    "file": "WNL Spain Robin Hood-adv.txt",
+    "sha256": "981a8fa1ab96c7b7f62f5074570b6165c3e7b4d17605fa19e8ed8d6c40ac836f"
+  },
+  "undocumented": {
+    "file": "WNL Who can stop Trump-adv.txt",
+    "sha256": "ffbf7f5285b753f2c854b2c5e77929746a0db622840ee77a27cc3122b98cb391"
+  },
+  "unpopularity": {
+    "file": "Thatcher-adv.txt",
+    "sha256": "acde02099d5a734f94ec9b93f6749d96429c662ee1bb4c860130581becf9265b"
+  },
+  "unquestioned": {
+    "file": "WNL JMW Turner-adv.txt",
+    "sha256": "e4b968777bd5642477bfae1524b8b61866dd03b1f4e63a570e136c26ab3dcc53"
+  },
+  "unremarkable": {
+    "file": "Thatcher-adv.txt",
+    "sha256": "7e0ee4d494bdaa8ac640bfd3565c71806f0126ab6470031b907cb0c154fddaaa"
+  },
+  "controversy": {
+    "file": "WNL Organic Food-adv.txt",
+    "sha256": "870a5d1ad8189a92b07b0a043d3b1ef6cac9575e38bec21f9557cfbeebe8acec"
+  },
+  "enforcement": {
+    "file": "WNL Criminal Links-adv.txt",
+    "sha256": "c0bb9d9451bd6617891047122d22fb3ca5b7830a318c97c8d4829840318c1caa"
+  },
+  "unspecified": {
+    "file": "WNL Star Wars-adv.txt",
+    "sha256": "b5c055af11cb292a79042c5d22e3a8d5a9130a2cfe01f2a2fc16ef57aca2cd1c"
+  },
+  "consultancy": {
+    "file": "WNL India's rich-adv.txt",
+    "sha256": "39887584df59d2057bf32ff9f9b419a892386a5dd1c489e91c3f53b387b95103"
+  },
+  "hospitality": {
+    "file": "WNL Waiters-adv.txt",
+    "sha256": "3d5d71ecb69967e1104d95c5771a15fb121f3c816568bfd1f596b101083c3ce0"
+  },
+  "spaceflight": {
+    "file": "WNL NASA Astronaut-adv.txt",
+    "sha256": "763d4b3dc9e5d9f2b8a66821796bc46dd17c768febf85cdf5f64999ba17253ba"
+  },
+  "archaeology": {
+    "file": "Richard III-adv.txt",
+    "sha256": "8becf98d58141e189a0dcc41bc04f23919ca719f694c613c7b183fd5a7136e81"
+  },
+  "credibility": {
+    "file": "WNL Are MOOCs the future-adv.txt",
+    "sha256": "82866924f471d5c33c3ebb6d94f4d2f41560ff2614b9050ba2e70852343c61c2"
+  },
+  "multiracial": {
+    "file": "Anita-adv.txt",
+    "sha256": "a11f4c2dbf11af77519cd3c805efd4ae23c4a36d792b8552349b9999b7cf9558"
+  },
+  "neighbourly": {
+    "file": "WNL Billionaires-adv.txt",
+    "sha256": "efdd44305058c59f52b9cbd0c19df354d76b67350818fdebb3b74b5b4d619bd3"
+  },
+  "persecution": {
+    "file": "WNL Brown bears-adv.txt",
+    "sha256": "f4c99297f38b4913381b493040576a557c91e32f34d5d84397e2df9476344ca3"
+  },
+  "supervision": {
+    "file": "Swedish prisons-adv.txt",
+    "sha256": "bc784fd540ee008e5f4877079c21f22af91700f9182513106c5fe226b1cb23ed"
+  },
+  "abstentions": {
+    "file": "Organs-adv.txt",
+    "sha256": "7fa7f47f5c63cfca730c96e99a8a9af0100ec162855081b10f636ccb1204c716"
+  },
+  "acquiescing": {
+    "file": "WNL Cuba-adv.txt",
+    "sha256": "39f3bf946546ff853f28f114660dca76e756e58438ffa11d169c5e3b29eca71e"
+  },
+  "aquaculture": {
+    "file": "Liberia-adv.txt",
+    "sha256": "2ac7cb04364338733c02e9fd766bb5c7dc930c01b2764c5ef448ed71dce27d3d"
+  },
+  "cartography": {
+    "file": "Arctic mapping-adv.txt",
+    "sha256": "61d15d48386f4cefe873bf2d1e9d90a0f211bebb81955f3e651495028f2abb45"
+  },
+  "criminology": {
+    "file": "Murderers beware-adv.txt",
+    "sha256": "adf92254b042966d0026178043be43c8ed9f146d2b077f7d1655007dd93c05c1"
+  },
+  "culpability": {
+    "file": "Hillsborough-adv.txt",
+    "sha256": "92ea2c6dadb3491f69de40b8c3f6b6ba3ed68f251b3931a6f9e7d9e92871676b"
+  },
+  "destitution": {
+    "file": "Greeks and drugs-adv.txt",
+    "sha256": "625974c8f24aadfd52a90e5dc9b71deeeca3914daa6e2d93764a9cd89b5b9462"
+  },
+  "detrimental": {
+    "file": "Bolivia-adv.txt",
+    "sha256": "cc6d12029cf0bf85ac5b0b428442b379604d7c79df997aa3c7dcacef2adc2708"
+  },
+  "entitlement": {
+    "file": "WNL Japan-adv.txt",
+    "sha256": "c5c93277448b4ac79e99d2fc30dd0ce962d898a33f65781622f2ba2a5263e514"
+  },
+  "foreseeable": {
+    "file": "WNL Fifth of young adults-adv.txt",
+    "sha256": "663842e8dce9e1f727c57ec909f2a8cf00e167e78907986cc724c5d0ffc7255f"
+  },
+  "hydroponics": {
+    "file": "WNL Ten ideas-adv.txt",
+    "sha256": "eebe515ad87b67028ea40dbc854bd87053c7386c7efee046950bdbbadba2e1e0"
+  },
+  "incredulity": {
+    "file": "Richard III-adv.txt",
+    "sha256": "9064bba0b0e221662bfb55fae08a55f800545ce1d1d9c4451ea6073095b5e2a5"
+  },
+  "inspections": {
+    "file": "WNL Five jobs-adv.txt",
+    "sha256": "b54b33f74d60b0cb2ebafa66ba14538fec36ee1f328278565239c856bc6d5edd"
+  },
+  "instinctive": {
+    "file": "WNL Shops-adv.txt",
+    "sha256": "ed8404818492d4cd043fb92a2cf6457daeb52bbf87d12494a7e7e5c033f83e43"
+  },
+  "irrefutable": {
+    "file": "Gorillas and oil-adv.txt",
+    "sha256": "e8c463f7afae7c0ac0b02a51554a7298208e7d2ea358bf831c060978f8c71316"
+  },
+  "mindfulness": {
+    "file": "WNL Coloring Books-adv.txt",
+    "sha256": "dce9a337def39d6e969f6e7222ba3f5ad5d36465a86bfa8ff8053adbcd6d37c1"
+  },
+  "orthography": {
+    "file": "WNL Icelandic names-adv.txt",
+    "sha256": "1a73c7a4f8a68ecdac15bbe0f0df10cc933f27a3d80d5e439448064de10c4712"
+  },
+  "overstating": {
+    "file": "WNL Why are people so wrong-adv.txt",
+    "sha256": "26c15144f8e3ab92105ec27fe2149e997020c5c9870d54e27b170325559e8434"
+  },
+  "painstaking": {
+    "file": "WNL Four new elements-adv.txt",
+    "sha256": "df9faf00022e90eb5bf80d7414c15abe6ec1376b78794b3364d6b45e82b0d1f6"
+  },
+  "paradoxical": {
+    "file": "WNL The last-adv.txt",
+    "sha256": "45f4149ba867952418ce00a788dccaf5829e35c41cd16ee09cb9ad9d7753a171"
+  },
+  "predeceased": {
+    "file": "WNL Use of e-cig-adv.txt",
+    "sha256": "715d57468f86a3a5d10bbf948a9a171d77ac219b21a3911e832cd6ad9e741052"
+  },
+  "predicament": {
+    "file": "WNL Kiruna-adv.txt",
+    "sha256": "3a7f5dfb934957d3831cb9658ee9daf34179d3d67863300e21f1d810e78cec6c"
+  },
+  "predictable": {
+    "file": "Old age-adv.txt",
+    "sha256": "6395d179aa7d5fffd7b1d0a1615220d929903127c7ae373e2bad3867fad65a86"
+  },
+  "prescribing": {
+    "file": "Superbugs-adv.txt",
+    "sha256": "c926249050be0dade1acc65f2ecc0974357acc34472062bbf2e1cf93564f60dc"
+  },
+  "prohibitive": {
+    "file": "WNL Billionaires-adv.txt",
+    "sha256": "a649c760d577a7b8b56c5ca6ca0750e26f37729ced4d4c2d7bb103e19c83fad8"
+  },
+  "recruitment": {
+    "file": "Gangs-adv.txt",
+    "sha256": "75a71a9cf98fe805b94c6c5f2fc3b50fbd25f319cb01513d8885a8e31f568a95"
+  },
+  "refurbished": {
+    "file": "Brazil-adv.txt",
+    "sha256": "671b9327210f09de52a12dda4b825f8933bf33eee2672a8a9b4443b3e52dadf6"
+  },
+  "resemblance": {
+    "file": "WNL Making a killing-adv.txt",
+    "sha256": "55b5c63c075fdd16f99ad5b12e6665e23bcbede78aba5766c1600eb3b605402a"
+  },
+  "sponsorship": {
+    "file": "Insects-adv.txt",
+    "sha256": "23a9f73a116028766924629a15c3f2099e625adb926c4067e886c3d7f0a8e501"
+  },
+  "springiness": {
+    "file": "WNL Ten ideas-adv.txt",
+    "sha256": "c2a93553039908aa47f6453373306406f75c9928e592c37618522f9215ea6926"
+  },
+  "transaction": {
+    "file": "Crowdfunding-adv.txt",
+    "sha256": "c8021db74c06e9dc7b0eee9c0fd9eef0c179c1b9b9a48e8bef69849565503f6e"
+  },
+  "unthinkable": {
+    "file": "Superbugs-adv.txt",
+    "sha256": "d5e7106e5be522af19c4d8e0478327a77008d5d159b1c2ef03dcc355d4b846a7"
+  },
+  "indigenous": {
+    "file": "WNL Kiruna-adv.txt",
+    "sha256": "ea1dda7af944132c81bb67e5e16f4ee2d190694d14d50262f73ed35bc45232ba"
+  },
+  "popularity": {
+    "file": "Facebook deserted by millions of users-adv.txt",
+    "sha256": "57b0263b246f8ac5fdf6154d0567220a80b468ca77ac1f1b3461977501ca63d9"
+  },
+  "beneficial": {
+    "file": "WNL Loneliness-adv.txt",
+    "sha256": "dfa1047b115e089714f2193f39f90b58f2666385d23edb164c2d570baf4bb246"
+  },
+  "mainstream": {
+    "file": "Thatcher-adv.txt",
+    "sha256": "44f4720e3090b698f99a7863290d775f5c5af4813295543ff9f9af202a96feb1"
+  },
+  "sufficient": {
+    "file": "WNL Four new elements-adv.txt",
+    "sha256": "7dd79b30a3bc8466e27c1df63d76b9a4bcbcca5f5e6ead0ff751c71f8c950d9b"
+  },
+  "referendum": {
+    "file": "WNL Scottish referendum-adv.txt",
+    "sha256": "47ce75da0e87b9b4f009453d4aeee72ecf9286ef7143f0ea78d9a6e5e71ad16f"
+  },
+  "networking": {
+    "file": "NSA scandal-adv.txt",
+    "sha256": "4b559e08f5ceffb09e9de59e3c760819db789dee75a1cbf97ff286629444c64b"
+  },
+  "propaganda": {
+    "file": "Hillsborough-adv.txt",
+    "sha256": "14d9e005e62647c8563ae2275204510679afeb0908b3ca6fd037d1b2eea86ed5"
+  },
+  "affordable": {
+    "file": "WNL The Greek island-adv.txt",
+    "sha256": "9cff590c08c3b281af7f9d5e8f12e75eeeb35702648806af531a3c9772ec7a57"
+  },
+  "disability": {
+    "file": "Life expectancy-adv.txt",
+    "sha256": "693ef351852b3e8532bbf2cac28fb244a12e03d96fe26a75d4421718395da91f"
+  },
+  "fraudulent": {
+    "file": "WNL Scarlett-adv.txt",
+    "sha256": "72a4e54960b797bc0813566ecb84eacc55d8a6e05f3fd214e50a500a6b1dd8cf"
+  },
+  "insurgency": {
+    "file": "Kashmir-adv.txt",
+    "sha256": "22b38f657be826e753c4c9f76857ee140a6bf94a9d00e8c1d8f2b340b057af7a"
+  },
+  "passionate": {
+    "file": "WNL How downtown Abbey-adv.txt",
+    "sha256": "3c7cc4efcd744332f2a72935bc79a98efa130ee18f6deabf1b2546b46a3cbdbf"
+  },
+  "regulatory": {
+    "file": "WNL Organic Food-adv.txt",
+    "sha256": "2422eb089561dedd22d00146f42fcac5a82247a808c96c1ca45cd18872ace5b5"
+  },
+  "commentary": {
+    "file": "Prince Harry-adv.txt",
+    "sha256": "1165be0364a63dad21ddbaa1b299c822111dce394ece588d9e999bc9f573df16"
+  },
+  "complacent": {
+    "file": "WNL Making a killing-adv.txt",
+    "sha256": "19e4d3d9d4d7de2f53682e2dbd6d46a5ce35c3a6930b5253a9ced660ae093320"
+  },
+  "escalating": {
+    "file": "WNL Nigerian low tech-adv.txt",
+    "sha256": "2bfdcddca5ac34756798b22f1b35ca3427378c0aa9a987dd8b71658c289d4b99"
+  },
+  "nutritious": {
+    "file": "WNL Organic Food-adv.txt",
+    "sha256": "e33828ca1c5a3d783c2765f19cc7c62dfa7e0c9a3730abe0e3c05dc746a08f78"
+  },
+  "prototypes": {
+    "file": "WNL Google car-adv.txt",
+    "sha256": "3e519fd0ffe59c636d167fb2ad8a33034cf4e079968be36e4850dfafda3c6108"
+  },
+  "speechless": {
+    "file": "Pope-adv.txt",
+    "sha256": "98f8c8c3d6e59287661869e04bebfd8b439145ea9f0b43f3d4db467b8f7ce58e"
+  },
+  "unbearable": {
+    "file": "WNL Inventions-adv.txt",
+    "sha256": "a2ee79037db28ea0b9ae26203d20a0ea8e5fb622013fd5c8aa6fcd01c76fb7ff"
+  },
+  "worthwhile": {
+    "file": "WNL Icebucket challenge-adv.txt",
+    "sha256": "5f84024f9c5be7300c3ba24bb22984b5f275d5e111e0e96ea538bade3abe6e70"
+  },
+  "achievable": {
+    "file": "WNL Five jobs-adv.txt",
+    "sha256": "f4500d9027883f8f23df57252bd4f11382c9e8a52cf29364afa3c65cb0e51186"
+  },
+  "affability": {
+    "file": "WNL Use of e-cig-adv.txt",
+    "sha256": "15079ec4c77bef012665c70ffc053c12b7d5bece6258afeb267c0f9d9d885900"
+  },
+  "biodegrade": {
+    "file": "WNL Glastonbury-adv.txt",
+    "sha256": "aca15eb28920fec96bdacd1699a1f7de774779d783cd7a0a9444b9ee8feedd5d"
+  },
+  "bipartisan": {
+    "file": "US shutdown-adv.txt",
+    "sha256": "126a7c3c183b5a2b27066882838a54a480544fb01375831750342b6900ac6575"
+  },
+  "categorize": {
+    "file": "WNL Shops-adv.txt",
+    "sha256": "1dc2b5446a7d6f4103a627aad3439cc949c8ab3377151a8559df166612bc75f6"
+  },
+  "chronicled": {
+    "file": "WNL Star Wars-adv.txt",
+    "sha256": "a505c91f2b548b845d87bf2a83577e67e9c51df1abc7b0985c8b64ef9aa2e4cf"
+  },
+  "competence": {
+    "file": "Pope-adv.txt",
+    "sha256": "fac5c8d025cf8d444b7268761527f5cef77f51df8f22e7705486d4817481cc92"
+  },
+  "complexity": {
+    "file": "WNL Planet-adv.txt",
+    "sha256": "e6c406a5de5213eda6c245ef11724a482a985dfd72daf64602edcbb43cad8740"
+  },
+  "complicity": {
+    "file": "Nepal-adv.txt",
+    "sha256": "090d65b61657d9df5f960c84927c3c7b2f0af3f1e7d9d532a92403bbbc9f4588"
+  },
+  "curriculum": {
+    "file": "WNL Are MOOCs the future-adv.txt",
+    "sha256": "f4a5ae802760c5da20c0baf72aa96e3504cc304cb9724953cbdcfc39f47c37e6"
+  },
+  "deterrents": {
+    "file": "WNL On the trail-adv.txt",
+    "sha256": "f88c36cf30f79de68792773ef5b741b6cf1abea3207850301aa1fa8fef4d8cf1"
+  },
+  "directives": {
+    "file": "Spain-adv.txt",
+    "sha256": "7edf0756e20ef399b2eb1133968e12cd08525352f00350fb0459ad7ffc22bfd5"
+  },
+  "downgraded": {
+    "file": "WNL First high resolution images-adv.txt",
+    "sha256": "2eeec295f4c3bd37794178b03795fa24e7b42d4ffca6ba1bb7cf0c85c1effea1"
+  },
+  "durability": {
+    "file": "WNL Use of e-cig-adv.txt",
+    "sha256": "cc3fc16c6377676d0f4e266573da404a919db663a4a15f3b837e262e7110a8c4"
+  },
+  "empathetic": {
+    "file": "WNL Loneliness-adv.txt",
+    "sha256": "461e6d0dff81850d7d63bfbff28f58e0cd45943c59248c2e78b93b7e842a20eb"
+  },
+  "exclusives": {
+    "file": "WNL What does Apple-adv.txt",
+    "sha256": "6d30ae1dd630dbd7b29af456fc1118d904bcb67edd2a5f056f307268f2f32b93"
+  },
+  "finalizing": {
+    "file": "WNL EU Pollution-adv.txt",
+    "sha256": "f5956738e139d0765efd976af7ea54877cdbced379968b48f4168f484492eff7"
+  },
+  "globalized": {
+    "file": "WNL Japan-adv.txt",
+    "sha256": "a8044fe7889deab0ea8ac2b0b43b38a2aba9e3bed5f3f59c66051838fdb1dbf7"
+  },
+  "incredible": {
+    "file": "Royal Baby-adv.txt",
+    "sha256": "915b4eb39b3a83f131cb03e9671ecc076a8d861b56f54f56179031f58b22d2d9"
+  },
+  "infallible": {
+    "file": "Lie detector-adv.txt",
+    "sha256": "43cb63e6c8e8640994bd572f77e87df19f3b04e33d9e4311d4d4fdabafbbeaad"
+  },
+  "infraction": {
+    "file": "WNL New Orleans-adv.txt",
+    "sha256": "e06e6ed5ac616885dad0204e981ecb81c26db5b3ede2a06f8e8ae13dc20eb77d"
+  },
+  "invaluable": {
+    "file": "WNL Changing India-adv.txt",
+    "sha256": "07b9bb95333ce58599dd2b3f86186a6685760e3cc13008a6e68e53064d6c9459"
+  },
+  "irrelevant": {
+    "file": "WNL Are MOOCs the future-adv.txt",
+    "sha256": "aec9cb95712778b0359f73499ab0e037e6b602bf136d0435963c065b7049f840"
+  },
+  "likelihood": {
+    "file": "Coal to challenge oil-adv.txt",
+    "sha256": "933323a1c01370f70917d01f41ba8fb6cedfa5904281bf195103b9d939db094e"
+  },
+  "meditative": {
+    "file": "WNL Changing India-adv.txt",
+    "sha256": "7aadf3ec41abdd3e963af523567fa9db383f9897212663b8555176fbabf33043"
+  },
+  "multimedia": {
+    "file": "Spain-adv.txt",
+    "sha256": "0062c69608e1c0cc6e6034170ce1e6a460aaf9fefc1c1aee71fddbf97152cdcc"
+  },
+  "patriotism": {
+    "file": "WNL Man falls-adv.txt",
+    "sha256": "f29337da1c616eb57342a842e0407bb6df03d51935c0e7ec5dd22b59cbf92212"
+  },
+  "patrolling": {
+    "file": "WNL Billionaires-adv.txt",
+    "sha256": "fe1e770c212f0c7897f7213d106b8b448c14c8220ce4581f7a5bf2bd9404b642"
+  },
+  "registries": {
+    "file": "Life expectancy-adv.txt",
+    "sha256": "141d48096dc75589af95f519f8d871f7fc9fbad4be8af0de3ceba9b2d1f97de4"
+  },
+  "scandalous": {
+    "file": "WNL Scarlett-adv.txt",
+    "sha256": "871ee084590f136760aa3f5704d714afeb1c96990e19e46e6869112cd760dbc3"
+  },
+  "exacerbating": {
+    "file": "WNL Glastonbury-adv.txt",
+    "sha256": "aca15eb28920fec96bdacd1699a1f7de774779d783cd7a0a9444b9ee8feedd5d"
+  },
+  "viable": {
+    "file": "WNL New Orleans-adv.txt",
+    "sha256": "089cf890bfca3e318d7143ea00a220b2fa021bcc795375073ad0666f66d6e2cb"
+  },
+  "enduring": {
+    "file": "WNL Kiruna-adv.txt",
+    "sha256": "a5f5e965082e48b2dae9890d8c80b4eec4dc6b0b953c064b5614389052708dfd"
+  },
+  "prevalent": {
+    "file": "Gangs-adv.txt",
+    "sha256": "75a71a9cf98fe805b94c6c5f2fc3b50fbd25f319cb01513d8885a8e31f568a95"
+  },
+  "ubiquitous": {
+    "file": "WNL Scientist-adv.txt",
+    "sha256": "696faab33caed51a5e15090b562c3c3afd11a88fa33c4d0fa5a47adbd6e7d373"
+  },
+  "empirical": {
+    "file": "Life expectancy-adv.txt",
+    "sha256": "829033ed0e96798d1c5c4d724b2ff67893dd31b48fd22ff978a9cdb2f227720b"
+  },
+  "arbitrary": {
+    "file": "Bolivia-adv.txt",
+    "sha256": "38fbadd75f91cc4bcbfaab7434bc6c66e38915b6adc84ba63a6d552594954dec"
+  },
+  "subtle": {
+    "file": "WNL India's rich-adv.txt",
+    "sha256": "39887584df59d2057bf32ff9f9b419a892386a5dd1c489e91c3f53b387b95103"
+  },
+  "pragmatic": {
+    "file": "Lie detector-adv.txt",
+    "sha256": "6629d3e9dbc489d4ee3b0a8d0903ca72963cbbcb1969e120d5a37d624ebd1f4c"
+  },
+  "unprecedented": {
+    "file": "WNL Swarthy caveman-adv.txt",
+    "sha256": "a624e4f12000dbc5c212616bdf36f9f502f4a8b3f0e8fa3ea3bd6317e2e25543"
+  },
+  "rigorous": {
+    "file": "WNL Mars-adv.txt",
+    "sha256": "74382be3771912a8687d93f013e2c98162c21c5a0a22e2b650045aa99b31400c"
+  },
+  "elusive": {
+    "file": "Liberia-adv.txt",
+    "sha256": "5cc5ca43bde212cc7ec5dc9ba414462102d62234a44827ca66619f06781c5cb3"
+  },
+  "conjecture": {
+    "file": "Hillsborough-adv.txt",
+    "sha256": "47b2ff5ffcf1460f734a6b38e9d2e9aea025b73cda16af056812d0ea72341ba9"
+  },
+  "undermine": {
+    "file": "Murderers beware-adv.txt",
+    "sha256": "dfb43924df93bdd2e04201617aaf1a0af80b8c058753c2b3cf5a9688765b3935"
+  },
+  "substantial": {
+    "file": "Life on Mars-adv.txt",
+    "sha256": "7c4ee9e1bab9122b0ef2a811798029958a387ec5b6f95d3ac43dc16ca9c41080"
+  },
+  "conventional": {
+    "file": "Coal to challenge oil-adv.txt",
+    "sha256": "55ca35e25347bd17ba3df65754bd7f1bd5c42e712a73fe30903ab65ad13efcd8"
+  },
+  "conspicuous": {
+    "file": "WNL Glastonbury-adv.txt",
+    "sha256": "ec776ffd77a85ec3ec7969e30c86d8f7aaafeac10340af8afeb05e0a68431796"
+  },
+  "profound": {
+    "file": "Hillsborough-adv.txt",
+    "sha256": "467f2b1d6a5057b7c13ac3b7e3e94e88403dbc7fef60013b5c9876efb060e7e8"
+  },
+  "consensus": {
+    "file": "Lie detector-adv.txt",
+    "sha256": "43cb63e6c8e8640994bd572f77e87df19f3b04e33d9e4311d4d4fdabafbbeaad"
+  },
+  "untrammelled": {
+    "file": "Thatcher-adv.txt",
+    "sha256": "acde02099d5a734f94ec9b93f6749d96429c662ee1bb4c860130581becf9265b"
+  },
+  "burgeoning": {
+    "file": "WNL Bright Future-adv.txt",
+    "sha256": "149d15c91fafe9b6e095f66ff2cd94a41b5f1ae9ade67b06dbbc8d76793c7860"
+  },
+  "insubstantial": {
+    "file": "WNL In flight-adv.txt",
+    "sha256": "c9d3294b2911529b188bea7d0bd2d03c5393926dbfb1884e2e21c2a9429cff95"
+  },
+  "anomaly": {
+    "file": "WNL What is world's-adv.txt",
+    "sha256": "19ff119a1a7998ba38ff6a3cdc3f1df85bf98487fdd5e1c7b3ff1c84d6eb7036"
+  },
+  "reluctant": {
+    "file": "WNL Men in black-adv.txt",
+    "sha256": "517a28d9527e250f423013ca728414d51bcb06f00bee7d997bd1ca5c34db1f53"
+  },
+  "scrutiny": {
+    "file": "Kenya-adv.txt",
+    "sha256": "9f2e9e155389b89c8913dedf53e430f59db9078cdd3aa5090b0f7d2da28967dd"
+  },
+  "incentivize": {
+    "file": "WNL Mystery Shopper-adv.txt",
+    "sha256": "b303ee484b5f5432876d35367b564b5953430a722314e20161094ea462695188"
+  },
+  "resilient": {
+    "file": "WNL David Mitchell-adv.txt",
+    "sha256": "49f7c0a4543b6b7dd94c5293abad0b8298ce646266a06af4ff9f09fcb685ff8a"
+  },
+  "unequivocal": {
+    "file": "Hillsborough-adv.txt",
+    "sha256": "467f2b1d6a5057b7c13ac3b7e3e94e88403dbc7fef60013b5c9876efb060e7e8"
+  }
+}
