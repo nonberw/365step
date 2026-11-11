@@ -1,3 +1,4 @@
+import { useExamCopy } from "@/lib/examLanguage";
 import type { ReactNode } from "react";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -24,15 +25,17 @@ const STICKERS: [string, { emoji: string; burst: string[]; caption: string }][] 
 ];
 
 function BannerSticker() {
+  const t = useExamCopy();
   const { pathname } = useLocation();
   const hit = STICKERS.find(([p]) => pathname === p || pathname.startsWith(`${p}/`));
   if (!hit) return null;
   const st = hit[1];
-  return <Sticker emoji={st.emoji} burst={st.burst} caption={st.caption} className="right-6 top-4 hidden sm:block" rotate={10} size={44} />;
+  return <Sticker emoji={st.emoji} burst={st.burst} caption={t(st.caption)} className="right-6 top-4 hidden sm:block" rotate={10} size={44} />;
 }
 
 export function GreetingBanner({ title, subtitle, eyebrow, action, children }: { title: string; subtitle?: string; eyebrow?: string; image?: string; position?: string; action?: ReactNode; children?: ReactNode }) {
   const { user } = useAuth();
+  const t = useExamCopy();
   return (
     <section className="relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#2f69cf_0%,#4f8ae0_55%,#8ab7ef_100%)] text-white">
       <Aurora />
@@ -47,7 +50,7 @@ export function GreetingBanner({ title, subtitle, eyebrow, action, children }: {
           {action && <div className="shrink-0">{action}</div>}
         </div>
         {user?.plant && (
-          <div className="hidden w-24 shrink-0 md:block" title="Твоё растение растёт от заданий в любом разделе">
+          <div className="hidden w-24 shrink-0 md:block" title={t("Твоё растение растёт от заданий в любом разделе")}>
             <Plant species={user.plant} stage={plantGrowth(user.xp).stage} mood="happy" />
           </div>
         )}
@@ -71,18 +74,20 @@ export function PageHeader({ eyebrow, title, description, action, className }: {
 }
 
 export function Loading({ label = "Загружаю…" }: { label?: string }) {
+  const t = useExamCopy();
   return (
     <div className="flex items-center gap-2 py-12 text-sm text-muted-foreground" role="status">
-      <Loader2 className="size-4 animate-spin" /> {label}
+      <Loader2 className="size-4 animate-spin" /> {t(label)}
     </div>
   );
 }
 
 export function ErrorBox({ message, className }: { message: string; className?: string }) {
+  const t = useExamCopy();
   if (!message) return null;
   return (
     <p role="alert" className={cn("rounded-xl bg-[#fde3e4] px-4 py-3 text-sm text-destructive dark:bg-destructive/15", className)}>
-      {message}
+      {t(message)}
     </p>
   );
 }

@@ -74,26 +74,26 @@ const STUDENT_NAV: Group[] = [
   {
     title: "SAT",
     items: [
-      { to: "/sat", label: "Обзор и аналитика", icon: LineChart, end: true },
-      { to: "/sat/learn", label: "Учить Math и R&W", icon: GraduationCap },
-      { to: "/sat/bank", label: "Банк вопросов", icon: Library },
-      { to: "/sat/test", label: "Пробный тест", icon: Timer },
-      { to: "/sat/drills", label: "Тренировки", icon: Target },
+      { to: "/sat", label: "Overview & analytics", icon: LineChart, end: true },
+      { to: "/sat/learn", label: "Learn Math & R&W", icon: GraduationCap },
+      { to: "/sat/bank", label: "Question Banks", icon: Library },
+      { to: "/sat/test", label: "Practice tests", icon: Timer },
+      { to: "/sat/drills", label: "Drills", icon: Target },
       { to: "/sat/blitz", label: "Blitz", icon: Zap },
-      { to: "/sat/vocab", label: "Словарь", icon: BookOpen },
-      { to: "/sat/plan", label: "ИИ-план", icon: Sparkles },
-      { to: "/sat/calculator", label: "Калькулятор баллов", icon: Calculator },
+      { to: "/sat/vocab", label: "Vocabulary", icon: BookOpen },
+      { to: "/sat/plan", label: "Study plan", icon: Sparkles },
+      { to: "/sat/calculator", label: "Score calculator", icon: Calculator },
     ],
   },
   {
     title: "IELTS",
     items: [
-      { to: "/ielts", label: "Обзор", icon: GraduationCap, end: true },
+      { to: "/ielts", label: "Overview", icon: GraduationCap, end: true },
       { to: "/ielts/speaking", label: "Speaking", icon: Mic },
       { to: "/ielts/writing", label: "Writing", icon: PenLine },
       { to: "/ielts/reading", label: "Reading", icon: BookText },
       { to: "/ielts/listening", label: "Listening", icon: Headphones },
-      { to: "/ielts/games", label: "Игры", icon: Gamepad2 },
+      { to: "/ielts/games", label: "Games", icon: Gamepad2 },
     ],
   },
   {
@@ -296,8 +296,8 @@ export default function AppShell() {
   );
 
   return (
-    <div className="min-h-full bg-sidebar lg:grid lg:grid-cols-[260px_1fr]">
-      <aside className="sticky top-0 hidden h-dvh lg:block">{sidebar}</aside>
+    <div className="app-shell min-h-full bg-sidebar lg:grid lg:grid-cols-[260px_1fr]">
+      <aside className="app-sidebar sticky top-0 hidden h-dvh lg:block">{sidebar}</aside>
 
       <div className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background/90 px-4 py-3 backdrop-blur lg:hidden" style={{ paddingTop: "max(12px, env(safe-area-inset-top))" }}>
         <IconButton label="Открыть меню" onClick={() => setOpen(true)}>
@@ -313,13 +313,13 @@ export default function AppShell() {
         </div>
       )}
 
-      <main className="min-w-0 p-2 sm:p-3 lg:py-3 lg:pl-0 lg:pr-3">
-        <div className="min-h-[calc(100dvh-24px)] rounded-3xl bg-card px-4 py-5 ring-1 ring-border sm:px-6 lg:px-10 lg:py-8 lg:pb-32">
-          <EcosystemBar />
+      <main className="app-page min-w-0 p-2 sm:p-3 lg:py-3 lg:pl-0 lg:pr-3">
+        <div className="app-page-card min-h-[calc(100dvh-24px)] rounded-3xl bg-card px-4 py-5 ring-1 ring-border sm:px-6 lg:px-10 lg:py-8 lg:pb-32">
+          <div className="app-ecosystem"><EcosystemBar /></div>
           <Outlet />
         </div>
       </main>
-      <div className="pointer-events-none fixed bottom-3 left-[260px] right-0 z-30 hidden justify-center lg:flex">
+      <div className="app-dock pointer-events-none fixed bottom-3 left-[260px] right-0 z-30 hidden justify-center lg:flex">
         <div className="pointer-events-auto">
           <AppDock />
         </div>

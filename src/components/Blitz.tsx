@@ -1,3 +1,4 @@
+import { useExamCopy } from "@/lib/examLanguage";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Heart, Zap } from "lucide-react";
 import { RichText } from "@/components/RichText";
@@ -13,6 +14,7 @@ export interface BlitzItem {
   options: string[];
   answer: number;
   why: string;
+  math?: boolean;
 }
 
 const LIVES = 3;
@@ -27,6 +29,8 @@ export default function Blitz({
   items,
   seconds,
   mono,
+  toolButtons,
+  workspace,
   onFinish,
 }: {
   title: string;
@@ -34,8 +38,11 @@ export default function Blitz({
   items: BlitzItem[];
   seconds: (level: 1 | 2 | 3) => number;
   mono?: boolean;
+  toolButtons?: ReactNode;
+  workspace?: (content: ReactNode, math: boolean) => ReactNode;
   onFinish: (result: { answers: { id: string; tag: string; correct: boolean }[]; points: number }) => Promise<ReactNode>;
 }) {
+  const t = useExamCopy();
   const [phase, setPhase] = useState<"ready" | "q" | "answered" | "over">("ready");
   const [i, setI] = useState(0);
   const [lives, setLives] = useState(LIVES);
@@ -107,9 +114,7 @@ export default function Blitz({
           <Zap className="size-4" /> {title}
         </p>
         <div className="text-sm text-white/75">{intro}</div>
-        <Button size="lg" variant="accent" className="self-start" disabled={!items.length} onClick={() => begin(0)}>
-          Старт
-        </Button>
+        <Button size="lg" variant="accent" className="self-start" disabled={!items.length} onClick={() => begin(0)}>{t("\n          Старт\n        ")}</Button>
       </Card>
     );
   }
@@ -118,40 +123,17 @@ export default function Blitz({
     const right = answers.current.filter((a) => a.correct).length;
     return (
       <Card className="flex flex-col gap-3 bg-secondary text-secondary-foreground">
-        <p className="font-display text-xs font-semibold uppercase tracking-[0.14em] text-accent">{lives <= 0 ? "Жизни закончились" : "Все вопросы пройдены"}</p>
+        <p className="font-display text-xs font-semibold uppercase tracking-[0.14em] text-accent">{lives <= 0 ? t("Жизни закончились") : t("Все вопросы пройдены")}</p>
         <p className="font-display text-5xl font-semibold tabular">{points}</p>
-        <p className="text-sm text-white/70">
-          Верно {right} из {answers.current.length}
+        <p className="text-sm text-white/70">{t("\n          Верно ")}{right}{t(" из ")}{answers.current.length}
         </p>
         {summary && <div className="text-sm text-white/80">{summary}</div>}
-        <Button variant="accent" className="self-start" onClick={restart}>
-          Ещё раз
-        </Button>
+        <Button variant="accent" className="self-start" onClick={restart}>{t("\n          Ещё раз\n        ")}</Button>
       </Card>
     );
   }
 
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-secondary px-5 py-3 text-secondary-foreground">
-        <span className="flex gap-1" aria-label={`Жизни: ${lives}`}>
-          {Array.from({ length: LIVES }, (_, k) => (
-            <Heart key={k} className={cn("size-5", k < lives ? "fill-accent text-accent" : "text-white/25")} />
-          ))}
-        </span>
-        <span className="text-sm text-white/70">
-          {i + 1} · {q!.tag}
-        </span>
-        <span className="font-display font-semibold">
-          <Badge tone="brand" className="mr-2">
-            x{mult}
-          </Badge>
-          <span className="tabular">{points}</span>
-        </span>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/15">
-          <div className="h-full rounded-full bg-accent transition-[width] duration-200 ease-linear" style={{ width: `${(left / seconds(q!.level)) * 100}%` }} />
-        </div>
-      </div>
+  const questionContent = (
       <Card className="flex flex-col gap-4">
         <div className="text-[15px]">{q!.prompt}</div>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -169,7 +151,7 @@ export default function Blitz({
                   state === "right" ? "border-success bg-[#e6f6ec] dark:bg-success/15" : state === "wrong" ? "border-destructive bg-[#fde3e4] dark:bg-destructive/15" : "border-border hover:border-primary",
                 )}
               >
-                <RichText text={o} />
+                <RichText text={o} math={q!.math} />
               </button>
             );
           })}
@@ -177,15 +159,40 @@ export default function Blitz({
         {phase === "answered" && (
           <>
             <div className="rounded-xl bg-muted px-4 py-3 text-sm">
-              <b>{picked === q!.answer ? "Верно. " : picked === -1 ? "Время вышло. " : "Не то. "}</b>
-              <RichText text={q!.why} className="inline [&>p]:inline" />
+              <b>{picked === q!.answer ? t("Верно. ") : picked === -1 ? t("Время вышло. ") : t("Не то. ")}</b>
+              <RichText text={q!.why} math={q!.math} className="inline [&>p]:inline" />
             </div>
             <Button onClick={next} autoFocus className="self-start">
-              {lives <= 0 ? "Итоги" : "Дальше"}
+              {lives <= 0 ? t("Итоги") : t("Дальше")}
             </Button>
           </>
         )}
       </Card>
+  );
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-secondary px-5 py-3 text-secondary-foreground">
+        <span className="flex gap-1" aria-label={`${t("Жизни: ")}${lives}`}>
+          {Array.from({ length: LIVES }, (_, k) => (
+            <Heart key={k} className={cn("size-5", k < lives ? "fill-accent text-accent" : "text-white/25")} />
+          ))}
+        </span>
+        {q!.math && toolButtons && <div className="flex gap-1">{toolButtons}</div>}
+        <span className="text-sm text-white/70">
+          {i + 1} · {q!.tag}
+        </span>
+        <span className="font-display font-semibold">
+          <Badge tone="brand" className="mr-2">
+            x{mult}
+          </Badge>
+          <span className="tabular">{points}</span>
+        </span>
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/15">
+          <div className="h-full rounded-full bg-accent transition-[width] duration-200 ease-linear" style={{ width: `${(left / seconds(q!.level)) * 100}%` }} />
+        </div>
+      </div>
+      {workspace ? workspace(questionContent, !!q!.math) : questionContent}
     </div>
   );
 }
