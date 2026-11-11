@@ -29,6 +29,7 @@ export class ApiError extends Error {
 }
 
 export async function api<T>(path: string, init: { method?: string; body?: unknown } = {}): Promise<T> {
+  const english = /^(?:\/api)?\/(?:sat|ielts)(?:\/|$)/.test(path) || /^(?:\/api)?\/path\/(?:sat-math|sat-rw|ielts-reading)(?:\/|$)/.test(path);
   const token = loadToken();
   const headers: Record<string, string> = { "Content-Type": "application/json" };
   if (token) headers.Authorization = `Bearer ${token}`;
@@ -40,13 +41,13 @@ export async function api<T>(path: string, init: { method?: string; body?: unkno
       body: init.body !== undefined ? JSON.stringify(init.body) : undefined,
     });
   } catch {
-    throw new ApiError(0, "Нет связи с сервером. Проверьте интернет");
+    throw new ApiError(0, english ? "Cannot connect to the server. Check your internet connection." : "Нет связи с сервером. Проверьте интернет");
   }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const message = (data as { error?: string }).error ?? "Ошибка сервера";
+    const message = (data as { error?: string }).error ?? (english ? "Server error" : "Ошибка сервера");
     // A free account ran out of AI answers: tell the user once, with a way out.
-    if (res.status === 402) window.dispatchEvent(new CustomEvent("nc:notify", { detail: { variant: "warning", title: "Лимит ИИ на сегодня", body: message, href: "/pricing", linkLabel: "Перейти на Pro" } }));
+    if (res.status === 402) window.dispatchEvent(new CustomEvent("nc:notify", { detail: { variant: "warning", title: english ? "Daily AI limit reached" : "Лимит ИИ на сегодня", body: message, href: "/pricing", linkLabel: english ? "View Pro" : "Перейти на Pro" } }));
     throw new ApiError(res.status, message);
   }
   return data as T;
