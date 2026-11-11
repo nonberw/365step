@@ -27,7 +27,7 @@ ieltsRouter.get(
 );
 
 function aiErrors(e: unknown): never {
-  if (e instanceof AiRefusal) throw new HttpError(422, "ИИ не смог оценить этот ответ. Проверь, что текст относится к заданию");
+  if (e instanceof AiRefusal) throw new HttpError(422, "I.I. was unable to assess that response. Check that the text relates to the assignment");
   throw e;
 }
 
@@ -39,21 +39,21 @@ ieltsRouter.post(
     const promptId = str(req.body?.promptId, 40);
     const text = String(req.body?.text ?? "").slice(0, 8000);
     const words = text.trim().split(/\s+/).filter(Boolean).length;
-    if (words < 40) throw new HttpError(400, "Напиши хотя бы 40 слов, чтобы было что оценивать");
+    if (words < 40) throw new HttpError(400, "Write at least 40 words so you have something to evaluate.");
     const prompt =
       task === 1
         ? must(
             WRITING_TASK1.find((p) => p.id === promptId),
             404,
-            "Задание не найдено",
+            "Task not found",
           )
         : must(
             WRITING_TASK2.find((p) => p.id === promptId),
             404,
-            "Задание не найдено",
+            "Task not found",
           );
     const chart =
-      task === 1 && "series" in prompt ? `${prompt.title} (${prompt.unit}); категории: ${prompt.categories.join(", ")}; ${prompt.series.map((s) => `${s.name}: ${s.values.join(", ")}`).join("; ")}` : undefined;
+      task === 1 && "series" in prompt ? `${prompt.title} (${prompt.unit}); categories: ${prompt.categories.join(", ")}; ${prompt.series.map((s) => `${s.name}: ${s.values.join(", ")}`).join("; ")}` : undefined;
     try {
       const result = await ieltsWriting(task, prompt.prompt, text, chart);
       await run(
@@ -82,7 +82,7 @@ ieltsRouter.post(
     const prompt = str(req.body?.prompt, 600);
     const transcript = String(req.body?.transcript ?? "").slice(0, 6000);
     const seconds = Math.max(1, Math.min(600, Number(req.body?.seconds) || 0));
-    if (transcript.trim().split(/\s+/).filter(Boolean).length < 10) throw new HttpError(400, "Ответ слишком короткий. Говори хотя бы 20–30 секунд");
+    if (transcript.trim().split(/\s+/).filter(Boolean).length < 10) throw new HttpError(400, "The answer is too short. At least say 20–30 seconds.");
     try {
       const result = await ieltsSpeaking(part, prompt, transcript, seconds);
       await run(
@@ -114,7 +114,7 @@ ieltsRouter.get(
         )
       ).map((r) => {
         const result = JSON.parse(r.result);
-        if (result.mode === "demo") return { ...r, overall: null, result: { ...result, overall: null, predicted: null, criteria: result.criteria?.map((c: { name: string }) => ({ name: c.name, band: null, comment: "Демонстрация: критерий не оценивался." })) } };
+        if (result.mode === "demo") return { ...r, overall: null, result: { ...result, overall: null, predicted: null, criteria: result.criteria?.map((c: { name: string }) => ({ name: c.name, band: null, comment: "Demonstration: The criterion was not evaluated." })) } };
         if (r.kind === "speaking") { const partial = transcriptCriteria(result.criteria ?? []); return { ...r, overall: partial.overall, result: { ...result, ...partial, predicted: null } }; }
         return { ...r, result };
       }),
@@ -156,14 +156,14 @@ ieltsRouter.post("/reading-exam/start", wrap(async (req, res) => {
 ieltsRouter.post("/reading-exam/:id/answer", wrap(async (req, res) => {
   const u = requireStudent(req);
   const qid = str(req.body?.questionId, 3);
-  if (!IELTS_ACADEMIC.passages.some((p) => p.questions.some((q) => q.id === qid))) throw new HttpError(400, "Неизвестный вопрос");
+  if (!IELTS_ACADEMIC.passages.some((p) => p.questions.some((q) => q.id === qid))) throw new HttpError(400, "Unknown question");
   const updated = await run("UPDATE ielts_reading_runs SET answers = json_set(answers, ?, ?) WHERE id = ? AND user_id = ? AND result IS NULL AND ends_at > ?", `$."${qid}"`, str(req.body?.value, 120), String(req.params.id), u.id, Date.now());
-  if (!updated.changes) throw new HttpError(409, "Время истекло или комплект уже завершён");
+  if (!updated.changes) throw new HttpError(409, "Time is up or the package is up.");
   res.json({ ok: true });
 }));
 ieltsRouter.post("/reading-exam/:id/finish", wrap(async (req, res) => {
   const u = requireStudent(req);
-  const r = must(await one<ReadingRun>("SELECT * FROM ielts_reading_runs WHERE id = ? AND user_id = ?", String(req.params.id), u.id), 404, "Попытка не найдена");
+  const r = must(await one<ReadingRun>("SELECT * FROM ielts_reading_runs WHERE id = ? AND user_id = ?", String(req.params.id), u.id), 404, "No attempt found.");
   if (r.result) return res.json(JSON.parse(r.result));
   const given = Date.now() <= r.ends_at && req.body?.answers && typeof req.body.answers === "object" ? req.body.answers : JSON.parse(r.answers);
   const result = checkReading(IELTS_ACADEMIC.passages.flatMap((p) => p.questions), given);
@@ -180,7 +180,7 @@ ieltsRouter.get(
     const r = must(
       READING.find((x) => x.id === req.params.id),
       404,
-      "Текст не найден",
+      "Text not found",
     );
     res.json({ ...r, questions: r.questions.map(strip) });
   }),
@@ -193,7 +193,7 @@ ieltsRouter.post(
     const r = must(
       READING.find((x) => x.id === req.params.id),
       404,
-      "Текст не найден",
+      "Text not found",
     );
     res.json(await check("ielts-reading", u.id, r.id, r.questions, req.body?.answers ?? {}));
   }),
@@ -206,7 +206,7 @@ ieltsRouter.get(
     const l = must(
       LISTENING.find((x) => x.id === req.params.id),
       404,
-      "Запись не найдена",
+      "Record not found",
     );
     // The script is sent because the browser reads it aloud; the page hides it until the answers are checked.
     res.json({ ...l, questions: l.questions.map(strip) });
@@ -220,7 +220,7 @@ ieltsRouter.post(
     const l = must(
       LISTENING.find((x) => x.id === req.params.id),
       404,
-      "Запись не найдена",
+      "Record not found",
     );
     res.json(await check("ielts-listening", u.id, l.id, l.questions, req.body?.answers ?? {}));
   }),
