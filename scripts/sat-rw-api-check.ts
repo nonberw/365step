@@ -24,23 +24,24 @@ try {
  const account=await request("/auth/register",{firstName:"SAT",lastName:"Проверка",email:"rw-check@example.test",password:"SatRWCheck2026",consent:true,goals:{}},201);token=account.token;
  ok(account.user.learningProfile.directionId===null,"English available without choosing direction");
  const all=await request("/sat/bank?section=rw");ok(all.total===SAT_ACTIVE_BANK.filter(q=>q.section==="rw").length,"all English count visible");
+ const active=SAT_ACTIVE_BANK.filter(q=>q.id.startsWith("rw-open-"));
  const ids:string[]=[];
- for(let page=0;page<9;page++){
+ for(let page=0;page<Math.ceil(active.length/40);page++){
   const bank=await request(`/sat/bank?section=rw&collection=rw-open&page=${page}`);
-  ok(bank.total===360&&bank.items.length===40,"all collection pages filled");
+  ok(bank.total===active.length&&bank.items.length===Math.min(40,active.length-page*40),"all collection pages filled");
   ok(bank.items.every((q:any)=>q.id.startsWith("rw-open-")&&!("answer" in q)&&!("explanation" in q)),"summaries scoped and keys private");
   ids.push(...bank.items.map((q:any)=>q.id));
  }
- ok(new Set(ids).size===360,"pagination covers every new question exactly once");
- const hard=await request("/sat/bank?collection=rw-open&difficulty=3");ok(hard.total===SAT_RW_EXPANSION.filter(q=>q.difficulty===3).length,"combined Hard filter");
+ ok(new Set(ids).size===active.length,"pagination covers every new question exactly once");
+ const hard=await request("/sat/bank?collection=rw-open&difficulty=3");ok(hard.total===active.filter(q=>q.difficulty===3).length,"combined Hard filter");
  ok((await request("/sat/bank?collection=rw-open&section=math")).total===0,"collection cannot leak Math");
  for(const domain of new Set(SAT_RW_EXPANSION.map(q=>q.domain))){
   const filtered=await request(`/sat/bank?collection=rw-open&domain=${encodeURIComponent(domain)}`);
-  ok(filtered.total===SAT_RW_EXPANSION.filter(q=>q.domain===domain).length,"domain counts and filtering");
+  ok(filtered.total===active.filter(q=>q.domain===domain).length,"domain counts and filtering");
  }
  for(const skill of new Set(SAT_RW_EXPANSION.map(q=>q.skill))){
   const filtered=await request(`/sat/bank?collection=rw-open&skills=${encodeURIComponent(skill)}`);
-  ok(filtered.total===SAT_RW_EXPANSION.filter(q=>q.skill===skill).length,`${skill}: skill filter`);
+  ok(filtered.total===active.filter(q=>q.skill===skill).length,`${skill}: skill filter`);
  }
  // Exercise the public fetch and checker for every published key, not a sample.
  for(const q of SAT_RW_EXPANSION){
@@ -51,7 +52,7 @@ try {
   const right=await request("/sat/answer",{id:q.id,response:q.answer,ms:1000});
   ok(right.correct&&right.answer===q.answer&&right.explanation===q.explanation,`${q.id}: key and complete explanation returned`);
  }
- const q=SAT_RW_EXPANSION[0]!;
+ const q=active[0]!;
  await request("/sat/save",{id:q.id,saved:true});
  ok((await request("/sat/bank?collection=rw-open&status=saved")).items[0].id===q.id,"new question can be saved");
  const restored=(await request(`/sat/question/${q.id}`));ok(restored.saved,"save state survives question reload");

@@ -1,3 +1,4 @@
+import curated from "../shared/satExactManifest.json";
 /** Topic counts, mixed sequences and real API pagination on disposable data. */
 import assert from "node:assert/strict";
 import { mkdtemp } from "node:fs/promises";
@@ -17,7 +18,7 @@ eq(new Set(BANK_TOPICS.map(t => t.id)).size, 29, "unique topic IDs");
 for (const q of SAT_ACTIVE_BANK) ok(topicFor(q), `${q.id} maps into the topic tree`);
 const emptyResults = new Map<string, boolean>(), emptySaved = new Set<string>();
 const allCatalog = bankCatalog(SAT_ACTIVE_BANK, emptyResults, emptySaved, {});
-eq(allCatalog.inventory, {total: 8357, rw: 4200, math: 4157}, "existing inventory retained");
+eq(allCatalog.inventory, curated.active, "curated inventory");
 for (const section of allCatalog.sections) {
   eq(section.total, section.domains.reduce((n, d) => n + d.total, 0), "domain sums equal section");
   for (const domain of section.domains) eq(domain.total, domain.topics.reduce((n, t) => n + t.total, 0), "topic sums equal domain");
@@ -45,7 +46,7 @@ process.env.DB_FILE = path.join(scratch, "check.sqlite");
 process.env.TURSO_DATABASE_URL = ""; process.env.DATABASE_URL = "";
 process.env.ANTHROPIC_API_KEY = ""; process.env.TELEGRAM_BOT_TOKEN = "";
 const {app} = await import("../server/app");
-const {db,ready} = await import("../server/db"); await ready;
+const {db,ready,run} = await import("../server/db"); await ready;
 const server = app.listen(0,"127.0.0.1"); await new Promise<void>(r=>server.once("listening",r));
 const base=`http://127.0.0.1:${(server.address() as {port:number}).port}/api`;
 let token = "";
@@ -59,10 +60,10 @@ try {
   const account = await request("/auth/register",{firstName:"Topic",lastName:"Check",email:"bank-topics@example.test",password:"TopicBank2026",consent:true,goals:{}},201); token=account.token;
   const catalog = await request("/sat/bank/catalog");
   eq(catalog.inventory, allCatalog.inventory, "API catalog inventory");
-  eq(catalog.statuses.new, 8357, "all initially new");
+  eq(catalog.statuses.new, SAT_ACTIVE_BANK.length, "all initially new");
   const sequence = await request("/sat/bank/sequence?seed=page-test");
-  eq(sequence.total,8357,"sequence covers whole bank, not the first 40");
-  eq(new Set(sequence.ids).size,8357,"sequence IDs unique");
+  eq(sequence.total,SAT_ACTIVE_BANK.length,"sequence covers whole bank, not the first 40");
+  eq(new Set(sequence.ids).size,SAT_ACTIVE_BANK.length,"sequence IDs unique");
   eq(Object.keys(sequence).sort(),["ids","seed","total"],"sequence has no solutions");
   const pages:string[]=[];
   for (let page=0;page<Math.ceil(sequence.total/40);page++) {
@@ -107,10 +108,35 @@ try {
   await request("/sat/save",{id:correct.id,saved:true});
   const after=await request("/sat/bank/catalog");
   eq(after.stats,{attempted:2,correct:1,wrong:1,saved:1,accuracy:0.5},"real student summaries");
-  for (const [status,n] of Object.entries({all:8357,new:8355,solved:2,wrong:1,correct:1,saved:1})) eq((await request(`/sat/bank?status=${status}`)).total,n,`${status}: real result filter`);
+  for (const [status,n] of Object.entries({all:SAT_ACTIVE_BANK.length,new:SAT_ACTIVE_BANK.length-2,solved:2,wrong:1,correct:1,saved:1})) eq((await request(`/sat/bank?status=${status}`)).total,n,`${status}: real result filter`);
   eq((await request(`/sat/bank?status=saved`)).items[0].id,correct.id,"saved ID retained");
   const legacy=SAT_BANK.find(q=>!SAT_ACTIVE_BANK.some(a=>a.id===q.id))!;
   await request("/sat/answer",{id:legacy.id,response:legacy.answer,ms:1});
-  eq((await request("/sat/bank?status=solved")).total,3,"old answered inactive ID remains accessible");
+  await request("/sat/save", {id:legacy.id,saved:true});
+  eq((await request(`/sat/question/${legacy.id}`)).question.id, legacy.id, "archived direct URL resolves");
+  eq((await request(`/sat/question/${legacy.id}`)).saved, true, "archived bookmark preserved");
+  eq((await request("/sat/bank?status=solved")).total,2,"archived history cannot re-enter new practice");
+  eq((await request("/sat/bank?status=saved")).total,1,"archived bookmarks cannot inflate active catalogue");
+  eq((await request("/sat/bank/catalog")).stats.attempted,3,"lifetime progress includes archived answers");
+  eq((await request("/sat/bank/catalog")).inventory,curated.active,"archive does not change counters");
+  ok(!(await request("/sat/bank/sequence")).ids.includes(legacy.id),"archive absent from new practice sequence");
+  await request("/sat/answer",{id:legacy.id,response:(Number(legacy.answer)+1)%4,ms:1});
+  ok((await request("/sat/review")).some((q:any)=>q.id===legacy.id),"mistake review retains archived question");
+  let oldTest=await request("/sat/test/start",{mode:"full"});
+  const archivedRw=SAT_BANK.find(q=>q.section==="rw"&&!SAT_ACTIVE_BANK.some(a=>a.id===q.id))!;
+  oldTest.test.modules[0].questionIds[0]=archivedRw.id;
+  await run("UPDATE sat_tests SET state = ? WHERE id = ?",JSON.stringify(oldTest.test),oldTest.test.id);
+  const restored=await request(`/sat/test/${oldTest.test.id}`);
+  eq(restored.questions[0].id,archivedRw.id,"pre-cleanup running test still loads archived questions");
+  ok(!("answer" in restored.questions[0]),"archive key remains private before submission");
+  const submitted=await request(`/sat/test/${oldTest.test.id}/submit`,{answers:Object.fromEntries(restored.questions.map((q:any)=>[q.id,SAT_BANK.find(a=>a.id===q.id)!.answer])),seconds:1});
+  eq(submitted.test.current,1,"running test advances with archived question");
+  for(const section of ["rw","math"]) {
+    const blitz=await request(`/sat/blitz?section=${section}`);
+    ok(blitz.length===30&&blitz.every((q:any)=>SAT_ACTIVE_BANK.some(a=>a.id===q.id)),"Blitz uses curated bank only");
+  }
+  const collections=(await request("/sat/bank/catalog")).collections;
+  eq(collections["rw-scale"],0,"removed bulk English collection is not advertised");
+  eq(collections["rw-open"],SAT_ACTIVE_BANK.filter(q=>q.id.startsWith("rw-open-")).length,"collection label uses surviving questions");
   console.log(`${checks} SAT topic-bank assertions passed on disposable data`);
 } finally { await new Promise<void>(r=>server.close(()=>r())); db.close(); }

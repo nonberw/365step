@@ -1,0 +1,11 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { SAT_BANK } from "../shared/sat";
+import baseline from "../shared/satCurated.json";
+import { CURATION_TARGETS } from "../shared/satCuration";
+import { BANK_TOPICS } from "../shared/satBankCatalog";
+const directory=process.env.SAT_EXACT_SOURCES??path.resolve('.cache/sat-exact-sources');
+mkdirSync(directory,{recursive:true});
+const bank=SAT_BANK.filter(q=>!q.id.startsWith('exact-')),ids=new Set(baseline.ids);
+writeFileSync(path.join(directory,'baseline.json'),JSON.stringify({bank,active:bank.filter(q=>ids.has(q.id)),targets:CURATION_TARGETS,topics:BANK_TOPICS}));
+console.log(`Exported ${bank.length} historical records and ${ids.size} frozen active IDs.`);

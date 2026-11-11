@@ -27,9 +27,9 @@ ok(paired.split("<u>").length===3&&paired.includes("______"),"two separate refer
 const embedded=renderToStaticMarkup(createElement(RichText,{text:"__The claim ______ continues here.__"}));
 ok(embedded.split("<u>").length===2&&embedded.includes("______")&&embedded.includes("continues here."),"blank inside an underlined clause does not close it early");
 ok(SAT_RW_SCALE.length===3191&&manifest.total===3191,"3,191 complete new conditions");
-ok(SAT_ACTIVE_BANK.filter(q=>q.section==="rw").length===4200&&manifest.rwTotal===4200,"4,200 active English items");
-ok(SAT_ACTIVE_BANK.filter(q=>q.section==="math").length===4157&&manifest.mathTotal===4157,"Math preserved");
-const legacy=SAT_BANK.filter(q=>!q.id.startsWith("rw-scale-"));
+ok(SAT_BANK.filter(q=>q.section==="rw"&&q.canonicalId===q.id&&!q.id.startsWith("exact-")).length===4200&&manifest.rwTotal===4200,"historical English import total preserved in archive");
+ok(SAT_BANK.filter(q=>q.section==="math"&&q.canonicalId===q.id&&!q.id.startsWith("exact-")).length===4157&&manifest.mathTotal===4157,"historical Math import total preserved in archive");
+const legacy=SAT_BANK.filter(q=>!q.id.startsWith("rw-scale-")&&!q.id.startsWith("exact-"));
 ok(legacy.length===5195&&sha(JSON.stringify(legacy.map(q=>[q.id,q.passage,q.stem,q.choices,q.answer])))==="486f8f3f54335587bf6ba6f0ca396dd4a3eb8bda2bcfc9c5c4a28e44808b278b","every earlier question, option order and key unchanged");
 ok(new Set(SAT_RW_SCALE.map(q=>q.id)).size===3191&&new Set(SAT_RW_SCALE.map(fingerprint)).size===3191,"unique IDs and complete conditions");
 ok(refs.length===3191&&references.size===3191,"one audit reference per question");
@@ -88,4 +88,4 @@ for(let seed=0;seed<8;seed++){
  ok(test.length===54&&test.every(q=>q.purpose==="assessment"),"full test excludes new reinforcement");
  ok(new Set(test.map(q=>normaliseText(q.passage!))).size===54,"no passage repeats across modules");
 }
-console.log(`${checks} English scale assertions passed; 4,200 English, 3,191 additions (${manifest.nativeReading} native / ${manifest.reinforcement} reinforcement)`);
+console.log(`${checks} English archive assertions passed; 4,200 archived English, 3,191 archived additions (${manifest.nativeReading} native / ${manifest.reinforcement} reinforcement)`);

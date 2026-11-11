@@ -16,7 +16,7 @@ const additions = SAT_RW_EXPANSION;
 ok(additions.length===360,"360 editorial records; no permutation multiplier");
 ok(new Set(additions.map(q=>q.id)).size===360,"unique stable IDs");
 ok(new Set(additions.map(fingerprint)).size===360,"different complete questions");
-const legacy = SAT_BANK.filter(q=>!q.id.startsWith("rw-open-")&&!q.id.startsWith("rw-scale-"));
+const legacy = SAT_BANK.filter(q=>!q.id.startsWith("rw-open-")&&!q.id.startsWith("rw-scale-")&&!q.id.startsWith("exact-"));
 ok(legacy.length===4835,"all existing IDs retained including historical aliases");
 ok(createHash("sha256").update(JSON.stringify(legacy.map(q=>[q.id,q.passage,q.stem,q.choices,q.answer]))).digest("hex")==="6b459180d255ad23ad037ba63a1ad7b95d671a097cea7fef331e742f850229e1","existing passage/stem/choice/key snapshot unchanged");
 const sourceIds=new Set(additions.map(q=>q.attribution!.sourceId));
@@ -45,7 +45,7 @@ for(const q of additions){
   }
 }
 ok([0,1,2,3].every(i=>additions.filter(q=>q.answer===i).length===90),"answer positions balanced without changing old options");
-ok(manifest.total===360&&manifest.rwTotal===SAT_ACTIVE_BANK.filter(q=>q.section==="rw").length&&manifest.previousRwTotal===649,"honest English totals and historical baseline");
+ok(manifest.total===360&&manifest.rwTotal===SAT_BANK.filter(q=>q.section==="rw"&&q.canonicalId===q.id&&!q.id.startsWith("exact-")).length&&manifest.previousRwTotal===649,"honest English totals and historical baseline");
 ok(manifest.uniquePassages===new Set(additions.map(q=>q.passage)).size&&manifest.hard===additions.filter(q=>q.difficulty===3).length,"manifest distinguishes questions and shared passages");
 for(const [skill,count] of Object.entries(manifest.skills))ok(additions.filter(q=>q.skill===skill).length===count,`${skill}: count`);
 const download=JSON.parse(readFileSync("public/content/sat-rw-open-2026.json","utf8"));
@@ -63,4 +63,4 @@ const repeated=shared.filter(q=>q.passage===shared[0]!.passage);
 ok(repeated.length===3,"fixture includes three separate skills against one passage");
 ok(selectAssessment(repeated,3).length===1,"same passage cannot reappear merely under a new stem");
 ok(selectAssessment(repeated,3,[repeated[0]!]).length===0,"previous module's passage remains excluded");
-console.log(`${checks} SAT RW assertions passed; ${manifest.rwTotal} English items, ${manifest.total} additions, ${manifest.hard} editorial Hard`);
+console.log(`${checks} SAT RW assertions passed; ${manifest.rwTotal} archived English items, ${manifest.total} additions, ${manifest.hard} editorial Hard`);

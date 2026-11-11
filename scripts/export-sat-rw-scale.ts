@@ -1,9 +1,11 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { SAT_RW_SCALE } from "../shared/satRwScale";
-import { SAT_ACTIVE_BANK } from "../shared/sat";
+import { SAT_BANK } from "../shared/sat";
 import { SAT_OPEN_SOURCES } from "../shared/satSources";
 import imported from "../docs/content/sat-rw-scale/import.json";
-const active=SAT_ACTIVE_BANK.filter(q=>q.id.startsWith("rw-scale-"));
+// Historical source downloads retain their complete contents after active-bank curation.
+const archive=SAT_BANK.filter(q=>q.canonicalId===q.id);
+const active=archive.filter(q=>q.id.startsWith("rw-scale-"));
 const manifest={total:active.length,nativeReading:active.filter(q=>q.id.startsWith("rw-scale-bb-")).length,
   reinforcement:active.filter(q=>q.purpose==="reinforcement").length,
   adaptedReadingPractice:imported.adaptedReadingPractice,vocabularyPractice:imported.vocabularyPractice,
@@ -12,8 +14,8 @@ const manifest={total:active.length,nativeReading:active.filter(q=>q.id.startsWi
   grammarFamilies:Object.keys(imported.grammarFamilies).length,vocabularyFamilies:Object.keys(imported.vocabularyFamilies).length,
   transitionFamilies:Object.keys(imported.transitionFamilies).length,
   domains:Object.fromEntries([...new Set(active.map(q=>q.domain))].map(d=>[d,active.filter(q=>q.domain===d).length])),
-  rwTotal:SAT_ACTIVE_BANK.filter(q=>q.section==="rw").length,mathTotal:SAT_ACTIVE_BANK.filter(q=>q.section==="math").length,
-  bankTotal:SAT_ACTIVE_BANK.length};
+  rwTotal:archive.filter(q=>q.section==="rw").length,mathTotal:archive.filter(q=>q.section==="math").length,
+  bankTotal:archive.length};
 writeFileSync("shared/satRwScaleManifest.json",JSON.stringify(manifest,null,2)+"\n");
 writeFileSync("public/content/sat-rw-scale-2026.json",JSON.stringify({
   title:"365step expanded English reading and language practice — November 2026",

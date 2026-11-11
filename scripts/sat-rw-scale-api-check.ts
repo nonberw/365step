@@ -4,7 +4,7 @@ import { mkdtemp } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { SAT_RW_SCALE } from "../shared/satRwScale";
-import { SAT_BY_ID } from "../shared/sat";
+import { SAT_BY_ID, SAT_ACTIVE_BANK } from "../shared/sat";
 import { normaliseText } from "../shared/satQuality";
 import manifest from "../shared/satRwScaleManifest.json";
 const scratch=await mkdtemp(path.join(tmpdir(),"365-rw-scale-"));
@@ -23,23 +23,15 @@ try{
  await request("/sat/bank?collection=rw-scale",undefined,401);
  const account=await request("/auth/register",{firstName:"English",lastName:"QA",email:"english-scale@example.test",password:"EnglishScale2026",consent:true,goals:{}},201);token=account.token;
  ok(account.user.learningProfile.directionId===null,"exam bank requires no direction");
- ok((await request("/sat/bank?section=rw")).total===4200,"English parity count");
- ok((await request("/sat/bank?section=math")).total===4157,"Math unchanged");
- ok((await request("/sat/bank?collection=rw-open")).total===360,"previous collection retained");
- const ids:string[]=[];
- for(let page=0;page<Math.ceil(manifest.total/40);page++){
-  const bank=await request(`/sat/bank?collection=rw-scale&section=rw&page=${page}`);
-  ok(bank.total===3191&&bank.items.length===Math.min(40,3191-page*40),"complete collection pagination");
-  ok(bank.items.every((q:any)=>q.id.startsWith("rw-scale-")&&!("answer"in q)&&!("explanation"in q)),"correct scope and private keys");
-  ids.push(...bank.items.map((q:any)=>q.id));
- }
- ok(ids.length===3191&&new Set(ids).size===3191,"each addition appears exactly once");
- const native=await request("/sat/bank?collection=rw-scale-native");ok(native.total===711&&native.items.every((q:any)=>q.purpose==="assessment"),"native reading filter");
- const practice=await request("/sat/bank?collection=rw-scale-practice");ok(practice.total===2480&&practice.items.every((q:any)=>q.purpose==="reinforcement"),"practice explicitly separated");
- ok((await request("/sat/bank?collection=rw-scale&purpose=assessment")).total===711,"purpose combines with collection");
- ok((await request("/sat/bank?collection=rw-scale&difficulty=3")).total===0,"no inflated Hard labels");
- ok((await request("/sat/bank?collection=rw-scale&section=math")).total===0,"new collection contains only English");
- for(const [domain,count]of Object.entries(manifest.domains))ok((await request(`/sat/bank?collection=rw-scale&domain=${encodeURIComponent(domain)}`)).total===count,`${domain}: filter`);
+ ok((await request("/sat/bank?section=rw")).total===SAT_ACTIVE_BANK.filter(q=>q.section==="rw").length,"curated English count");
+ ok((await request("/sat/bank?section=math")).total===SAT_ACTIVE_BANK.filter(q=>q.section==="math").length,"curated Math count");
+ ok((await request("/sat/bank?collection=rw-open")).total===SAT_ACTIVE_BANK.filter(q=>q.id.startsWith("rw-open-")).length,"curated authored collection");
+ const archived=await request("/sat/bank?collection=rw-scale&section=rw");
+ ok(archived.total===0&&archived.items.length===0,"bulk source collection archived from new practice");
+ for(const collection of ["rw-scale-native","rw-scale-practice"])
+  ok((await request(`/sat/bank?collection=${collection}`)).total===0,"archived subcollection absent");
+ for(const domain of Object.keys(manifest.domains))
+  ok((await request(`/sat/bank?collection=rw-scale&domain=${encodeURIComponent(domain)}`)).total===0,"archive cannot leak through domain filters");
  // Every native key, plus a representative of each controlled language family.
  const sample=SAT_RW_SCALE.filter(q=>q.id.startsWith("rw-scale-bb-"));
  const families=new Set<string>();
@@ -51,7 +43,8 @@ try{
   const right=await request("/sat/answer",{id:q.id,response:q.answer,ms:1000});ok(right.correct&&right.explanation===q.explanation,`${q.id}: correct key and explanation`);
  }
  const saved=sample[0]!;await request("/sat/save",{id:saved.id,saved:true});
- ok((await request("/sat/bank?collection=rw-scale&status=saved")).items[0].id===saved.id,"saving a new source question");
+ ok((await request(`/sat/question/${saved.id}`)).saved,"archived question still supports existing bookmark");
+ ok((await request("/sat/bank?collection=rw-scale&status=saved")).total===0,"archive bookmark cannot repopulate bank");
  let exam=await request("/sat/test/start",{mode:"full"});const english:string[]=[];
  for(let module=0;module<4;module++){
   ok(exam.questions.every((q:any)=>q.purpose==="assessment"),"full exam excludes reinforcement");

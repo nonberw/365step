@@ -48,7 +48,7 @@ for(const [id,head] of [["rw-gen-sva-09","One"],["rw-gen-sva-10","One"],["rw-gen
 for(const [id,fragment] of [["rw-gen-bd-06","the inability"],["rw-gen-bd-08","the possibility"]]) ok(SAT_BY_ID.get(id!)!.passage!.includes(fragment!) && SAT_BY_ID.get(id!)!.choices![Number(SAT_BY_ID.get(id!)!.answer)]!.endsWith(":"),`${id} colon introduces a noun phrase, not an independent clause`);
 for(const id of ["m-trig-01","x-math-two-variable-data-h01","x-rw-form-structure-sense-h01"]) ok(SAT_BY_ID.get(id)!.difficulty===1,`${id} easy by content`);
 ok(SAT_BANK.filter(q=>q.difficultyReview?.previous===3).length===495,"all formerly Hard IDs reviewed");
-const underlineItems=SAT_BANK.filter(q=>/__[\s\S]+?__/.test(q.passage??""));
+const underlineItems=SAT_BANK.filter(q=>/(?<!_)__(?!_)[\s\S]+?(?<!_)__(?!_)/.test(q.passage??""));
 ok(underlineItems.length>=19,"all old underline items remain");
 for(const q of underlineItems) ok(renderToStaticMarkup(createElement(RichText,{text:q.passage!})).includes("<u>"),`${q.id} underline renders`);
 ok(renderToStaticMarkup(createElement(RichText,{text:"__area $x^2$__"})).includes("katex"),"nested underline and math");
