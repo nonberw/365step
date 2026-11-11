@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { mmss } from "@/lib/format";
 import QuestionView, { type Response } from "./QuestionView";
 import { newBankSeed, readBankContext, readBankIds, saveBankSequence } from "@/lib/satBank";
-import { HintBox, useSatTools } from "./SatTools";
+import { CalculatorWorkspace, HintBox, useSatTools } from "./SatTools";
 
 interface Checked {
   correct: boolean;
@@ -64,7 +64,7 @@ export default function QuestionPage() {
       const query = new URLSearchParams(context.query), seed = newBankSeed();
       query.set("seed", seed); query.set("shuffle", "1");
       const next = await api<{ ids: string[] }>(`/sat/bank/sequence?${query}`);
-      if (!next.ids.length) { setError("В этой подборке больше нет заданий. Вернись к темам и измени фильтры."); return; }
+      if (!next.ids.length) { setError("There are no more questions in this selection. Go back to topics and adjust the filters."); return; }
       const back = new URLSearchParams(context.returnTo.split("?")[1]);
       back.set("seed", seed); back.set("shuffle", "1"); back.delete("page");
       saveBankSequence(next.ids, { query: query.toString(), returnTo: `/sat/bank?${back}` });
@@ -132,7 +132,7 @@ export default function QuestionPage() {
       {q.section === "math" && tools.panels}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
         <Link to={context?.returnTo ?? "/sat/bank"} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
-          <ArrowLeft className="size-4" /> Банк вопросов
+          <ArrowLeft className="size-4" /> Question Banks
         </Link>
         <div className="flex items-center gap-2">
           {q.section === "math" && <div className="flex gap-1">{tools.buttons}</div>}
@@ -144,58 +144,60 @@ export default function QuestionPage() {
               {pos + 1} / {list.length}
             </span>
           )}
-          {context && list.length > 1 && <Button variant="outline" size="sm" onClick={shuffleQuestions} disabled={busy !== ""}><Shuffle />{busy === "shuffle" ? "Перемешиваю…" : "Перемешать"}</Button>}
+          {context && list.length > 1 && <Button variant="outline" size="sm" onClick={shuffleQuestions} disabled={busy !== ""}><Shuffle />{busy === "shuffle" ? "Shuffling…" : "Shuffle"}</Button>}
           <Button variant="outline" size="sm" onClick={toggleSave} aria-pressed={saved}>
-            <Bookmark className={cn(saved && "fill-primary text-primary")} /> {saved ? "Сохранено" : "Сохранить"}
+            <Bookmark className={cn(saved && "fill-primary text-primary")} /> {saved ? "Saved" : "Save"}
           </Button>
         </div>
       </div>
 
-      <QuestionView key={`${q.id}:${context?.query ?? ""}`} q={q} value={value} onChange={setValue} reveal={checked ? { answer: checked.answer, correct: checked.correct } : null} />
+      <CalculatorWorkspace open={q.section === "math" && tools.desmosOpen} onClose={tools.closeDesmos} className="space-y-5">
+        <QuestionView key={`${q.id}:${context?.query ?? ""}`} q={q} value={value} onChange={setValue} reveal={checked ? { answer: checked.answer, correct: checked.correct } : null} />
 
-      {!checked && <HintBox questionId={q.id} />}
-      <ErrorBox message={error} />
+        {!checked && <HintBox questionId={q.id} math={q.section === "math"} />}
+        <ErrorBox message={error} />
 
-      {checked && (
-        <div className={cn("rounded-2xl p-5", checked.correct ? "bg-[#e6f6ec] dark:bg-success/15" : "bg-[#fde3e4] dark:bg-destructive/15")}>
-          <p className={cn("font-display text-lg font-semibold", checked.correct ? "text-success" : "text-destructive")}>{checked.correct ? "Верно!" : "Неверно — вопрос попал в повтор ошибок"}</p>
-          <RichText text={checked.explanation} className="mt-2 text-sm" />
-          {ai && (
-            <div className="mt-4 rounded-xl bg-card p-4">
-              <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
-                <Sparkles className="size-3.5" /> Объяснение ИИ{ai.mode === "demo" ? " · демо" : ""}
-              </p>
-              <RichText text={ai.text} className="text-sm" />
-            </div>
-          )}
-        </div>
-      )}
+        {checked && (
+          <div className={cn("rounded-2xl p-5", checked.correct ? "bg-[#e6f6ec] dark:bg-success/15" : "bg-[#fde3e4] dark:bg-destructive/15")}>
+            <p className={cn("font-display text-lg font-semibold", checked.correct ? "text-success" : "text-destructive")}>{checked.correct ? "Correct!" : "Incorrect — added to mistake review"}</p>
+            <RichText text={checked.explanation} math={q.section === "math"} className="mt-2 text-sm" />
+            {ai && (
+              <div className="mt-4 rounded-xl bg-card p-4">
+                <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+                  <Sparkles className="size-3.5" /> AI explanation{ai.mode === "demo" ? " · demo" : ""}
+                </p>
+                <RichText text={ai.text} math={q.section === "math"} className="text-sm" />
+              </div>
+            )}
+          </div>
+        )}
 
-      <div className="sticky bottom-0 -mx-4 flex flex-wrap items-center justify-between gap-2 border-t border-border bg-card/95 px-4 py-3 backdrop-blur sm:mx-0 sm:rounded-2xl sm:border">
-        <Button variant="ghost" size="sm" disabled={pos <= 0 || busy !== ""} onClick={() => navigate(`/sat/q/${list[pos - 1]}`)}>
-          <ArrowLeft /> Назад
-        </Button>
-        <div className="flex flex-wrap gap-2">
-          {checked && (
-            <>
-              <Button variant="outline" size="sm" onClick={explain} disabled={busy !== ""}>
-                <Sparkles /> {busy === "ai" ? "Объясняю…" : "Объяснить с ИИ"}
+        <div className="sticky bottom-0 -mx-4 flex flex-wrap items-center justify-between gap-2 border-t border-border bg-card/95 px-4 py-3 backdrop-blur sm:mx-0 sm:rounded-2xl sm:border">
+          <Button variant="ghost" size="sm" disabled={pos <= 0 || busy !== ""} onClick={() => navigate(`/sat/q/${list[pos - 1]}`)}>
+            <ArrowLeft /> Back
+          </Button>
+          <div className="flex flex-wrap gap-2">
+            {checked && (
+              <>
+                <Button variant="outline" size="sm" onClick={explain} disabled={busy !== ""}>
+                  <Sparkles /> {busy === "ai" ? "Explaining…" : "Explain with AI"}
+                </Button>
+                <Button variant="outline" size="sm" onClick={remix} disabled={busy !== ""}>
+                  <Shuffle /> {busy === "remix" ? "Creating…" : "Remix: similar question"}
+                </Button>
+              </>
+            )}
+            {!checked && (
+              <Button onClick={check} disabled={value === null || busy !== ""}>
+                {busy === "check" ? "Checking…" : "Check answer"}
               </Button>
-              <Button variant="outline" size="sm" onClick={remix} disabled={busy !== ""}>
-                <Shuffle /> {busy === "remix" ? "Создаю…" : "Remix: похожий вопрос"}
-              </Button>
-            </>
-          )}
-          {!checked && (
-            <Button onClick={check} disabled={value === null || busy !== ""}>
-              {busy === "check" ? "Проверяю…" : "Проверить"}
-            </Button>
-          )}
+            )}
+          </div>
+          <Button variant={checked ? "default" : "ghost"} size="sm" disabled={pos < 0 || pos >= list.length - 1 || busy !== ""} onClick={() => navigate(`/sat/q/${list[pos + 1]}`)}>
+            Next <ArrowRight />
+          </Button>
         </div>
-        <Button variant={checked ? "default" : "ghost"} size="sm" disabled={pos < 0 || pos >= list.length - 1 || busy !== ""} onClick={() => navigate(`/sat/q/${list[pos + 1]}`)}>
-          Дальше <ArrowRight />
-        </Button>
-      </div>
+      </CalculatorWorkspace>
     </div>
   );
 }

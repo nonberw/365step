@@ -21,25 +21,25 @@ export default function VocabUnit() {
   return (
     <div className="flex max-w-4xl flex-col gap-5">
       <Link to="/sat/vocab" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
-        <ArrowLeft className="size-4" /> Все юниты
+        <ArrowLeft className="size-4" /> All units
       </Link>
       <PageHeader eyebrow={unit.topic} title={unit.title} />
       <Segmented
         value={mode}
         onChange={setMode}
         options={[
-          { value: "cards", label: "1. Карточки" },
-          { value: "read", label: "2. Текст" },
-          { value: "quiz", label: "3. Квиз" },
+          { value: "cards", label: "1. Cards" },
+          { value: "read", label: "2. Text" },
+          { value: "quiz", label: "3. Quiz" },
         ]}
       />
       {mode === "cards" && <Cards words={unit.words} onDone={() => setMode("read")} />}
       {mode === "read" && (
         <Card className="flex flex-col gap-4">
-          <p className="text-sm text-muted-foreground">Слова юнита выделены. Прочитай текст и попробуй понять каждое по контексту.</p>
+          <p className="text-sm text-muted-foreground">The unit's vocabulary is highlighted. Read the passage and work out each word's meaning from context.</p>
           <RichText text={unit.text} className="font-serif text-[17px] leading-8 [&_strong]:rounded [&_strong]:bg-accent/30 [&_strong]:px-0.5 [&_strong]:font-semibold" />
           <Button className="self-start" onClick={() => setMode("quiz")}>
-            К квизу <ArrowRight />
+            Quiz <ArrowRight />
           </Button>
         </Card>
       )}
@@ -72,42 +72,42 @@ function Cards({ words, onDone }: { words: VocabWord[]; onDone: () => void }) {
         <button
           type="button"
           onClick={() => setFlipped(!flipped)}
-          aria-label={flipped ? "Показать слово" : "Показать значение"}
+          aria-label={flipped ? "Show word" : "Show meaning"}
           className="relative block h-72 w-full transition-transform duration-500 [transform-style:preserve-3d]"
           style={{ transform: flipped ? "rotateY(180deg)" : "none" }}
         >
           <span className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-3xl bg-secondary p-6 text-secondary-foreground [backface-visibility:hidden]">
             <Badge tone="brand">{w.pos}</Badge>
             <span className="font-display text-4xl font-semibold">{w.word}</span>
-            <span className="text-sm text-white/60">Нажми, чтобы перевернуть</span>
+            <span className="text-sm text-white/60">Select the card to flip it.</span>
           </span>
           <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-3xl border-2 border-primary bg-card p-6 text-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
             <span className="text-lg font-semibold">{w.definition}</span>
             <span className="text-primary">{w.ru}</span>
             <span className="font-serif italic text-muted-foreground">“{w.example}”</span>
-            <span className="text-xs text-muted-foreground">Синонимы: {w.similar.join(", ")}</span>
+            <span className="text-xs text-muted-foreground">Synonyms: {w.similar.join(", ")}</span>
           </span>
         </button>
       </div>
       <div className="flex items-center gap-3">
-        <Button variant="outline" size="icon" aria-label="Предыдущее слово" onClick={() => go(-1)} disabled={i === 0}>
+        <Button variant="outline" size="icon" aria-label={"Previous Word"} onClick={() => go(-1)} disabled={i === 0}>
           <ArrowLeft />
         </Button>
         <Button variant="ghost" size="sm" onClick={() => speak(w.word)}>
-          <Volume2 /> Произнести
+          <Volume2 /> Pronounce
         </Button>
         <span className="tabular text-sm text-muted-foreground">
           {i + 1} / {words.length}
         </span>
         <Button variant="ghost" size="sm" onClick={() => setFlipped(!flipped)}>
-          <RotateCw /> Перевернуть
+          <RotateCw /> Flip
         </Button>
         {i < words.length - 1 ? (
-          <Button variant="outline" size="icon" aria-label="Следующее слово" onClick={() => go(1)}>
+          <Button variant="outline" size="icon" aria-label={"Next word"} onClick={() => go(1)}>
             <ArrowRight />
           </Button>
         ) : (
-          <Button onClick={onDone}>К тексту</Button>
+          <Button onClick={onDone}>Passage</Button>
         )}
       </div>
     </div>
@@ -146,7 +146,7 @@ function Quiz({ unit }: { unit: Unit }) {
       return;
     }
     const r = await api<{ right: number; total: number }>(`/sat/vocab/${unit.id}/result`, { body: { answers: results } }).catch(() => null);
-    setSaved(r ? `Результат сохранён: ${r.right} из ${r.total}. +${r.right * 2} XP` : "Не удалось сохранить результат");
+    setSaved(r ? `Result saved: ${r.right} from ${r.total}. +${r.right * 2} XP` : "Unable to save result");
     setI(questions.length);
   }
 
@@ -175,9 +175,9 @@ function Quiz({ unit }: { unit: Unit }) {
   return (
     <Card className="flex flex-col gap-4">
       <p className="text-xs text-muted-foreground tabular">
-        Вопрос {i + 1} из {questions.length}
+        Question {i + 1} from {questions.length}
       </p>
-      <p className="text-lg font-medium">Какое слово означает: «{q!.w.definition}»?</p>
+      <p className="text-lg font-medium">Which word means “{q!.w.definition}»?</p>
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {q!.options.map((o, k) => (
           <button
@@ -195,7 +195,7 @@ function Quiz({ unit }: { unit: Unit }) {
         <>
           <p className="font-serif italic text-muted-foreground">“{q!.w.example}”</p>
           <Button className="self-start" onClick={next}>
-            {i + 1 < questions.length ? "Дальше" : "Завершить"}
+            {i + 1 < questions.length ? "Next" : "Complete"}
           </Button>
         </>
       )}

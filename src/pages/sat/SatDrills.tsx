@@ -9,16 +9,17 @@ import { ErrorBox } from "@/components/Page";
 import { Button } from "@/components/ui/button";
 import { Card, Progress } from "@/components/ui/card";
 import QuestionView, { type Response } from "./QuestionView";
+import { CalculatorWorkspace, useSatTools } from "./SatTools";
 
 // SAT drills: short focused sets on the real test's pace (R&W 71 s, Math 95 s per question). Each question shows a
 // pace bar; the summary compares accuracy and time with the pace and lists mistakes to review.
 
 const KINDS = [
-  { kind: "hard-math", title: "Самые трудные: Math", text: "До 10 вопросов с редакционной меткой Hard. После ревизии сложных заданий немного; число в наборе зависит от наличия.", icon: Flame },
-  { kind: "hard-rw", title: "Самые трудные: R&W", text: "До 10 сложных авторских вопросов Reading & Writing. Редакционная оценка, без статистической калибровки.", icon: Flame },
-  { kind: "spr", title: "Вписать ответ", text: "10 задач grid-in: вариантов нет, ответ вводится числом или дробью, как в настоящем SAT.", icon: Keyboard },
-  { kind: "weak", title: "Моя слабая тема", text: "Платформа найдёт домен с самой низкой точностью и соберёт по нему 10 вопросов.", icon: Target },
-  { kind: "sprint", title: "Спринт 20 вопросов", text: "Смешанные средние и трудные вопросы на скорость — тренировка темпа всего теста.", icon: Zap },
+  { kind: "hard-math", title: "Hard Math", text: "Up to 10 questions rated Hard by the editorial review. Set size depends on the available questions.", icon: Flame },
+  { kind: "hard-rw", title: "Hard Reading & Writing", text: "Up to 10 original Hard Reading & Writing questions. Difficulty ratings are editorial estimates, not statistically calibrated.", icon: Flame },
+  { kind: "spr", title: "Enter your answer", text: "10 student-produced response questions: enter a number or fraction without answer choices.", icon: Keyboard },
+  { kind: "weak", title: "My weakest area", text: "The platform will find the domain with the lowest accuracy and collect 10 questions.", icon: Target },
+  { kind: "sprint", title: "20-question sprint", text: "A timed mix of medium and hard questions to build test-taking pace.", icon: Zap },
 ] as const;
 
 type Item = SatQuestionPublic & { pace: number };
@@ -50,9 +51,9 @@ export default function SatDrills() {
     <div className="flex flex-col gap-6">
       <div>
         <p className="eyebrow">SAT</p>
-        <h1 className="font-display text-3xl font-bold">Тренировки</h1>
+        <h1 className="font-display text-3xl font-bold">Drills</h1>
         <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-          Короткие наборы в темпе настоящего Digital SAT: 71 секунда на вопрос Reading & Writing и 95 секунд на Math. Видно, где ты теряешь время, и все ошибки сразу уходят в повторение.
+          Short sets at Digital SAT pace: about 71 seconds per Reading &amp; Writing question and 95 seconds per Math question. Review your timing and revisit mistakes.
         </p>
       </div>
       {error && <ErrorBox message={error} />}
@@ -65,7 +66,7 @@ export default function SatDrills() {
             <p className="font-display text-lg font-semibold">{k.title}</p>
             <p className="flex-1 text-sm text-muted-foreground">{k.text}</p>
             <Button className="self-start" onClick={() => start(k.kind)} disabled={!!loading}>
-              {loading === k.kind ? "Собираю…" : "Начать"}
+              {loading === k.kind ? "Preparing…" : "Start"}
             </Button>
           </Card>
         ))}
@@ -75,6 +76,7 @@ export default function SatDrills() {
 }
 
 function Run({ drill, onExit }: { drill: Drill; onExit: () => void }) {
+  const tools = useSatTools();
   const [i, setI] = useState(0);
   const [value, setValue] = useState<Response>(null);
   const [checked, setChecked] = useState<{ correct: boolean; answer: number | string; explanation: string } | null>(null);
@@ -95,28 +97,28 @@ function Run({ drill, onExit }: { drill: Drill; onExit: () => void }) {
     const pace = log.reduce((a, l) => a + l.pace, 0) / Math.max(1, log.length);
     return (
       <Card className="flex flex-col gap-4">
-        <p className="font-display text-2xl font-bold">{drill.title}: итог</p>
+        <p className="font-display text-2xl font-bold">{drill.title}Results</p>
         <div className="grid grid-cols-3 gap-3">
-          <Stat label="Верно" value={`${right} / ${log.length}`} />
-          <Stat label="Среднее время" value={`${Math.round(avg)} с`} hot={avg > pace} />
-          <Stat label="Темп SAT" value={`${Math.round(pace)} с`} />
+          <Stat label={"Correct"} value={`${right} / ${log.length}`} />
+          <Stat label={"Average time"} value={`${Math.round(avg)} s`} hot={avg > pace} />
+          <Stat label={"SAT pace"} value={`${Math.round(pace)} s`} />
         </div>
         <p className="text-sm text-muted-foreground">
-          {avg > pace ? `Ты медленнее темпа экзамена на ${Math.round(avg - pace)} с на вопрос — на тесте не хватит времени на последние вопросы.` : "Ты укладываешься в темп экзамена — можно брать вопросы труднее."}
+          {avg > pace ? `You are behind the target pace by ${Math.round(avg - pace)} seconds per question. At this pace, you may run out of time on the final questions.` : "You are on pace. Try a harder set when you are ready."}
         </p>
         <div className="flex flex-col gap-1">
           {log.map((l, k) => (
             <Link key={l.id} to={`/sat/q/${l.id}`} className="flex items-center gap-3 rounded-xl px-3 py-1.5 text-sm hover:bg-muted">
               {l.correct ? <CheckCircle2 className="size-4 text-success" /> : <XCircle className="size-4 text-destructive" />}
-              <span className="flex-1">Вопрос {k + 1}</span>
+              <span className="flex-1">Question {k + 1}</span>
               <span className={cn("tabular", l.sec > l.pace ? "text-destructive" : "text-muted-foreground")}>
-                {l.sec} с / {l.pace} с
+                {l.sec} s / {l.pace} s
               </span>
             </Link>
           ))}
         </div>
         <Button className="self-start" onClick={onExit}>
-          К тренировкам
+          Back to drills
         </Button>
       </Card>
     );
@@ -143,40 +145,44 @@ function Run({ drill, onExit }: { drill: Drill; onExit: () => void }) {
 
   return (
     <div className="flex flex-col gap-4">
+      {q.section === "math" && tools.panels}
       <div className="flex flex-wrap items-center gap-3">
         <span className="font-display text-lg font-semibold">{drill.title}</span>
         {drill.note && <span className="text-sm text-muted-foreground">{drill.note}</span>}
+        {q.section === "math" && <div className="ml-auto flex gap-1">{tools.buttons}</div>}
         <span className="ml-auto flex items-center gap-1.5 text-sm tabular">
-          <Timer className="size-4" /> {sec} с из {q.pace}
+          <Timer className="size-4" /> {sec} s of {q.pace}
         </span>
       </div>
       <Progress value={(i / drill.items.length) * 100} />
       <div className="h-1.5 overflow-hidden rounded-full bg-muted">
         <div className={cn("h-full transition-all", sec > q.pace ? "bg-destructive" : sec > q.pace * 0.75 ? "bg-[#e0a100]" : "bg-success")} style={{ width: `${Math.min(100, (sec / q.pace) * 100)}%` }} />
       </div>
-      <Card>
-        <QuestionView q={q} value={value} onChange={checked ? () => undefined : setValue} reveal={checked ? { answer: checked.answer, correct: checked.correct } : undefined} number={i + 1} />
-      </Card>
-      {checked && (
-        <Card className={cn("flex flex-col gap-2 text-sm", checked.correct ? "border-success/50" : "border-destructive/50")}>
-          <p className={cn("flex items-center gap-2 font-semibold", checked.correct ? "text-success" : "text-destructive")}>
-            {checked.correct ? <CheckCircle2 className="size-5" /> : <XCircle className="size-5" />} {checked.correct ? "Верно" : `Неверно${q.choices ? "" : `: ответ ${checked.answer}`}`}
-          </p>
-          <RichText text={checked.explanation} />
+      <CalculatorWorkspace open={q.section === "math" && tools.desmosOpen} onClose={tools.closeDesmos} className="space-y-4">
+        <Card>
+          <QuestionView q={q} value={value} onChange={checked ? () => undefined : setValue} reveal={checked ? { answer: checked.answer, correct: checked.correct } : undefined} number={i + 1} />
         </Card>
-      )}
-      <div className="flex gap-2">
-        {checked ? (
-          <Button onClick={next}>{i + 1 < drill.items.length ? "Следующий" : "Итог"}</Button>
-        ) : (
-          <Button onClick={check} disabled={busy || value === null || value === ""}>
-            Проверить
-          </Button>
+        {checked && (
+          <Card className={cn("flex flex-col gap-2 text-sm", checked.correct ? "border-success/50" : "border-destructive/50")}>
+            <p className={cn("flex items-center gap-2 font-semibold", checked.correct ? "text-success" : "text-destructive")}>
+              {checked.correct ? <CheckCircle2 className="size-5" /> : <XCircle className="size-5" />} {checked.correct ? "Correct" : `Incorrect${q.choices ? "" : `: answer ${checked.answer}`}`}
+            </p>
+            <RichText text={checked.explanation} math={q.section === "math"} />
+          </Card>
         )}
-        <Button variant="outline" onClick={onExit}>
-          Выйти
-        </Button>
-      </div>
+        <div className="flex gap-2">
+          {checked ? (
+            <Button onClick={next}>{i + 1 < drill.items.length ? "Next" : "Results"}</Button>
+          ) : (
+            <Button onClick={check} disabled={busy || value === null || value === ""}>
+              Check answer
+            </Button>
+          )}
+          <Button variant="outline" onClick={onExit}>
+            Exit
+          </Button>
+        </div>
+      </CalculatorWorkspace>
     </div>
   );
 }
