@@ -1,3 +1,4 @@
+import { useExamCopy } from "@/lib/examLanguage";
 import { useEffect, useState, type CSSProperties } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -52,6 +53,7 @@ function CrownRing({ level, max, color }: { level: number; max: number; color: s
 }
 
 function NodeButton({ n, color, onClick }: { n: PathNode; color: string; onClick: () => void }) {
+  const t = useExamCopy();
   const locked = n.status === "locked";
   const face = locked ? "#e5e7eb" : color;
   const style: CSSProperties = { background: face, boxShadow: `0 7px 0 0 ${locked ? "#c9ced6" : shade(color)}` };
@@ -62,7 +64,7 @@ function NodeButton({ n, color, onClick }: { n: PathNode; color: string; onClick
         e.stopPropagation();
         onClick();
       }}
-      aria-label={`${n.title}: ${locked ? "закрыто" : n.status === "current" ? "сейчас здесь" : `уровень ${n.level} из ${n.maxLevel}`}`}
+      aria-label={`${n.title}: ${locked ? t("закрыто") : n.status === "current" ? t("сейчас здесь") : `${t("уровень ")}${n.level}${t(" из ")}${n.maxLevel}`}`}
       className={cn("relative grid size-[70px] place-items-center rounded-full transition-transform active:translate-y-[5px] [&_svg]:size-7", locked ? "text-[#9aa1ad]" : "text-white")}
       style={style}
     >
@@ -74,6 +76,7 @@ function NodeButton({ n, color, onClick }: { n: PathNode; color: string; onClick
 }
 
 function Popover({ n, unit, course, onClose, onChest }: { n: PathNode; unit: PathUnit; course: CourseId; onClose: () => void; onChest: () => void }) {
+  const t = useExamCopy();
   const locked = n.status === "locked";
   const lesson = n.kind !== "chest";
   return (
@@ -86,7 +89,7 @@ function Popover({ n, unit, course, onClose, onChest }: { n: PathNode; unit: Pat
     >
       <span aria-hidden className="absolute -top-2 left-1/2 size-4 -translate-x-1/2 rotate-45" style={{ background: locked ? "#9aa1ad" : unit.color }} />
       <p className="font-display text-lg font-bold leading-tight">{n.title}</p>
-      <p className="mt-0.5 text-sm text-white/85">{locked ? "Сначала пройди все уровни перед этим" : n.href ? n.subtitle : lesson ? `${n.subtitle} · уровень ${Math.min(n.level + 1, n.maxLevel)} из ${n.maxLevel}` : n.subtitle}</p>
+      <p className="mt-0.5 text-sm text-white/85">{locked ? t("Сначала пройди все уровни перед этим") : n.href ? n.subtitle : lesson ? `${n.subtitle}${t(" · уровень ")}${Math.min(n.level + 1, n.maxLevel)}${t(" из ")}${n.maxLevel}` : n.subtitle}</p>
       {!locked &&
         (n.href ? (
           <Link
@@ -94,7 +97,7 @@ function Popover({ n, unit, course, onClose, onChest }: { n: PathNode; unit: Pat
             className="mt-3 flex h-11 items-center justify-center rounded-xl bg-white font-display text-[15px] font-bold shadow-[0_4px_0_0_rgba(0,0,0,0.18)] active:translate-y-1 active:shadow-none"
             style={{ color: unit.color }}
           >
-            {n.status === "done" ? "Открыть решение" : "Решить задачу"}
+            {n.status === "done" ? t("Открыть решение") : t("Решить задачу")}
           </Link>
         ) : lesson ? (
           <Link
@@ -102,28 +105,25 @@ function Popover({ n, unit, course, onClose, onChest }: { n: PathNode; unit: Pat
             className="mt-3 flex h-11 items-center justify-center rounded-xl bg-white font-display text-[15px] font-bold shadow-[0_4px_0_0_rgba(0,0,0,0.18)] active:translate-y-1 active:shadow-none"
             style={{ color: unit.color }}
           >
-            {n.status === "done" ? (n.level >= n.maxLevel ? "Повторить ещё раз +10 XP" : "Следующий уровень +10 XP") : "Начать +10 XP"}
+            {n.status === "done" ? (n.level >= n.maxLevel ? t("Повторить ещё раз +10 XP") : t("Следующий уровень +10 XP")) : t("Начать +10 XP")}
           </Link>
         ) : n.level > 0 ? (
-          <p className="mt-3 rounded-xl bg-white/20 py-2.5 text-center text-sm font-semibold">Сундук открыт</p>
+          <p className="mt-3 rounded-xl bg-white/20 py-2.5 text-center text-sm font-semibold">{t("Сундук открыт")}</p>
         ) : (
-          <button type="button" onClick={onChest} className="mt-3 h-11 w-full rounded-xl bg-white font-display text-[15px] font-bold shadow-[0_4px_0_0_rgba(0,0,0,0.18)] active:translate-y-1 active:shadow-none" style={{ color: unit.color }}>
-            Открыть сундук
-          </button>
+          <button type="button" onClick={onChest} className="mt-3 h-11 w-full rounded-xl bg-white font-display text-[15px] font-bold shadow-[0_4px_0_0_rgba(0,0,0,0.18)] active:translate-y-1 active:shadow-none" style={{ color: unit.color }}>{t("\n            Открыть сундук\n          ")}</button>
         ))}
-      <button type="button" onClick={onClose} className="sr-only">
-        Закрыть
-      </button>
+      <button type="button" onClick={onClose} className="sr-only">{t("\n        Закрыть\n      ")}</button>
     </motion.div>
   );
 }
 
 function UnitBanner({ unit, index }: { unit: PathUnit; index: number }) {
+  const t = useExamCopy();
   const done = unit.nodes.filter((n) => n.level > 0).length;
   return (
     <div className="sticky top-[68px] z-20 flex items-center justify-between gap-3 rounded-2xl px-5 py-4 text-white" style={{ background: unit.color, boxShadow: `0 5px 0 0 ${shade(unit.color)}` }}>
       <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/75">Юнит {index + 1}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/75">{t("Юнит ")}{index + 1}</p>
         <p className="truncate font-display text-xl font-bold">{unit.title}</p>
         <p className="truncate text-sm text-white/80">{unit.description}</p>
       </div>
@@ -135,6 +135,7 @@ function UnitBanner({ unit, index }: { unit: PathUnit; index: number }) {
 }
 
 export default function Path() {
+  const t = useExamCopy();
   const { user, refresh } = useAuth();
   const notify = useNotify();
   const navigate = useNavigate();
@@ -170,11 +171,11 @@ export default function Path() {
   async function openChest(nodeId: string) {
     try {
       const r = await api<{ xp: number }>(`/path/${v.course}/${nodeId}/chest`, { body: {} });
-      notify({ variant: "success", title: `Сундук открыт: +${r.xp} XP`, body: "Растение стало чуть ближе к новой стадии." });
+      notify({ variant: "success", title: `${t("Сундук открыт: +")}${r.xp} XP`, body: t("Растение стало чуть ближе к новой стадии.") });
       setSelected(null);
       await Promise.all([path.reload(), refresh()]);
     } catch (e) {
-      notify({ variant: "error", title: "Не получилось открыть", body: (e as Error).message });
+      notify({ variant: "error", title: t("Не получилось открыть"), body: (e as Error).message });
     }
   }
 
@@ -198,13 +199,13 @@ export default function Path() {
             ))}
           </div>
           <div className="flex shrink-0 items-center gap-3 text-sm font-bold">
-            <span className="flex items-center gap-1 text-[#ff9600]" title="Серия дней">
+            <span className="flex items-center gap-1 text-[#ff9600]" title={t("Серия дней")}>
               <Flame className="size-5 fill-current" /> {v.streak}
             </span>
             <span className="flex items-center gap-1 text-[#1cb0f6]" title="XP">
               <Zap className="size-5 fill-current" /> {user?.xp ?? 0}
             </span>
-            <span className="flex items-center gap-1 text-[#ff4b4b]" title={pro ? "Pro: сердечки без ограничений" : "Сердечки на урок"}>
+            <span className="flex items-center gap-1 text-[#ff4b4b]" title={pro ? t("Pro: сердечки без ограничений") : t("Сердечки на урок")}>
               <Heart className="size-5 fill-current" /> {pro ? "∞" : 5}
             </span>
           </div>
@@ -223,7 +224,7 @@ export default function Path() {
                     <div key={n.id} className="relative flex justify-center" style={{ transform: `translateX(${x}px)`, zIndex: selected === n.id ? 40 : n.status === "current" ? 10 : undefined }}>
                       {n.status === "current" && (
                         <motion.span initial={{ y: 0 }} animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 1.6 }} className="absolute -top-11 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-xl border-2 border-border bg-card px-3 py-1.5 font-display text-sm font-bold uppercase" style={{ color: unit.color }}>
-                          {n.level > 0 ? "Ещё раз" : "Начать"}
+                          {n.level > 0 ? t("Ещё раз") : t("Начать")}
                           <span aria-hidden className="absolute -bottom-[7px] left-1/2 size-3 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-border bg-card" />
                         </motion.span>
                       )}
@@ -247,9 +248,7 @@ export default function Path() {
               </div>
             </section>
           ))}
-          <p className="text-center text-sm text-muted-foreground">
-            Пройдено {v.done} из {v.total} уровней
-          </p>
+          <p className="text-center text-sm text-muted-foreground">{t("\n            Пройдено ")}{v.done}{t(" из ")}{v.total}{t(" уровней\n          ")}</p>
         </div>
       </div>
 
@@ -260,13 +259,11 @@ export default function Path() {
             <PlantCard species={user.plant} xp={user.xp} />
           </div>
         ) : (
-          <button type="button" onClick={() => navigate("/profile#plant")} className="rounded-3xl border-2 border-dashed border-primary/40 p-4 text-left font-display font-bold text-primary">
-            Выбери растение-спутника — оно пойдёт с тобой по пути →
-          </button>
+          <button type="button" onClick={() => navigate("/profile#plant")} className="rounded-3xl border-2 border-dashed border-primary/40 p-4 text-left font-display font-bold text-primary">{t("\n            Выбери растение-спутника — оно пойдёт с тобой по пути →\n          ")}</button>
         )}
         <div className="rounded-3xl border border-border bg-card p-5">
           <div className="flex items-center justify-between">
-            <p className="font-display text-lg font-bold">Цель дня</p>
+            <p className="font-display text-lg font-bold">{t("Цель дня")}</p>
             <span className="text-sm font-bold tabular text-muted-foreground">
               {Math.min(v.todayXp, v.dailyGoal)}/{v.dailyGoal} XP
             </span>
@@ -276,7 +273,7 @@ export default function Path() {
           </div>
         </div>
         <div className="rounded-3xl border border-border bg-card p-5">
-          <p className="font-display text-lg font-bold">Задания дня</p>
+          <p className="font-display text-lg font-bold">{t("Задания дня")}</p>
           <ul className="mt-3 flex flex-col gap-4">
             {v.quests.map((q) => (
               <li key={q.id}>
@@ -293,11 +290,9 @@ export default function Path() {
         </div>
         {!pro && (
           <div className="rounded-3xl bg-[linear-gradient(135deg,#2f5bc8,#6f95ff)] p-5 text-white">
-            <p className="font-display text-lg font-bold">Pro: без ограничений</p>
-            <p className="mt-1 text-sm text-white/85">Безлимитные сердечки на уроках, ИИ-разборы и личный план.</p>
-            <Link to="/pricing" className={cn(buttonVariants({ variant: "outline" }), "mt-4 w-full border-white/40 bg-white text-primary")}>
-              Попробовать Pro
-            </Link>
+            <p className="font-display text-lg font-bold">{t("Pro: без ограничений")}</p>
+            <p className="mt-1 text-sm text-white/85">{t("Безлимитные сердечки на уроках, ИИ-разборы и личный план.")}</p>
+            <Link to="/pricing" className={cn(buttonVariants({ variant: "outline" }), "mt-4 w-full border-white/40 bg-white text-primary")}>{t("\n              Попробовать Pro\n            ")}</Link>
           </div>
         )}
       </aside>
