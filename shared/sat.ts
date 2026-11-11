@@ -1,3 +1,6 @@
+import curated from "./satCurated.json";
+import exact from "./satExact.json";
+import exactManifest from "./satExactManifest.json";
 import { SAT_ORIGINAL } from "./satOriginal";
 import { SAT_OPEN } from "./satOpen";
 import { SAT_SCALE } from "./satScale";
@@ -910,9 +913,12 @@ export const SAT_BANK: SatQuestion[] = annotateBank([
   ...SAT_SCALE,
   ...SAT_RW_EXPANSION,
   ...SAT_RW_SCALE,
+  ...(exact as SatQuestion[]),
 ]);
 
-export const SAT_ACTIVE_BANK = SAT_BANK.filter((q) => q.canonicalId === q.id);
+// Full archive stays addressable for historical results and running tests.
+const curatedIds = new Set([...curated.ids, ...exactManifest.addedIds]);
+export const SAT_ACTIVE_BANK = SAT_BANK.filter((q) => curatedIds.has(q.id) && q.canonicalId === q.id);
 
 export const SAT_BY_ID = new Map(SAT_BANK.map((q) => [q.id, q]));
 

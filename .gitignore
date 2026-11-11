@@ -9,3 +9,6 @@ server-dist
 
 .vercel
 .env*
+
+# Offline, licensed source cache; runtime content is exported separately.
+/.cache/sat-exact-sources/

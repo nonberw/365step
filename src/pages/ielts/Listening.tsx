@@ -21,7 +21,7 @@ export default function Listening() {
   if (!content.data) return <ErrorBox message={content.error} />;
   return (
     <div className="flex max-w-4xl flex-col gap-5">
-      <PageHeader eyebrow="IELTS" title="Listening" description="Два коротких упражнения с синтетической озвучкой браузера. Это тренировка навыка, без проверенного экзаменационного аудио и без Band; полный пробник Listening пока недоступен." />
+      <PageHeader eyebrow="IELTS" title="Listening" description={"Two short exercises using a synthetic browser voice. These are skill exercises, not official test audio or a full Listening test. No IELTS band is assigned."} />
       <Segmented
         value={current}
         onChange={(v) => {
@@ -58,7 +58,7 @@ function Recording({ id }: { id: string }) {
   if (!data) return <ErrorBox message={error} />;
 
   function play() {
-    if (!("speechSynthesis" in window)) return setErr("Браузер не умеет озвучивать текст. Попробуй Chrome или Safari.");
+    if (!("speechSynthesis" in window)) return setErr("Your browser could not play the text. Try Chrome or Safari.");
     speechSynthesis.cancel();
     stopped.current = false;
     const v = pickVoices();
@@ -111,18 +111,18 @@ function Recording({ id }: { id: string }) {
             <p className="text-sm text-white/60">{data.section}</p>
           </div>
           <Badge tone="brand" className="ml-auto">
-            Прослушиваний: {plays}/2
+            Listen: {plays}/2
           </Badge>
         </div>
         <Progress value={line < 0 ? (plays ? 100 : 0) : ((line + 1) / data.script.length) * 100} tone="accent" className="bg-white/15" />
         <div className="flex gap-2">
           {playing ? (
             <Button variant="accent" onClick={stop}>
-              <Pause /> Стоп
+              <Pause /> Stop
             </Button>
           ) : (
             <Button variant="accent" onClick={play} disabled={plays >= 2 || !!result}>
-              <Play /> {plays ? "Прослушать ещё раз" : "Слушать"}
+              <Play /> {plays ? "Listen again" : "Listen"}
             </Button>
           )}
         </div>
@@ -133,7 +133,7 @@ function Recording({ id }: { id: string }) {
             <p className="font-display text-2xl font-semibold">{result.percentage}%</p>
           </CircleProgress>
           <p className="font-display text-lg font-semibold">
-            {result.right} из {result.total} верно
+            {result.right} from {result.total} Correct
           </p>
         </Card>
       )}
@@ -141,11 +141,11 @@ function Recording({ id }: { id: string }) {
       <ErrorBox message={err} />
       {!result ? (
         <Button size="lg" className="self-start" onClick={check}>
-          Проверить ответы
+          Check the answers
         </Button>
       ) : (
         <Card>
-          <p className="mb-2 font-display font-semibold">Текст записи</p>
+          <p className="mb-2 font-display font-semibold">Transcript</p>
           <div className="flex flex-col gap-1.5 text-sm">
             {data.script.map((l, k) => (
               <p key={k}>

@@ -54,7 +54,7 @@ export default function Chart({ kind, title, unit, categories, series }: { kind:
             <i className="inline-block size-2.5 rounded-sm" style={{ background: COLORS[si % COLORS.length] }} /> {s.name}
           </span>
         ))}
-        <span className="ml-auto">Единицы: {unit}</span>
+        <span className="ml-auto">Units: {unit}</span>
       </div>
     </figure>
   );

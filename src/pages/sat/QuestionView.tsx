@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Bookmark, Highlighter, Strikethrough } from "lucide-react";
 import type { SatQuestionPublic } from "@shared/types";
-import { DIFFICULTY_RU, DOMAIN_RU } from "@shared/types";
+import { DIFFICULTY_EN, DOMAIN_EN } from "@shared/types";
 import { SAT_OPEN_SOURCES, SAT_OPEN_LICENSE } from "@shared/satSources";
 import { RichText } from "@/components/RichText";
 import { Badge } from "@/components/ui/card";
@@ -51,13 +51,13 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
       {q.passage && (
         <div className="min-w-0 lg:pr-8">
           <div className="mb-3 flex items-center justify-between gap-2">
-            <span className="text-xs text-muted-foreground">Выдели текст и нажми маркер</span>
+            <span className="text-xs text-muted-foreground">Select text, then choose Highlight</span>
             <button type="button" onClick={highlight} className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-xs font-semibold hover:bg-muted">
-              <Highlighter className="size-3.5" /> Маркер
+              <Highlighter className="size-3.5" /> Highlight
             </button>
           </div>
           <div ref={passageRef} className="font-serif text-[16px] leading-7" onMouseUp={() => undefined}>
-            <RichText text={passage!} className="[&_strong]:rounded-[3px] [&_strong]:bg-accent/45 [&_strong]:font-normal" />
+            <RichText text={passage!} math={q.section === "math"} className="[&_strong]:rounded-[3px] [&_strong]:bg-accent/45 [&_strong]:font-normal" />
           </div>
         </div>
       )}
@@ -66,7 +66,7 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
           {number !== undefined && <span className="grid size-7 place-items-center rounded-md bg-secondary font-display text-sm font-bold text-secondary-foreground">{number}</span>}
           {onMark && (
             <button type="button" onClick={onMark} aria-pressed={marked} className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold", marked ? "bg-primary text-primary-foreground" : "border border-border hover:bg-muted")}>
-              <Bookmark className="size-3.5" /> {marked ? "Отмечено" : "На проверку"}
+              <Bookmark className="size-3.5" /> {marked ? "Marked" : "Mark for review"}
             </button>
           )}
           {q.choices && !locked && (
@@ -76,26 +76,26 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
           )}
           {showMeta && (
             <span className="flex w-full flex-wrap gap-1.5">
-              <Badge>{DOMAIN_RU[q.domain]}</Badge>
-              <Badge tone={q.difficulty === 3 ? "bad" : q.difficulty === 2 ? "warn" : "ok"}>{DIFFICULTY_RU[q.difficulty]}</Badge>
-              {q.source === "ai" && <Badge tone="dark">Сделано ИИ</Badge>}
-              {q.purpose === "reinforcement" && <Badge>{q.id.startsWith("rw-scale-") ? "Упражнение для закрепления" : "Вариант для закрепления"}</Badge>}
+              <Badge>{DOMAIN_EN[q.domain]}</Badge>
+              <Badge tone={q.difficulty === 3 ? "bad" : q.difficulty === 2 ? "warn" : "ok"}>{DIFFICULTY_EN[q.difficulty]}</Badge>
+              {q.source === "ai" && <Badge tone="dark">AI-generated</Badge>}
+              {q.purpose === "reinforcement" && <Badge>{q.id.startsWith("rw-scale-") ? "Reinforcement exercise" : "Reinforcement variant"}</Badge>}
             </span>
           )}
         </div>
-        <RichText text={q.stem} className="text-[16px] font-medium" />
+        <RichText text={q.stem} math={q.section === "math"} className={q.section === "math" ? "text-lg leading-8" : "text-[16px] font-medium"} />
         {source && q.attribution && (
           <details className="mt-3 text-xs text-muted-foreground">
-            <summary className="cursor-pointer underline underline-offset-2">Источник и лицензия</summary>
+            <summary className="cursor-pointer underline underline-offset-2">Source and license</summary>
             <p className="mt-2"><a href={source.url} target="_blank" rel="noreferrer" className="underline">{source.title}</a> · {source.authors} · {source.edition}</p>
             <p className="mt-1">{q.attribution.locator} · <a href={source.licenseUrl} target="_blank" rel="noreferrer" className="underline">{source.license}</a></p>
-            {q.attribution.sourceUrl && <p className="mt-1"><a href={q.attribution.sourceUrl} target="_blank" rel="noreferrer" className="underline">Первоисточник текста и его авторы</a></p>}
-            <p className="mt-1">{q.attribution.changes} Источник не подтверждает и не одобряет эту адаптацию.</p>
-            <p className="mt-1"><a href={q.attribution.licenseUrl ?? SAT_OPEN_LICENSE} target="_blank" rel="noreferrer" className="underline">Лицензия адаптации: {q.attribution.license ?? "CC BY-SA 4.0"}</a> · <a href={q.attribution.download ?? "/content/sat-open-2026.json"} download className="underline">Скачать открытый набор с решениями</a></p>
+            {q.attribution.sourceUrl && <p className="mt-1"><a href={q.attribution.sourceUrl} target="_blank" rel="noreferrer" className="underline">Original passage and authors</a></p>}
+            <p className="mt-1">{q.attribution.changes} The source does not confirm or endorse this adaptation.</p>
+            <p className="mt-1"><a href={q.attribution.licenseUrl ?? SAT_OPEN_LICENSE} target="_blank" rel="noreferrer" className="underline">Adaptation license: {q.attribution.license ?? "CC BY-SA 4.0"}</a> · <a href={q.attribution.download ?? "/content/sat-open-2026.json"} download className="underline">Download the open dataset and solutions</a></p>
           </details>
         )}
         {q.choices ? (
-          <ul className="mt-5 flex flex-col gap-2.5" role="radiogroup" aria-label="Варианты ответа">
+          <ul className="mt-5 flex flex-col gap-2.5" role="radiogroup" aria-label={"Answer choices"}>
             {q.choices.map((c, i) => {
               const selected = value === i;
               const right = reveal && reveal.answer === i;
@@ -118,13 +118,13 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
                   >
                     <span className={cn("grid size-7 shrink-0 place-items-center rounded-full border-2 font-display text-sm font-bold", selected ? "border-primary bg-primary text-primary-foreground" : "border-foreground/40")}>{LETTERS[i]}</span>
                     <span className="choice-text min-w-0 pt-0.5">
-                      <RichText text={c} />
+                      <RichText text={c} math={q.section === "math"} />
                     </span>
                   </button>
                   {eliminate && !locked && (
                     <button
                       type="button"
-                      aria-label={isStruck ? `Вернуть вариант ${LETTERS[i]}` : `Вычеркнуть вариант ${LETTERS[i]}`}
+                      aria-label={isStruck ? `Restore choice ${LETTERS[i]}` : `Eliminate choice ${LETTERS[i]}`}
                       onClick={() => setStruck((s) => {
                         const n = new Set(s);
                         if (n.has(i)) n.delete(i);
@@ -143,10 +143,10 @@ export default function QuestionView({ q, value, onChange, reveal, marked, onMar
         ) : (
           <div className="mt-5 flex flex-col gap-2">
             <label htmlFor={`grid-${q.id}`} className="text-xs font-semibold text-muted-foreground">
-              Ответ (число, дробь вида 3/4 или десятичная)
+              Answer (integer, fraction such as 3/4, or decimal)
             </label>
             <Input id={`grid-${q.id}`} className="h-12 max-w-[220px] font-mono text-lg" value={(value as string) ?? ""} disabled={locked} onChange={(e) => onChange(e.target.value.replace(/[^\d.,/−+-]/g, "").slice(0, 60) || null)} />
-            {reveal && <p className={cn("text-sm font-semibold", reveal.correct ? "text-success" : "text-destructive")}>Правильный ответ: {String(reveal.answer)}</p>}
+            {reveal && <div className={cn("text-sm font-semibold", reveal.correct ? "text-success" : "text-destructive")}>Correct answer: <RichText text={String(reveal.answer)} math={q.section === "math"} className="inline [&>p]:inline" /></div>}
           </div>
         )}
       </div>

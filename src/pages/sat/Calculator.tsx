@@ -23,19 +23,19 @@ export default function Calculator() {
 
   return (
     <div className="flex max-w-4xl flex-col gap-5">
-      <PageHeader eyebrow="SAT" title="Калькулятор баллов" description="Сколько верных ответов нужно для твоей цели. Оценка приблизительная: настоящий балл зависит от сложности вопросов и уровня второго модуля." />
+      <PageHeader eyebrow="SAT" title={"Score calculator"} description={"Estimate how many correct answers you need for your target score. This is approximate: the actual score depends on question difficulty and the second module."} />
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto]">
         <Card className="flex flex-col gap-6">
-          <Slider id="rw" label="Reading & Writing: верных ответов" value={rw} max={54} onChange={setRw} />
-          <Toggle id="rw-hard" checked={rwHard} onChange={setRwHard} label="Второй модуль R&W был сложным" />
-          <Slider id="math" label="Math: верных ответов" value={math} max={44} onChange={setMath} />
-          <Toggle id="math-hard" checked={mathHard} onChange={setMathHard} label="Второй модуль Math был сложным" />
+          <Slider id="rw" label={"Reading & Writing: correct answers"} value={rw} max={54} onChange={setRw} />
+          <Toggle id="rw-hard" checked={rwHard} onChange={setRwHard} label={"Harder Reading & Writing module 2"} />
+          <Slider id="math" label={"Math: correct answers"} value={math} max={44} onChange={setMath} />
+          <Toggle id="math-hard" checked={mathHard} onChange={setMathHard} label={"Harder Math module 2"} />
         </Card>
         <Card className="flex flex-col items-center justify-center gap-4 px-10">
           <CircleProgress value={rwScore + mathScore} max={1600} size={170} stroke={13}>
             <div>
               <p className="font-display text-4xl font-semibold tabular">{rwScore + mathScore}</p>
-              <p className="text-xs text-muted-foreground">из 1600</p>
+              <p className="text-xs text-muted-foreground">out of 1600</p>
             </div>
           </CircleProgress>
           <div className="grid w-full grid-cols-2 gap-3 text-center">

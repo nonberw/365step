@@ -2,13 +2,15 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { SAT_SCALE, SAT_SCALE_SOURCE, SAT_SCALE_PRACTICE } from "../shared/satScale";
 import { SAT_SCALE_READING } from "../shared/satScaleReading";
-import { SAT_ACTIVE_BANK } from "../shared/sat";
+import { SAT_BANK } from "../shared/sat";
 import { SAT_OPEN_SOURCES } from "../shared/satSources";
 import { familyOf } from "../shared/satQuality";
 
-const active=SAT_ACTIVE_BANK.filter(q=>q.id.startsWith("scale-"));
+// Historical source downloads retain their complete contents after active-bank curation.
+const archive=SAT_BANK.filter(q=>q.canonicalId===q.id);
+const active=archive.filter(q=>q.id.startsWith("scale-"));
 const count=(items:typeof SAT_SCALE)=>({total:items.length,hard:items.filter(q=>q.difficulty===3).length,families:new Set(items.map(familyOf)).size});
-const manifest={total:active.length,hard:active.filter(q=>q.difficulty===3).length,source:count(SAT_SCALE_SOURCE),reading:count(SAT_SCALE_READING),practice:count(SAT_SCALE_PRACTICE),bankTotal:SAT_ACTIVE_BANK.length,bankHard:SAT_ACTIVE_BANK.filter(q=>q.difficulty===3).length};
+const manifest={total:active.length,hard:active.filter(q=>q.difficulty===3).length,source:count(SAT_SCALE_SOURCE),reading:count(SAT_SCALE_READING),practice:count(SAT_SCALE_PRACTICE),bankTotal:archive.length,bankHard:archive.filter(q=>q.difficulty===3).length};
 mkdirSync("public/content",{recursive:true});
 writeFileSync("shared/satScaleManifest.json",JSON.stringify(manifest,null,2)+"\n");
 writeFileSync("public/content/sat-scale-2026.json",JSON.stringify({

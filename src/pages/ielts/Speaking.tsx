@@ -30,12 +30,12 @@ export default function Speaking() {
       ? p1.map((t) => ({ id: t.id, title: t.topic, text: t.questions.join(" "), lines: t.questions }))
       : part === "2"
         ? p2.map((c) => ({ id: c.id, title: c.topic, text: `${c.topic} You should say: ${c.points.join("; ")}.`, lines: c.points.map((x) => `• ${x}`) }))
-        : p2.map((c) => ({ id: `${c.id}-p3`, title: `По теме: ${c.topic}`, text: c.part3.join(" "), lines: c.part3 }));
+        : p2.map((c) => ({ id: `${c.id}-p3`, title: `Topic: ${c.topic}`, text: c.part3.join(" "), lines: c.part3 }));
   const prompt = prompts[idx % prompts.length]!;
 
   return (
     <div className="flex max-w-4xl flex-col gap-5">
-      <PageHeader eyebrow="IELTS" title="Speaking" description="Браузер расшифрует речь. Подключённая модель разбирает связность, лексику и грамматику текста; произношение и аудиоплавность без анализа аудио не оцениваются." />
+      <PageHeader eyebrow="IELTS" title="Speaking" description={"Your browser transcribes your speech. AI feedback covers coherence, vocabulary and grammar in the transcript. Pronunciation and spoken fluency require audio analysis and are not assessed here."} />
       <div className="flex flex-wrap items-center gap-3">
         <Segmented
           value={part}
@@ -44,13 +44,13 @@ export default function Speaking() {
             setIdx(0);
           }}
           options={[
-            { value: "1", label: "Part 1 · вопросы" },
-            { value: "2", label: "Part 2 · карточка" },
-            { value: "3", label: "Part 3 · дискуссия" },
+            { value: "1", label: "Part 1 · Questions" },
+            { value: "2", label: "Part 2 · cue card" },
+            { value: "3", label: "Part 3 · Discussion" },
           ]}
         />
         <Button variant="outline" size="sm" onClick={() => setIdx(idx + 1 + Math.floor(Math.random() * 3))}>
-          <Shuffle /> Другая тема
+          <Shuffle /> Another topic
         </Button>
       </div>
       <Session key={`${part}-${prompt.id}`} part={part} prompt={prompt} />
@@ -132,19 +132,19 @@ function Session({ part, prompt }: { part: Part; prompt: { id: string; title: st
           {phase === "idle" && (
             <>
               <p className="text-sm text-muted-foreground">
-                {part === "2" ? "Сначала минута на подготовку, затем до 2 минут речи." : `Ответь на вопросы подряд, до ${LIMIT[part]} секунд.`}
-                {!speech.supported && " Твой браузер не распознаёт речь — ответ можно напечатать."}
+                {part === "2" ? "Prepare for one minute, then speak for up to two minutes." : `Answer the questions in order, for up to ${LIMIT[part]} seconds.`}
+                {!speech.supported && " Speech recognition is unavailable in this browser. You can type your response instead."}
               </p>
               <Button size="lg" onClick={() => (part === "2" ? setPhase("prep") : startTalking())}>
-                <Mic /> {part === "2" ? "Начать подготовку" : "Начать отвечать"}
+                <Mic /> {part === "2" ? "Start preparation" : "Start speaking"}
               </Button>
             </>
           )}
           {phase === "prep" && (
             <>
               <p className="font-display text-5xl font-semibold tabular">{mmss(prep)}</p>
-              <p className="text-sm text-muted-foreground">Подготовка: набросай 3–4 ключевых слова для каждого пункта.</p>
-              <Button onClick={startTalking}>Я готов(а), начать</Button>
+              <p className="text-sm text-muted-foreground">Preparation: note 3–4 keywords for each point.</p>
+              <Button onClick={startTalking}>Ready — start speaking</Button>
             </>
           )}
           {phase === "talk" && (
@@ -159,25 +159,25 @@ function Session({ part, prompt }: { part: Part; prompt: { id: string; title: st
                 {mmss(elapsed)} <span className="text-base text-muted-foreground">/ {mmss(LIMIT[part])}</span>
               </p>
               <Button variant="dark" onClick={finishTalking}>
-                <Square /> Закончить
+                <Square /> Finish
               </Button>
             </>
           )}
           {(phase === "talk" || phase === "done") && (
             <div className="w-full text-left">
-              <p className="mb-1 text-xs font-semibold text-muted-foreground">Расшифровка {speech.listening && "(слушаю…)"}</p>
+              <p className="mb-1 text-xs font-semibold text-muted-foreground">Transcript {speech.listening && "(Listening…)"}</p>
               <p className={cn("min-h-16 rounded-xl bg-muted/60 p-3 text-sm", !transcript && "text-muted-foreground")}>
-                {speech.text || (phase === "talk" ? "Говори — текст появится здесь" : "")} <span className="text-muted-foreground">{speech.interim}</span>
+                {speech.text || (phase === "talk" ? "Speak — your transcript will appear here" : "")} <span className="text-muted-foreground">{speech.interim}</span>
               </p>
               {(phase === "done" || !speech.supported || speech.error) && (
-                <Textarea id="typed-answer" className="mt-3" rows={4} placeholder="Можно дописать или напечатать ответ, если распознавание не сработало" value={typed} onChange={(e) => setTyped(e.target.value)} />
+                <Textarea id="typed-answer" className="mt-3" rows={4} placeholder={"You can edit or type your response if speech recognition misses anything."} value={typed} onChange={(e) => setTyped(e.target.value)} />
               )}
             </div>
           )}
           <ErrorBox message={speech.error || error} className="w-full text-left" />
           {phase === "done" && (
             <Button size="lg" onClick={submit} disabled={busy || transcript.split(/\s+/).length < 10}>
-              {busy ? "Оцениваю…" : "Получить оценку"}
+              {busy ? "Assessing..." : "Get feedback"}
             </Button>
           )}
         </Card>
@@ -185,11 +185,11 @@ function Session({ part, prompt }: { part: Part; prompt: { id: string; title: st
 
       {result && (
         <>
-          <BandHeader overall={result.overall} predicted={result.predicted} criteria={result.criteria} mode={result.mode} extra={`Темп: ${result.wordsPerMinute} слов/мин`} />
-          <PlanList title="Что заметил экзаменатор" items={result.feedback} />
-          <PlanList title="План на неделю" items={result.plan} />
+          <BandHeader overall={result.overall} predicted={result.predicted} criteria={result.criteria} mode={result.mode} extra={`Speed: ${result.wordsPerMinute} words/min`} />
+          <PlanList title={"Feedback on your response"} items={result.feedback} />
+          <PlanList title={"Practice plan"} items={result.plan} />
           <Card>
-            <p className="mb-1 text-xs font-semibold text-muted-foreground">Твой ответ</p>
+            <p className="mb-1 text-xs font-semibold text-muted-foreground">Your response</p>
             <p className="text-sm">{transcript}</p>
           </Card>
         </>

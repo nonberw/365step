@@ -13,7 +13,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { CircleProgress } from "@/components/ui/circle-progress";
 import QuestionView, { type Response } from "./QuestionView";
 import { EXAM_KEY } from "./TestHome";
-import { useSatTools } from "./SatTools";
+import { CalculatorWorkspace, useSatTools } from "./SatTools";
 
 type View =
   | { test: SatTestState; questions: SatQuestionPublic[]; seconds: number }
@@ -110,64 +110,66 @@ function Module({ view, onSubmitted }: { view: Extract<View, { questions: unknow
   const answered = (qid: string) => answers[qid] !== undefined && answers[qid] !== null && answers[qid] !== "";
 
   return (
-    <div className="flex min-h-dvh flex-col bg-card">
-      <header className="flex items-center justify-between gap-3 border-b border-dashed border-border px-4 py-3 sm:px-6">
+    <div lang="en" className="flex h-dvh flex-col bg-card">
+      <header className="flex shrink-0 items-center justify-between gap-3 border-b border-dashed border-border px-4 py-3 sm:px-6">
         <div className="min-w-0">
           <p className="truncate font-display text-sm font-semibold sm:text-base">
             Section {m.section === "rw" ? 1 : 2}, Module {m.module}: {SECTION[m.section]}
           </p>
-          {exam && <p className="flex items-center gap-1 text-xs text-primary"><Lock className="size-3" /> Режим экзамена</p>}
+          {exam && <p className="flex items-center gap-1 text-xs text-primary"><Lock className="size-3" /> Examination mode</p>}
         </div>
         <div className="flex flex-col items-center">
           {!hideTimer && <span className={cn("font-display text-xl font-semibold tabular", left < 300 && "text-destructive")}>{mmss(left)}</span>}
           <button type="button" onClick={() => setHideTimer(!hideTimer)} className="inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-0.5 text-[11px]">
-            {hideTimer ? <Eye className="size-3" /> : <EyeOff className="size-3" />} {hideTimer ? "Показать" : "Скрыть"}
+            {hideTimer ? <Eye className="size-3" /> : <EyeOff className="size-3" />} {hideTimer ? "Show" : "Hide"}
           </button>
         </div>
         {m.section === "math" ? <div className="flex gap-1">{tools.buttons}</div> : <Logo className="hidden sm:inline" />}
       </header>
       {m.section === "math" && tools.panels}
 
-      <main className="flex-1 px-4 py-6 sm:px-8">
-        {reviewing ? (
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="font-display text-2xl font-semibold">Проверь ответы</h1>
-            <p className="mt-1 text-sm text-muted-foreground">Нажми на номер, чтобы вернуться к вопросу. После отправки модуль изменить нельзя.</p>
-            <Grid questions={questions} answered={answered} marked={marked} current={-1} onPick={(i) => { setIndex(i); setReviewing(false); }} />
-            <ErrorBox message={error} className="mt-4" />
-          </div>
-        ) : (
-          <div className="mx-auto max-w-6xl">
-            <QuestionView
-              q={q}
-              number={index + 1}
-              showMeta={false}
-              value={answers[q.id] ?? null}
-              onChange={(v) => setAnswers((a) => ({ ...a, [q.id]: v }))}
-              marked={marked.has(q.id)}
-              onMark={() => setMarked((s) => {
-                const n = new Set(s);
-                if (n.has(q.id)) n.delete(q.id);
-                else n.add(q.id);
-                return n;
-              })}
-            />
-          </div>
-        )}
+      <main className={cn("min-h-0 flex-1 px-4 py-6 sm:px-8", m.section === "math" && tools.desmosOpen ? "overflow-hidden" : "overflow-y-auto")}>
+        <CalculatorWorkspace open={m.section === "math" && tools.desmosOpen} onClose={tools.closeDesmos} fill>
+          {reviewing ? (
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="font-display text-2xl font-semibold">Review your answers</h1>
+              <p className="mt-1 text-sm text-muted-foreground">Select a question number to review it. You cannot change a module after submitting it.</p>
+              <Grid questions={questions} answered={answered} marked={marked} current={-1} onPick={(i) => { setIndex(i); setReviewing(false); }} />
+              <ErrorBox message={error} className="mt-4" />
+            </div>
+          ) : (
+            <div className="mx-auto max-w-6xl">
+              <QuestionView
+                q={q}
+                number={index + 1}
+                showMeta={false}
+                value={answers[q.id] ?? null}
+                onChange={(v) => setAnswers((a) => ({ ...a, [q.id]: v }))}
+                marked={marked.has(q.id)}
+                onMark={() => setMarked((s) => {
+                  const n = new Set(s);
+                  if (n.has(q.id)) n.delete(q.id);
+                  else n.add(q.id);
+                  return n;
+                })}
+              />
+            </div>
+          )}
+        </CalculatorWorkspace>
       </main>
 
-      <footer className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-dashed border-border bg-card px-4 py-3 sm:px-6" style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}>
-        <span className="hidden text-sm text-muted-foreground sm:inline">{questions.filter((x) => answered(x.id)).length} из {questions.length} отвечено</span>
+      <footer className="sticky bottom-0 flex shrink-0 items-center justify-between gap-3 border-t border-dashed border-border bg-card px-4 py-3 sm:px-6" style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}>
+        <span className="hidden text-sm text-muted-foreground sm:inline">{questions.filter((x) => answered(x.id)).length} from {questions.length} Answered</span>
         {!reviewing && (
           <div className="relative">
             <button type="button" onClick={() => setNavOpen(!navOpen)} className="inline-flex items-center gap-1.5 rounded-lg bg-secondary px-4 py-2 font-display text-sm font-semibold text-secondary-foreground">
-              Вопрос {index + 1} из {questions.length} <ChevronUp className={cn("size-4 transition-transform", !navOpen && "rotate-180")} />
+              Question {index + 1} from {questions.length} <ChevronUp className={cn("size-4 transition-transform", !navOpen && "rotate-180")} />
             </button>
             {navOpen && (
               <div className="absolute bottom-12 left-1/2 z-20 w-[min(92vw,420px)] -translate-x-1/2 rounded-2xl border border-border bg-card p-4 shadow-2xl">
                 <Grid questions={questions} answered={answered} marked={marked} current={index} onPick={(i) => { setIndex(i); setNavOpen(false); }} />
                 <Button variant="outline" size="sm" className="mt-3 w-full" onClick={() => { setReviewing(true); setNavOpen(false); }}>
-                  Перейти к проверке
+                  Review answers
                 </Button>
               </div>
             )}
@@ -176,25 +178,25 @@ function Module({ view, onSubmitted }: { view: Extract<View, { questions: unknow
         <div className="flex gap-2">
           {(index > 0 || reviewing) && (
             <Button variant="outline" onClick={() => (reviewing ? setReviewing(false) : setIndex(index - 1))}>
-              Назад
+              Back
             </Button>
           )}
           {reviewing ? (
             <Button onClick={submit} disabled={busy}>
-              {busy ? "Отправляю…" : test.current === 3 ? "Завершить тест" : "Отправить модуль"}
+              {busy ? "Sending..." : test.current === 3 ? "Finish test" : "Submit module"}
             </Button>
           ) : index < questions.length - 1 ? (
-            <Button onClick={() => setIndex(index + 1)}>Дальше</Button>
+            <Button onClick={() => setIndex(index + 1)}>Next</Button>
           ) : (
-            <Button onClick={() => setReviewing(true)}>К проверке</Button>
+            <Button onClick={() => setReviewing(true)}>Review answers</Button>
           )}
         </div>
       </footer>
 
       {exam && !lock.started && (
-        <Overlay title={`Модуль ${test.current + 1} из 4`} text={`${SECTION[m.section]}: ${questions.length} вопросов, ${mmss(view.seconds)} минут. Экран перейдёт в полноэкранный режим, а таймер пойдёт после нажатия.`} action="Начать модуль" onAction={lock.start} />
+        <Overlay title={`Module ${test.current + 1} from 4`} text={`${SECTION[m.section]}: ${questions.length} questions, ${mmss(view.seconds)} minutes. Full screen and the timer begin when you select Start module.`} action={"Start module"} onAction={lock.start} />
       )}
-      {exam && lock.started && lock.away && <Overlay title="Тест на паузе" text="Ты вышел из теста. Выход записан. Вернись, чтобы продолжить: таймер не останавливается." action="Вернуться в тест" onAction={lock.comeBack} />}
+      {exam && lock.started && lock.away && <Overlay title={"Test paused"} text={"You left the test. This was recorded. Return to continue; the timer is still running."} action={"Return to test"} onAction={lock.comeBack} />}
     </div>
   );
 }
@@ -226,7 +228,7 @@ function Overlay({ title, text, action, onAction }: { title: string; text: strin
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/85 p-6">
       <div className="w-full max-w-md rounded-3xl bg-secondary p-7 text-white">
         <p className="flex items-center gap-2 font-display text-xs font-semibold uppercase tracking-[0.14em] text-accent">
-          <Lock className="size-3.5" /> Режим экзамена
+          <Lock className="size-3.5" /> Examination mode
         </p>
         <h2 className="mt-2 font-display text-2xl font-semibold">{title}</h2>
         <p className="mt-2 text-sm text-white/70">{text}</p>
@@ -245,13 +247,13 @@ function Results({ view }: { view: Extract<View, { review: unknown }> }) {
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6">
       <Link to="/sat" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
-        <ArrowLeft className="size-4" /> К обзору SAT
+        <ArrowLeft className="size-4" /> SAT overview
       </Link>
       <div className="flex flex-col items-center gap-6 rounded-3xl bg-secondary px-6 py-8 text-white sm:flex-row sm:px-10">
         <CircleProgress value={total} max={1600} size={150} stroke={12} tone="var(--accent)">
           <div>
             <p className="font-display text-4xl font-semibold tabular">{total}</p>
-            <p className="text-xs text-white/60">из 1600</p>
+            <p className="text-xs text-white/60">out of 1600</p>
           </div>
         </CircleProgress>
         <div className="grid flex-1 grid-cols-2 gap-4">
@@ -263,15 +265,15 @@ function Results({ view }: { view: Extract<View, { review: unknown }> }) {
             <p className="text-xs text-white/60">Math</p>
             <p className="font-display text-3xl font-semibold tabular">{test.mathScore}</p>
           </div>
-          <p className="col-span-2 text-xs text-white/60">Ориентировочная оценка по точности в модулях и уровню второго модуля, не официальный балл College Board.</p>
+          <p className="col-span-2 text-xs text-white/60">Indicative estimate of accuracy in modules and level of the second module, not official College Board score.</p>
         </div>
       </div>
 
       {review.map((mod) => (
         <section key={`${mod.section}-${mod.module}`} className="flex flex-col gap-2">
           <h2 className="font-display text-lg font-semibold">
-            {SECTION[mod.section]} · модуль {mod.module}
-            {mod.module === 2 && <span className="ml-2 text-sm font-normal text-muted-foreground">({mod.level === "hard" ? "сложный" : "базовый"} уровень)</span>}
+            {SECTION[mod.section]} · module {mod.module}
+            {mod.module === 2 && <span className="ml-2 text-sm font-normal text-muted-foreground">({mod.level === "hard" ? "Harder" : "Standard"} (level)</span>}
             <span className="ml-2 text-sm font-normal text-muted-foreground">
               {mod.items.filter((i) => i.correct).length}/{mod.items.length}
             </span>
@@ -290,9 +292,9 @@ function Results({ view }: { view: Extract<View, { review: unknown }> }) {
                     <div className="border-t border-border bg-background/50 p-4 sm:p-6">
                       <QuestionView q={it.question} value={it.given} onChange={() => undefined} reveal={{ answer: it.answer, correct: it.correct }} />
                       <div className="mt-4 rounded-xl bg-muted p-4">
-                        <RichText text={it.explanation} className="text-sm" />
+                        <RichText text={it.explanation} math={it.question.section === "math"} className="text-sm" />
                         <Link to={`/sat/q/${it.question.id}`} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "mt-3")}>
-                          Разобрать с ИИ
+                          Review with AI
                         </Link>
                       </div>
                     </div>

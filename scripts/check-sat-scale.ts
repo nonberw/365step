@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { RichText } from "../src/components/RichText";
 import { SAT_SCALE, SAT_SCALE_SOURCE, SAT_SCALE_PRACTICE } from "../shared/satScale";
 import { SAT_SCALE_READING } from "../shared/satScaleReading";
-import { SAT_ACTIVE_BANK, SAT_BY_ID, isCorrect } from "../shared/sat";
+import { SAT_BANK, SAT_ACTIVE_BANK, SAT_BY_ID, isCorrect } from "../shared/sat";
 import { SAT_OPEN_SOURCES } from "../shared/satSources";
 import { familyOf, fingerprint, selectAssessment } from "../shared/satQuality";
 import { choiceKey } from "../shared/numeric";
@@ -16,9 +16,9 @@ function ok(value:unknown,message:string){assert.ok(value,message);checks++;}
 ok(SAT_SCALE.length>=3000&&SAT_SCALE_SOURCE.length>=650&&SAT_SCALE_READING.length===40&&SAT_SCALE_PRACTICE.length===2400,"substantial expansion, not only 120 items");
 ok(new Set(SAT_SCALE.map(q=>q.id)).size===SAT_SCALE.length,"stable unique IDs");
 ok(new Set(SAT_SCALE.map(fingerprint)).size===SAT_SCALE.length,"distinct complete conditions");
-ok(manifest.total===SAT_SCALE.length&&manifest.bankTotal===SAT_ACTIVE_BANK.length,"honest active bank counts");
+ok(manifest.total===SAT_SCALE.length&&manifest.bankTotal===SAT_BANK.filter(q=>q.canonicalId===q.id&&!q.id.startsWith("exact-")).length,"historical import manifest matches preserved archive");
 ok(manifest.hard===SAT_SCALE.filter(q=>q.difficulty===3).length,"editorial Hard count");
-const old=SAT_ACTIVE_BANK.filter(q=>!q.id.startsWith("scale-"));
+const old=SAT_BANK.filter(q=>!q.id.startsWith("scale-"));
 for(const q of SAT_SCALE){
   const live=SAT_BY_ID.get(q.id)!;
   ok(live.canonicalId===q.id,`${q.id}: new active condition`);

@@ -6,6 +6,7 @@ export type BankQuery = Record<string, unknown>;
 export const bankSeed = (query: BankQuery) => String(query.seed ?? "365step-bank").slice(0, 128);
 export function matchesCollection(q: SatQuestion, collection: string) {
   switch (collection) {
+    case "exact": return q.id.startsWith("exact-");
     case "rw-open": return q.id.startsWith("rw-open-");
     case "rw-scale": return q.id.startsWith("rw-scale-");
     case "rw-scale-native": return q.id.startsWith("rw-scale-bb-");
@@ -37,7 +38,8 @@ export function bankCatalog(pool: SatQuestion[], results: Map<string, boolean>, 
   const items = base.filter(q => matchesStatus(q, String(query.status ?? "all")));
   const totals = new Map<string, number>();
   for (const q of items) { const t = topicFor(q); if (t) totals.set(t.id, (totals.get(t.id) ?? 0) + 1); }
-  const global = bankSummaries(pool, results, saved, {});
-  const correct = global.filter(q => q.status === "correct").length, wrong = global.filter(q => q.status === "wrong").length;
-  return { inventory, statuses, stats: { attempted: correct + wrong, correct, wrong, saved: global.filter(q => q.saved).length, accuracy: correct + wrong ? correct / (correct + wrong) : null }, sections: (["rw", "math"] as const).map(section => ({ id: section, title: section === "rw" ? "Reading & Writing" : "Math", total: items.filter(q => q.section === section).length, domains: BANK_DOMAIN_ORDER[section].map(domain => ({ id: domain, total: items.filter(q => q.section === section && q.domain === domain).length, topics: BANK_TOPICS.filter(t => t.section === section && t.domain === domain).map(t => ({ ...t, total: totals.get(t.id) ?? 0 })) })) })) };
+  const collections = Object.fromEntries(["exact", "rw-open", "rw-scale", "rw-scale-native", "rw-scale-practice", "open", "scale", "scale-source", "scale-practice"].map(key => [key, pool.filter(q => matchesCollection(q, key)).length]));
+  // Summary is lifetime activity, including archived questions. Filter counters stay active-only.
+  const correct = [...results.values()].filter(Boolean).length, wrong = results.size - correct;
+  return { inventory, collections, statuses, stats: { attempted: correct + wrong, correct, wrong, saved: saved.size, accuracy: correct + wrong ? correct / (correct + wrong) : null }, sections: (["rw", "math"] as const).map(section => ({ id: section, title: section === "rw" ? "Reading & Writing" : "Math", total: items.filter(q => q.section === section).length, domains: BANK_DOMAIN_ORDER[section].map(domain => ({ id: domain, total: items.filter(q => q.section === section && q.domain === domain).length, topics: BANK_TOPICS.filter(t => t.section === section && t.domain === domain).map(t => ({ ...t, total: totals.get(t.id) ?? 0 })) })) })) };
 }

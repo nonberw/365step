@@ -512,3 +512,7 @@ export interface ConsultSlot {
   /** Teacher view: who signed up */
   attendees?: { id: string; name: string; grade: string; note: string; at: number }[];
 }
+
+/** English labels for the English-language exams; ENT keeps the Russian labels. */
+export const DIFFICULTY_EN: Record<Difficulty, string> = { 1: "Easy", 2: "Medium", 3: "Hard" };
+export const DOMAIN_EN = Object.fromEntries(Object.keys(DOMAIN_RU).map(domain => [domain, domain])) as Record<SatDomain, string>;

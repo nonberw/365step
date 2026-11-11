@@ -1,3 +1,4 @@
+import { englishExamResponse } from "./examEnglish";
 import "dotenv/config";
 import { learningRouter } from "./routes/learning";
 import express, { type NextFunction, type Request, type Response } from "express";
@@ -46,8 +47,8 @@ app.use("/api/me", meRouter);
 app.use("/api/billing", billingRouter);
 app.use("/api/path", pathRouter);
 app.use("/api/admissions", admissionsRouter);
-app.use("/api/sat", satRouter);
-app.use("/api/ielts", ieltsRouter);
+app.use("/api/sat", englishExamResponse, satRouter);
+app.use("/api/ielts", englishExamResponse, ieltsRouter);
 app.use("/api/coding", codingRouter);
 app.use("/api/library", libraryRouter);
 app.use("/api/ent/master", entMasterRouter);

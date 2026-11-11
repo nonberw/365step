@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { SAT_OPEN } from "../shared/satOpen";
 import { SAT_OPEN_MATH } from "../shared/satOpenMath";
 import { SAT_OPEN_READING } from "../shared/satOpenReading";
-import { SAT_ACTIVE_BANK, SAT_BY_ID, isCorrect } from "../shared/sat";
+import { SAT_BANK, SAT_ACTIVE_BANK, SAT_BY_ID, isCorrect } from "../shared/sat";
 import { SAT_OPEN_SOURCES } from "../shared/satSources";
 import { familyOf, fingerprint, selectAssessment } from "../shared/satQuality";
 import { parseRational, choiceKey } from "../shared/numeric";
@@ -19,7 +19,7 @@ ok(Object.keys(OPEN_MATH_REFERENCE).length===80,"independent reference covers al
 for (const q of SAT_OPEN) {
   const live=SAT_BY_ID.get(q.id)!;
   ok(!!live&&live.canonicalId===q.id&&live.purpose==="assessment",`${q.id}: live assessment item`);
-  ok(SAT_ACTIVE_BANK.some(old=>!old.id.startsWith("open-")&&old.section===q.section&&old.domain===q.domain&&old.skill===q.skill),`${q.id}: integrates into an existing topic`);
+  ok(SAT_BANK.some(old=>!old.id.startsWith("open-")&&old.section===q.section&&old.domain===q.domain&&old.skill===q.skill),`${q.id}: integrates into an existing topic`);
   ok(!!q.attribution&&!!SAT_OPEN_SOURCES[q.attribution.sourceId]&&!!q.attribution.locator&&q.attribution.changes.includes("CC BY-SA 4.0"),`${q.id}: source, locator, changes and license`);
   if(q.choices) ok(q.choices.length===4&&new Set(q.choices.map(c=>q.section==="math"?choiceKey(c):c.toLowerCase().trim())).size===4,`${q.id}: four distinct options`);
   ok(isCorrect(live,q.answer),`${q.id}: correct key accepted`);

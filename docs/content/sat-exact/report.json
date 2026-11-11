@@ -1,0 +1,227 @@
+{
+  "active": {
+    "total": 2751,
+    "rw": 1517,
+    "math": 1234
+  },
+  "additions": {
+    "total": 1417,
+    "rw": 967,
+    "math": 450
+  },
+  "topics": [
+    {
+      "id": "cross-text-connections",
+      "before": 45,
+      "added": 13,
+      "active": 58,
+      "target": 58
+    },
+    {
+      "id": "text-structure-purpose",
+      "before": 54,
+      "added": 84,
+      "active": 138,
+      "target": 138
+    },
+    {
+      "id": "words-in-context",
+      "before": 64,
+      "added": 174,
+      "active": 238,
+      "target": 238
+    },
+    {
+      "id": "transitions",
+      "before": 52,
+      "added": 44,
+      "active": 96,
+      "target": 96
+    },
+    {
+      "id": "rhetorical-synthesis",
+      "before": 49,
+      "added": 85,
+      "active": 134,
+      "target": 134
+    },
+    {
+      "id": "central-ideas-details",
+      "before": 50,
+      "added": 73,
+      "active": 123,
+      "target": 123
+    },
+    {
+      "id": "command-of-evidence",
+      "before": 51,
+      "added": 206,
+      "active": 257,
+      "target": 257
+    },
+    {
+      "id": "inferences",
+      "before": 90,
+      "added": 33,
+      "active": 123,
+      "target": 123
+    },
+    {
+      "id": "boundaries",
+      "before": 29,
+      "added": 136,
+      "active": 165,
+      "target": 165
+    },
+    {
+      "id": "form-structure-sense",
+      "before": 66,
+      "added": 119,
+      "active": 185,
+      "target": 185
+    },
+    {
+      "id": "equivalent-expressions",
+      "before": 22,
+      "added": 18,
+      "active": 40,
+      "target": 40
+    },
+    {
+      "id": "nonlinear-equations-systems",
+      "before": 96,
+      "added": 0,
+      "active": 96,
+      "target": 96
+    },
+    {
+      "id": "nonlinear-functions",
+      "before": 190,
+      "added": 0,
+      "active": 190,
+      "target": 190
+    },
+    {
+      "id": "linear-functions",
+      "before": 38,
+      "added": 88,
+      "active": 126,
+      "target": 126
+    },
+    {
+      "id": "linear-equations-one-variable",
+      "before": 59,
+      "added": 18,
+      "active": 77,
+      "target": 77
+    },
+    {
+      "id": "linear-equations-two-variables",
+      "before": 30,
+      "added": 70,
+      "active": 100,
+      "target": 100
+    },
+    {
+      "id": "linear-inequalities",
+      "before": 32,
+      "added": 20,
+      "active": 52,
+      "target": 52
+    },
+    {
+      "id": "linear-systems",
+      "before": 36,
+      "added": 50,
+      "active": 86,
+      "target": 86
+    },
+    {
+      "id": "area-volume",
+      "before": 30,
+      "added": 45,
+      "active": 75,
+      "target": 75
+    },
+    {
+      "id": "circles",
+      "before": 36,
+      "added": 5,
+      "active": 41,
+      "target": 41
+    },
+    {
+      "id": "lines-angles-triangles",
+      "before": 27,
+      "added": 35,
+      "active": 62,
+      "target": 62
+    },
+    {
+      "id": "right-triangles-trigonometry",
+      "before": 33,
+      "added": 13,
+      "active": 46,
+      "target": 46
+    },
+    {
+      "id": "ratios-rates-units",
+      "before": 29,
+      "added": 35,
+      "active": 64,
+      "target": 64
+    },
+    {
+      "id": "percentages",
+      "before": 33,
+      "added": 23,
+      "active": 56,
+      "target": 56
+    },
+    {
+      "id": "one-variable-data",
+      "before": 32,
+      "added": 16,
+      "active": 48,
+      "target": 48
+    },
+    {
+      "id": "two-variable-data",
+      "before": 24,
+      "added": 14,
+      "active": 38,
+      "target": 38
+    },
+    {
+      "id": "probability",
+      "before": 24,
+      "added": 0,
+      "active": 24,
+      "target": 24
+    },
+    {
+      "id": "sample-statistics",
+      "before": 11,
+      "added": 0,
+      "active": 11,
+      "target": 11
+    },
+    {
+      "id": "statistical-claims",
+      "before": 2,
+      "added": 0,
+      "active": 2,
+      "target": 2
+    }
+  ],
+  "sources": {
+    "onestop-qa-exact": 325,
+    "onestop-lexicon-exact": 174,
+    "onestop-syntax-exact": 255,
+    "onestop-rhetoric-exact": 81,
+    "squad-rhetoric-exact": 132,
+    "365step-oer-exact": 298,
+    "college-readiness-exact": 4,
+    "aqua-exact": 148
+  }
+}

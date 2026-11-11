@@ -28,14 +28,14 @@ export default function Questions({ questions, answers, onChange, result }: { qu
               {q.text}
             </p>
             {q.kind === "headings" && q.headingGroup ? (
-              <select aria-label={`Заголовок для вопроса ${q.id}`} value={answers[q.id] ?? ""} disabled={!!result} onChange={(e) => set(q.id, e.target.value)} className="max-w-full rounded-lg border p-2 bg-card">
-                <option value="">Выбери заголовок</option>
+              <select aria-label={`Heading for question ${q.id}`} value={answers[q.id] ?? ""} disabled={!!result} onChange={(e) => set(q.id, e.target.value)} className="max-w-full rounded-lg border p-2 bg-card">
+                <option value="">Choose a heading</option>
                 {q.headingGroup.options.map((o) => <option key={o.value} value={o.value} disabled={!q.headingGroup!.reuse && questions.some((other) => other.id !== q.id && other.headingGroup?.id === q.headingGroup!.id && answers[other.id] === o.value)}>{o.value}. {o.text}</option>)}
               </select>
             ) : q.kind === "gap" ? (
-              <Input id={`q-${q.id}`} aria-label={`Ответ на вопрос ${q.id}`} className="h-10 max-w-xs" value={answers[q.id] ?? ""} disabled={!!result} onChange={(e) => set(q.id, e.target.value)} placeholder={q.maxWords ? `Не более ${q.maxWords} слова` : "Одно слово или число"} />
+              <Input id={`q-${q.id}`} aria-label={`Answer to question ${q.id}`} className="h-10 max-w-xs" value={answers[q.id] ?? ""} disabled={!!result} onChange={(e) => set(q.id, e.target.value)} placeholder={q.maxWords ? `No more than ${q.maxWords} words` : "One word or number"} />
             ) : (
-              <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={`Вопрос ${q.id}`}>
+              <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={`Question ${q.id}`}>
                 {(q.kind === "tfng" ? ["TRUE", "FALSE", "NOT GIVEN"] : q.options!).map((o) => {
                   const value = q.kind === "tfng" ? o : o.slice(0, 1);
                   const on = answers[q.id] === value;
@@ -57,7 +57,7 @@ export default function Questions({ questions, answers, onChange, result }: { qu
             )}
             {r && (
               <p className={cn("mt-3 text-sm", r.correct ? "text-success" : "text-destructive")}>
-                {r.correct ? "Верно." : `Правильно: ${r.answer}.`} <span className="text-muted-foreground">{r.why}</span>
+                {r.correct ? "Correct" : `Correct answer: ${r.answer}.`} <span className="text-muted-foreground">{r.why}</span>
               </p>
             )}
           </li>

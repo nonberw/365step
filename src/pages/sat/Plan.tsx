@@ -1,9 +1,10 @@
+import { fmtExamDate as fmtDate } from "@/lib/examFormat";
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import { api } from "@/api";
 import { useApi } from "@/hooks/useApi";
 import { useAuth } from "@/lib/auth";
-import { ART, fmtDate } from "@/lib/format";
+import { ART } from "@/lib/format";
 import { ErrorBox, GreetingBanner, Loading } from "@/components/Page";
 import { Button } from "@/components/ui/button";
 import { Badge, Card, CardTitle } from "@/components/ui/card";
@@ -36,12 +37,12 @@ export default function SatPlan() {
   return (
     <div className="flex flex-col gap-6">
       <GreetingBanner
-        title="ИИ-план подготовки"
-        subtitle={`Строится по твоим целям${user?.goals.sat ? ` (SAT ${user.goals.sat.target})` : ""}${user?.goals.ielts ? ` (IELTS ${user.goals.ielts.target})` : ""}, дате экзамена и слабым темам из статистики.`}
+        title={"AI study plan"}
+        subtitle={`Based on your goals,${user?.goals.sat ? ` (SAT ${user.goals.sat.target})` : ""}${user?.goals.ielts ? ` (IELTS ${user.goals.ielts.target})` : ""} exam date and weaker topics from your practice results.`}
         image={ART.monet}
         action={
           <Button variant="accent" onClick={generate} disabled={busy}>
-            <Sparkles /> {busy ? "Составляю…" : data ? "Обновить план" : "Составить план"}
+            <Sparkles /> {busy ? "Creating…" : data ? "Update plan" : "Create plan"}
           </Button>
         }
       />
@@ -50,15 +51,15 @@ export default function SatPlan() {
         <Loading />
       ) : !data ? (
         <Card>
-          <p className="text-sm text-muted-foreground">Плана пока нет. Реши хотя бы 15 вопросов, чтобы план учитывал твои слабые темы, и нажми «Составить план».</p>
+          <p className="text-sm text-muted-foreground">No plan yet. Answer at least 15 questions so the plan can reflect your weaker topics, then select Create plan.</p>
         </Card>
       ) : (
         <>
           <Card className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <CardTitle>Стратегия</CardTitle>
-              <Badge tone={data.mode === "ai" ? "dark" : "warn"}>{data.mode === "ai" ? "Сгенерировано ИИ" : "Демо-план"}</Badge>
-              <span className="text-xs text-muted-foreground">от {fmtDate(data.createdAt)}</span>
+              <CardTitle>Strategy</CardTitle>
+              <Badge tone={data.mode === "ai" ? "dark" : "warn"}>{data.mode === "ai" ? "AI-generated" : "Demo plan"}</Badge>
+              <span className="text-xs text-muted-foreground">from {fmtDate(data.createdAt)}</span>
             </div>
             <p className="text-sm">{data.summary}</p>
           </Card>

@@ -33,7 +33,12 @@
     "vercel-build": "vite build && npm run build:server",
     "check:directions": "node --import tsx scripts/directions/content-check.ts",
     "check:directions-api": "node --import tsx scripts/directions/profile-api-check.ts && node --import tsx scripts/directions/practice-api-check.ts && node --import tsx scripts/directions/editor-api-check.ts",
-    "check:sat-bank": "node --import tsx scripts/sat-bank-check.ts"
+    "curate:sat-bank": "node --import tsx scripts/curate-sat-bank.ts",
+    "check:sat-curation": "node --import tsx scripts/check-sat-curation.ts",
+    "check:sat-bank": "node --import tsx scripts/sat-bank-check.ts",
+    "check:sat-exact": "node --import tsx scripts/check-sat-exact.ts",
+    "check:math-text": "node --import tsx scripts/check-math-text.ts",
+    "check:english-exams": "node --import tsx scripts/check-english-exams.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",

@@ -26,13 +26,13 @@ export default function Reading() {
   const current = shown.find((r) => r.id === id)?.id ?? shown[0]?.id ?? "";
   return (
     <div className="flex flex-col gap-5">
-      <PageHeader eyebrow="IELTS" title="Reading" description={`${content.data.readingStats.uniquePassages} уникальных коротких текстов, ${list.length} наборов упражнений, ${list.reduce((n, r) => n + r.questions, 0)} вопросов. Упражнения показывают точность без Band. Отдельно доступен полный авторский комплект.`} />
-      <div className="flex gap-2"><Button variant={exam ? "outline" : "default"} onClick={() => setExam(false)}>Короткие упражнения</Button><Button variant={exam ? "default" : "outline"} onClick={() => setExam(true)}>Полный Reading · 40 вопросов · 60 минут</Button></div>
+      <PageHeader eyebrow="IELTS" title="Reading" description={`${content.data.readingStats.uniquePassages} unique short passages, ${list.length} exercise sets, ${list.reduce((n, r) => n + r.questions, 0)} questions. Short exercises report accuracy without an IELTS band. A full original practice set is also available.`} />
+      <div className="flex gap-2"><Button variant={exam ? "outline" : "default"} onClick={() => setExam(false)}>Short exercises</Button><Button variant={exam ? "default" : "outline"} onClick={() => setExam(true)}>Full Reading · 40 questions · 60 minutes</Button></div>
       {exam ? <AcademicReading /> : <>
-      <p className="text-xs text-muted-foreground">Старые наборы Matching headings/information — упрощённые микроупражнения. Общий список заголовков и ограничения выбора доступны в полном комплекте.</p>
+      <p className="text-xs text-muted-foreground">The older Matching headings/information sets are simplified exercises. The full practice set uses shared heading lists and the appropriate selection rules.</p>
       <div className="flex flex-wrap items-center gap-3">
-        <Select aria-label="Тип заданий" value={type} onChange={(e) => setType(e.target.value)} className="max-w-xs">
-          <option value="">Все типы ({list.length})</option>
+        <Select aria-label={"Question type"} value={type} onChange={(e) => setType(e.target.value)} className="max-w-xs">
+          <option value="">All types ({list.length})</option>
           {types.map((t) => (
             <option key={t} value={t}>
               {t} ({list.filter((r) => r.level === t).length})
@@ -40,7 +40,7 @@ export default function Reading() {
           ))}
         </Select>
       </div>
-      <div className="grid max-h-72 gap-2 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-3" role="listbox" aria-label="Наборы упражнений">
+      <div className="grid max-h-72 gap-2 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-3" role="listbox" aria-label={"Exercise sets"}>
         {shown.map((r) => (
           <button
             key={r.id}
@@ -52,7 +52,7 @@ export default function Reading() {
           >
             <span className="font-semibold leading-snug">{r.title}</span>
             <span className="text-xs text-muted-foreground">
-              {r.level} · {r.questions} вопр.
+              {r.level} · {r.questions} questions
             </span>
           </button>
         ))}
@@ -91,7 +91,7 @@ function Passage({ id }: { id: string }) {
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       <Card className="lg:sticky lg:top-4 lg:max-h-[calc(100dvh-120px)] lg:overflow-y-auto">
         <div className="mb-3 flex items-center justify-between gap-2">
-          <Badge>Короткое упражнение · {data.level}</Badge>
+          <Badge>Short exercise · {data.level}</Badge>
           <Badge tone={left < 180 ? "bad" : "dark"} className="tabular">
             {mmss(left)}
           </Badge>
@@ -114,9 +114,9 @@ function Passage({ id }: { id: string }) {
             </CircleProgress>
             <div>
               <p className="font-display text-lg font-semibold">
-                {result.right} из {result.total} верно
+                {result.right} from {result.total} Correct
               </p>
-              <p className="text-xs text-muted-foreground">Короткое упражнение: результат не переводится в экзаменационный Band.</p>
+              <p className="text-xs text-muted-foreground">Short practice only: this result is not converted to an IELTS band.</p>
             </div>
           </Card>
         )}
@@ -124,7 +124,7 @@ function Passage({ id }: { id: string }) {
         <ErrorBox message={err} />
         {!result && (
           <Button size="lg" className="self-start" onClick={check}>
-            Проверить ответы
+            Check the answers
           </Button>
         )}
       </div>

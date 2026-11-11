@@ -51,6 +51,7 @@ export const OFFICIAL_GUIDES: Record<SatSection, string> = {
 };
 export interface BankCatalog {
   inventory: { total: number; rw: number; math: number };
+  collections: Record<string, number>;
   stats: { attempted: number; correct: number; wrong: number; saved: number; accuracy: number | null };
   statuses: Record<"all" | "new" | "solved" | "wrong" | "correct" | "saved", number>;
   sections: { id: SatSection; title: string; total: number; domains: { id: SatDomain; total: number; topics: (BankTopic & { total: number })[] }[] }[];

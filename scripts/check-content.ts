@@ -92,7 +92,7 @@ for (const p of PROBLEMS) {
   });
 }
 
-console.log(`SAT bank: ${SAT_BANK.length} questions (R&W ${bySection.rw}, Math ${bySection.math}) + unlimited generated variants`);
+console.log(`SAT archive: ${SAT_BANK.length} questions; curated active bank: ${SAT_ACTIVE_BANK.length} (R&W ${SAT_ACTIVE_BANK.filter(q=>q.section==="rw").length}, Math ${SAT_ACTIVE_BANK.filter(q=>q.section==="math").length})`);
 console.log(`Vocabulary: ${VOCAB.length} units · Coding: ${PROBLEMS.length} problems · Bug Blitz: ${BLITZ.length}`);
 console.log(problems ? `${problems} problem(s) found` : "All content checks passed");
 process.exit(problems ? 1 : 0);

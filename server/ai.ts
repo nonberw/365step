@@ -1,3 +1,4 @@
+import { englishExamText } from "../shared/examEnglish";
 import { transcriptCriteria } from "../shared/ieltsAssessment";
 import { ENT_DEMO_TOPICS, isUsableEnt } from "../shared/entQuality";
 import Anthropic from "@anthropic-ai/sdk";
@@ -85,13 +86,18 @@ export async function review(lesson: Lesson, code: string, prompts: PromptEntry[
 
 // ---------- SAT ----------
 
-const SAT_EXPLAIN_SYSTEM = `Ты репетитор по Digital SAT для школьников из Казахстана. Объясняй на русском, термины SAT оставляй на английском. Формулы пиши в LaTeX между знаками $...$.
+const SAT_EXPLAIN_SYSTEM = `Ты репетитор по Digital SAT для школьников из Казахстана. Write all explanations in English. Формулы пиши в LaTeX между знаками $...$.
 Структура ответа (поле explanation, 4–8 коротких предложений или шагов):
 1) что проверяет вопрос; 2) как прийти к правильному ответу шаг за шагом; 3) почему выбранный учеником неверный вариант (если есть) — ловушка; 4) короткий совет на будущее.`;
 
 export async function satExplain(q: SatQuestion, given: unknown): Promise<{ explanation: string; mode: "ai" | "demo" }> {
-  if (!client) return { explanation: `${q.explanation}\n\nСовет: сначала сформулируй ответ своими словами, потом ищи его среди вариантов.`, mode: "demo" };
-  const user = `Вопрос (${q.domain} · ${q.skill}):\n${q.passage ? `Текст: ${q.passage}\n` : ""}${q.stem}\n${q.choices ? q.choices.map((c, i) => `${"ABCD"[i]}) ${c}`).join("\n") : "(ответ вводится числом)"}\nПравильный ответ: ${q.choices ? "ABCD"[q.answer as number] : q.answer}\nОтвет ученика: ${given === null || given === undefined || given === "" ? "(нет)" : q.choices ? "ABCD"[Number(given)] : String(given)}\nКраткое решение из банка: ${q.explanation}`;
+  if (!client) return { explanation: `${q.explanation}
+
+Council: First, write the answer in your own words, then look for it among the options.`, mode: "demo" };
+  const user = `Question (continued)${q.domain} · ${q.skill}):\n${q.passage ? `Text: ${q.passage}\n` : ""}${q.stem}\n${q.choices ? q.choices.map((c, i) => `${"ABCD"[i]}) ${c}`).join("\n") : "(responses entered by number)"}
+Correct answer: ${q.choices ? "ABCD"[q.answer as number] : q.answer}
+The student's reply: ${given === null || given === undefined || given === "" ? "(No)" : q.choices ? "ABCD"[Number(given)] : String(given)}
+Brief decision from the bank: ${q.explanation}`;
   const out = await ask<{ explanation: string }>(SAT_EXPLAIN_SYSTEM, user, obj({ explanation: S }), "low");
   return { ...out, mode: "ai" };
 }
@@ -99,14 +105,14 @@ export async function satExplain(q: SatQuestion, given: unknown): Promise<{ expl
 const SAT_REMIX_SYSTEM = `Ты автор заданий Digital SAT. Создай НОВОЕ оригинальное задание того же домена, навыка и уровня сложности, что и образец, но с другим сюжетом и числами. Не копируй задания College Board.
 - Для Reading & Writing: короткий текст (passage) на английском, 25–120 слов, вопрос (stem) и 4 варианта (choices), answer — индекс 0–3.
 - Для Math: можно задание с вариантами (4 choices, answer — индекс) или grid-in (choices пустой массив, answerText — число строкой). Формулы в LaTeX между $...$.
-- explanation — краткое решение на русском.
+- explanation — краткое решение in English.
 - Проверь, что ровно один вариант правильный.`;
 
 export async function satRemix(q: SatQuestion): Promise<Omit<SatQuestion, "id"> & { mode: "ai" | "demo" }> {
   if (!client) {
-    return { ...q, source: "ai", explanation: q.explanation + "\n\n(Демо-режим: с подключённым Claude здесь будет новое задание.)", mode: "demo" };
+    return { ...q, source: "ai", explanation: q.explanation + "\n\n(Demo mode: with Claude connected, there will be a new task here.)", mode: "demo" };
   }
-  const user = `Образец (${q.section === "rw" ? "Reading & Writing" : "Math"} · ${q.domain} · ${q.skill} · сложность ${q.difficulty}/3):\n${q.passage ? `Passage: ${q.passage}\n` : ""}Stem: ${q.stem}\n${q.choices ? q.choices.map((c, i) => `${"ABCD"[i]}) ${c}`).join("\n") : `Ответ: ${q.answer}`}`;
+  const user = `Model (${q.section === "rw" ? "Reading & Writing" : "Math"} · ${q.domain} · ${q.skill} · Difficulties ${q.difficulty}/3):\n${q.passage ? `Passage: ${q.passage}\n` : ""}Stem: ${q.stem}\n${q.choices ? q.choices.map((c, i) => `${"ABCD"[i]}) ${c}`).join("\n") : `Response: ${q.answer}`}`;
   const out = await ask<{ passage: string; stem: string; choices: string[]; answer: number; answerText: string; explanation: string }>(
     SAT_REMIX_SYSTEM,
     user,
@@ -129,11 +135,11 @@ export async function satRemix(q: SatQuestion): Promise<Omit<SatQuestion, "id"> 
   };
 }
 
-const SAT_HINT_SYSTEM = `Ты репетитор Digital SAT. Дай ОДНУ подсказку к вопросу, НЕ называя ответ и не исключая варианты напрямую. Подскажи, на что посмотреть или какой первый шаг сделать. 1–3 предложения по-русски, формулы в $...$.`;
+const SAT_HINT_SYSTEM = `Ты репетитор Digital SAT. Дай ОДНУ подсказку к вопросу, НЕ называя ответ и не исключая варианты напрямую. Подскажи, на что посмотреть или какой первый шаг сделать. 1–3 предложения in English, формулы в $...$.`;
 
 export async function satHint(q: SatQuestion): Promise<{ hint: string; mode: "ai" | "demo" }> {
-  if (!client) return { hint: "Сформулируй, что именно спрашивают, и найди в тексте или условии слово, которое на это указывает. Для математики открой справочник формул или Desmos.", mode: "demo" };
-  const user = `${q.domain} · ${q.skill}\n${q.passage ? `Текст: ${q.passage}\n` : ""}${q.stem}\n${q.choices ? q.choices.map((c, i) => `${"ABCD"[i]}) ${c}`).join("\n") : ""}`;
+  if (!client) return { hint: "Formulate exactly what they ask, and find a word in the text, or a word that points to it. For mathematics, open a formula guide or Desmos.", mode: "demo" };
+  const user = `${q.domain} · ${q.skill}\n${q.passage ? `Text: ${q.passage}\n` : ""}${q.stem}\n${q.choices ? q.choices.map((c, i) => `${"ABCD"[i]}) ${c}`).join("\n") : ""}`;
   const out = await ask<{ hint: string }>(SAT_HINT_SYSTEM, user, obj({ hint: S }), "low");
   return { ...out, mode: "ai" };
 }
@@ -142,12 +148,15 @@ const SAT_GENERATE_SYSTEM = `Ты автор оригинальных задан
 - Reading & Writing: passage на английском 25–120 слов, stem, ровно 4 варианта, answer — индекс правильного 0–3.
 - Math: 4 варианта (answer — индекс) или grid-in (choices пустой, answerText — число строкой); формулы в $...$.
 - difficulty: 1 — лёгкий, 2 — средний, 3 — сложный, распредели разнообразно.
-- explanation — краткое решение по-русски.
+- explanation — краткое решение in English.
 - Перепроверь каждое задание: ровно один правильный ответ, вычисления верны.`;
 
 export async function satGenerate(section: "rw" | "math", domain: string, skill: string, count: number): Promise<{ items: Omit<SatQuestion, "id">[]; mode: "ai" | "demo" }> {
   if (!client) return { items: [], mode: "demo" };
-  const user = `Раздел: ${section === "rw" ? "Reading & Writing" : "Math"}\nДомен: ${domain}\nНавык: ${skill}\nКоличество заданий: ${count}`;
+  const user = `Section: ${section === "rw" ? "Reading & Writing" : "Math"}
+Domain: ${domain}
+Skills: ${skill}
+Number of assignments: ${count}`;
   const out = await ask<{ items: { passage: string; stem: string; choices: string[]; answer: number; answerText: string; difficulty: number; explanation: string }[] }>(
     SAT_GENERATE_SYSTEM,
     user,
@@ -181,12 +190,15 @@ export interface StudyPlan {
   mode: "ai" | "demo";
 }
 
-const PLAN_SYSTEM = `Ты составляешь учебный план подготовки к экзаменам (Digital SAT и/или IELTS) для ученика школы BSTS. Опирайся на цель, дату экзамена и слабые места из статистики. План на ближайшие 2 недели, по 5 учебных дней в неделю, 2–4 задачи в день по 20–40 минут. Задачи конкретные: какой раздел платформы, сколько вопросов, какая тема. Разделы платформы: «Банк вопросов SAT», «Пробный тест SAT», «Blitz», «Словарь», «Повтор ошибок», «IELTS Speaking», «IELTS Writing», «IELTS Reading», «IELTS Listening». Пиши по-русски. summary — 2–3 предложения о стратегии.`;
+const PLAN_SYSTEM = `Ты составляешь учебный план подготовки к экзаменам (Digital SAT и/или IELTS) для ученика школы BSTS. Опирайся на цель, дату экзамена и слабые места из статистики. План на ближайшие 2 недели, по 5 учебных дней в неделю, 2–4 задачи в день по 20–40 минут. Задачи конкретные: какой раздел платформы, сколько вопросов, какая тема. Разделы платформы: «Банк вопросов SAT», «Пробный тест SAT», «Blitz», «Словарь», «Повтор ошибок», «IELTS Speaking», «IELTS Writing», «IELTS Reading», «IELTS Listening». Пиши in English. summary — 2–3 предложения о стратегии.`;
 
 export async function studyPlan(goals: Goals, stats: string): Promise<StudyPlan> {
   if (!client) return demoPlan(goals, stats);
-  const today = new Date().toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" });
-  const user = `Сегодня: ${today}\nЦели: ${JSON.stringify(goals)}\nСтатистика ученика:\n${stats}`;
+  const today = new Date().toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
+  const user = `Today: ${today}
+Objectives: ${JSON.stringify(goals)}
+Student statistics:
+${stats}`;
   const out = await ask<Omit<StudyPlan, "mode">>(PLAN_SYSTEM, user, obj({ summary: S, weeks: arr(obj({ title: S, focus: S, days: arr(obj({ day: S, tasks: arr(S) })) })) }), "medium");
   return { ...out, mode: "ai" };
 }
@@ -195,9 +207,9 @@ export async function studyPlan(goals: Goals, stats: string): Promise<StudyPlan>
 
 const WRITING_SYSTEM = `Ты экзаменатор IELTS Writing с большим опытом. Оцени работу по официальным публичным дескрипторам: Task Achievement (Task 1) или Task Response (Task 2), Coherence and Cohesion, Lexical Resource, Grammatical Range and Accuracy. Баллы — шагами по 0.5.
 - overall — среднее по четырём критериям, округлённое по правилам IELTS (.25 вверх до .5, .75 вверх до целого).
-- criteria: 4 элемента {name, band, comment}; comment по-русски, 1–2 предложения с конкретикой.
+- criteria: 4 элемента {name, band, comment}; comment in English, 1–2 предложения с конкретикой.
 - annotations: 6–12 фрагментов ТОЧНО как в тексте ученика (quote — дословная подстрока длиной 2–12 слов). kind "error" — ошибка (category: Grammar / Vocabulary / Coherence / Task), fix — исправленный вариант; kind "good" — удачная фраза.
-- plan: 3 конкретных шага по-русски, что делать дальше.
+- plan: 3 конкретных шага in English, что делать дальше.
 - predicted — реалистичный балл после исправления этих ошибок.
 Это ориентировочная оценка, не официальный балл IELTS.`;
 
@@ -222,8 +234,8 @@ export async function ieltsWriting(task: 1 | 2, prompt: string, text: string, ch
 
 const SPEAKING_SYSTEM = `Ты экзаменатор IELTS Speaking. Тебе дана расшифровка ответа ученика (автоматическое распознавание речи, без пунктуации и с возможными ошибками распознавания — не наказывай за них) и длительность ответа. Оцени по публичным дескрипторам: Fluency and Coherence (только связность текста, без аудиоплавности), Lexical Resource, Grammatical Range and Accuracy. Баллы шагами по 0.5.
 Произношение по тексту не оценивается. Не делай выводов о звуках, ударении, интонации или паузах.
-- criteria: 3 элемента {name, band, comment по-русски}.
-- feedback: 3–5 конкретных наблюдений по-русски с цитатами из ответа.
+- criteria: 3 элемента {name, band, comment in English}.
+- feedback: 3–5 конкретных наблюдений in English с цитатами из ответа.
 - plan: 3 упражнения на следующую неделю.
 - predicted — балл после работы над ошибками.
 Это ориентировочная оценка, не официальный балл IELTS.`;
@@ -290,40 +302,38 @@ function demoReview(lesson: Lesson, code: string, prompts: PromptEntry[]): Revie
 }
 
 function demoPlan(goals: Goals, stats: string): StudyPlan {
-  const weak = stats.match(/слабое: ([^\n]+)/)?.[1] ?? "Algebra";
-  const days = ["Пн", "Вт", "Ср", "Чт", "Пт"];
+  const weak = englishExamText(stats.match(/слабое: ([^\n]+)/)?.[1] ?? "Algebra");
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const mk = (i: number) => ({
     day: days[i]!,
     tasks: [
-      goals.sat ? `Банк вопросов SAT: 15 вопросов по теме «${weak}»` : "IELTS Reading: один текст на время",
-      i % 2 === 0 ? "Словарь: один юнит, карточки и квиз" : "Повтор ошибок: все вопросы из очереди",
-      i === 4 ? (goals.sat ? "Пробный тест SAT целиком в режиме экзамена" : "IELTS Writing Task 2 с проверкой ИИ") : "Blitz: один заход на 3 жизни",
+      goals.sat ? `SAT Question Banks: 15 questions on ${weak}` : "IELTS Reading: one timed passage",
+      i % 2 === 0 ? "Vocabulary: one unit with flashcards and a quiz" : "Mistake review: revisit the questions in your queue",
+      i === 4 ? (goals.sat ? "Complete a full SAT practice test in exam mode" : "IELTS Writing Task 2 with feedback") : "Blitz: one round with three lives",
     ],
   });
   return {
-    summary: "Демо-план: сначала закрываем слабые темы короткими ежедневными подходами, в конце недели проверяем себя полным тестом.",
+    summary: "Demo plan: build weaker skills with short daily practice, then check your progress with a full practice test at the end of the week.",
     weeks: [
-      { title: "Неделя 1", focus: `Слабая тема: ${weak}`, days: days.map((_, i) => mk(i)) },
-      { title: "Неделя 2", focus: "Скорость и повтор ошибок", days: days.map((_, i) => mk(i)) },
-    ],
-    mode: "demo",
+      { title: "Week 1", focus: `Focus skill: ${weak}`, days: days.map((_, i) => mk(i)) },
+      { title: "Week 2", focus: "Timing and mistake review", days: days.map((_, i) => mk(i)) },
+    ], mode: "demo",
   };
 }
-
 function demoWriting(task: 1 | 2, _text: string, wordCount: number): WritingResult {
   const min = task === 1 ? 150 : 250;
   return {
     overall: null, predicted: null, wordCount, mode: "demo", annotations: [],
-    criteria: [{ name: "Объём", band: null, comment: `${wordCount} слов; учебный ориентир по объёму — ${min}. Качество текста не оценивалось.` }],
-    plan: ["Проверь, что ответ раскрывает задание", "Сопоставь абзацы с основными идеями", "Для содержательной проверки нужна подключённая модель или преподаватель"],
+    criteria: [{ name: "Word count", band: null, comment: `${wordCount} words; the suggested minimum is ${min}. Writing quality has not been assessed.` }],
+    plan: ["Check that your response addresses the task", "Match each paragraph to a clear main idea", "For substantive feedback, use a connected model or ask a teacher"],
   };
 }
 function demoSpeaking(words: number, wpm: number): SpeakingResult {
   return {
     overall: null, predicted: null, wordsPerMinute: wpm, mode: "demo",
-    criteria: [{ name: "Pronunciation", band: null, comment: "Не оценивалось: требуется анализ аудио." }],
-    feedback: [`Расшифровано ${words} слов, средний темп ${wpm} слов/мин. Эти числа не измеряют языковой уровень.`, "Демонстрация интерфейса: содержательная оценка ответа не выполнена."],
-    plan: ["Переслушай запись и сравни её с расшифровкой", "Проверь, раскрыты ли все пункты карточки"],
+    criteria: [{ name: "Pronunciation", band: null, comment: "Not assessed: audio analysis is required." }],
+    feedback: [`${words} words transcribed at an average of ${wpm} words per minute. These figures do not measure language proficiency.`, "Demo only: this response has not received a substantive assessment."],
+    plan: ["Listen to your recording and compare it with the transcript", "Check that you covered every point on the cue card"],
   };
 }
 
@@ -673,7 +683,7 @@ export async function entGenerate(subject: { id: string; name: string }, topic: 
 const ENT_EXPLAIN_SYSTEM = `Ты репетитор по подготовке к ЕНТ. Объясни ученику решение задания: короткий разбор по шагам (3–6 шагов), почему верный ответ верный и почему выбранный учеником ответ неверен (если он ошибся), и одна подсказка, как не ошибаться в похожих заданиях. Пиши на языке задания, на «ты». Формулы в LaTeX между $...$.`;
 
 export async function entExplain(q: EntQuestion, given: unknown): Promise<{ text: string; mode: "ai" | "demo" }> {
-  if (!client) return { text: `${q.explanation}\n\nДемо-режим: с подключённым Claude здесь будет пошаговый разбор.`, mode: "demo" };
+  if (!client) return { text: `${englishExamText(q.explanation)}\n\nДемо-режим: с подключённым Claude здесь будет пошаговый разбор.`, mode: "demo" };
   const user = `${q.passage ? `Текст:\n${q.passage}\n\n` : ""}Задание (${q.type}): ${q.stem}\n${q.left ? `Левый столбец: ${q.left.map((l, i) => `${i + 1}) ${l}`).join("; ")}\n` : ""}Варианты: ${q.options.map((o, i) => `${String.fromCharCode(65 + i)}) ${o}`).join("; ")}\nПравильный ответ (индексы с 0): ${JSON.stringify(q.answer)}\nОтвет ученика (индексы с 0): ${JSON.stringify(given)}\nКраткое пояснение автора: ${q.explanation}`;
   const out = await ask<{ text: string }>(ENT_EXPLAIN_SYSTEM, user, obj({ text: S }), "low");
   return { text: out.text, mode: "ai" };

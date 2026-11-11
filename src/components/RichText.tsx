@@ -1,15 +1,16 @@
 import { Fragment, useMemo } from "react";
 import katex from "katex";
 import { cn } from "@/lib/utils";
+import { mathTextParts } from "@/lib/mathText";
 
 /**
  * Renders question text: $LaTeX$ through KaTeX, **bold**, __underline__, line breaks and
  * simple pipe tables (used by the data questions).
  */
-export function RichText({ text, className }: { text: string; className?: string }) {
+export function RichText({ text, className, math = false }: { text: string; className?: string; math?: boolean }) {
   const blocks = useMemo(() => splitBlocks(text), [text]);
   return (
-    <div className={cn("space-y-2 leading-relaxed", className)}>
+    <div className={cn("rich-text space-y-2 leading-relaxed", className)}>
       {blocks.map((b, i) =>
         b.kind === "table" ? (
           <div key={i} className="overflow-x-auto">
@@ -21,7 +22,7 @@ export function RichText({ text, className }: { text: string; className?: string
                       const Tag = r === 0 || c === 0 ? "th" : "td";
                       return (
                         <Tag key={c} className={cn("border border-border px-3 py-1.5 text-left", Tag === "th" && "bg-muted font-semibold")}>
-                          <Inline text={cell} />
+                          <Inline text={cell} math={math} />
                         </Tag>
                       );
                     })}
@@ -32,11 +33,11 @@ export function RichText({ text, className }: { text: string; className?: string
           </div>
         ) : b.kind === "h" ? (
           <h3 key={i} className="pt-2 font-display text-lg font-semibold">
-            <Inline text={b.text} />
+            <Inline text={b.text} math={math} />
           </h3>
         ) : (
           <p key={i} className="whitespace-pre-line">
-            <Inline text={b.text} />
+            <Inline text={b.text} math={math} />
           </p>
         ),
       )}
@@ -82,27 +83,40 @@ function splitBlocks(text: string): Block[] {
   return out;
 }
 
-export function Inline({ text }: { text: string }) {
+function Formula({ tex, display = false }: { tex: string; display?: boolean }) {
+  const html = useMemo(() => katex.renderToString(tex, { throwOnError: false, trust: false, displayMode: display, maxExpand: 1000 }), [tex, display]);
+  return <span className={display ? "math-display" : "math-inline"} dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
+function Plain({ text, math }: { text: string; math: boolean }) {
+  if (!math) return <>{text}</>;
+  return <>{mathTextParts(text).map((part, i) => part.kind === "math" ? <Formula key={i} tex={part.tex} /> : <Fragment key={i}>{part.text}</Fragment>)}</>;
+}
+
+export function Inline({ text, math = false }: { text: string; math?: boolean }) {
   // Recognize answer blanks before __underline__ delimiters. Otherwise six
   // underscores are recursively consumed as empty underline markup.
-  const parts = text.split(/(`[^`]+`|\$[^$]+\$|\*\*[^*]+\*\*|_{3,}|__(?!_)[\s\S]+?(?<!_)__(?!_))/g);
+  const parts = text.split(/(`[^`]+`|\$\$[\s\S]+?\$\$|\$[^$\n]+\$(?!\d)|\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]|\*\*[^*]+\*\*|_{3,}|__(?!_)[\s\S]+?(?<!_)__(?!_))/g);
   return (
     <>
       {parts.map((p, i) => {
+        if (p.startsWith("$$") && p.endsWith("$$") && p.length > 4) return <Formula key={i} tex={p.slice(2, -2)} display />;
+        if ((p.startsWith("\\(") && p.endsWith("\\)")) || (p.startsWith("\\[") && p.endsWith("\\]"))) return <Formula key={i} tex={p.slice(2, -2)} display={p.startsWith("\\[")} />;
         if (p.startsWith("$") && p.endsWith("$") && p.length > 2) {
-          const html = katex.renderToString(p.slice(1, -1), { throwOnError: false });
-          return <span key={i} dangerouslySetInnerHTML={{ __html: html }} />;
+          return <Formula key={i} tex={p.slice(1, -1)} />;
         }
         if (/^_{3,}$/.test(p)) return <Fragment key={i}>{p}</Fragment>;
-        if (p.startsWith("__") && p.endsWith("__") && p.length > 4) return <u key={i}><Inline text={p.slice(2, -2)} /></u>;
-        if (p.startsWith("**") && p.endsWith("**")) return <strong key={i}>{p.slice(2, -2)}</strong>;
-        if (p.startsWith("`") && p.endsWith("`") && p.length > 2)
+        if (p.startsWith("__") && p.endsWith("__") && p.length > 4) return <u key={i}><Inline text={p.slice(2, -2)} math={math} /></u>;
+        if (p.startsWith("**") && p.endsWith("**")) return <strong key={i}><Inline text={p.slice(2, -2)} math={math} /></strong>;
+        if (p.startsWith("`") && p.endsWith("`") && p.length > 2) {
+          if (math && mathTextParts(p.slice(1, -1)).some(part => part.kind === "math")) return <Plain key={i} text={p.slice(1, -1)} math />;
           return (
             <code key={i} className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-[0.9em]">
               {p.slice(1, -1)}
             </code>
           );
-        return <Fragment key={i}>{p}</Fragment>;
+        }
+        return <Plain key={i} text={p} math={math} />;
       })}
     </>
   );

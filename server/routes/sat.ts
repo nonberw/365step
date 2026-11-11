@@ -3,7 +3,7 @@ import { selectAssessment, familyOf, fingerprint, normaliseText } from "../../sh
 import { Router } from "express";
 import type { Difficulty, SatDomain, SatModuleState, SatQuestion, SatQuestionPublic, SatQuestionSummary, SatSection, SatTestState } from "../../shared/types";
 import { DOMAIN_RU, SAT_DOMAINS } from "../../shared/types";
-import { SAT_BANK, SAT_ACTIVE_BANK, SAT_BY_ID, freshMath, isCorrect, scaleSection } from "../../shared/sat";
+import { SAT_ACTIVE_BANK, SAT_BY_ID, isCorrect, scaleSection } from "../../shared/sat";
 import { VOCAB, VOCAB_BY_ID } from "../../shared/vocab";
 import { reviewResult } from "../review";
 import { requireStudent, toPublic } from "../auth";
@@ -53,13 +53,9 @@ async function record(userId: string, q: SatQuestion, correct: boolean, ms: numb
 // ---------- bank ----------
 
 async function bankState(userId: string) {
-  const [results, saved, aiRows] = await Promise.all([
-    lastResults(userId), savedSet(userId), all<{ data: string }>("SELECT data FROM ai_questions ORDER BY created_at DESC LIMIT 200"),
-  ]);
-  const activeIds = new Set(SAT_ACTIVE_BANK.map(q => q.id));
-  const history = SAT_BANK.filter(q => !activeIds.has(q.id) && (results.has(q.id) || saved.has(q.id)));
-  const pool = [...new Map([...SAT_ACTIVE_BANK, ...history, ...aiRows.map(r => JSON.parse(r.data) as SatQuestion)].map(q => [q.id, q])).values()];
-  return { pool, results, saved };
+  const [results, saved] = await Promise.all([lastResults(userId), savedSet(userId)]);
+  // History remains in the archive lookup/review; it cannot repopulate new practice.
+  return { pool: SAT_ACTIVE_BANK, results, saved };
 }
 
 satRouter.get("/bank/catalog", wrap(async (req, res) => {
@@ -85,7 +81,7 @@ satRouter.get(
   "/question/:id",
   wrap(async (req, res) => {
     const u = requireStudent(req);
-    const q = must(await getQuestion(String(req.params.id)), 404, "Вопрос не найден");
+    const q = must(await getQuestion(String(req.params.id)), 404, "Question not found");
     res.json({ question: toPublicQ(q), saved: (await savedSet(u.id)).has(q.id) });
   }),
 );
@@ -94,7 +90,7 @@ satRouter.post(
   "/answer",
   wrap(async (req, res) => {
     const u = requireStudent(req);
-    const q = must(await getQuestion(str(req.body?.id, 60)), 404, "Вопрос не найден");
+    const q = must(await getQuestion(str(req.body?.id, 60)), 404, "Question not found");
     const correct = isCorrect(q, req.body?.response);
     await record(u.id, q, correct, Number(req.body?.ms) || 0);
     res.json({ correct, answer: q.answer, explanation: q.explanation });
@@ -106,7 +102,7 @@ satRouter.post(
   wrap(async (req, res) => {
     const u = requireStudent(req);
     const qid = str(req.body?.id, 60);
-    must(await getQuestion(qid), 404, "Вопрос не найден");
+    must(await getQuestion(qid), 404, "Question not found");
     if (req.body?.saved) await run("INSERT OR IGNORE INTO saved (user_id, module, item_id, at) VALUES (?, 'sat', ?, ?)", u.id, qid, Date.now());
     else await run("DELETE FROM saved WHERE user_id = ? AND module = 'sat' AND item_id = ?", u.id, qid);
     res.json({ saved: !!req.body?.saved });
@@ -117,9 +113,9 @@ satRouter.post(
   "/explain",
   wrap(async (req, res) => {
     requireStudent(req);
-    const q = must(await getQuestion(str(req.body?.id, 60)), 404, "Вопрос не найден");
+    const q = must(await getQuestion(str(req.body?.id, 60)), 404, "Question not found");
     const given = req.body?.response ?? null;
-    const key = `explain:${q.id}:${String(given)}`;
+    const key = `explain:en:${q.id}:${String(given)}`;
     const cached = await getCache(key);
     if (cached) return res.json(JSON.parse(cached));
     try {
@@ -127,7 +123,7 @@ satRouter.post(
       if (out.mode === "ai") await setCache(key, JSON.stringify(out));
       res.json(out);
     } catch (e) {
-      if (e instanceof AiRefusal) throw new HttpError(422, "ИИ не смог объяснить этот вопрос. Посмотри краткое решение ниже");
+      if (e instanceof AiRefusal) throw new HttpError(422, "I.E. couldn't explain it. Look at the short decision below.");
       throw e;
     }
   }),
@@ -137,14 +133,14 @@ satRouter.post(
   "/remix",
   wrap(async (req, res) => {
     requireStudent(req);
-    const q = must(await getQuestion(str(req.body?.id, 60)), 404, "Вопрос не найден");
+    const q = must(await getQuestion(str(req.body?.id, 60)), 404, "Question not found");
     try {
       const { mode, ...made } = await satRemix(q);
       const newId = mode === "ai" ? `ai-${id(6)}` : q.id;
       if (mode === "ai") await run("INSERT INTO ai_questions (id, data, created_at) VALUES (?, ?, ?)", newId, JSON.stringify({ ...made, id: newId }), Date.now());
       res.json({ question: toPublicQ({ ...made, id: newId } as SatQuestion), mode });
     } catch (e) {
-      if (e instanceof AiRefusal) throw new HttpError(422, "ИИ не смог сделать похожий вопрос. Попробуй другой");
+      if (e instanceof AiRefusal) throw new HttpError(422, "I.E. couldn't make a similar question. Try another one.");
       throw e;
     }
   }),
@@ -154,8 +150,8 @@ satRouter.post(
   "/hint",
   wrap(async (req, res) => {
     requireStudent(req);
-    const q = must(await getQuestion(str(req.body?.id, 60)), 404, "Вопрос не найден");
-    const key = `hint:${q.id}`;
+    const q = must(await getQuestion(str(req.body?.id, 60)), 404, "Question not found");
+    const key = `hint:en:${q.id}`;
     const cached = await getCache(key);
     if (cached) return res.json(JSON.parse(cached));
     try {
@@ -163,7 +159,7 @@ satRouter.post(
       if (out.mode === "ai") await setCache(key, JSON.stringify(out));
       res.json(out);
     } catch (e) {
-      if (e instanceof AiRefusal) throw new HttpError(422, "Подсказки к этому вопросу нет");
+      if (e instanceof AiRefusal) throw new HttpError(422, "There's no clue.");
       throw e;
     }
   }),
@@ -174,14 +170,14 @@ satRouter.post(
   "/generate",
   wrap(async (req, res) => {
     const u = requireStudent(req);
-    const lesson = must(SAT_LESSON_BY_ID.get(str(req.body?.lessonId, 40)), 404, "Навык не найден");
+    const lesson = must(SAT_LESSON_BY_ID.get(str(req.body?.lessonId, 40)), 404, "Skill not found");
     const count = Math.max(1, Math.min(8, Number(req.body?.count) || 5));
     const since = Date.now() - 3600_000;
     const recent = (await one<{ n: number }>("SELECT COUNT(*) n FROM ai_cache WHERE key LIKE ? AND created_at >= ?", `gen:${u.id}:%`, since))?.n ?? 0;
-    if (recent >= 10) throw new HttpError(429, "Лимит генерации: 10 наборов в час. Пока реши уже созданные вопросы");
+    if (recent >= 10) throw new HttpError(429, "Generator restriction: 10 sets per hour. So far, solve the issues that have already been set up.");
     try {
       const { items, mode } = await satGenerate(lesson.section, lesson.domain, lesson.bankSkills[0]!, count);
-      if (mode === "demo") throw new HttpError(503, "Генерация новых вопросов работает только с подключённым Claude");
+      if (mode === "demo") throw new HttpError(503, "New question generation only works with Claude connected");
       const ids: string[] = [];
       for (const item of items) {
         const qid = `ai-${id(6)}`;
@@ -191,7 +187,7 @@ satRouter.post(
       await setCache(`gen:${u.id}:${Date.now()}`, String(ids.length));
       res.json({ ids });
     } catch (e) {
-      if (e instanceof AiRefusal) throw new HttpError(422, "ИИ не смог создать вопросы. Попробуйте ещё раз");
+      if (e instanceof AiRefusal) throw new HttpError(422, "I.E. wasn't able to ask questions. Try again.");
       throw e;
     }
   }),
@@ -210,11 +206,10 @@ satRouter.get(
       v.right += r.correct;
       bySkill.set(skill, v);
     }
-    const ai = (await all<{ data: string }>("SELECT data FROM ai_questions")).map((r) => JSON.parse(r.data) as SatQuestion);
     res.json(
       SAT_LESSONS.map((l) => {
         const stats = l.bankSkills.reduce((acc, s) => ({ right: acc.right + (bySkill.get(s)?.right ?? 0), total: acc.total + (bySkill.get(s)?.total ?? 0) }), { right: 0, total: 0 });
-        const questions = [...SAT_ACTIVE_BANK, ...ai].filter((q) => l.bankSkills.includes(q.skill)).length;
+        const questions = SAT_ACTIVE_BANK.filter((q) => l.bankSkills.includes(q.skill)).length;
         return { ...l, questions, right: stats.right, total: stats.total };
       }),
     );
@@ -300,12 +295,12 @@ function pickQuestions(section: SatSection, level: SatModuleState["level"], excl
   const plan: Difficulty[] = Array.from({ length: size }, (_, i) => i < Math.round(size * e) ? 1 : i < Math.round(size * (e + m)) ? 2 : 3);
   const previous = [...exclude].map((id) => SAT_BY_ID.get(id)).filter((q): q is SatQuestion => !!q && q.section === section);
   const chosen = selectAssessment(SAT_ACTIVE_BANK.filter((q) => q.section === section), size, previous, plan);
-  if (chosen.length !== size) throw new HttpError(503, "Недостаточно разных контрольных заданий для этого модуля");
+  if (chosen.length !== size) throw new HttpError(503, "There are not enough different checklists for this module");
   return chosen.sort((a, b) => section === "rw" ? RW_ORDER.indexOf(a.domain) - RW_ORDER.indexOf(b.domain) : a.difficulty - b.difficulty).map((q) => q.id);
 }
 
 async function loadTest(userId: string, testId: string): Promise<SatTestState> {
-  const row = must(await one<{ state: string }>("SELECT state FROM sat_tests WHERE id = ? AND user_id = ?", testId, userId), 404, "Тест не найден");
+  const row = must(await one<{ state: string }>("SELECT state FROM sat_tests WHERE id = ? AND user_id = ?", testId, userId), 404, "No test found.");
   return JSON.parse(row.state) as SatTestState;
 }
 
@@ -374,7 +369,7 @@ satRouter.post(
   wrap(async (req, res) => {
     const u = requireStudent(req);
     const t = await loadTest(u.id, String(req.params.id));
-    if (t.finishedAt) throw new HttpError(409, "Тест уже завершён");
+    if (t.finishedAt) throw new HttpError(409, "Test's already finished.");
     const m = t.modules[t.current]!;
     const answers = (req.body?.answers ?? {}) as Record<string, string | number | null>;
     m.answers = Object.fromEntries(m.questionIds.map((qid) => [qid, answers[qid] ?? null]));
@@ -416,9 +411,8 @@ satRouter.get(
   wrap(async (req, res) => {
     requireStudent(req);
     const section = String(req.query.section ?? "mixed");
-    const seed = Math.floor(Math.random() * 1e9);
-    const math = Array.from({ length: 30 }, (_, i) => freshMath(seed + i)).filter((q) => q.choices);
-    const rw = SAT_BANK.filter((q) => q.section === "rw").sort(() => Math.random() - 0.5);
+    const math = SAT_ACTIVE_BANK.filter(q => q.section === "math" && q.choices).sort(() => Math.random() - 0.5).slice(0, 30);
+    const rw = SAT_ACTIVE_BANK.filter(q => q.section === "rw").sort(() => Math.random() - 0.5);
     const pool = section === "math" ? math : section === "rw" ? rw : [...math.slice(0, 15), ...rw.slice(0, 15)].sort(() => Math.random() - 0.5);
     res.json(pool.slice(0, 30).sort((a, b) => a.difficulty - b.difficulty));
   }),
@@ -458,21 +452,21 @@ satRouter.post(
     const s = await satStats(u.id);
     const weak = [...s.byDomain].filter(([, v]) => v.total >= 3).sort((a, b) => a[1].right / a[1].total - b[1].right / b[1].total);
     const stats = [
-      `SAT: вопросов ${s.attempts}, точность ${s.accuracy === null ? "нет данных" : Math.round(s.accuracy * 100) + "%"}, оценка ${s.estimate ?? "нет"}`,
+      `SAT: Questions ${s.attempts}the accuracy ${s.accuracy === null ? "No data" : Math.round(s.accuracy * 100) + "%"}the assessment ${s.estimate ?? "None"}`,
       weak.length
-        ? `слабое: ${weak
+        ? `weak: ${weak
             .slice(0, 2)
             .map(([d]) => d)
             .join(", ")}`
-        : "слабое: Algebra",
-      `Темы по точности: ${weak.map(([d, v]) => `${d} ${Math.round((v.right / v.total) * 100)}%`).join("; ") || "мало данных"}`,
+        : "Weak: Algebra",
+      `Subjects for accuracy: ${weak.map(([d, v]) => `${d} ${Math.round((v.right / v.total) * 100)}%`).join("; ") || "Not enough data"}`,
     ].join("\n");
     try {
       const plan = await studyPlan(user.goals, stats);
       await run("INSERT OR REPLACE INTO study_plans (user_id, plan, created_at) VALUES (?, ?, ?)", u.id, JSON.stringify(plan), Date.now());
       res.json({ ...plan, createdAt: Date.now() });
     } catch (e) {
-      if (e instanceof AiRefusal) throw new HttpError(422, "ИИ не смог составить план. Попробуйте ещё раз");
+      if (e instanceof AiRefusal) throw new HttpError(422, "EI couldn't make a plan. Try again.");
       throw e;
     }
   }),
@@ -500,7 +494,7 @@ satRouter.get(
   "/vocab/:id",
   wrap(async (req, res) => {
     requireStudent(req);
-    res.json(must(VOCAB_BY_ID.get(String(req.params.id)), 404, "Юнит не найден"));
+    res.json(must(VOCAB_BY_ID.get(String(req.params.id)), 404, "Unith not found"));
   }),
 );
 
@@ -508,7 +502,7 @@ satRouter.post(
   "/vocab/:id/result",
   wrap(async (req, res) => {
     const u = requireStudent(req);
-    const unit = must(VOCAB_BY_ID.get(String(req.params.id)), 404, "Юнит не найден");
+    const unit = must(VOCAB_BY_ID.get(String(req.params.id)), 404, "Unith not found");
     const answers: { wordId: string; correct: boolean }[] = Array.isArray(req.body?.answers) ? req.body.answers : [];
     let right = 0;
     for (const a of answers) {
@@ -526,11 +520,11 @@ satRouter.post(
 /** Seconds per question on the real Digital SAT: R&W 32 min / 27, Math 35 min / 22. */
 const PACE = { rw: 71, math: 95 } as const;
 const DRILLS = {
-  "hard-math": { title: "Самые трудные: Math", size: 10 },
-  "hard-rw": { title: "Самые трудные: R&W", size: 10 },
-  spr: { title: "Вписать ответ (grid-in)", size: 10 },
-  weak: { title: "Моя слабая тема", size: 10 },
-  sprint: { title: "Спринт 20 вопросов", size: 20 },
+  "hard-math": { title: "Hard Math", size: 10 },
+  "hard-rw": { title: "Hard Reading & Writing", size: 10 },
+  spr: { title: "Write Answer (grid-in))", size: 10 },
+  weak: { title: "My weakest area", size: 10 },
+  sprint: { title: "20-question sprint", size: 20 },
 } as const;
 type DrillKind = keyof typeof DRILLS;
 
@@ -555,11 +549,11 @@ satRouter.post(
         const a = acc.get(q.domain) ?? { n: 0, ok: 0 };
         acc.set(q.domain, { n: a.n + 1, ok: a.ok + d.correct });
       }
-      const domains = [...new Set(SAT_BANK.map((q) => q.domain))];
+      const domains = [...new Set(SAT_ACTIVE_BANK.map((q) => q.domain))];
       const score = (dom: string) => ((acc.get(dom)?.ok ?? 0) + 1) / ((acc.get(dom)?.n ?? 0) + 2);
       const weakest = domains.sort((a, b) => score(a) - score(b))[0]!;
       pool = SAT_ACTIVE_BANK.filter((q) => q.domain === weakest);
-      note = `${DOMAIN_RU[weakest as SatDomain] ?? weakest}: точность ${Math.round(score(weakest) * 100)} %`;
+      note = `${DOMAIN_RU[weakest as SatDomain] ?? weakest}Accuracy ${Math.round(score(weakest) * 100)} %`;
     } else pool = SAT_ACTIVE_BANK.filter((q) => q.difficulty >= 2);
     // Unsolved first, then shuffled.
     const candidates = [...pool].sort((a, b) => Number(solved.has(a.id)) - Number(solved.has(b.id)) || Math.random() - 0.5);
@@ -572,7 +566,7 @@ satRouter.post(
       if(passage)passages.add(passage);
       if (pick.length >= DRILLS[kind].size) break;
     }
-    if (pick.length < DRILLS[kind].size) note = `${note ? note + ". " : ""}Доступно ${pick.length} разных заданий после редакционной ревизии. Набор ограничен фактическим наличием; сложность не откалибрована.`;
+    if (pick.length < DRILLS[kind].size) note = `${note ? note + ". " : ""}Available ${pick.length} Various assignments after the editorial audit. The recruitment is limited to actual availability; complexity is not calibrated.`;
     res.json({ kind, title: DRILLS[kind].title, note, items: pick.map((q) => ({ ...toPublicQ(q), pace: PACE[q.section] })) });
   }),
 );

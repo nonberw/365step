@@ -1,0 +1,26 @@
+[
+  {
+    "file": "onestop.zip",
+    "sha256": "2f6059f941693b81598c08e39fa532b74991368c0e2edfe613c9df3edb691959"
+  },
+  {
+    "file": "onestop-english.zip",
+    "sha256": "fea6300ed18e22b2009bb79aac949cb5cf6404d75ae8b1734daa28d8fcd9e061"
+  },
+  {
+    "file": "aqua-train.json",
+    "sha256": "35b70c7cb1660c34d302bb932dfd3656ce3d05e8c982c797767fec31d7d1e0ba"
+  },
+  {
+    "file": "college-readiness-math.zip",
+    "sha256": "3cd82522404f2e4ad551fecd65e258ba426102473731d91b9caad35274ac08af"
+  },
+  {
+    "file": "squad-train-v2.0.json",
+    "sha256": "68dcfbb971bd3e96d5b46c7177b16c1a4e7d4bdef19fb204502738552dede002"
+  },
+  {
+    "file": "openstax-2026-08.zip",
+    "sha256": "35de2ba148e8e8e972e888e08a5b82435d1f7412cc43cd5c708341b0b9159f92"
+  }
+]

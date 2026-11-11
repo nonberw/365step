@@ -1,8 +1,9 @@
+import { englishExamData, isEnglishExamCourse } from "../../shared/examEnglish";
 import { isUsableEnt } from "../../shared/entQuality";
 import { Router } from "express";
 import type { Goals, SatQuestion } from "../../shared/types";
 import { DOMAIN_RU, SAT_DOMAINS } from "../../shared/types";
-import { SAT_BANK, SAT_ACTIVE_BANK, SAT_BY_ID, isCorrect } from "../../shared/sat";
+import { SAT_ACTIVE_BANK, SAT_BY_ID, isCorrect } from "../../shared/sat";
 import { ENT_MANDATORY, ENT_PAIR, ENT_SUBJECT, type EntLang, type EntQuestion, type EntSubject } from "../../shared/ent";
 import { PATTERNS, PROBLEMS } from "../../shared/problems";
 import { BLITZ } from "../../shared/content";
@@ -56,7 +57,7 @@ const chest = (unitId: string): NodeDef => ({ id: `c-${unitId}`, kind: "chest", 
 function satCourse(section: "math" | "rw"): UnitDef[] {
   return SAT_DOMAINS[section].map((domain, ui) => {
     const counts = new Map<string, number>();
-    for (const q of SAT_BANK) if (q.section === section && q.domain === domain) counts.set(q.skill, (counts.get(q.skill) ?? 0) + 1);
+    for (const q of SAT_ACTIVE_BANK) if (q.section === section && q.domain === domain) counts.set(q.skill, (counts.get(q.skill) ?? 0) + 1);
     const skills = [...counts].filter(([, n]) => n >= MIN_POOL).map(([s]) => s);
     const nodes: NodeDef[] = skills.map((s) => ({ id: `s-${slug(s)}`, kind: "lesson", title: SKILL_RU[s] ?? s, subtitle: s, maxLevel: 3, skills: [s] }));
     nodes.push({ id: `r-${slug(domain)}`, kind: "review", title: "Повторение юнита", subtitle: "Задания из всех тем юнита", maxLevel: 3, skills });
@@ -74,9 +75,9 @@ function ieltsCourse(): UnitDef[] {
   return [...groups].map(([type, sets], ui) => ({
     id: slug(type),
     title: type,
-    description: `${sets.length} наборов · ${new Set(sets.map((r) => r.passage.toLowerCase().replace(/\s+/g, " ").trim())).size} уникальных коротких текстов`,
+    description: `${sets.length} sets · ${new Set(sets.map((r) => r.passage.toLowerCase().replace(/\s+/g, " ").trim())).size} unique short passages`,
     color: UNIT_COLORS[ui % UNIT_COLORS.length]!,
-    nodes: [...sets.map((r) => ({ id: `t-${r.id}`, kind: "lesson" as const, title: r.title, subtitle: `${r.questions.length} вопросов`, maxLevel: 1, setId: r.id })), chest(slug(type))],
+    nodes: [...sets.map((r) => ({ id: `t-${r.id}`, kind: "lesson" as const, title: r.title, subtitle: `${r.questions.length} questions`, maxLevel: 1, setId: r.id })), chest(slug(type))],
   }));
 }
 
@@ -270,12 +271,12 @@ pathRouter.get(
       dailyGoal,
       streak: (await xpSummary(u.id)).streak,
       quests: [
-        { id: "xp", title: `Заработай ${dailyGoal} XP`, value: Math.min(todayXp, dailyGoal), goal: dailyGoal },
+        { id: "xp", title: isEnglishExamCourse(c) ? `Earn ${dailyGoal} XP` : `Заработай ${dailyGoal} XP`, value: Math.min(todayXp, dailyGoal), goal: dailyGoal },
         { id: "lessons", title: "Пройди 2 урока", value: Math.min(lessons.length, 2), goal: 2 },
         { id: "perfect", title: "Урок без ошибок", value: Math.min(lessons.filter((l) => l.perfect).length, 1), goal: 1 },
       ],
     };
-    res.json(body);
+    res.json(isEnglishExamCourse(c) ? englishExamData(body) : body);
   }),
 );
 
@@ -407,7 +408,7 @@ pathRouter.post(
       Date.now(),
     );
     const body: LessonStart = { lessonId, title: node.title, level: pn.level, items };
-    res.json(body);
+    res.json(isEnglishExamCourse(c) ? englishExamData(body) : body);
   }),
 );
 
@@ -486,7 +487,7 @@ pathRouter.post(
     } else if (r.correct) answers[itemId]!.ok = true;
     await run("UPDATE path_lessons SET answers = ? WHERE id = ?", JSON.stringify(answers), l.id);
     const body: AnswerResult = { correct: r.correct, answer: r.answer, explanation: r.explanation };
-    res.json(body);
+    res.json(isEnglishExamCourse(l.course) ? englishExamData(body) : body);
   }),
 );
 
@@ -516,7 +517,7 @@ pathRouter.post(
     await addXp(u.id, xp, "path");
     await run("UPDATE path_lessons SET done = 1, perfect = ? WHERE id = ?", perfect ? 1 : 0, l.id);
     const body: LessonResult = { xp, firstTry, total: items.length, perfect, level, maxLevel: node.maxLevel };
-    res.json(body);
+    res.json(isEnglishExamCourse(l.course) ? englishExamData(body) : body);
   }),
 );
 

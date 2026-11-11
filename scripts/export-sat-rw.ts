@@ -1,9 +1,11 @@
 import { writeFileSync } from "node:fs";
 import { SAT_RW_EXPANSION } from "../shared/satRw";
-import { SAT_ACTIVE_BANK } from "../shared/sat";
+import { SAT_BANK } from "../shared/sat";
 import { SAT_OPEN_SOURCES } from "../shared/satSources";
 import evidence from "../docs/content/sat-rw/source-snapshots.json";
-const rw = SAT_ACTIVE_BANK.filter(q=>q.section==="rw");
+// Historical source downloads retain their complete contents after active-bank curation.
+const archive=SAT_BANK.filter(q=>q.canonicalId===q.id);
+const rw = archive.filter(q=>q.section==="rw");
 const manifest = {
   total: SAT_RW_EXPANSION.length,
   hard: SAT_RW_EXPANSION.filter(q=>q.difficulty===3).length,

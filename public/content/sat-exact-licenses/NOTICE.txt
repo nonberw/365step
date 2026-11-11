@@ -1,0 +1,34 @@
+365step SAT additions, 2026-11-05
+
+These are independent practice materials, not official SAT questions.
+
+OneStopQA / STARC: Yevgeni Berzak, Jonathan Malmaud, Roger Levy (ACL 2020).
+Text: Guardian / OneStopEnglish contributors; OneStopEnglish corpus: Sowmya Vajjala and Ivana Lucic (2018).
+OneStopQA commit: 7a058755e1ff0d3f835a67109c669c7e294d4239.
+OneStopEnglish commit: 37f8db3945cd2f3cc0caafe45674147b224349be.
+Original texts, questions and 365step adaptations: CC BY-SA 4.0.
+https://github.com/berzak/onestop-qa
+https://github.com/nishkalavallabhi/OneStopEnglishCorpus
+
+SQuAD 2.0: Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, Percy Liang, Robin Jia and contributors.
+Source Wikipedia article title/link is given per item; original context is preserved in the reference records.
+Text and adaptations: CC BY-SA 4.0. https://rajpurkar.github.io/SQuAD-explorer/
+
+AQuA: Copyright 2017 Google Inc. Apache License 2.0.
+148 individually selected records, adapted to four choices, with reviewed solutions.
+Original records, keys, edits and calculations are included in the reference records.
+https://github.com/google-deepmind/AQuA
+
+College Readiness Math Questions Dataset: The Learning Agency Lab and contributors. CC BY 4.0.
+Four adapted models/data records (315,340,510,629); answers independently recalculated.
+https://www.kaggle.com/datasets/k5m1th/college-readiness-math-questions-dataset
+https://the-learning-agency.com/guides-resources/datasets/
+
+365step: 298 separately specified original math exercises, plus the four College Readiness adaptations.
+OpenStax College Algebra / Algebra and Trigonometry, Jay Abramson and contributing authors, Rice University,
+CC BY edition commit 4922e46ebc04326979e19392ccc2384cb8b9076c, is the conceptual curriculum reference.
+These original 365step exercises are not represented as verbatim OpenStax exercises.
+365step original math exercises and explanations: CC BY 4.0.
+
+No source author endorses these adaptations. Preliminary difficulty labels are editorial,
+not psychometrically calibrated SAT ratings. License documents are included in this directory.

@@ -12,10 +12,10 @@ import type { IeltsContent } from "./content";
 // moves towards the edge; your voice pushes it back. Trains fluency for Part 2.
 
 const LEVELS = [
-  { id: "easy", label: "Лёгкий", band: "IELTS 4–5", silence: 12 },
-  { id: "mid", label: "Средний", band: "IELTS 5.5–6", silence: 8 },
-  { id: "hard", label: "Сложный", band: "IELTS 7+", silence: 5 },
-  { id: "pro", label: "Очень сложный", band: "IELTS 8+", silence: 2.5 },
+  { id: "easy", label: "Easy", band: "IELTS 4–5", silence: 12 },
+  { id: "mid", label: "Medium", band: "IELTS 5.5–6", silence: 8 },
+  { id: "hard", label: "Hard", band: "IELTS 7+", silence: 5 },
+  { id: "pro", label: "Very hard", band: "IELTS 8+", silence: 2.5 },
 ];
 const ROUND = 60;
 const FALLBACK_TOPICS = ["Describe a place you would like to visit.", "Talk about a skill you want to learn.", "Describe your favourite teacher."];
@@ -50,7 +50,7 @@ export default function Games() {
     try {
       stream.current = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch {
-      setError("Нужен доступ к микрофону: игра слушает, говоришь ли ты. Разреши микрофон в настройках браузера.");
+      setError("Microphone access is needed to detect speech. Allow access in your browser settings.");
       return;
     }
     const ac = new AudioContext();
@@ -97,19 +97,19 @@ export default function Games() {
 
   return (
     <div className="flex max-w-3xl flex-col gap-5">
-      <PageHeader eyebrow="IELTS · игры" title="Не молчи" description="Случайная тема Part 2 и 60 секунд речи без остановки. Молчишь — шкала ползёт к краю, говоришь — откатывается. Тренирует то, за что снимают баллы: паузы." />
+      <PageHeader eyebrow={"IELTS · Games"} title={"Keep speaking"} description={"Speak about a random Part 2 topic for 60 seconds. Long pauses fill the meter; speaking reduces it. This is a fluency exercise, not a band assessment."} />
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-4">
         {LEVELS.map((l) => (
           <button key={l.id} type="button" disabled={state === "play"} onClick={() => setLevel(l)} className={cn("rounded-2xl border-2 p-3 text-left", level.id === l.id ? "border-primary" : "border-border hover:border-foreground/30")}>
             <p className="font-display font-semibold">{l.label}</p>
             <p className="text-xs text-muted-foreground">{l.band}</p>
-            <p className="mt-1 text-xs">{l.silence} с тишины до проигрыша</p>
+            <p className="mt-1 text-xs">{l.silence} Silence limit</p>
           </button>
         ))}
       </div>
 
       <Card className="flex flex-col gap-5 bg-secondary text-secondary-foreground">
-        {state === "idle" && <p className="text-sm text-white/70">Нажми «Играть», разреши микрофон и сразу начинай говорить по теме, которая появится.</p>}
+        {state === "idle" && <p className="text-sm text-white/70">Select Play, allow microphone access and speak about the topic shown.</p>}
         {topic && state !== "idle" && <p className="font-display text-xl font-semibold">{topic}</p>}
         <div className="relative h-14 overflow-hidden rounded-2xl bg-white/10">
           <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-accent/70 to-primary transition-[width] duration-100" style={{ width: `${pressure * 100}%` }} />
@@ -118,33 +118,33 @@ export default function Games() {
           </div>
           <div className="absolute inset-y-0 left-3 flex items-center gap-2 text-sm font-semibold">
             {loud ? <Mic className="size-5 text-white" /> : <MicOff className="size-5 text-white/50" />}
-            {state === "play" && (loud ? "Говоришь" : "Тишина…")}
+            {state === "play" && (loud ? "Speaking…" : "Silence…")}
           </div>
         </div>
         <div className="flex items-center justify-between">
           <Badge tone="brand" className="tabular">
-            {Math.floor(time)} / {ROUND} с
+            {Math.floor(time)} / {ROUND} s
           </Badge>
           {state === "play" ? (
             <Button variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10" onClick={() => end("lost", time)}>
-              Сдаться
+              Stop
             </Button>
           ) : (
             <Button variant="accent" onClick={start}>
-              {state === "idle" ? "Играть" : "Ещё раз"}
+              {state === "idle" ? "Play" : "Try again"}
             </Button>
           )}
         </div>
         {(state === "lost" || state === "won") && (
           <p className="flex items-center gap-2 text-sm">
             {state === "won" ? <Trophy className="size-5 text-accent" /> : <Skull className="size-5" />}
-            {state === "won" ? "Ты продержался всю минуту!" : `Пауза победила на ${Math.floor(time)}-й секунде.`}
+            {state === "won" ? "You spoke for the full minute!" : `The pause limit was reached. ${Math.floor(time)}seconds remaining.`}
             {xp !== null && ` +${xp} XP`}
           </p>
         )}
       </Card>
       <ErrorBox message={error} />
-      <p className="text-xs text-muted-foreground">Звук не записывается и никуда не отправляется: браузер только измеряет громкость, чтобы понять, говоришь ли ты.</p>
+      <p className="text-xs text-muted-foreground">Audio is not recorded or uploaded. Your browser only measures volume to detect speech.</p>
     </div>
   );
 }
